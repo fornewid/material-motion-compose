@@ -1,0 +1,58 @@
+import dependencies.Versions
+import dependencies.Libs
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+    defaultConfig {
+        applicationId "soup.material.compose.sample"
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "${Libs.Compose.version}"
+    }
+}
+
+dependencies {
+    implementation project(':library')
+
+    implementation Libs.AndroidX.appcompat
+    implementation Libs.AndroidX.core_ktx
+    implementation Libs.AndroidX.lifecycle_ktx
+    implementation Libs.material
+
+    implementation Libs.Compose.ui
+    implementation Libs.Compose.ui_tooling
+    implementation Libs.Compose.material
+    implementation Libs.Compose.activity
+
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.AndroidX.Test.junit
+    androidTestImplementation Libs.AndroidX.Test.espresso
+}

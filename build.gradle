@@ -1,0 +1,16 @@
+import dependencies.Libs
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath Libs.androidGradlePlugin
+        classpath Libs.Kotlin.plugin
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
