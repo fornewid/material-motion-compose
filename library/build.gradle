@@ -35,4 +35,8 @@ dependencies {
     implementation Libs.Compose.foundation
     implementation Libs.Compose.ui
     implementation Libs.Compose.ui_util
+
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.AndroidX.Test.junit
+    androidTestImplementation Libs.AndroidX.Test.espresso
 }
