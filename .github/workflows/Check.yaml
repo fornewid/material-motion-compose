@@ -29,14 +29,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-outputs
-          path: app/build/outputs
+          path: sample/build/outputs
 
       - name: Upload build reports
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: build-reports
-          path: app/build/reports
+          path: sample/build/reports
 
   test:
     needs: build
