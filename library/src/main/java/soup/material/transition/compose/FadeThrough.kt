@@ -17,8 +17,6 @@
 
 package soup.material.transition.compose
 
-import androidx.compose.animation.core.AnimationConstants.DefaultDurationMillis
-import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
@@ -34,9 +32,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.util.fastForEach
-
-private const val defaultStartScale = 0.92f
-private const val progressThreshold = 0.35f
+import soup.material.transition.compose.TransitionConstants.DefaultDurationMillis
+import soup.material.transition.compose.TransitionConstants.DefaultFadeThroughScale
+import soup.material.transition.compose.TransitionConstants.DefaultFadeThroughThreshold
 
 /**
  * [FadeThrough] allows to switch between two layouts with a fade through animation.
@@ -49,16 +47,12 @@ private const val progressThreshold = 0.35f
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
  * @param durationMillis total duration of the animation.
- * @param delayMillis the amount of time in milliseconds that animation waits before starting.
- * @param easing the easing curve that will be used to interpolate between start and end.
  */
 @Composable
 fun <T> FadeThrough(
     targetState: T,
     modifier: Modifier = Modifier,
     durationMillis: Int = DefaultDurationMillis,
-    delayMillis: Int = 0,
-    easing: Easing = FastOutSlowInEasing,
     content: @Composable (T) -> Unit,
 ) {
     val items = remember { mutableStateListOf<FadeThroughAnimationItem<T>>() }
@@ -77,7 +71,8 @@ fun <T> FadeThrough(
         }
         items.clear()
         keys.mapTo(items) { key ->
-            val outgoingDurationMillis = (durationMillis * progressThreshold).toInt()
+            val easing = FastOutSlowInEasing
+            val outgoingDurationMillis = (durationMillis * DefaultFadeThroughThreshold).toInt()
             val incomingDurationMillis = durationMillis - outgoingDurationMillis
             FadeThroughAnimationItem(key) {
                 val alpha by transition.animateFloat(
@@ -85,13 +80,13 @@ fun <T> FadeThrough(
                         if (targetState == key) {
                             tween(
                                 durationMillis = incomingDurationMillis,
-                                delayMillis = delayMillis + outgoingDurationMillis,
+                                delayMillis = outgoingDurationMillis,
                                 easing = easing
                             )
                         } else {
                             tween(
                                 durationMillis = outgoingDurationMillis,
-                                delayMillis = delayMillis,
+                                delayMillis = 0,
                                 easing = easing
                             )
                         }
@@ -102,18 +97,18 @@ fun <T> FadeThrough(
                         if (targetState == key) {
                             tween(
                                 durationMillis = incomingDurationMillis,
-                                delayMillis = delayMillis + outgoingDurationMillis,
+                                delayMillis = outgoingDurationMillis,
                                 easing = easing
                             )
                         } else {
                             tween(
                                 durationMillis = outgoingDurationMillis,
-                                delayMillis = delayMillis,
+                                delayMillis = 0,
                                 easing = easing
                             )
                         }
                     }
-                ) { if (it == key) 1f else defaultStartScale }
+                ) { if (it == key) 1f else DefaultFadeThroughScale }
                 Box(
                     Modifier
                         .alpha(alpha = alpha)
