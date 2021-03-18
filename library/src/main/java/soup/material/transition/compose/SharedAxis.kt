@@ -17,12 +17,15 @@
 
 package soup.material.transition.compose
 
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -30,32 +33,26 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.fastForEach
 import soup.material.transition.compose.TransitionConstants.DefaultDurationMillis
-import soup.material.transition.compose.TransitionConstants.DefaultFadeThroughScale
 import soup.material.transition.compose.TransitionConstants.DefaultProgressThreshold
 
-/**
- * [FadeThrough] allows to switch between two layouts with a fade through animation.
- *
- * @see com.google.android.material.transition.MaterialFadeThrough
- * @see androidx.compose.animation.Crossfade
- *
- * @param targetState is a key representing your target layout state. Every time you change a key
- * the animation will be triggered. The [content] called with the old key will be faded out while
- * the [content] called with the new key will be faded in.
- * @param modifier Modifier to be applied to the animation container.
- * @param durationMillis total duration of the animation.
- */
+enum class Axis {
+    X, Y
+}
+
 @Composable
-fun <T> FadeThrough(
+fun <T> SharedAxis(
     targetState: T,
+    axis: Axis,
+    forward: Boolean,
     modifier: Modifier = Modifier,
     durationMillis: Int = DefaultDurationMillis,
     content: @Composable (T) -> Unit,
 ) {
-    val items = remember { mutableStateListOf<FadeThroughAnimationItem<T>>() }
+    val items = remember { mutableStateListOf<SharedAxisAnimationItem<T>>() }
     val transitionState = remember { MutableTransitionState(targetState) }
     val targetChanged = (targetState != transitionState.targetState)
     transitionState.targetState = targetState
@@ -71,50 +68,63 @@ fun <T> FadeThrough(
         }
         items.clear()
         keys.mapTo(items) { key ->
-            val easing = FastOutSlowInEasing
+            val slideDistance = 30.dp
             val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
             val incomingDurationMillis = durationMillis - outgoingDurationMillis
-            FadeThroughAnimationItem(key) {
+            SharedAxisAnimationItem(key) {
                 val alpha by transition.animateFloat(
                     transitionSpec = {
                         if (targetState == key) {
                             tween(
                                 durationMillis = incomingDurationMillis,
                                 delayMillis = outgoingDurationMillis,
-                                easing = easing
+                                easing = LinearOutSlowInEasing
                             )
                         } else {
                             tween(
                                 durationMillis = outgoingDurationMillis,
                                 delayMillis = 0,
-                                easing = easing
+                                easing = FastOutLinearInEasing
                             )
                         }
                     }
                 ) { if (it == key) 1f else 0f }
-                val scale by transition.animateFloat(
+                val slideFraction by transition.animateFloat(
                     transitionSpec = {
                         if (targetState == key) {
                             tween(
-                                durationMillis = incomingDurationMillis,
-                                delayMillis = outgoingDurationMillis,
-                                easing = easing
+                                durationMillis = durationMillis,
+                                easing = FastOutSlowInEasing
                             )
                         } else {
                             tween(
-                                durationMillis = outgoingDurationMillis,
-                                delayMillis = 0,
-                                easing = easing
+                                durationMillis = durationMillis,
+                                easing = FastOutSlowInEasing
                             )
                         }
                     }
-                ) { if (it == key) 1f else DefaultFadeThroughScale }
-                Box(
-                    Modifier
-                        .alpha(alpha = alpha)
-                        .scale(scale = scale)
-                ) {
-                    content(key)
+                ) { if (it == key) 1f else 0f }
+                val start = if (transition.targetState == key) {
+                    if (forward) -slideDistance else slideDistance
+                } else {
+                    if (forward) slideDistance else -slideDistance
+                }
+                val slide = lerp(start, 0.dp, slideFraction)
+                when (axis) {
+                    Axis.X -> Box(
+                        modifier = Modifier
+                            .alpha(alpha = alpha)
+                            .offset(x = slide)
+                    ) {
+                        content(key)
+                    }
+                    Axis.Y -> Box(
+                        modifier = Modifier
+                            .alpha(alpha = alpha)
+                            .offset(y = slide)
+                    ) {
+                        content(key)
+                    }
                 }
             }
         }
@@ -132,7 +142,7 @@ fun <T> FadeThrough(
     }
 }
 
-private data class FadeThroughAnimationItem<T>(
+private data class SharedAxisAnimationItem<T>(
     val key: T,
     val content: @Composable () -> Unit,
 )
