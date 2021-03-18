@@ -62,6 +62,8 @@ dependencies {
     implementation Libs.Compose.ui_tooling
     implementation Libs.Compose.material
     implementation Libs.Compose.activity
+    implementation Libs.Compose.navigation
+    implementation Libs.Compose.constraintlayout
 
     testImplementation Libs.Test.junit
     androidTestImplementation Libs.AndroidX.Test.junit
