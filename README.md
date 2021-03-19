@@ -1,3 +1,5 @@
+![logo](docs/header.png)
+
 # Material Motion for Jetpack Compose
 
 <a href="https://jitpack.io/#fornewid/material-motion-compose"><img src="https://jitpack.io/v/fornewid/material-motion-compose.svg"/></a>
