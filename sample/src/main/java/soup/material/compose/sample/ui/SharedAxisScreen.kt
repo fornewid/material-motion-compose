@@ -33,14 +33,14 @@ import soup.material.transition.compose.SharedAxis
 fun SharedAxisScreen() {
     val axis = Axis.Y
     val (forward, onForwardChanged) = remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
     SharedAxis(axis = axis, forward = forward, targetState = forward) { forward ->
         Surface(
             color = if (forward) {
-                MaterialTheme.colors.background
-            } else {
                 MaterialTheme.colors.primary
+            } else {
+                MaterialTheme.colors.background
             },
             modifier = Modifier
                 .fillMaxSize()
@@ -49,9 +49,9 @@ fun SharedAxisScreen() {
                 }
         ) {
             if (forward) {
-                Text(text = "Hello Android!")
-            } else {
                 Text(text = "Hello SharedAxis!")
+            } else {
+                Text(text = "Hello Android!")
             }
         }
     }

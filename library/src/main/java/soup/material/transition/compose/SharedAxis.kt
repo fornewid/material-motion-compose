@@ -105,9 +105,9 @@ fun <T> SharedAxis(
                     }
                 ) { if (it == key) 1f else 0f }
                 val start = if (transition.targetState == key) {
-                    if (forward) -slideDistance else slideDistance
-                } else {
                     if (forward) slideDistance else -slideDistance
+                } else {
+                    if (forward) -slideDistance else slideDistance
                 }
                 val slide = lerp(start, 0.dp, slideFraction)
                 when (axis) {
