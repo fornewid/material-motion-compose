@@ -33,14 +33,16 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.lerp
 import soup.material.transition.compose.TransitionConstants.DefaultDurationMillis
 import soup.material.transition.compose.TransitionConstants.DefaultProgressThreshold
 
 enum class Axis {
-    X, Y
+    X, Y, Z
 }
 
 @Composable
@@ -89,42 +91,49 @@ fun <T> SharedAxis(
                         }
                     }
                 ) { if (it == key) 1f else 0f }
-                val slideFraction by transition.animateFloat(
+                val fraction by transition.animateFloat(
                     transitionSpec = {
-                        if (targetState == key) {
-                            tween(
-                                durationMillis = durationMillis,
-                                easing = FastOutSlowInEasing
-                            )
-                        } else {
-                            tween(
-                                durationMillis = durationMillis,
-                                easing = FastOutSlowInEasing
-                            )
-                        }
+                        tween(
+                            durationMillis = durationMillis,
+                            easing = FastOutSlowInEasing
+                        )
                     }
                 ) { if (it == key) 1f else 0f }
-                val start = if (transition.targetState == key) {
-                    if (forward) slideDistance else -slideDistance
-                } else {
-                    if (forward) -slideDistance else slideDistance
+                val (slideX, slideY, scale) = when (axis) {
+                    Axis.X, Axis.Y -> {
+                        val start = if (transition.targetState == key) {
+                            if (forward) slideDistance else -slideDistance
+                        } else {
+                            if (forward) -slideDistance else slideDistance
+                        }
+                        val slide = lerp(start, 0.dp, fraction)
+                        Triple(
+                            slide.takeIf { axis == Axis.X } ?: 0.dp,
+                            slide.takeIf { axis == Axis.Y } ?: 0.dp,
+                            1f
+                        )
+                    }
+                    Axis.Z -> {
+                        val start = if (transition.targetState == key) {
+                            if (forward) 0.8f else 1.1f
+                        } else {
+                            if (forward) 1.1f else 0.8f
+                        }
+                        val scale = lerp(start, 1f, fraction)
+                        Triple(
+                            0.dp,
+                            0.dp,
+                            scale
+                        )
+                    }
                 }
-                val slide = lerp(start, 0.dp, slideFraction)
-                when (axis) {
-                    Axis.X -> Box(
-                        modifier = Modifier
-                            .alpha(alpha = alpha)
-                            .offset(x = slide)
-                    ) {
-                        content(key)
-                    }
-                    Axis.Y -> Box(
-                        modifier = Modifier
-                            .alpha(alpha = alpha)
-                            .offset(y = slide)
-                    ) {
-                        content(key)
-                    }
+                Box(
+                    modifier = Modifier
+                        .alpha(alpha = alpha)
+                        .offset(x = slideX, y = slideY)
+                        .scale(scale = scale)
+                ) {
+                    content(key)
                 }
             }
         }
