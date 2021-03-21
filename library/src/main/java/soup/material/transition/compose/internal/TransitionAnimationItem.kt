@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.material.transition.compose
+package soup.material.transition.compose.internal
 
-internal object TransitionConstants {
+import androidx.compose.runtime.Composable
 
-    const val DefaultDurationMillis: Int = 300
-
-    const val DefaultFadeThroughScale = 0.92f
-
-    const val DefaultProgressThreshold = 0.35f
-}
+internal data class TransitionAnimationItem<T>(
+    val key: T,
+    val content: @Composable () -> Unit,
+)

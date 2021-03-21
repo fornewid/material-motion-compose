@@ -26,9 +26,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
-import soup.material.transition.compose.TransitionConstants.DefaultDurationMillis
-import soup.material.transition.compose.TransitionConstants.DefaultFadeThroughScale
-import soup.material.transition.compose.TransitionConstants.DefaultProgressThreshold
+import soup.material.transition.compose.internal.MaterialTransition
+import soup.material.transition.compose.internal.TransitionAnimationItem
+import soup.material.transition.compose.internal.TransitionConstants.DefaultDurationMillis
+import soup.material.transition.compose.internal.TransitionConstants.DefaultFadeThroughScale
+import soup.material.transition.compose.internal.TransitionConstants.DefaultProgressThreshold
 
 /**
  * [FadeThrough] allows to switch between two layouts with a fade through animation.
