@@ -128,18 +128,25 @@ private fun HomeMenuItem(
 
 private val HomeMenu.title: String
     get() = when (this) {
-        HomeMenu.SharedAxis -> "Shared Axis"
+        HomeMenu.SharedAxisX -> "Shared Axis (X)"
+        HomeMenu.SharedAxisY -> "Shared Axis (Y)"
+        HomeMenu.SharedAxisZ -> "Shared Axis (Z)"
         HomeMenu.FadeThrough -> "Fade Through"
     }
 
 private val HomeMenu.description: String
     get() = when (this) {
-        HomeMenu.SharedAxis -> "SharedAxisScreen"
+        HomeMenu.SharedAxisX,
+        HomeMenu.SharedAxisY,
+        HomeMenu.SharedAxisZ,
+        -> "SharedAxisScreen"
         HomeMenu.FadeThrough -> "FadeThroughScreen"
     }
 
 enum class HomeMenu {
-    SharedAxis,
+    SharedAxisX,
+    SharedAxisY,
+    SharedAxisZ,
     FadeThrough
 }
 

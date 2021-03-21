@@ -22,11 +22,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import soup.material.compose.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
+import soup.material.compose.sample.ui.MainDestinations.HOME_ROUTE
+import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
+import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
+import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
+import soup.material.transition.compose.Axis
 
 private object MainDestinations {
     const val HOME_ROUTE = "home"
+    const val SHARED_AXIS_X_ROUTE = "shared_axis_x"
+    const val SHARED_AXIS_Y_ROUTE = "shared_axis_y"
+    const val SHARED_AXIS_Z_ROUTE = "shared_axis_z"
     const val FADE_THROUGH_ROUTE = "fade_through"
-    const val SHARED_AXIS_ROUTE = "shared_axis"
 }
 
 @Composable
@@ -41,30 +49,43 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(MainDestinations.HOME_ROUTE) {
+        composable(HOME_ROUTE) {
             HomeScreen(
                 onItemClick = { menu ->
                     when (menu) {
-                        HomeMenu.SharedAxis -> actions.goToSharedAxis()
+                        HomeMenu.SharedAxisX -> actions.goToSharedAxis(Axis.X)
+                        HomeMenu.SharedAxisY -> actions.goToSharedAxis(Axis.Y)
+                        HomeMenu.SharedAxisZ -> actions.goToSharedAxis(Axis.Z)
                         HomeMenu.FadeThrough -> actions.goToFadeThrough()
                     }
                 }
             )
         }
-        composable(MainDestinations.SHARED_AXIS_ROUTE) {
-            SharedAxisScreen()
+        composable(SHARED_AXIS_X_ROUTE) {
+            SharedAxisScreen(Axis.X)
         }
-        composable(MainDestinations.FADE_THROUGH_ROUTE) {
+        composable(SHARED_AXIS_Y_ROUTE) {
+            SharedAxisScreen(Axis.Y)
+        }
+        composable(SHARED_AXIS_Z_ROUTE) {
+            SharedAxisScreen(Axis.Z)
+        }
+        composable(FADE_THROUGH_ROUTE) {
             FadeThroughScreen()
         }
     }
 }
 
 private class MainActions(navController: NavHostController) {
-    val goToSharedAxis: () -> Unit = {
-        navController.navigate(MainDestinations.SHARED_AXIS_ROUTE)
+    val goToSharedAxis: (Axis) -> Unit = { axis ->
+        val route = when (axis) {
+            Axis.X -> SHARED_AXIS_X_ROUTE
+            Axis.Y -> SHARED_AXIS_Y_ROUTE
+            Axis.Z -> SHARED_AXIS_Z_ROUTE
+        }
+        navController.navigate(route)
     }
     val goToFadeThrough: () -> Unit = {
-        navController.navigate(MainDestinations.FADE_THROUGH_ROUTE)
+        navController.navigate(FADE_THROUGH_ROUTE)
     }
 }

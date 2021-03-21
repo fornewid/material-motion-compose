@@ -30,8 +30,7 @@ import soup.material.transition.compose.Axis
 import soup.material.transition.compose.SharedAxis
 
 @Composable
-fun SharedAxisScreen() {
-    val axis = Axis.Y
+fun SharedAxisScreen(axis: Axis) {
     val (forward, onForwardChanged) = remember {
         mutableStateOf(false)
     }
@@ -59,8 +58,24 @@ fun SharedAxisScreen() {
 
 @Preview(showBackground = true)
 @Composable
-private fun DefaultPreview() {
+private fun AxisXPreview() {
     SampleTheme {
-        SharedAxisScreen()
+        SharedAxisScreen(axis = Axis.X)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AxisYPreview() {
+    SampleTheme {
+        SharedAxisScreen(axis = Axis.Y)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AxisZPreview() {
+    SampleTheme {
+        SharedAxisScreen(axis = Axis.Z)
     }
 }
