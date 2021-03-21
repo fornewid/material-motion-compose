@@ -67,7 +67,7 @@ fun <T> SharedAxis(
     durationMillis: Int = DefaultDurationMillis,
     content: @Composable (T) -> Unit,
 ) {
-    val items = remember { mutableStateListOf<SharedAxisAnimationItem<T>>() }
+    val items = remember { mutableStateListOf<TransitionAnimationItem<T>>() }
     val transitionState = remember { MutableTransitionState(targetState) }
     val targetChanged = (targetState != transitionState.targetState)
     transitionState.targetState = targetState
@@ -86,7 +86,7 @@ fun <T> SharedAxis(
             val slideDistance = 30.dp
             val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
             val incomingDurationMillis = durationMillis - outgoingDurationMillis
-            SharedAxisAnimationItem(key) {
+            TransitionAnimationItem(key) {
                 val alpha by transition.animateFloat(
                     transitionSpec = {
                         if (targetState == key) {
@@ -163,8 +163,3 @@ fun <T> SharedAxis(
         }
     }
 }
-
-private data class SharedAxisAnimationItem<T>(
-    val key: T,
-    val content: @Composable () -> Unit,
-)

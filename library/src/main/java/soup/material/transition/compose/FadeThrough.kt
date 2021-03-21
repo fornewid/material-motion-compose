@@ -54,7 +54,7 @@ fun <T> FadeThrough(
     durationMillis: Int = DefaultDurationMillis,
     content: @Composable (T) -> Unit,
 ) {
-    val items = remember { mutableStateListOf<FadeThroughAnimationItem<T>>() }
+    val items = remember { mutableStateListOf<TransitionAnimationItem<T>>() }
     val transitionState = remember { MutableTransitionState(targetState) }
     val targetChanged = (targetState != transitionState.targetState)
     transitionState.targetState = targetState
@@ -73,7 +73,7 @@ fun <T> FadeThrough(
             val easing = FastOutSlowInEasing
             val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
             val incomingDurationMillis = durationMillis - outgoingDurationMillis
-            FadeThroughAnimationItem(key) {
+            TransitionAnimationItem(key) {
                 val alpha by transition.animateFloat(
                     transitionSpec = {
                         if (targetState == key) {
@@ -130,8 +130,3 @@ fun <T> FadeThrough(
         }
     }
 }
-
-private data class FadeThroughAnimationItem<T>(
-    val key: T,
-    val content: @Composable () -> Unit,
-)
