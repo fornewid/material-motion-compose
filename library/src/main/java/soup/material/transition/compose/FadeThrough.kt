@@ -40,7 +40,6 @@ import soup.material.transition.compose.TransitionConstants.DefaultProgressThres
  * [FadeThrough] allows to switch between two layouts with a fade through animation.
  *
  * @see com.google.android.material.transition.MaterialFadeThrough
- * @see androidx.compose.animation.Crossfade
  *
  * @param targetState is a key representing your target layout state. Every time you change a key
  * the animation will be triggered. The [content] called with the old key will be faded out while
