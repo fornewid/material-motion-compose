@@ -152,8 +152,16 @@ enum class HomeMenu {
 
 @Preview(showBackground = true)
 @Composable
-private fun DefaultPreview() {
+private fun LightPreview() {
     SampleTheme {
+        HomeScreen(onItemClick = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DarkPreview() {
+    SampleTheme(darkTheme = true) {
         HomeScreen(onItemClick = {})
     }
 }
