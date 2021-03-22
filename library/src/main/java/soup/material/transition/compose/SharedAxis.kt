@@ -33,10 +33,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.lerp
+import soup.material.transition.compose.core.TransitionConstants.DefaultDurationMillis
+import soup.material.transition.compose.core.TransitionConstants.DefaultProgressThreshold
 import soup.material.transition.compose.internal.MaterialTransition
 import soup.material.transition.compose.internal.TransitionAnimationItem
-import soup.material.transition.compose.internal.TransitionConstants.DefaultDurationMillis
-import soup.material.transition.compose.internal.TransitionConstants.DefaultProgressThreshold
 
 enum class Axis {
     X, Y, Z
