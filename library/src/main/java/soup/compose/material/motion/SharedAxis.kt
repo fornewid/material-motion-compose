@@ -37,7 +37,6 @@ import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
 import soup.compose.material.motion.core.MotionConstants.DefaultProgressThreshold
 import soup.compose.material.motion.internal.MaterialTransition
 import soup.compose.material.motion.internal.MotionAnimationItem
-import soup.material.transition.compose.SharedAxis
 
 enum class Axis {
     X, Y, Z

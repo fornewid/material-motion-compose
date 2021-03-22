@@ -31,7 +31,6 @@ import soup.compose.material.motion.core.MotionConstants.DefaultFadeThroughScale
 import soup.compose.material.motion.core.MotionConstants.DefaultProgressThreshold
 import soup.compose.material.motion.internal.MaterialTransition
 import soup.compose.material.motion.internal.MotionAnimationItem
-import soup.material.transition.compose.FadeThrough
 
 /**
  * [FadeThrough] allows to switch between two layouts with a fade through animation.
