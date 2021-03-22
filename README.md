@@ -20,6 +20,10 @@ SharedAxis(axis = Axis.X, forward = true, targetState = screen) { newScreen ->
 }
 ```
 
+| Axis X                     | Axis Y                     | Axis Z                     |
+| -------------------------- | -------------------------- | -------------------------- |
+| <img width="200" src="docs/shared_axis_x.gif" /> | <img width="200" src="docs/shared_axis_y.gif" /> | <img width="200" src="docs/shared_axis_z.gif" /> |
+
 ### Fade through
 
 ```kt
@@ -28,6 +32,10 @@ FadeThrough(targetState = screen) { newScreen ->
     // composable according to screen
 }
 ```
+
+| Fade Through               |
+| -------------------------- |
+| <img width="200" src="docs/fade_through.gif" /> |
 
 ## Installation
 
