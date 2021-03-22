@@ -15,50 +15,157 @@
  */
 package soup.material.compose.sample.ui
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import soup.material.compose.sample.R
 import soup.material.compose.sample.ui.theme.SampleTheme
 import soup.material.transition.compose.FadeThrough
 
 @Composable
-fun FadeThroughScreen() {
-    val (flag, onFlagChanged) = remember {
-        mutableStateOf(true)
-    }
-    FadeThrough(targetState = flag) { newFlag ->
-        Surface(
-            color = if (newFlag) {
-                MaterialTheme.colors.background
-            } else {
-                MaterialTheme.colors.primary
-            },
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable {
-                    onFlagChanged(newFlag.not())
+fun FadeThroughScreen(upPress: () -> Unit) {
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(Tabs.Albums) }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Transition") },
+                navigationIcon = {
+                    IconButton(onClick = upPress) {
+                        Icon(
+                            Icons.Default.Close,
+                            contentDescription = null
+                        )
+                    }
                 }
-        ) {
-            if (newFlag) {
-                Text(text = "Hello Android!")
-            } else {
-                Text(text = "Hello FadeThrough!")
+            )
+        },
+        bottomBar = {
+            BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
+                Tabs.values().forEach { tab ->
+                    BottomNavigationItem(
+                        icon = { Icon(tab.icon(), contentDescription = null) },
+                        label = { Text(tab.name) },
+                        selected = tab == selectedTab,
+                        onClick = { setSelectedTab(tab) },
+                        selectedContentColor = MaterialTheme.colors.primary,
+                        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                    )
+                }
+            }
+        }
+    ) { innerPadding ->
+        FadeThrough(
+            targetState = selectedTab,
+            modifier = Modifier.padding(innerPadding)
+        ) { currentTab ->
+            FadeThroughContents(currentTab)
+        }
+    }
+}
+
+@Composable
+private fun FadeThroughContents(selectedTab: Tabs) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(4.dp)
+    ) {
+        Column {
+            Row(modifier = Modifier.weight(1f)) {
+                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+            }
+            Row(modifier = Modifier.weight(1f)) {
+                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+            }
+            Row(modifier = Modifier.weight(1f)) {
+                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
             }
         }
     }
 }
 
+@Composable
+private fun FadeThroughItem(
+    selectedTab: Tabs,
+    modifier: Modifier = Modifier,
+) {
+    val backgroundColor = when (selectedTab) {
+        Tabs.Albums -> MaterialTheme.colors.primary
+        Tabs.Photos -> MaterialTheme.colors.error
+        Tabs.Search -> MaterialTheme.colors.secondary
+    }
+    val contentColor = when (selectedTab) {
+        Tabs.Albums -> MaterialTheme.colors.onPrimary
+        Tabs.Photos -> MaterialTheme.colors.onError
+        Tabs.Search -> MaterialTheme.colors.onSecondary
+    }
+    Card(
+        backgroundColor = backgroundColor,
+        modifier = modifier
+            .fillMaxSize()
+            .padding(4.dp)
+    ) {
+        Image(
+            painter = selectedTab.icon(),
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(contentColor)
+        )
+    }
+}
+
+@Composable
+private fun Tabs.icon(): Painter = when (this) {
+    Tabs.Albums -> painterResource(R.drawable.ic_collections)
+    Tabs.Photos -> painterResource(R.drawable.ic_photo)
+    Tabs.Search -> rememberVectorPainter(Icons.Default.Search)
+}
+
+private enum class Tabs {
+    Albums, Photos, Search
+}
+
 @Preview(showBackground = true)
 @Composable
-private fun DefaultPreview() {
+private fun LightPreview() {
     SampleTheme {
-        FadeThroughScreen()
+        FadeThroughScreen(upPress = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DarkPreview() {
+    SampleTheme(darkTheme = true) {
+        FadeThroughScreen(upPress = {})
     }
 }

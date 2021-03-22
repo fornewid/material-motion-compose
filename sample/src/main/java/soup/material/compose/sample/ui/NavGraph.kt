@@ -71,12 +71,15 @@ fun NavGraph(
             SharedAxisScreen(Axis.Z)
         }
         composable(FADE_THROUGH_ROUTE) {
-            FadeThroughScreen()
+            FadeThroughScreen(actions.upPress)
         }
     }
 }
 
 private class MainActions(navController: NavHostController) {
+    val upPress: () -> Unit = {
+        navController.navigateUp()
+    }
     val goToSharedAxis: (Axis) -> Unit = { axis ->
         val route = when (axis) {
             Axis.X -> SHARED_AXIS_X_ROUTE
