@@ -21,9 +21,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import soup.compose.material.motion.Axis
+import soup.compose.material.motion.SharedAxis
 import soup.material.compose.sample.ui.theme.SampleTheme
-import soup.material.transition.compose.Axis
-import soup.material.transition.compose.SharedAxis
 
 @Composable
 fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {

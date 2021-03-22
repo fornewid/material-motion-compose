@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import soup.compose.material.motion.Axis
 import soup.material.compose.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
 import soup.material.compose.sample.ui.MainDestinations.HOME_ROUTE
 import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
@@ -29,7 +30,6 @@ import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
 import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
 import soup.material.compose.sample.ui.fadethrough.FadeThroughScreen
 import soup.material.compose.sample.ui.sharedaxis.SharedAxisScreen
-import soup.material.transition.compose.Axis
 
 private object MainDestinations {
     const val HOME_ROUTE = "home"

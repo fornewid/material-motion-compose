@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.material.transition.compose.internal
+package soup.compose.material.motion.internal
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition

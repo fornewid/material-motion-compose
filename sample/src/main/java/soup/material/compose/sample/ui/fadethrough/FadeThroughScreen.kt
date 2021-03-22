@@ -21,8 +21,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import soup.compose.material.motion.FadeThrough
 import soup.material.compose.sample.ui.theme.SampleTheme
-import soup.material.transition.compose.FadeThrough
 
 @Composable
 fun FadeThroughScreen(upPress: () -> Unit) {

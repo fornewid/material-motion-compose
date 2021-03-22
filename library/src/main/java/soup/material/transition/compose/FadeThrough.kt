@@ -17,20 +17,10 @@
 
 package soup.material.transition.compose
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
-import soup.material.transition.compose.core.TransitionConstants.DefaultDurationMillis
-import soup.material.transition.compose.core.TransitionConstants.DefaultFadeThroughScale
-import soup.material.transition.compose.core.TransitionConstants.DefaultProgressThreshold
-import soup.material.transition.compose.internal.MaterialTransition
-import soup.material.transition.compose.internal.TransitionAnimationItem
+import soup.compose.material.motion.FadeThrough
+import soup.compose.material.motion.core.TransitionConstants.DefaultDurationMillis
 
 /**
  * [FadeThrough] allows to switch between two layouts with a fade through animation.
@@ -43,6 +33,7 @@ import soup.material.transition.compose.internal.TransitionAnimationItem
  * @param modifier Modifier to be applied to the animation container.
  * @param durationMillis total duration of the animation.
  */
+@Deprecated("Use new `FadeThrough`")
 @Composable
 fun <T> FadeThrough(
     targetState: T,
@@ -50,56 +41,10 @@ fun <T> FadeThrough(
     durationMillis: Int = DefaultDurationMillis,
     content: @Composable (T) -> Unit,
 ) {
-    MaterialTransition(
+    FadeThrough(
         targetState = targetState,
         modifier = modifier,
-        transitionAnimationItem = { key, transition ->
-            val easing = FastOutSlowInEasing
-            val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
-            val incomingDurationMillis = durationMillis - outgoingDurationMillis
-            TransitionAnimationItem(key) {
-                val alpha by transition.animateFloat(
-                    transitionSpec = {
-                        if (targetState == key) {
-                            tween(
-                                durationMillis = incomingDurationMillis,
-                                delayMillis = outgoingDurationMillis,
-                                easing = easing
-                            )
-                        } else {
-                            tween(
-                                durationMillis = outgoingDurationMillis,
-                                delayMillis = 0,
-                                easing = easing
-                            )
-                        }
-                    }
-                ) { if (it == key) 1f else 0f }
-                val scale by transition.animateFloat(
-                    transitionSpec = {
-                        if (targetState == key) {
-                            tween(
-                                durationMillis = incomingDurationMillis,
-                                delayMillis = outgoingDurationMillis,
-                                easing = easing
-                            )
-                        } else {
-                            tween(
-                                durationMillis = outgoingDurationMillis,
-                                delayMillis = 0,
-                                easing = easing
-                            )
-                        }
-                    }
-                ) { if (it == key) 1f else DefaultFadeThroughScale }
-                Box(
-                    Modifier
-                        .alpha(alpha = alpha)
-                        .scale(scale = scale)
-                ) {
-                    content(key)
-                }
-            }
-        }
+        durationMillis = durationMillis,
+        content = content
     )
 }
