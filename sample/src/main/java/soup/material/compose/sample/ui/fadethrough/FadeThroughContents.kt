@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.material.compose.sample.ui
+package soup.material.compose.sample.ui.fadethrough
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -33,23 +34,26 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.material.compose.sample.R
-import soup.material.compose.sample.ui.theme.SampleTheme
 import soup.material.compose.sample.ui.widget.DefaultTopAppBar
-import soup.material.transition.compose.FadeThrough
+
+enum class Tabs {
+    Albums, Photos, Search
+}
 
 @Composable
-fun FadeThroughScreen(upPress: () -> Unit) {
-    val (selectedTab, setSelectedTab) = remember { mutableStateOf(Tabs.Albums) }
+fun FadeThroughScaffold(
+    upPress: () -> Unit,
+    selectedTab: Tabs,
+    setSelectedTab: (Tabs) -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
+) {
     Scaffold(
         topBar = { DefaultTopAppBar(upPress) },
         bottomBar = {
@@ -65,19 +69,13 @@ fun FadeThroughScreen(upPress: () -> Unit) {
                     )
                 }
             }
-        }
-    ) { innerPadding ->
-        FadeThrough(
-            targetState = selectedTab,
-            modifier = Modifier.padding(innerPadding)
-        ) { currentTab ->
-            FadeThroughContents(currentTab)
-        }
-    }
+        },
+        content = content
+    )
 }
 
 @Composable
-private fun FadeThroughContents(selectedTab: Tabs) {
+fun FadeThroughContents(selectedTab: Tabs) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -134,24 +132,4 @@ private fun Tabs.icon(): Painter = when (this) {
     Tabs.Albums -> painterResource(R.drawable.ic_collections)
     Tabs.Photos -> painterResource(R.drawable.ic_photo)
     Tabs.Search -> rememberVectorPainter(Icons.Default.Search)
-}
-
-private enum class Tabs {
-    Albums, Photos, Search
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun LightPreview() {
-    SampleTheme {
-        FadeThroughScreen(upPress = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DarkPreview() {
-    SampleTheme(darkTheme = true) {
-        FadeThroughScreen(upPress = {})
-    }
 }

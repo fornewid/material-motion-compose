@@ -27,6 +27,8 @@ import soup.material.compose.sample.ui.MainDestinations.HOME_ROUTE
 import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
 import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
 import soup.material.compose.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
+import soup.material.compose.sample.ui.fadethrough.FadeThroughScreen
+import soup.material.compose.sample.ui.sharedaxis.SharedAxisScreen
 import soup.material.transition.compose.Axis
 
 private object MainDestinations {
@@ -39,7 +41,7 @@ private object MainDestinations {
 
 @Composable
 fun NavGraph(
-    startDestination: String = MainDestinations.HOME_ROUTE,
+    startDestination: String = HOME_ROUTE,
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) {
