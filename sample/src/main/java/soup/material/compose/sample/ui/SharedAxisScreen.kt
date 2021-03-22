@@ -15,44 +15,192 @@
  */
 package soup.material.compose.sample.ui
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Button
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.LocalAbsoluteElevation
+import androidx.compose.material.LocalContentColor
+import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import soup.material.compose.sample.ui.theme.SampleTheme
+import soup.material.compose.sample.ui.widget.DefaultTopAppBar
 import soup.material.transition.compose.Axis
 import soup.material.transition.compose.SharedAxis
 
 @Composable
-fun SharedAxisScreen(axis: Axis) {
+fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember {
         mutableStateOf(false)
     }
-    SharedAxis(axis = axis, forward = forward, targetState = forward) { forward ->
-        Surface(
-            color = if (forward) {
-                MaterialTheme.colors.primary
-            } else {
-                MaterialTheme.colors.background
-            },
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable {
-                    onForwardChanged(forward.not())
+    Scaffold(
+        topBar = { DefaultTopAppBar(upPress) },
+        bottomBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 16.dp)
+            ) {
+                TextButton(
+                    onClick = { onForwardChanged(false) },
+                    modifier = Modifier.align(Alignment.BottomStart),
+                    enabled = forward
+                ) {
+                    Text(text = "Back".toUpperCase())
                 }
-        ) {
-            if (forward) {
-                Text(text = "Hello SharedAxis!")
-            } else {
-                Text(text = "Hello Android!")
+                Button(
+                    onClick = { onForwardChanged(true) },
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    enabled = forward.not()
+                ) {
+                    Text(text = "Next".toUpperCase())
+                }
             }
         }
+    ) { innerPadding ->
+        SharedAxis(
+            axis = axis,
+            forward = forward,
+            targetState = forward,
+            modifier = Modifier.padding(innerPadding)
+        ) { forward ->
+            Contents(forward)
+        }
+    }
+}
+
+@Composable
+private fun Contents(forward: Boolean) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(all = 16.dp)
+    ) {
+        if (forward) {
+            Column {
+                Text(
+                    "Streamline your courses",
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    style = MaterialTheme.typography.h6
+                )
+                Spacer(modifier = Modifier.requiredHeight(8.dp))
+                Text(
+                    text = "Bundled categories appear as groups in your feed." +
+                        " You can always change this later.",
+                    textAlign = TextAlign.Center,
+                    color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                    style = MaterialTheme.typography.caption
+                )
+                Spacer(modifier = Modifier.requiredHeight(48.dp))
+                SwitchableItem(text = "Arts & Crafts")
+                Spacer(modifier = Modifier.requiredHeight(32.dp))
+                SwitchableItem(text = "Business")
+                Spacer(modifier = Modifier.requiredHeight(32.dp))
+                SwitchableItem(text = "Illustration")
+                Spacer(modifier = Modifier.requiredHeight(32.dp))
+                SwitchableItem(text = "Design")
+                Spacer(modifier = Modifier.requiredHeight(32.dp))
+                SwitchableItem(text = "Culinary")
+            }
+        } else {
+            Column {
+                Spacer(modifier = Modifier.requiredHeight(48.dp))
+                Icon(
+                    Icons.Default.AccountCircle,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .requiredSize(72.dp)
+                        .align(Alignment.CenterHorizontally),
+                    tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                )
+                Spacer(modifier = Modifier.requiredHeight(8.dp))
+                Text(
+                    "Hi David Park",
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    style = MaterialTheme.typography.h5
+                )
+                Spacer(modifier = Modifier.requiredHeight(8.dp))
+                Text(
+                    "Sign in with your account",
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                    style = MaterialTheme.typography.caption
+                )
+                Spacer(modifier = Modifier.requiredHeight(24.dp))
+
+                val (emailOrPhoneNumber, onEmailOrPhoneNumberChanged) = remember { mutableStateOf("") }
+                OutlinedTextField(
+                    value = emailOrPhoneNumber,
+                    onValueChange = onEmailOrPhoneNumberChanged,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    label = {
+                        Text(text = "Email or phone number")
+                    }
+                )
+                Spacer(modifier = Modifier.requiredHeight(12.dp))
+                TextButton(onClick = {}) {
+                    Text(text = "Forgot email?".toUpperCase())
+                }
+                Spacer(modifier = Modifier.requiredHeight(8.dp))
+                TextButton(onClick = {}) {
+                    Text(text = "Create account".toUpperCase())
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SwitchableItem(text: String) {
+    val (checked, onCheckedChange) = remember { mutableStateOf(false) }
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.align(Alignment.CenterStart)) {
+            Text(text = text)
+            Text(
+                text = if (checked) "Bundled" else "Shown individually",
+                color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                style = MaterialTheme.typography.caption
+            )
+        }
+        val color = MaterialTheme.colors.surface
+        val elevationOverlay = LocalElevationOverlay.current
+        val absoluteElevation = LocalAbsoluteElevation.current + 4.dp
+        val uncheckedThumbColor = elevationOverlay?.apply(color, absoluteElevation) ?: color
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            modifier = Modifier
+                .size(48.dp)
+                .align(Alignment.CenterEnd),
+            colors = SwitchDefaults.colors(uncheckedThumbColor = uncheckedThumbColor)
+        )
     }
 }
 
@@ -60,7 +208,7 @@ fun SharedAxisScreen(axis: Axis) {
 @Composable
 private fun AxisXPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.X)
+        SharedAxisScreen(axis = Axis.X, upPress = {})
     }
 }
 
@@ -68,7 +216,7 @@ private fun AxisXPreview() {
 @Composable
 private fun AxisYPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.Y)
+        SharedAxisScreen(axis = Axis.Y, upPress = {})
     }
 }
 
@@ -76,6 +224,6 @@ private fun AxisYPreview() {
 @Composable
 private fun AxisZPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.Z)
+        SharedAxisScreen(axis = Axis.Z, upPress = {})
     }
 }

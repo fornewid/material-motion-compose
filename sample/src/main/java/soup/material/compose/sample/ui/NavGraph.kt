@@ -62,13 +62,13 @@ fun NavGraph(
             )
         }
         composable(SHARED_AXIS_X_ROUTE) {
-            SharedAxisScreen(Axis.X)
+            SharedAxisScreen(Axis.X, actions.upPress)
         }
         composable(SHARED_AXIS_Y_ROUTE) {
-            SharedAxisScreen(Axis.Y)
+            SharedAxisScreen(Axis.Y, actions.upPress)
         }
         composable(SHARED_AXIS_Z_ROUTE) {
-            SharedAxisScreen(Axis.Z)
+            SharedAxisScreen(Axis.Z, actions.upPress)
         }
         composable(FADE_THROUGH_ROUTE) {
             FadeThroughScreen(actions.upPress)
