@@ -25,15 +25,12 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Card
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -47,25 +44,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.material.compose.sample.R
 import soup.material.compose.sample.ui.theme.SampleTheme
+import soup.material.compose.sample.ui.widget.DefaultTopAppBar
 import soup.material.transition.compose.FadeThrough
 
 @Composable
 fun FadeThroughScreen(upPress: () -> Unit) {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(Tabs.Albums) }
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Transition") },
-                navigationIcon = {
-                    IconButton(onClick = upPress) {
-                        Icon(
-                            Icons.Default.Close,
-                            contentDescription = null
-                        )
-                    }
-                }
-            )
-        },
+        topBar = { DefaultTopAppBar(upPress) },
         bottomBar = {
             BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
                 Tabs.values().forEach { tab ->
