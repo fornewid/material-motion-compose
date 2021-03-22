@@ -26,11 +26,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
-import soup.compose.material.motion.core.TransitionConstants.DefaultDurationMillis
-import soup.compose.material.motion.core.TransitionConstants.DefaultFadeThroughScale
-import soup.compose.material.motion.core.TransitionConstants.DefaultProgressThreshold
+import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.core.MotionConstants.DefaultFadeThroughScale
+import soup.compose.material.motion.core.MotionConstants.DefaultProgressThreshold
 import soup.compose.material.motion.internal.MaterialTransition
-import soup.compose.material.motion.internal.TransitionAnimationItem
+import soup.compose.material.motion.internal.MotionAnimationItem
 import soup.material.transition.compose.FadeThrough
 
 /**
@@ -58,7 +58,7 @@ fun <T> FadeThrough(
             val easing = FastOutSlowInEasing
             val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
             val incomingDurationMillis = durationMillis - outgoingDurationMillis
-            TransitionAnimationItem(key) {
+            MotionAnimationItem(key) {
                 val alpha by transition.animateFloat(
                     transitionSpec = {
                         if (targetState == key) {

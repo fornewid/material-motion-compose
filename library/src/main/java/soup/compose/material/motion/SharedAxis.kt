@@ -33,10 +33,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.lerp
-import soup.compose.material.motion.core.TransitionConstants.DefaultDurationMillis
-import soup.compose.material.motion.core.TransitionConstants.DefaultProgressThreshold
+import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.core.MotionConstants.DefaultProgressThreshold
 import soup.compose.material.motion.internal.MaterialTransition
-import soup.compose.material.motion.internal.TransitionAnimationItem
+import soup.compose.material.motion.internal.MotionAnimationItem
 import soup.material.transition.compose.SharedAxis
 
 enum class Axis {
@@ -70,7 +70,7 @@ fun <T> SharedAxis(
         targetState = targetState,
         modifier = modifier,
         transitionAnimationItem = { key, transition ->
-            TransitionAnimationItem(key) {
+            MotionAnimationItem(key) {
                 val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
                 val incomingDurationMillis = durationMillis - outgoingDurationMillis
                 val alpha by transition.animateFloat(

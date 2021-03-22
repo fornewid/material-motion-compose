@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.SharedAxis
-import soup.compose.material.motion.core.TransitionConstants.DefaultDurationMillis
+import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
 
 @Deprecated(
     "Use new `Axis`",

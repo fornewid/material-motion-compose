@@ -30,9 +30,9 @@ import androidx.compose.ui.util.fastForEach
 internal fun <T> MaterialTransition(
     targetState: T,
     modifier: Modifier = Modifier,
-    transitionAnimationItem: @Composable (T, Transition<T>) -> TransitionAnimationItem<T>,
+    transitionAnimationItem: @Composable (T, Transition<T>) -> MotionAnimationItem<T>,
 ) {
-    val items = remember { mutableStateListOf<TransitionAnimationItem<T>>() }
+    val items = remember { mutableStateListOf<MotionAnimationItem<T>>() }
     val transitionState = remember { MutableTransitionState(targetState) }
     val targetChanged = (targetState != transitionState.targetState)
     transitionState.targetState = targetState
