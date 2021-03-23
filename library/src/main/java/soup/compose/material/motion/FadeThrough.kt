@@ -17,18 +17,12 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
 import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
-import soup.compose.material.motion.core.MotionConstants.DefaultFadeThroughScale
-import soup.compose.material.motion.core.MotionConstants.DefaultProgressThreshold
 import soup.compose.material.motion.internal.MaterialTransition
 import soup.compose.material.motion.internal.MotionAnimationItem
 
@@ -50,52 +44,62 @@ fun <T> FadeThrough(
     durationMillis: Int = DefaultDurationMillis,
     content: @Composable (T) -> Unit,
 ) {
+    val motionSpec = fadeThroughSpec(durationMillis)
     MaterialTransition(
         targetState = targetState,
         modifier = modifier,
         transitionAnimationItem = { key, transition ->
-            val easing = FastOutSlowInEasing
-            val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
-            val incomingDurationMillis = durationMillis - outgoingDurationMillis
             MotionAnimationItem(key) {
-                val alpha by transition.animateFloat(
-                    transitionSpec = {
-                        if (targetState == key) {
-                            tween(
-                                durationMillis = incomingDurationMillis,
-                                delayMillis = outgoingDurationMillis,
-                                easing = easing
-                            )
+
+                fun Modifier.primary(appear: Boolean, fraction: Float): Modifier = run {
+                    motionSpec.primaryAnimatorProvider.let { provider ->
+                        if (appear) {
+                            provider.appear(this, fraction)
                         } else {
-                            tween(
-                                durationMillis = outgoingDurationMillis,
-                                delayMillis = 0,
-                                easing = easing
-                            )
+                            provider.disappear(this, fraction)
+                        }
+                    }
+                }
+
+                fun Modifier.secondary(target: Boolean, fraction: Float): Modifier = run {
+                    motionSpec.secondaryAnimatorProvider.let { provider ->
+                        if (target) {
+                            provider.appear(this, fraction)
+                        } else {
+                            provider.disappear(this, fraction)
+                        }
+                    }
+                }
+
+                val primaryFraction by transition.animateFloat(
+                    transitionSpec = {
+                        motionSpec.primaryAnimatorProvider.run {
+                            if (targetState == key) {
+                                createAppearAnimationSpec()
+                            } else {
+                                createDisappearAnimationSpec()
+                            }
                         }
                     }
                 ) { if (it == key) 1f else 0f }
-                val scale by transition.animateFloat(
+
+                val secondaryFraction by transition.animateFloat(
                     transitionSpec = {
-                        if (targetState == key) {
-                            tween(
-                                durationMillis = incomingDurationMillis,
-                                delayMillis = outgoingDurationMillis,
-                                easing = easing
-                            )
-                        } else {
-                            tween(
-                                durationMillis = outgoingDurationMillis,
-                                delayMillis = 0,
-                                easing = easing
-                            )
+                        motionSpec.secondaryAnimatorProvider.run {
+                            if (targetState == key) {
+                                createAppearAnimationSpec()
+                            } else {
+                                createDisappearAnimationSpec()
+                            }
                         }
                     }
-                ) { if (it == key) 1f else DefaultFadeThroughScale }
+                ) { if (it == key) 1f else 0f }
+
+                val appear = transition.targetState == key
                 Box(
-                    Modifier
-                        .alpha(alpha = alpha)
-                        .scale(scale = scale)
+                    modifier = Modifier
+                        .primary(appear, primaryFraction)
+                        .secondary(appear, secondaryFraction)
                 ) {
                     content(key)
                 }

@@ -26,10 +26,16 @@ import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 class ScaleProvider(
-    private val growing: Boolean,
+    private val growing: Boolean = true,
 ) : VisibilityAnimationProvider {
 
     private var durationMillis: Int = DefaultDurationMillis
+
+    var scaleOnDisappear = true
+    var outgoingStartScale = 1f
+    var outgoingEndScale = 1.1f
+    var incomingStartScale = 0.8f
+    var incomingEndScale = 1f
 
     override fun setDuration(durationMillis: Int) {
         this.durationMillis = durationMillis
@@ -60,6 +66,9 @@ class ScaleProvider(
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
+        if (!scaleOnDisappear) {
+            return modifier
+        }
         return modifier.scale(
             scale = if (growing) {
                 lerp(outgoingEndScale, outgoingStartScale, fraction)
@@ -67,12 +76,5 @@ class ScaleProvider(
                 lerp(incomingStartScale, incomingEndScale, fraction)
             }
         )
-    }
-
-    companion object {
-        private const val outgoingStartScale = 1f
-        private const val outgoingEndScale = 1.1f
-        private const val incomingStartScale = 0.8f
-        private const val incomingEndScale = 1f
     }
 }

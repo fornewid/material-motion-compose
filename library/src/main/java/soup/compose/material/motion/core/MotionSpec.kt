@@ -20,12 +20,7 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.ui.Modifier
 
 object MotionConstants {
-
     const val DefaultDurationMillis: Int = 300
-
-    const val DefaultFadeThroughScale = 0.92f
-
-    const val DefaultProgressThreshold = 0.35f
 }
 
 interface MotionSpec
