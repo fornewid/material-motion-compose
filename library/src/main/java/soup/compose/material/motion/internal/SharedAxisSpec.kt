@@ -13,31 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion
+package soup.compose.material.motion.internal
 
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.core.FadeThroughProvider
-import soup.compose.material.motion.core.MaterialVisibility
-import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
-import soup.compose.material.motion.core.ScaleProvider
-import soup.compose.material.motion.core.SlideDistanceProvider
-import soup.compose.material.motion.core.SlideEdge
-import soup.compose.material.motion.core.VisibilityAnimationProvider
+import soup.compose.material.motion.Axis
+import soup.compose.material.motion.MotionSpec
+import soup.compose.material.motion.VisibilityAnimationProvider
+import soup.compose.material.motion.provider.FadeThroughProvider
+import soup.compose.material.motion.provider.ScaleProvider
+import soup.compose.material.motion.provider.SlideDistanceProvider
+import soup.compose.material.motion.provider.SlideDistanceProvider.SlideEdge
 
-fun sharedAxisSpec(
-    axis: Axis,
-    forward: Boolean,
-    slideDistance: Dp = 30.dp,
-    durationMillis: Int = DefaultDurationMillis,
-): MaterialVisibility = SharedAxisSpec(axis, forward, slideDistance, durationMillis)
-
-private data class SharedAxisSpec(
+internal data class SharedAxisSpec(
     private val axis: Axis,
     private val forward: Boolean,
-    private val slideDistance: Dp,
     private val durationMillis: Int,
-) : MaterialVisibility(
+    private val slideDistance: Dp? = null,
+) : MotionSpec(
     createPrimaryAnimatorProvider(axis, forward, slideDistance).withDuration(durationMillis),
     createSecondaryAnimatorProvider().withDuration(durationMillis)
 ) {
@@ -50,7 +42,7 @@ private data class SharedAxisSpec(
         private fun createPrimaryAnimatorProvider(
             axis: Axis,
             forward: Boolean,
-            slideDistance: Dp,
+            slideDistance: Dp?,
         ): VisibilityAnimationProvider = when (axis) {
             Axis.X -> SlideDistanceProvider(
                 if (forward) SlideEdge.RIGHT else SlideEdge.LEFT,

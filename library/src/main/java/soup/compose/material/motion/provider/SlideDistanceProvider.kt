@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.core
+package soup.compose.material.motion.provider
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -24,17 +24,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
-
-enum class SlideEdge {
-    LEFT, TOP, RIGHT, BOTTOM
-}
+import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.VisibilityAnimationProvider
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 class SlideDistanceProvider(
     private val slideEdge: SlideEdge,
     private val slideDistance: Dp? = null,
 ) : VisibilityAnimationProvider {
+
+    enum class SlideEdge {
+        LEFT, TOP, RIGHT, BOTTOM
+    }
 
     private var durationMillis: Int = DefaultDurationMillis
 

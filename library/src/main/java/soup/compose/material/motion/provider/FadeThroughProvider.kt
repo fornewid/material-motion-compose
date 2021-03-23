@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.core
+package soup.compose.material.motion.provider
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -22,7 +22,8 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.VisibilityAnimationProvider
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 class FadeThroughProvider : VisibilityAnimationProvider {

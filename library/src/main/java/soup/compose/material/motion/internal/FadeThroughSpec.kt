@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion
+package soup.compose.material.motion.internal
 
-import soup.compose.material.motion.core.FadeThroughProvider
-import soup.compose.material.motion.core.MaterialVisibility
-import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
-import soup.compose.material.motion.core.ScaleProvider
-import soup.compose.material.motion.core.VisibilityAnimationProvider
+import soup.compose.material.motion.MotionSpec
+import soup.compose.material.motion.VisibilityAnimationProvider
+import soup.compose.material.motion.provider.FadeThroughProvider
+import soup.compose.material.motion.provider.ScaleProvider
 
-fun fadeThroughSpec(
-    durationMillis: Int = DefaultDurationMillis,
-): MaterialVisibility = FadeThroughSpec(durationMillis)
-
-private data class FadeThroughSpec(
+internal data class FadeThroughSpec(
     private val durationMillis: Int,
-) : MaterialVisibility(
+) : MotionSpec(
     createPrimaryAnimatorProvider().withDuration(durationMillis),
     createSecondaryAnimatorProvider().withDuration(durationMillis)
 ) {

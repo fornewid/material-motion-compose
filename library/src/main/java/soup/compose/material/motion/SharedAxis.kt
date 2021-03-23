@@ -17,16 +17,11 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.core.MotionConstants.DefaultDurationMillis
-import soup.compose.material.motion.internal.MaterialTransition
-import soup.compose.material.motion.internal.MotionAnimationItem
+import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
 
 enum class Axis {
     X, Y, Z
@@ -55,66 +50,10 @@ fun <T> SharedAxis(
     slideDistance: Dp = 30.dp,
     content: @Composable (T) -> Unit,
 ) {
-    val motionSpec = sharedAxisSpec(axis, forward, slideDistance, durationMillis)
-    MaterialTransition(
+    MaterialMotion(
         targetState = targetState,
+        motionSpec = sharedAxis(axis, forward, durationMillis, slideDistance),
         modifier = modifier,
-        transitionAnimationItem = { key, transition ->
-            MotionAnimationItem(key) {
-
-                fun Modifier.primary(appear: Boolean, fraction: Float): Modifier = run {
-                    motionSpec.primaryAnimatorProvider.let { provider ->
-                        if (appear) {
-                            provider.appear(this, fraction)
-                        } else {
-                            provider.disappear(this, fraction)
-                        }
-                    }
-                }
-
-                fun Modifier.secondary(target: Boolean, fraction: Float): Modifier = run {
-                    motionSpec.secondaryAnimatorProvider.let { provider ->
-                        if (target) {
-                            provider.appear(this, fraction)
-                        } else {
-                            provider.disappear(this, fraction)
-                        }
-                    }
-                }
-
-                val primaryFraction by transition.animateFloat(
-                    transitionSpec = {
-                        motionSpec.primaryAnimatorProvider.run {
-                            if (targetState == key) {
-                                createAppearAnimationSpec()
-                            } else {
-                                createDisappearAnimationSpec()
-                            }
-                        }
-                    }
-                ) { if (it == key) 1f else 0f }
-
-                val secondaryFraction by transition.animateFloat(
-                    transitionSpec = {
-                        motionSpec.secondaryAnimatorProvider.run {
-                            if (targetState == key) {
-                                createAppearAnimationSpec()
-                            } else {
-                                createDisappearAnimationSpec()
-                            }
-                        }
-                    }
-                ) { if (it == key) 1f else 0f }
-
-                val appear = transition.targetState == key
-                Box(
-                    modifier = Modifier
-                        .primary(appear, primaryFraction)
-                        .secondary(appear, secondaryFraction)
-                ) {
-                    content(key)
-                }
-            }
-        }
+        content = content
     )
 }
