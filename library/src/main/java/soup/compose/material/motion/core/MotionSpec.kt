@@ -15,6 +15,10 @@
  */
 package soup.compose.material.motion.core
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.ui.Modifier
+
 object MotionConstants {
 
     const val DefaultDurationMillis: Int = 300
@@ -22,4 +26,22 @@ object MotionConstants {
     const val DefaultFadeThroughScale = 0.92f
 
     const val DefaultProgressThreshold = 0.35f
+}
+
+interface MotionSpec
+
+abstract class MaterialVisibility(
+    val primaryAnimatorProvider: VisibilityAnimationProvider,
+    val secondaryAnimatorProvider: VisibilityAnimationProvider,
+) : MotionSpec
+
+@SuppressLint("ModifierFactoryExtensionFunction")
+interface VisibilityAnimationProvider {
+    fun setDuration(durationMillis: Int)
+
+    fun createAppearAnimationSpec(): FiniteAnimationSpec<Float>
+    fun appear(modifier: Modifier, fraction: Float): Modifier
+
+    fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float>
+    fun disappear(modifier: Modifier, fraction: Float): Modifier
 }
