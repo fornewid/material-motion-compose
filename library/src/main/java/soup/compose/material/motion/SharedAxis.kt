@@ -19,6 +19,7 @@ package soup.compose.material.motion
 
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
@@ -70,66 +71,90 @@ fun <T> SharedAxis(
         modifier = modifier,
         transitionAnimationItem = { key, transition ->
             MotionAnimationItem(key) {
-                val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
-                val incomingDurationMillis = durationMillis - outgoingDurationMillis
-                val alpha by transition.animateFloat(
-                    transitionSpec = {
-                        if (targetState == key) {
-                            tween(
-                                durationMillis = incomingDurationMillis,
-                                delayMillis = outgoingDurationMillis,
-                                easing = LinearOutSlowInEasing
-                            )
-                        } else {
-                            tween(
-                                durationMillis = outgoingDurationMillis,
-                                delayMillis = 0,
-                                easing = FastOutLinearInEasing
-                            )
+                val current: Boolean = transition.targetState == key
+
+                fun primaryAnimationSpec(): FiniteAnimationSpec<Float> {
+                    return tween(
+                        durationMillis = durationMillis,
+                        easing = FastOutSlowInEasing
+                    )
+                }
+                fun Modifier.primary(
+                    target: Boolean,
+                    forward: Boolean,
+                    fraction: Float,
+                ): Modifier {
+                    val (slideX, slideY, scale) = when (axis) {
+                        Axis.X -> {
+                            val start = if (target) {
+                                if (forward) slideDistance else -slideDistance
+                            } else {
+                                if (forward) -slideDistance else slideDistance
+                            }
+                            val slide = lerp(start, 0.dp, fraction)
+                            Triple(slide, 0.dp, 1f)
+                        }
+                        Axis.Y -> {
+                            val start = if (target) {
+                                if (forward) slideDistance else -slideDistance
+                            } else {
+                                if (forward) -slideDistance else slideDistance
+                            }
+                            val slide = lerp(start, 0.dp, fraction)
+                            Triple(0.dp, slide, 1f)
+                        }
+                        Axis.Z -> {
+                            val start = if (target) {
+                                if (forward) 0.8f else 1.1f
+                            } else {
+                                if (forward) 1.1f else 0.8f
+                            }
+                            val scale = lerp(start, 1f, fraction)
+                            Triple(0.dp, 0.dp, scale)
                         }
                     }
-                ) { if (it == key) 1f else 0f }
-                val fraction by transition.animateFloat(
-                    transitionSpec = {
+                    return offset(x = slideX, y = slideY)
+                        .scale(scale = scale)
+                }
+
+                fun secondaryAnimationSpec(target: Boolean): FiniteAnimationSpec<Float> {
+                    val outgoingDurationMillis = (durationMillis * DefaultProgressThreshold).toInt()
+                    val incomingDurationMillis = durationMillis - outgoingDurationMillis
+                    return if (target) {
                         tween(
-                            durationMillis = durationMillis,
-                            easing = FastOutSlowInEasing
+                            durationMillis = incomingDurationMillis,
+                            delayMillis = outgoingDurationMillis,
+                            easing = LinearOutSlowInEasing
                         )
-                    }
-                ) { if (it == key) 1f else 0f }
-                val (slideX, slideY, scale) = when (axis) {
-                    Axis.X, Axis.Y -> {
-                        val start = if (transition.targetState == key) {
-                            if (forward) slideDistance else -slideDistance
-                        } else {
-                            if (forward) -slideDistance else slideDistance
-                        }
-                        val slide = lerp(start, 0.dp, fraction)
-                        Triple(
-                            slide.takeIf { axis == Axis.X } ?: 0.dp,
-                            slide.takeIf { axis == Axis.Y } ?: 0.dp,
-                            1f
-                        )
-                    }
-                    Axis.Z -> {
-                        val start = if (transition.targetState == key) {
-                            if (forward) 0.8f else 1.1f
-                        } else {
-                            if (forward) 1.1f else 0.8f
-                        }
-                        val scale = lerp(start, 1f, fraction)
-                        Triple(
-                            0.dp,
-                            0.dp,
-                            scale
+                    } else {
+                        tween(
+                            durationMillis = outgoingDurationMillis,
+                            delayMillis = 0,
+                            easing = FastOutLinearInEasing
                         )
                     }
                 }
+
+                fun Modifier.secondary(
+                    target: Boolean,
+                    forward: Boolean,
+                    fraction: Float,
+                ): Modifier {
+                    return alpha(alpha = fraction)
+                }
+
+                val primaryFraction by transition.animateFloat(
+                    transitionSpec = { primaryAnimationSpec() }
+                ) { if (it == key) 1f else 0f }
+
+                val secondaryFraction by transition.animateFloat(
+                    transitionSpec = { secondaryAnimationSpec(current) }
+                ) { if (it == key) 1f else 0f }
+
                 Box(
                     modifier = Modifier
-                        .alpha(alpha = alpha)
-                        .offset(x = slideX, y = slideY)
-                        .scale(scale = scale)
+                        .primary(current, forward, primaryFraction)
+                        .secondary(current, forward, secondaryFraction)
                 ) {
                     content(key)
                 }
