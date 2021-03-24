@@ -40,9 +40,7 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
-    Surface(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Surface(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 Column {
@@ -62,6 +60,7 @@ fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                         style = MaterialTheme.typography.body2
                     )
+                    HomeMenuItem(HomeMenu.Demo, onItemClick = onItemClick)
                     Divider()
                     Text(
                         text = "Additional Examples",
@@ -70,7 +69,7 @@ fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
                     )
                 }
             }
-            items(HomeMenu.values()) {
+            items(HomeMenu.values().filterNot { it == HomeMenu.Demo }) {
                 HomeMenuItem(it, onItemClick = onItemClick)
             }
         }
@@ -128,6 +127,7 @@ private fun HomeMenuItem(
 
 private val HomeMenu.title: String
     get() = when (this) {
+        HomeMenu.Demo -> "Demo"
         HomeMenu.SharedAxisX -> "Shared Axis (X)"
         HomeMenu.SharedAxisY -> "Shared Axis (Y)"
         HomeMenu.SharedAxisZ -> "Shared Axis (Z)"
@@ -136,6 +136,7 @@ private val HomeMenu.title: String
 
 private val HomeMenu.description: String
     get() = when (this) {
+        HomeMenu.Demo -> "DemoScreen"
         HomeMenu.SharedAxisX,
         HomeMenu.SharedAxisY,
         HomeMenu.SharedAxisZ,
@@ -144,6 +145,7 @@ private val HomeMenu.description: String
     }
 
 enum class HomeMenu {
+    Demo,
     SharedAxisX,
     SharedAxisY,
     SharedAxisZ,

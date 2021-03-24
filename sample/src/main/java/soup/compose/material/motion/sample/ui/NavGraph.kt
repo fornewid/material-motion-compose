@@ -23,16 +23,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.Axis
+import soup.compose.material.motion.sample.ui.MainDestinations.DEMO_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.HOME_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
+import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.fadethrough.FadeThroughScreen
 import soup.compose.material.motion.sample.ui.sharedaxis.SharedAxisScreen
 
 private object MainDestinations {
     const val HOME_ROUTE = "home"
+    const val DEMO_ROUTE = "demo"
     const val SHARED_AXIS_X_ROUTE = "shared_axis_x"
     const val SHARED_AXIS_Y_ROUTE = "shared_axis_y"
     const val SHARED_AXIS_Z_ROUTE = "shared_axis_z"
@@ -55,6 +58,7 @@ fun NavGraph(
             HomeScreen(
                 onItemClick = { menu ->
                     when (menu) {
+                        HomeMenu.Demo -> actions.goToDemo()
                         HomeMenu.SharedAxisX -> actions.goToSharedAxis(Axis.X)
                         HomeMenu.SharedAxisY -> actions.goToSharedAxis(Axis.Y)
                         HomeMenu.SharedAxisZ -> actions.goToSharedAxis(Axis.Z)
@@ -62,6 +66,9 @@ fun NavGraph(
                     }
                 }
             )
+        }
+        composable(DEMO_ROUTE) {
+            DemoScreen()
         }
         composable(SHARED_AXIS_X_ROUTE) {
             SharedAxisScreen(Axis.X, actions.upPress)
@@ -81,6 +88,9 @@ fun NavGraph(
 private class MainActions(navController: NavHostController) {
     val upPress: () -> Unit = {
         navController.navigateUp()
+    }
+    val goToDemo: () -> Unit = {
+        navController.navigate(DEMO_ROUTE)
     }
     val goToSharedAxis: (Axis) -> Unit = { axis ->
         val route = when (axis) {
