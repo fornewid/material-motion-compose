@@ -15,7 +15,25 @@ This library provides support for [motion patterns](https://material.io/design/m
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-SharedAxis(axis = Axis.X, forward = true, targetState = screen) { newScreen ->
+SharedAxis(
+    targetState = screen,
+    axis = Axis.X,
+    forward = true,
+    slideDistance = 30.dp // (optional)
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
+MaterialMotion(
+    targetState = screen,
+    motionSpec = sharedAxis(
+        axis = Axis.X,
+        forward = true,
+        slideDistance = 30.dp // (optional)
+    )
+) { newScreen ->
     // composable according to screen
 }
 ```
@@ -28,7 +46,18 @@ SharedAxis(axis = Axis.X, forward = true, targetState = screen) { newScreen ->
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-FadeThrough(targetState = screen) { newScreen ->
+FadeThrough(
+    targetState = screen
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
+MaterialMotion(
+    targetState = screen,
+    motionSpec = fadeThrough()
+) { newScreen ->
     // composable according to screen
 }
 ```
@@ -36,6 +65,27 @@ FadeThrough(targetState = screen) { newScreen ->
 | Fade Through               |
 | -------------------------- |
 | <img width="200" src="docs/fade_through.gif" /> |
+
+### If you want to use different motions depending on the state:
+
+```kt
+val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+val motionSpec = when (screen) {
+   ... -> fadeThrough()
+   ... -> sharedAxisY(forward = true)
+   ...
+}
+MaterialMotion(
+    targetState = screen,
+    motionSpec = motionSpec
+) { newScreen ->
+    // composable according to screen
+}
+```
+
+| Demo                       |
+| -------------------------- |
+| <img width="200" src="docs/demo.gif" /> |
 
 ## Installation
 
