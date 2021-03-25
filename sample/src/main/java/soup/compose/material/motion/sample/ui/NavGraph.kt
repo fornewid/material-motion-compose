@@ -24,12 +24,14 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.sample.ui.MainDestinations.DEMO_ROUTE
+import soup.compose.material.motion.sample.ui.MainDestinations.FADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.HOME_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
+import soup.compose.material.motion.sample.ui.fade.FadeScreen
 import soup.compose.material.motion.sample.ui.fadethrough.FadeThroughScreen
 import soup.compose.material.motion.sample.ui.sharedaxis.SharedAxisScreen
 
@@ -40,6 +42,7 @@ private object MainDestinations {
     const val SHARED_AXIS_Y_ROUTE = "shared_axis_y"
     const val SHARED_AXIS_Z_ROUTE = "shared_axis_z"
     const val FADE_THROUGH_ROUTE = "fade_through"
+    const val FADE_ROUTE = "fade"
 }
 
 @Composable
@@ -63,6 +66,7 @@ fun NavGraph(
                         HomeMenu.SharedAxisY -> actions.goToSharedAxis(Axis.Y)
                         HomeMenu.SharedAxisZ -> actions.goToSharedAxis(Axis.Z)
                         HomeMenu.FadeThrough -> actions.goToFadeThrough()
+                        HomeMenu.Fade -> actions.goToFade()
                     }
                 }
             )
@@ -81,6 +85,9 @@ fun NavGraph(
         }
         composable(FADE_THROUGH_ROUTE) {
             FadeThroughScreen(actions.upPress)
+        }
+        composable(FADE_ROUTE) {
+            FadeScreen(actions.upPress)
         }
     }
 }
@@ -102,5 +109,8 @@ private class MainActions(navController: NavHostController) {
     }
     val goToFadeThrough: () -> Unit = {
         navController.navigate(FADE_THROUGH_ROUTE)
+    }
+    val goToFade: () -> Unit = {
+        navController.navigate(FADE_ROUTE)
     }
 }

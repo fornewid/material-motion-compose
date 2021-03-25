@@ -132,6 +132,7 @@ private val HomeMenu.title: String
         HomeMenu.SharedAxisY -> "Shared Axis (Y)"
         HomeMenu.SharedAxisZ -> "Shared Axis (Z)"
         HomeMenu.FadeThrough -> "Fade Through"
+        HomeMenu.Fade -> "Fade"
     }
 
 private val HomeMenu.description: String
@@ -142,6 +143,7 @@ private val HomeMenu.description: String
         HomeMenu.SharedAxisZ,
         -> "SharedAxisScreen"
         HomeMenu.FadeThrough -> "FadeThroughScreen"
+        HomeMenu.Fade -> "FadeScreen"
     }
 
 enum class HomeMenu {
@@ -149,7 +151,8 @@ enum class HomeMenu {
     SharedAxisX,
     SharedAxisY,
     SharedAxisZ,
-    FadeThrough
+    FadeThrough,
+    Fade
 }
 
 @Preview(showBackground = true)
