@@ -8,7 +8,7 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha11"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha12"
     const val material = "com.google.android.material:material:1.3.0"
 
     object Kotlin {
