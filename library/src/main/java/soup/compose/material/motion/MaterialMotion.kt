@@ -38,7 +38,6 @@ import soup.compose.material.motion.internal.MotionAnimationItem
  * the [content] called with the new key will be faded in.
  * @param motionSpec the [MotionSpec] to configure the animation.
  * @param modifier Modifier to be applied to the animation container.
- * @param durationMillis total duration of the animation.
  */
 @Composable
 fun <T> MaterialMotion(
@@ -47,11 +46,38 @@ fun <T> MaterialMotion(
     modifier: Modifier = Modifier,
     content: @Composable (T) -> Unit,
 ) {
+    MaterialMotion(
+        targetState = targetState,
+        enterMotionSpec = motionSpec,
+        exitMotionSpec = motionSpec,
+        modifier = modifier,
+        content = content
+    )
+}
+
+/**
+ * [MaterialMotion] allows to switch between two layouts with a material motion animation.
+ *
+ * @param targetState is a key representing your target layout state. Every time you change a key
+ * the animation will be triggered. The [content] called with the old key will be faded out while
+ * the [content] called with the new key will be faded in.
+ * @param enterMotionSpec the [MotionSpec] to configure the enter animation.
+ * @param exitMotionSpec the [MotionSpec] to configure the exit animation.
+ * @param modifier Modifier to be applied to the animation container.
+ */
+@Composable
+fun <T> MaterialMotion(
+    targetState: T,
+    enterMotionSpec: MotionSpec,
+    exitMotionSpec: MotionSpec,
+    modifier: Modifier = Modifier,
+    content: @Composable (T) -> Unit,
+) {
     val items = remember { mutableStateListOf<MotionAnimationItem<T>>() }
     val transitionState = remember { MutableTransitionState(targetState) }
     val targetChanged = (targetState != transitionState.targetState)
     transitionState.targetState = targetState
-    val transition = updateTransition(transitionState)
+    val transition = updateTransition(transitionState, label = null)
     if (targetChanged || items.isEmpty()) {
         // Only manipulate the list when the state is changed, or in the first run.
         val keys = items.map { it.key }.run {
@@ -64,6 +90,8 @@ fun <T> MaterialMotion(
         items.clear()
         keys.mapTo(items) { key ->
             MotionAnimationItem(key) {
+                val appear = transition.targetState == key
+                val motionSpec = if (appear) enterMotionSpec else exitMotionSpec
 
                 fun Modifier.primary(appear: Boolean, fraction: Float): Modifier = run {
                     motionSpec.primaryAnimatorProvider.let { provider ->
@@ -109,7 +137,6 @@ fun <T> MaterialMotion(
                     }
                 ) { if (it == key) 1f else 0f }
 
-                val appear = transition.targetState == key
                 Box(
                     modifier = Modifier
                         .primary(appear, primaryFraction)
