@@ -124,6 +124,16 @@ MaterialMotion(
 ) { newScreen ->
     // composable according to screen
 }
+
+// or
+
+MaterialMotion(
+    targetState = screen,
+    enterMotionSpec = motionSpec,
+    exitMotionSpec = motionSpec
+) { newScreen ->
+    // composable according to screen
+}
 ```
 
 | Demo                       |
