@@ -22,7 +22,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.util.lerp
-import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.MotionConstants.motionDurationLong1
 import soup.compose.material.motion.VisibilityAnimationProvider
 
 @SuppressLint("ModifierFactoryExtensionFunction")
@@ -30,7 +30,7 @@ class ScaleProvider(
     private val growing: Boolean = true,
 ) : VisibilityAnimationProvider {
 
-    private var durationMillis: Int = DefaultDurationMillis
+    private var durationMillis: Int = motionDurationLong1
 
     var scaleOnDisappear = true
     var outgoingStartScale = 1f

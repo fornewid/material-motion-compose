@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.MotionConstants.motionDurationLong1
 
 enum class Axis {
     X, Y, Z
@@ -46,7 +46,7 @@ fun <T> SharedAxis(
     axis: Axis,
     forward: Boolean,
     modifier: Modifier = Modifier,
-    durationMillis: Int = DefaultDurationMillis,
+    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp = 30.dp,
     content: @Composable (T) -> Unit,
 ) {

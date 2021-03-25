@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.MotionConstants.motionDurationLong1
 import soup.compose.material.motion.VisibilityAnimationProvider
 
 @SuppressLint("ModifierFactoryExtensionFunction")
@@ -37,7 +37,7 @@ class SlideDistanceProvider(
         LEFT, TOP, RIGHT, BOTTOM
     }
 
-    private var durationMillis: Int = DefaultDurationMillis
+    private var durationMillis: Int = motionDurationLong1
 
     override fun setDuration(durationMillis: Int) {
         this.durationMillis = durationMillis

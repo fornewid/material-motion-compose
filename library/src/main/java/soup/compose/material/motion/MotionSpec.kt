@@ -21,12 +21,18 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import soup.compose.material.motion.MotionConstants.DefaultDurationMillis
+import soup.compose.material.motion.MotionConstants.motionDurationLong1
+import soup.compose.material.motion.internal.FadeSpec
 import soup.compose.material.motion.internal.FadeThroughSpec
 import soup.compose.material.motion.internal.SharedAxisSpec
 
 object MotionConstants {
-    const val DefaultDurationMillis: Int = 300
+    const val motionDurationShort1 = 75
+    const val motionDurationShort2 = 150
+    const val motionDurationMedium1 = 200
+    const val motionDurationMedium2 = 250
+    const val motionDurationLong1 = 300
+    const val motionDurationLong2 = 350
 }
 
 abstract class MotionSpec(
@@ -48,27 +54,27 @@ interface VisibilityAnimationProvider {
 fun sharedAxis(
     axis: Axis,
     forward: Boolean,
-    durationMillis: Int = DefaultDurationMillis,
+    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
 ): MotionSpec = SharedAxisSpec(axis, forward, durationMillis, slideDistance)
 
 fun sharedAxisX(
     forward: Boolean,
-    durationMillis: Int = DefaultDurationMillis,
+    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
 ): MotionSpec = SharedAxisSpec(Axis.X, forward, durationMillis, slideDistance)
 
 fun sharedAxisY(
     forward: Boolean,
-    durationMillis: Int = DefaultDurationMillis,
+    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
 ): MotionSpec = SharedAxisSpec(Axis.Y, forward, durationMillis, slideDistance)
 
 fun sharedAxisZ(
     forward: Boolean,
-    durationMillis: Int = DefaultDurationMillis
+    durationMillis: Int = motionDurationLong1,
 ): MotionSpec = SharedAxisSpec(Axis.Z, forward, durationMillis)
 
 fun fadeThrough(
-    durationMillis: Int = DefaultDurationMillis,
+    durationMillis: Int = motionDurationLong1,
 ): MotionSpec = FadeThroughSpec(durationMillis)
