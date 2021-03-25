@@ -18,10 +18,13 @@
 package soup.compose.material.motion
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import soup.compose.material.motion.MotionConstants.motionDurationLong1
+import soup.compose.material.motion.internal.CrossfadeSpec
 import soup.compose.material.motion.internal.FadeSpec
 import soup.compose.material.motion.internal.FadeThroughSpec
 import soup.compose.material.motion.internal.SharedAxisSpec
@@ -80,3 +83,12 @@ fun fadeThrough(
 ): MotionSpec = FadeThroughSpec(durationMillis)
 
 fun fade(): MotionSpec = FadeSpec()
+
+/**
+ * [crossfade] allows to switch between two layouts with a crossfade animation.
+ *
+ * @param animationSpec the [AnimationSpec] to configure the animation.
+ */
+fun crossfade(
+    animationSpec: FiniteAnimationSpec<Float> = tween()
+): MotionSpec = CrossfadeSpec(animationSpec)

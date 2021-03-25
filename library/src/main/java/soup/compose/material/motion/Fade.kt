@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 /**
- * [Fade] allows to switch between two layouts with a shared axis animation.
+ * [Fade] allows to switch between two layouts with a fade animation.
  *
  * @see com.google.android.material.transition.MaterialFade
  *
