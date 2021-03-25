@@ -78,3 +78,5 @@ fun sharedAxisZ(
 fun fadeThrough(
     durationMillis: Int = motionDurationLong1,
 ): MotionSpec = FadeThroughSpec(durationMillis)
+
+fun fade(): MotionSpec = FadeSpec()
