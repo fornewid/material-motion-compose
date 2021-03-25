@@ -1,3 +1,5 @@
+<img width="550" alt="logo" src="docs/header.png" />
+
 # Material Motion for Jetpack Compose
 
 <a href="https://jitpack.io/#fornewid/material-motion-compose"><img src="https://jitpack.io/v/fornewid/material-motion-compose.svg"/></a>
@@ -65,6 +67,47 @@ MaterialMotion(
 | Fade Through               |
 | -------------------------- |
 | <img width="200" src="docs/fade_through.gif" /> |
+
+### Fade
+
+```
+val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+Fade(
+    targetState = screen
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
+MaterialMotion(
+    targetState = selectedTab,
+    motionSpec = fade()
+) { newScreen ->
+    // composable according to screen
+}
+```
+
+| Fade                       |
+| -------------------------- |
+| <img width="200" src="docs/fade.gif" /> |
+
+### Crossfade
+
+```
+val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+MaterialMotion(
+    targetState = selectedTab,
+    motionSpec = crossfade()
+) { newScreen ->
+    // composable according to screen
+}
+```
+or use [Crossfade](https://github.com/androidx/androidx/blob/androidx-main/compose/animation/animation/src/commonMain/kotlin/androidx/compose/animation/Crossfade.kt) in compose-animation.
+
+| Crossfade                  |
+| -------------------------- |
+| <img width="200" src="docs/crossfade.gif" /> |
 
 ### If you want to use different motions depending on the state:
 
