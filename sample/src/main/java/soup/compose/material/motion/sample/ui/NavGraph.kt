@@ -23,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.Axis
+import soup.compose.material.motion.sample.ui.MainDestinations.CROSSFADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.DEMO_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
@@ -30,6 +31,7 @@ import soup.compose.material.motion.sample.ui.MainDestinations.HOME_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
+import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.fade.FadeScreen
 import soup.compose.material.motion.sample.ui.fadethrough.FadeThroughScreen
@@ -43,6 +45,7 @@ private object MainDestinations {
     const val SHARED_AXIS_Z_ROUTE = "shared_axis_z"
     const val FADE_THROUGH_ROUTE = "fade_through"
     const val FADE_ROUTE = "fade"
+    const val CROSSFADE_ROUTE = "crossfade"
 }
 
 @Composable
@@ -67,6 +70,7 @@ fun NavGraph(
                         HomeMenu.SharedAxisZ -> actions.goToSharedAxis(Axis.Z)
                         HomeMenu.FadeThrough -> actions.goToFadeThrough()
                         HomeMenu.Fade -> actions.goToFade()
+                        HomeMenu.Crossfade -> actions.goToCrossfade()
                     }
                 }
             )
@@ -88,6 +92,9 @@ fun NavGraph(
         }
         composable(FADE_ROUTE) {
             FadeScreen(actions.upPress)
+        }
+        composable(CROSSFADE_ROUTE) {
+            CrossfadeScreen(actions.upPress)
         }
     }
 }
@@ -112,5 +119,8 @@ private class MainActions(navController: NavHostController) {
     }
     val goToFade: () -> Unit = {
         navController.navigate(FADE_ROUTE)
+    }
+    val goToCrossfade: () -> Unit = {
+        navController.navigate(CROSSFADE_ROUTE)
     }
 }
