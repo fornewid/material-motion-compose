@@ -70,7 +70,7 @@ MaterialMotion(
 
 ### Fade
 
-```
+```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 Fade(
     targetState = screen
@@ -94,7 +94,7 @@ MaterialMotion(
 
 ### Crossfade
 
-```
+```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = selectedTab,
