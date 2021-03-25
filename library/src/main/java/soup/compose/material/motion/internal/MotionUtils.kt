@@ -19,7 +19,7 @@ package soup.compose.material.motion.internal
 
 import androidx.annotation.FloatRange
 
-object MotionUtils {
+internal object MotionUtils {
 
     fun lerp(startValue: Float, endValue: Float, fraction: Float): Float {
         return startValue + fraction * (endValue - startValue)

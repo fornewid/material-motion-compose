@@ -98,7 +98,7 @@ fun <T> MaterialMotion(
                         if (appear) {
                             provider.appear(this, fraction)
                         } else {
-                            provider.disappear(this, fraction)
+                            provider.disappear(this, 1f - fraction)
                         }
                     }
                 }
@@ -108,7 +108,7 @@ fun <T> MaterialMotion(
                         if (target) {
                             provider.appear(this, fraction)
                         } else {
-                            provider.disappear(this, fraction)
+                            provider.disappear(this, 1f - fraction)
                         }
                     }
                 }

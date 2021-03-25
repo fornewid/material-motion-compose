@@ -47,9 +47,7 @@ class FadeProvider : VisibilityAnimationProvider {
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
-        //TODO: Make fraction inverse.
-        val reverseFraction = 1 - fraction
-        return modifier.alpha(alpha = lerp(1f, 0f, 0f, 1f, reverseFraction))
+        return modifier.alpha(alpha = lerp(1f, 0f, 0f, 1f, fraction))
     }
 
     private fun createFadeAnimationSpec(appear: Boolean): FiniteAnimationSpec<Float> {

@@ -43,10 +43,7 @@ class ScaleProvider(
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
+        return createScaleAnimationSpec()
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
@@ -60,10 +57,7 @@ class ScaleProvider(
     }
 
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
+        return createScaleAnimationSpec()
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
@@ -72,10 +66,17 @@ class ScaleProvider(
         }
         return modifier.scale(
             scale = if (growing) {
-                lerp(outgoingEndScale, outgoingStartScale, fraction)
+                lerp(outgoingStartScale, outgoingEndScale, fraction)
             } else {
-                lerp(incomingStartScale, incomingEndScale, fraction)
+                lerp(incomingEndScale, incomingStartScale, fraction)
             }
+        )
+    }
+
+    private fun createScaleAnimationSpec(): FiniteAnimationSpec<Float> {
+        return tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
         )
     }
 }

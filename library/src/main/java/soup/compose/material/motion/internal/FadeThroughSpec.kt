@@ -38,10 +38,10 @@ internal data class FadeThroughSpec(
         }
 
         private fun createSecondaryAnimatorProvider(): VisibilityAnimationProvider {
-            val scaleProvider = ScaleProvider()
-            scaleProvider.scaleOnDisappear = false
-            scaleProvider.incomingStartScale = DEFAULT_START_SCALE
-            return scaleProvider
+            return ScaleProvider().apply {
+                scaleOnDisappear = false
+                incomingStartScale = DEFAULT_START_SCALE
+            }
         }
     }
 }

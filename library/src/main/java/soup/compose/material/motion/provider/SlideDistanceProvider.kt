@@ -53,10 +53,10 @@ class SlideDistanceProvider(
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
         val slideDistance = getSlideDistanceOrDefault()
         return when (slideEdge) {
-            SlideEdge.LEFT -> appearOffsetX(modifier, fraction, -slideDistance)
-            SlideEdge.TOP -> appearOffsetY(modifier, fraction, -slideDistance)
-            SlideEdge.RIGHT -> appearOffsetX(modifier, fraction, slideDistance)
-            SlideEdge.BOTTOM -> appearOffsetY(modifier, fraction, slideDistance)
+            SlideEdge.LEFT -> modifier.appearOffsetX(fraction, -slideDistance, 0.dp)
+            SlideEdge.TOP -> modifier.appearOffsetY(fraction, -slideDistance, 0.dp)
+            SlideEdge.RIGHT -> modifier.appearOffsetX(fraction, slideDistance, 0.dp)
+            SlideEdge.BOTTOM -> modifier.appearOffsetY(fraction, slideDistance, 0.dp)
         }
     }
 
@@ -70,19 +70,27 @@ class SlideDistanceProvider(
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
         val slideDistance = getSlideDistanceOrDefault()
         return when (slideEdge) {
-            SlideEdge.LEFT -> appearOffsetX(modifier, fraction, slideDistance)
-            SlideEdge.TOP -> appearOffsetY(modifier, fraction, slideDistance)
-            SlideEdge.RIGHT -> appearOffsetX(modifier, fraction, -slideDistance)
-            SlideEdge.BOTTOM -> appearOffsetY(modifier, fraction, -slideDistance)
+            SlideEdge.LEFT -> modifier.appearOffsetX(fraction, 0.dp, slideDistance)
+            SlideEdge.TOP -> modifier.appearOffsetY(fraction, 0.dp, slideDistance)
+            SlideEdge.RIGHT -> modifier.appearOffsetX(fraction, 0.dp, -slideDistance)
+            SlideEdge.BOTTOM -> modifier.appearOffsetY(fraction, 0.dp, -slideDistance)
         }
     }
 
-    private fun appearOffsetX(modifier: Modifier, fraction: Float, slideDistance: Dp): Modifier {
-        return modifier.offset(x = lerp(slideDistance, 0.dp, fraction))
+    private fun Modifier.appearOffsetX(
+        fraction: Float,
+        startTranslation: Dp,
+        endTranslation: Dp
+    ): Modifier {
+        return offset(x = lerp(startTranslation, endTranslation, fraction))
     }
 
-    private fun appearOffsetY(modifier: Modifier, fraction: Float, slideDistance: Dp): Modifier {
-        return modifier.offset(y = lerp(slideDistance, 0.dp, fraction))
+    private fun Modifier.appearOffsetY(
+        fraction: Float,
+        startTranslation: Dp,
+        endTranslation: Dp
+    ): Modifier {
+        return offset(y = lerp(startTranslation, endTranslation, fraction))
     }
 
     private fun getSlideDistanceOrDefault(): Dp {

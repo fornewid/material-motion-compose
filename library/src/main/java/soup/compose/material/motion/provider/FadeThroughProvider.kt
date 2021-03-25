@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import soup.compose.material.motion.MotionConstants.motionDurationLong1
 import soup.compose.material.motion.VisibilityAnimationProvider
+import soup.compose.material.motion.internal.MotionUtils.lerp
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 class FadeThroughProvider : VisibilityAnimationProvider {
@@ -39,7 +40,7 @@ class FadeThroughProvider : VisibilityAnimationProvider {
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
-        return modifier.alpha(alpha = fraction)
+        return modifier.alpha(alpha = lerp(0f, 1f, fraction))
     }
 
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
@@ -47,7 +48,7 @@ class FadeThroughProvider : VisibilityAnimationProvider {
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
-        return modifier.alpha(alpha = fraction)
+        return modifier.alpha(alpha = lerp(1f, 0f, fraction))
     }
 
     private fun createFadeThroughAnimationSpec(appear: Boolean): FiniteAnimationSpec<Float> {
