@@ -27,6 +27,7 @@ import soup.compose.material.motion.MotionConstants.motionDurationLong1
 import soup.compose.material.motion.internal.CrossfadeSpec
 import soup.compose.material.motion.internal.FadeSpec
 import soup.compose.material.motion.internal.FadeThroughSpec
+import soup.compose.material.motion.internal.HoldSpec
 import soup.compose.material.motion.internal.SharedAxisSpec
 
 object MotionConstants {
@@ -92,3 +93,12 @@ fun fade(): MotionSpec = FadeSpec()
 fun crossfade(
     animationSpec: FiniteAnimationSpec<Float> = tween()
 ): MotionSpec = CrossfadeSpec(animationSpec)
+
+/**
+ * [hold] allows to switch a layout with no animation.
+ *
+ * @param durationMillis total duration of the animation.
+ */
+fun hold(
+    durationMillis: Int = motionDurationLong1
+): MotionSpec = HoldSpec(durationMillis)
