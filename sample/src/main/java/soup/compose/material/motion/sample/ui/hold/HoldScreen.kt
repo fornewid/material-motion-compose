@@ -23,13 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
+import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardContents
+import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 import soup.compose.material.motion.sharedAxisZ
 
 @Composable
 fun HoldScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    HoldScaffold(
+    ForwardBackwardScaffold(
         upPress = upPress,
         forward = forward,
         onForwardChanged = onForwardChanged,
@@ -41,7 +43,7 @@ fun HoldScreen(upPress: () -> Unit) {
             pop = forward.not(),
             modifier = Modifier.padding(innerPadding)
         ) { forward ->
-            HoldContents(forward)
+            ForwardBackwardContents(forward)
         }
     }
 }

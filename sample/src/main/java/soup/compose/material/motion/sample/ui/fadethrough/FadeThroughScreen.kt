@@ -22,12 +22,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.FadeThrough
+import soup.compose.material.motion.sample.ui.common.BottomTabsContents
+import soup.compose.material.motion.sample.ui.common.BottomTabsScaffold
+import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun FadeThroughScreen(upPress: () -> Unit) {
-    val (selectedTab, setSelectedTab) = remember { mutableStateOf(Tabs.Albums) }
-    FadeThroughScaffold(
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomTabs.Albums) }
+    BottomTabsScaffold(
         upPress = upPress,
         selectedTab = selectedTab,
         setSelectedTab = setSelectedTab
@@ -36,7 +39,7 @@ fun FadeThroughScreen(upPress: () -> Unit) {
             targetState = selectedTab,
             modifier = Modifier.padding(innerPadding)
         ) { currentTab ->
-            FadeThroughContents(currentTab)
+            BottomTabsContents(currentTab)
         }
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.fadethrough
+package soup.compose.material.motion.sample.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -43,22 +43,22 @@ import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.widget.DefaultTopAppBar
 
-enum class Tabs {
+enum class BottomTabs {
     Albums, Photos, Search
 }
 
 @Composable
-fun FadeThroughScaffold(
+fun BottomTabsScaffold(
     upPress: () -> Unit,
-    selectedTab: Tabs,
-    setSelectedTab: (Tabs) -> Unit,
+    selectedTab: BottomTabs,
+    setSelectedTab: (BottomTabs) -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
         topBar = { DefaultTopAppBar(upPress) },
         bottomBar = {
             BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
-                Tabs.values().forEach { tab ->
+                BottomTabs.values().forEach { tab ->
                     BottomNavigationItem(
                         icon = { Icon(tab.icon(), contentDescription = null) },
                         label = { Text(tab.name) },
@@ -75,7 +75,7 @@ fun FadeThroughScaffold(
 }
 
 @Composable
-fun FadeThroughContents(selectedTab: Tabs) {
+fun BottomTabsContents(selectedTab: BottomTabs) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -83,35 +83,35 @@ fun FadeThroughContents(selectedTab: Tabs) {
     ) {
         Column {
             Row(modifier = Modifier.weight(1f)) {
-                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
-                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+                BottomTabsContentsItem(selectedTab, modifier = Modifier.weight(1f))
+                BottomTabsContentsItem(selectedTab, modifier = Modifier.weight(1f))
             }
             Row(modifier = Modifier.weight(1f)) {
-                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
-                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+                BottomTabsContentsItem(selectedTab, modifier = Modifier.weight(1f))
+                BottomTabsContentsItem(selectedTab, modifier = Modifier.weight(1f))
             }
             Row(modifier = Modifier.weight(1f)) {
-                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
-                FadeThroughItem(selectedTab, modifier = Modifier.weight(1f))
+                BottomTabsContentsItem(selectedTab, modifier = Modifier.weight(1f))
+                BottomTabsContentsItem(selectedTab, modifier = Modifier.weight(1f))
             }
         }
     }
 }
 
 @Composable
-private fun FadeThroughItem(
-    selectedTab: Tabs,
+private fun BottomTabsContentsItem(
+    selectedTab: BottomTabs,
     modifier: Modifier = Modifier,
 ) {
     val backgroundColor = when (selectedTab) {
-        Tabs.Albums -> MaterialTheme.colors.primary
-        Tabs.Photos -> MaterialTheme.colors.error
-        Tabs.Search -> MaterialTheme.colors.secondary
+        BottomTabs.Albums -> MaterialTheme.colors.primary
+        BottomTabs.Photos -> MaterialTheme.colors.error
+        BottomTabs.Search -> MaterialTheme.colors.secondary
     }
     val contentColor = when (selectedTab) {
-        Tabs.Albums -> MaterialTheme.colors.onPrimary
-        Tabs.Photos -> MaterialTheme.colors.onError
-        Tabs.Search -> MaterialTheme.colors.onSecondary
+        BottomTabs.Albums -> MaterialTheme.colors.onPrimary
+        BottomTabs.Photos -> MaterialTheme.colors.onError
+        BottomTabs.Search -> MaterialTheme.colors.onSecondary
     }
     Card(
         backgroundColor = backgroundColor,
@@ -128,8 +128,8 @@ private fun FadeThroughItem(
 }
 
 @Composable
-private fun Tabs.icon(): Painter = when (this) {
-    Tabs.Albums -> painterResource(R.drawable.ic_collections)
-    Tabs.Photos -> painterResource(R.drawable.ic_photo)
-    Tabs.Search -> rememberVectorPainter(Icons.Default.Search)
+private fun BottomTabs.icon(): Painter = when (this) {
+    BottomTabs.Albums -> painterResource(R.drawable.ic_collections)
+    BottomTabs.Photos -> painterResource(R.drawable.ic_photo)
+    BottomTabs.Search -> rememberVectorPainter(Icons.Default.Search)
 }

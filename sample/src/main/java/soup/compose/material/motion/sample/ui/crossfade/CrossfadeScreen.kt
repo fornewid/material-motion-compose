@@ -23,12 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.crossfade
+import soup.compose.material.motion.sample.ui.common.BottomTabs
+import soup.compose.material.motion.sample.ui.common.BottomTabsContents
+import soup.compose.material.motion.sample.ui.common.BottomTabsScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun CrossfadeScreen(upPress: () -> Unit) {
-    val (selectedTab, setSelectedTab) = remember { mutableStateOf(Tabs.Albums) }
-    CrossfadeScaffold(
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomTabs.Albums) }
+    BottomTabsScaffold(
         upPress = upPress,
         selectedTab = selectedTab,
         setSelectedTab = setSelectedTab
@@ -38,7 +41,7 @@ fun CrossfadeScreen(upPress: () -> Unit) {
             motionSpec = crossfade(),
             modifier = Modifier.padding(innerPadding)
         ) { currentTab ->
-            CrossfadeContents(currentTab)
+            BottomTabsContents(currentTab)
         }
     }
 }

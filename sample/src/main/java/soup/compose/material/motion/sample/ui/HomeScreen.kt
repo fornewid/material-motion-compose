@@ -25,6 +25,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -40,15 +41,12 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(text = "Transition for Jetpack Compose") })
+    }) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 Column {
-                    TopAppBar(
-                        title = {
-                            Text(text = "Transition for Jetpack Compose")
-                        }
-                    )
                     Text(
                         text = "Description",
                         modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 16.dp),
@@ -125,40 +123,15 @@ private fun HomeMenuItem(
     }
 }
 
-private val HomeMenu.title: String
-    get() = when (this) {
-        HomeMenu.Demo -> "Demo"
-        HomeMenu.SharedAxisX -> "Shared Axis (X)"
-        HomeMenu.SharedAxisY -> "Shared Axis (Y)"
-        HomeMenu.SharedAxisZ -> "Shared Axis (Z)"
-        HomeMenu.FadeThrough -> "Fade Through"
-        HomeMenu.Fade -> "Fade"
-        HomeMenu.Crossfade -> "Crossfade"
-        HomeMenu.Hold -> "Hold"
-    }
-
-private val HomeMenu.description: String
-    get() = when (this) {
-        HomeMenu.Demo -> "DemoScreen"
-        HomeMenu.SharedAxisX,
-        HomeMenu.SharedAxisY,
-        HomeMenu.SharedAxisZ,
-        -> "SharedAxisScreen"
-        HomeMenu.FadeThrough -> "FadeThroughScreen"
-        HomeMenu.Fade -> "FadeScreen"
-        HomeMenu.Crossfade -> "CrossfadeScreen"
-        HomeMenu.Hold -> "HoldScreen"
-    }
-
-enum class HomeMenu {
-    Demo,
-    SharedAxisX,
-    SharedAxisY,
-    SharedAxisZ,
-    FadeThrough,
-    Fade,
-    Crossfade,
-    Hold
+enum class HomeMenu(val title: String, val description: String) {
+    Demo("Demo", "DemoScreen"),
+    SharedAxisX("Shared Axis (X)", "SharedAxisScreen"),
+    SharedAxisY("Shared Axis (Y)", "SharedAxisScreen"),
+    SharedAxisZ("Shared Axis (Z)", "SharedAxisScreen"),
+    FadeThrough("Fade Through", "FadeThroughScreen"),
+    Fade("Fade", "FadeScreen"),
+    Crossfade("Crossfade", "CrossfadeScreen"),
+    Hold("Hold", "HoldScreen"),
 }
 
 @Preview(showBackground = true)

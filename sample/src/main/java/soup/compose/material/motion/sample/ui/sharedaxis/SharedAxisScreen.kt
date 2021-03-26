@@ -28,7 +28,7 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 @Composable
 fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    SharedAxisScaffold(
+    ForwardBackwardScaffold(
         upPress = upPress,
         forward = forward,
         onForwardChanged = onForwardChanged,
@@ -39,7 +39,7 @@ fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
             targetState = forward,
             modifier = Modifier.padding(innerPadding)
         ) { forward ->
-            SharedAxisContents(forward)
+            ForwardBackwardContents(forward)
         }
     }
 }

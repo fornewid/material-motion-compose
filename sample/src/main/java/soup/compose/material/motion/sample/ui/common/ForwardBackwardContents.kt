@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.sample.ui.widget.DefaultTopAppBar
 
 @Composable
-fun SharedAxisScaffold(
+fun ForwardBackwardScaffold(
     upPress: () -> Unit,
     forward: Boolean,
     onForwardChanged: (Boolean) -> Unit,
@@ -86,22 +86,22 @@ fun SharedAxisScaffold(
 }
 
 @Composable
-fun SharedAxisContents(forward: Boolean) {
+fun ForwardBackwardContents(forward: Boolean) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 16.dp)
     ) {
         if (forward) {
-            SharedAxisForwardContents()
+            ForwardContents()
         } else {
-            SharedAxisBackwardContents()
+            BackwardContents()
         }
     }
 }
 
 @Composable
-private fun SharedAxisBackwardContents() {
+private fun BackwardContents() {
     Column {
         Spacer(modifier = Modifier.requiredHeight(48.dp))
         Icon(
@@ -150,7 +150,7 @@ private fun SharedAxisBackwardContents() {
 }
 
 @Composable
-private fun SharedAxisForwardContents() {
+private fun ForwardContents() {
     Column {
         Text(
             "Streamline your courses",
