@@ -64,6 +64,7 @@ fun <T> MaterialMotion(
  * @param enterMotionSpec the [MotionSpec] to configure the enter animation.
  * @param exitMotionSpec the [MotionSpec] to configure the exit animation.
  * @param modifier Modifier to be applied to the animation container.
+ * @param pop whether popping off the back stack.
  */
 @Composable
 fun <T> MaterialMotion(
@@ -71,6 +72,7 @@ fun <T> MaterialMotion(
     enterMotionSpec: MotionSpec,
     exitMotionSpec: MotionSpec,
     modifier: Modifier = Modifier,
+    pop: Boolean = false,
     content: @Composable (T) -> Unit,
 ) {
     val items = remember { mutableStateListOf<MotionAnimationItem<T>>() }
@@ -122,7 +124,8 @@ fun <T> MaterialMotion(
                                 createDisappearAnimationSpec()
                             }
                         }
-                    }
+                    },
+                    label = "primaryFraction"
                 ) { if (it == key) 1f else 0f }
 
                 val secondaryFraction by transition.animateFloat(
@@ -134,7 +137,8 @@ fun <T> MaterialMotion(
                                 createDisappearAnimationSpec()
                             }
                         }
-                    }
+                    },
+                    label = "secondaryFraction"
                 ) { if (it == key) 1f else 0f }
 
                 Box(
@@ -152,7 +156,8 @@ fun <T> MaterialMotion(
     }
 
     Box(modifier) {
-        items.fastForEach {
+        val list = if (pop) items.asReversed() else items
+        list.fastForEach {
             key(it.key) {
                 it.content()
             }
