@@ -35,10 +35,11 @@ enum class Axis {
  * @param targetState is a key representing your target layout state. Every time you change a key
  * the animation will be triggered. The [content] called with the old key will be faded out while
  * the [content] called with the new key will be faded in.
- * @param axis
- * @param forward
+ * @param axis movement axis of the animation.
+ * @param forward whether the direction of the animation is forward.
  * @param modifier Modifier to be applied to the animation container.
  * @param durationMillis total duration of the animation.
+ * @param slideDistance slide distance of the animation.
  */
 @Composable
 fun <T> SharedAxis(
@@ -47,7 +48,7 @@ fun <T> SharedAxis(
     forward: Boolean,
     modifier: Modifier = Modifier,
     durationMillis: Int = motionDurationLong1,
-    slideDistance: Dp = 30.dp,
+    slideDistance: Dp? = null,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(

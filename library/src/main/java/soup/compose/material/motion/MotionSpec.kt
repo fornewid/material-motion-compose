@@ -55,6 +55,14 @@ interface VisibilityAnimationProvider {
     fun disappear(modifier: Modifier, fraction: Float): Modifier
 }
 
+/**
+ * [sharedAxis] allows to switch a layout with a shared axis animation.
+ *
+ * @param axis movement axis of the animation.
+ * @param forward whether the direction of the animation is forward.
+ * @param durationMillis total duration of the animation.
+ * @param slideDistance slide distance of the animation.
+ */
 fun sharedAxis(
     axis: Axis,
     forward: Boolean,
@@ -62,36 +70,66 @@ fun sharedAxis(
     slideDistance: Dp? = null,
 ): MotionSpec = SharedAxisSpec(axis, forward, durationMillis, slideDistance)
 
+/**
+ * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.X].
+ *
+ * @param forward whether the direction of the animation is forward.
+ * @param durationMillis total duration of the animation.
+ * @param slideDistance slide distance of the animation.
+ */
 fun sharedAxisX(
     forward: Boolean,
     durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
 ): MotionSpec = SharedAxisSpec(Axis.X, forward, durationMillis, slideDistance)
 
+/**
+ * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.Y].
+ *
+ * @param forward whether the direction of the animation is forward.
+ * @param durationMillis total duration of the animation.
+ * @param slideDistance slide distance of the animation.
+ */
 fun sharedAxisY(
     forward: Boolean,
     durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
 ): MotionSpec = SharedAxisSpec(Axis.Y, forward, durationMillis, slideDistance)
 
+/**
+ * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.Z].
+ *
+ * @param forward whether the direction of the animation is forward.
+ * @param durationMillis total duration of the animation.
+ * @param slideDistance slide distance of the animation.
+ */
 fun sharedAxisZ(
     forward: Boolean,
     durationMillis: Int = motionDurationLong1,
-): MotionSpec = SharedAxisSpec(Axis.Z, forward, durationMillis)
+    slideDistance: Dp? = null,
+): MotionSpec = SharedAxisSpec(Axis.Z, forward, durationMillis, slideDistance)
 
+/**
+ * [fadeThrough] allows to switch a layout with a fade through animation.
+ *
+ * @param durationMillis total duration of the animation.
+ */
 fun fadeThrough(
     durationMillis: Int = motionDurationLong1,
 ): MotionSpec = FadeThroughSpec(durationMillis)
 
+/**
+ * [fade] allows to switch a layout with a fade animation.
+ */
 fun fade(): MotionSpec = FadeSpec()
 
 /**
- * [crossfade] allows to switch between two layouts with a crossfade animation.
+ * [crossfade] allows to switch a layout with a crossfade animation.
  *
  * @param animationSpec the [AnimationSpec] to configure the animation.
  */
 fun crossfade(
-    animationSpec: FiniteAnimationSpec<Float> = tween()
+    animationSpec: FiniteAnimationSpec<Float> = tween(),
 ): MotionSpec = CrossfadeSpec(animationSpec)
 
 /**
@@ -100,5 +138,5 @@ fun crossfade(
  * @param durationMillis total duration of the animation.
  */
 fun hold(
-    durationMillis: Int = motionDurationLong1
+    durationMillis: Int = motionDurationLong1,
 ): MotionSpec = HoldSpec(durationMillis)
