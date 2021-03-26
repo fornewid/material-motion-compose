@@ -27,6 +27,7 @@ import soup.compose.material.motion.sample.ui.MainDestinations.CROSSFADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.DEMO_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
+import soup.compose.material.motion.sample.ui.MainDestinations.HOLD_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.HOME_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_X_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Y_ROUTE
@@ -35,6 +36,7 @@ import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.fade.FadeScreen
 import soup.compose.material.motion.sample.ui.fadethrough.FadeThroughScreen
+import soup.compose.material.motion.sample.ui.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.sharedaxis.SharedAxisScreen
 
 private object MainDestinations {
@@ -46,6 +48,7 @@ private object MainDestinations {
     const val FADE_THROUGH_ROUTE = "fade_through"
     const val FADE_ROUTE = "fade"
     const val CROSSFADE_ROUTE = "crossfade"
+    const val HOLD_ROUTE = "hold"
 }
 
 @Composable
@@ -71,6 +74,7 @@ fun NavGraph(
                         HomeMenu.FadeThrough -> actions.goToFadeThrough()
                         HomeMenu.Fade -> actions.goToFade()
                         HomeMenu.Crossfade -> actions.goToCrossfade()
+                        HomeMenu.Hold -> actions.goToHold()
                     }
                 }
             )
@@ -95,6 +99,9 @@ fun NavGraph(
         }
         composable(CROSSFADE_ROUTE) {
             CrossfadeScreen(actions.upPress)
+        }
+        composable(HOLD_ROUTE) {
+            HoldScreen(actions.upPress)
         }
     }
 }
@@ -122,5 +129,8 @@ private class MainActions(navController: NavHostController) {
     }
     val goToCrossfade: () -> Unit = {
         navController.navigate(CROSSFADE_ROUTE)
+    }
+    val goToHold: () -> Unit = {
+        navController.navigate(HOLD_ROUTE)
     }
 }

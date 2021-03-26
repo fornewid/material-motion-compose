@@ -134,6 +134,7 @@ private val HomeMenu.title: String
         HomeMenu.FadeThrough -> "Fade Through"
         HomeMenu.Fade -> "Fade"
         HomeMenu.Crossfade -> "Crossfade"
+        HomeMenu.Hold -> "Hold"
     }
 
 private val HomeMenu.description: String
@@ -146,6 +147,7 @@ private val HomeMenu.description: String
         HomeMenu.FadeThrough -> "FadeThroughScreen"
         HomeMenu.Fade -> "FadeScreen"
         HomeMenu.Crossfade -> "CrossfadeScreen"
+        HomeMenu.Hold -> "HoldScreen"
     }
 
 enum class HomeMenu {
@@ -155,7 +157,8 @@ enum class HomeMenu {
     SharedAxisZ,
     FadeThrough,
     Fade,
-    Crossfade
+    Crossfade,
+    Hold
 }
 
 @Preview(showBackground = true)
