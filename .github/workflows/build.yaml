@@ -27,7 +27,7 @@ jobs:
           java-version: 11
 
       - name: Build, lint and spotless
-        run: ./gradlew spotlessCheck assemble assembleAndroidTest lintDebug apiCheck --scan
+        run: ./gradlew spotlessCheck assemble assembleAndroidTest lintDebug --scan
 
   test:
     needs: build
