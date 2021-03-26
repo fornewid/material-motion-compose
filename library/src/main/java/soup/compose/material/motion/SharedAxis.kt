@@ -20,7 +20,6 @@ package soup.compose.material.motion
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.MotionConstants.motionDurationLong1
 
 enum class Axis {

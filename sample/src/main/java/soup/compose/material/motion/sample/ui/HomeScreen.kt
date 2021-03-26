@@ -26,7 +26,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -41,9 +40,11 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
-    Scaffold(topBar = {
-        TopAppBar(title = { Text(text = "Transition for Jetpack Compose") })
-    }) {
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text(text = "Transition for Jetpack Compose") })
+        }
+    ) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 Column {

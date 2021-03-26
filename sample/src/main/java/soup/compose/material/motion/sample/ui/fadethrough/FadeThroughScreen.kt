@@ -22,9 +22,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.FadeThrough
+import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.common.BottomTabsContents
 import soup.compose.material.motion.sample.ui.common.BottomTabsScaffold
-import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
