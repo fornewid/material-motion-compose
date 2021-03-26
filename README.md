@@ -3,7 +3,7 @@
 # Material Motion for Jetpack Compose
 
 <a href="https://jitpack.io/#fornewid/material-motion-compose"><img src="https://jitpack.io/v/fornewid/material-motion-compose.svg"/></a>
-<a href="https://github.com/fornewid/material-motion-compose/actions/workflows/Check.yaml"><img src="https://github.com/fornewid/material-motion-compose/workflows/Check/badge.svg"/></a>
+<a href="https://github.com/fornewid/material-motion-compose/actions/workflows/build.yaml"><img src="https://github.com/fornewid/material-motion-compose/workflows/build/badge.svg"/></a>
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
 

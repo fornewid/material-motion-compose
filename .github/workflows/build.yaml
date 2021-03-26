@@ -1,0 +1,79 @@
+name: Build & test
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build, lint and spotless
+        run: ./gradlew spotlessCheck assemble assembleAndroidTest lintDebug apiCheck --scan
+
+  test:
+    needs: build
+    runs-on: macOS-latest
+    timeout-minutes: 30
+
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: false
+      matrix:
+        # Disable 21-23 for now as the devices seem to be flakey on CI
+        api-level: [ 24, 26, 29 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build tests
+        run: ./gradlew assembleDebugAndroidTest --scan
+
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          profile: Nexus 5X
+          script: |
+            adb logcat > logcat.txt &
+            ./gradlew --scan connectedCheck
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs-${{ matrix.api-level }}
+          path: logcat.txt
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results-${{ matrix.api-level }}
+          path: "**/build/outputs/*/connected/*.xml"
