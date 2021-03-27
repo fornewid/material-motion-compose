@@ -50,7 +50,7 @@ fun HoldScreen(upPress: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun AxisXPreview() {
+private fun LightPreview() {
     SampleTheme {
         HoldScreen {}
     }
@@ -58,16 +58,8 @@ private fun AxisXPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun AxisYPreview() {
-    SampleTheme {
-        HoldScreen {}
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AxisZPreview() {
-    SampleTheme {
+private fun DarkPreview() {
+    SampleTheme(darkTheme = true) {
         HoldScreen {}
     }
 }
