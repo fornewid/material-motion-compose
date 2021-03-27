@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.sample.ui.MainDestinations.CROSSFADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.DEMO_ROUTE
+import soup.compose.material.motion.sample.ui.MainDestinations.ELEVATION_SCALE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.FADE_THROUGH_ROUTE
 import soup.compose.material.motion.sample.ui.MainDestinations.HOLD_ROUTE
@@ -34,6 +35,7 @@ import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Y_ROU
 import soup.compose.material.motion.sample.ui.MainDestinations.SHARED_AXIS_Z_ROUTE
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
+import soup.compose.material.motion.sample.ui.elevationscale.ElevationScaleScreen
 import soup.compose.material.motion.sample.ui.fade.FadeScreen
 import soup.compose.material.motion.sample.ui.fadethrough.FadeThroughScreen
 import soup.compose.material.motion.sample.ui.hold.HoldScreen
@@ -49,6 +51,7 @@ private object MainDestinations {
     const val FADE_ROUTE = "fade"
     const val CROSSFADE_ROUTE = "crossfade"
     const val HOLD_ROUTE = "hold"
+    const val ELEVATION_SCALE_ROUTE = "elevation_scale"
 }
 
 @Composable
@@ -75,6 +78,7 @@ fun NavGraph(
                         HomeMenu.Fade -> actions.goToFade()
                         HomeMenu.Crossfade -> actions.goToCrossfade()
                         HomeMenu.Hold -> actions.goToHold()
+                        HomeMenu.ElevationScale -> actions.goToElevationScale()
                     }
                 }
             )
@@ -102,6 +106,9 @@ fun NavGraph(
         }
         composable(HOLD_ROUTE) {
             HoldScreen(actions.upPress)
+        }
+        composable(ELEVATION_SCALE_ROUTE) {
+            ElevationScaleScreen(actions.upPress)
         }
     }
 }
@@ -132,5 +139,8 @@ private class MainActions(navController: NavHostController) {
     }
     val goToHold: () -> Unit = {
         navController.navigate(HOLD_ROUTE)
+    }
+    val goToElevationScale: () -> Unit = {
+        navController.navigate(ELEVATION_SCALE_ROUTE)
     }
 }
