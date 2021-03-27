@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import soup.compose.material.motion.MotionConstants.motionDurationLong1
 import soup.compose.material.motion.internal.CrossfadeSpec
+import soup.compose.material.motion.internal.ElevationScaleSpec
 import soup.compose.material.motion.internal.FadeSpec
 import soup.compose.material.motion.internal.FadeThroughSpec
 import soup.compose.material.motion.internal.HoldSpec
@@ -140,3 +141,12 @@ fun crossfade(
 fun hold(
     durationMillis: Int = motionDurationLong1,
 ): MotionSpec = HoldSpec(durationMillis)
+
+/**
+ * [elevationScale] allows to switch a layout with a elevation scale animation.
+ *
+ * @param durationMillis total duration of the animation.
+ */
+fun elevationScale(
+    durationMillis: Int = motionDurationLong1,
+): MotionSpec = ElevationScaleSpec(durationMillis)

@@ -133,6 +133,7 @@ enum class HomeMenu(val title: String, val description: String) {
     Fade("Fade", "FadeScreen"),
     Crossfade("Crossfade", "CrossfadeScreen"),
     Hold("Hold", "HoldScreen"),
+    ElevationScale("ElevationScale", "ElevationScaleScreen"),
 }
 
 @Preview(showBackground = true)

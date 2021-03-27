@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.hold
+package soup.compose.material.motion.sample.ui.elevationscale
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -21,26 +21,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.hold
+import soup.compose.material.motion.ElevationScale
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.sharedAxisZ
 
 @Composable
-fun HoldScreen(upPress: () -> Unit) {
+fun ElevationScaleScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
     ForwardBackwardScaffold(
         upPress = upPress,
         forward = forward,
         onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        MaterialMotion(
+        ElevationScale(
             targetState = forward,
-            enterMotionSpec = if (forward) sharedAxisZ(forward) else hold(),
-            exitMotionSpec = if (forward) hold() else sharedAxisZ(forward),
-            pop = forward.not(),
             modifier = Modifier.padding(innerPadding)
         ) { forward ->
             ForwardBackwardContents(forward)
@@ -52,7 +47,7 @@ fun HoldScreen(upPress: () -> Unit) {
 @Composable
 private fun LightPreview() {
     SampleTheme {
-        HoldScreen {}
+        ElevationScaleScreen(upPress = {})
     }
 }
 
@@ -60,6 +55,6 @@ private fun LightPreview() {
 @Composable
 private fun DarkPreview() {
     SampleTheme(darkTheme = true) {
-        HoldScreen {}
+        ElevationScaleScreen(upPress = {})
     }
 }
