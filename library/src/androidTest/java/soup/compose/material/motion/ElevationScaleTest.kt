@@ -90,7 +90,7 @@ class ElevationScaleTest {
     }
 
     @Test
-    fun elevationScaleTest_durationCanBeModifierUsingAnimationSpec() {
+    fun elevationScaleTest_durationCanBeModifier() {
         rule.mainClock.autoAdvance = false
 
         val duration = 100 // smaller than default 300
