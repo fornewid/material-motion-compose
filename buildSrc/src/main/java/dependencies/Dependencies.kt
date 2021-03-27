@@ -43,6 +43,10 @@ object Libs {
         const val lifecycle_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
 
         object Test {
+            private const val version = "1.3.0"
+            const val rules = "androidx.test:rules:$version"
+            const val runner = "androidx.test:runner:$version"
+
             const val junit = "androidx.test.ext:junit:1.1.2"
             const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
         }

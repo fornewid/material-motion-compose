@@ -29,6 +29,17 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion "${Libs.Compose.version}"
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    packagingOptions {
+        // Multiple dependencies bring these files in. Exclude them to enable
+        // our test APK to build (has no effect on our AARs)
+        excludes += "/META-INF/AL2.0"
+        excludes += "/META-INF/LGPL2.1"
+    }
 }
 
 dependencies {
@@ -38,8 +49,9 @@ dependencies {
     implementation Libs.Compose.ui_util
 
     testImplementation Libs.Test.junit
-    androidTestImplementation Libs.AndroidX.Test.junit
-    androidTestImplementation Libs.AndroidX.Test.espresso
+    androidTestImplementation Libs.Compose.ui_test
+    androidTestImplementation Libs.AndroidX.Test.rules
+    androidTestImplementation Libs.AndroidX.Test.runner
 }
 
 afterEvaluate {
