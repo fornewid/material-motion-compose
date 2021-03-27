@@ -36,10 +36,20 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import soup.compose.material.motion.sample.ui.Destination.Crossfade
+import soup.compose.material.motion.sample.ui.Destination.Demo
+import soup.compose.material.motion.sample.ui.Destination.ElevationScale
+import soup.compose.material.motion.sample.ui.Destination.Fade
+import soup.compose.material.motion.sample.ui.Destination.FadeThrough
+import soup.compose.material.motion.sample.ui.Destination.Hold
+import soup.compose.material.motion.sample.ui.Destination.Home
+import soup.compose.material.motion.sample.ui.Destination.SharedAxisX
+import soup.compose.material.motion.sample.ui.Destination.SharedAxisY
+import soup.compose.material.motion.sample.ui.Destination.SharedAxisZ
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
+fun HomeScreen(onItemClick: (Destination) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(text = "Transition for Jetpack Compose") })
@@ -59,7 +69,7 @@ fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                         style = MaterialTheme.typography.body2
                     )
-                    HomeMenuItem(HomeMenu.Demo, onItemClick = onItemClick)
+                    HomeMenuItem(Demo, onItemClick = onItemClick)
                     Divider()
                     Text(
                         text = "Additional Examples",
@@ -68,7 +78,7 @@ fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
                     )
                 }
             }
-            items(HomeMenu.values().filterNot { it == HomeMenu.Demo }) {
+            items(Destination.values().filterNot { it.root || it == Demo }) {
                 HomeMenuItem(it, onItemClick = onItemClick)
             }
         }
@@ -77,8 +87,8 @@ fun HomeScreen(onItemClick: (HomeMenu) -> Unit) {
 
 @Composable
 private fun HomeMenuItem(
-    menu: HomeMenu,
-    onItemClick: (HomeMenu) -> Unit,
+    menu: Destination,
+    onItemClick: (Destination) -> Unit,
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -88,7 +98,7 @@ private fun HomeMenuItem(
     ) {
         val (title, description) = createRefs()
         Text(
-            text = menu.title,
+            text = menu.name,
             modifier = Modifier
                 .constrainAs(title) {
                     width = Dimension.fillToConstraints
@@ -124,17 +134,19 @@ private fun HomeMenuItem(
     }
 }
 
-enum class HomeMenu(val title: String, val description: String) {
-    Demo("Demo", "DemoScreen"),
-    SharedAxisX("Shared Axis (X)", "SharedAxisScreen"),
-    SharedAxisY("Shared Axis (Y)", "SharedAxisScreen"),
-    SharedAxisZ("Shared Axis (Z)", "SharedAxisScreen"),
-    FadeThrough("Fade Through", "FadeThroughScreen"),
-    Fade("Fade", "FadeScreen"),
-    Crossfade("Crossfade", "CrossfadeScreen"),
-    Hold("Hold", "HoldScreen"),
-    ElevationScale("ElevationScale", "ElevationScaleScreen"),
-}
+private val Destination.description: String
+    get() = when (this) {
+        Home -> "HomeScreen"
+        Demo -> "DemoScreen"
+        SharedAxisX -> "SharedAxisScreen"
+        SharedAxisY -> "SharedAxisScreen"
+        SharedAxisZ -> "SharedAxisScreen"
+        FadeThrough -> "FadeThroughScreen"
+        Fade -> "FadeScreen"
+        Crossfade -> "CrossfadeScreen"
+        Hold -> "HoldScreen"
+        ElevationScale -> "ElevationScaleScreen"
+    }
 
 @Preview(showBackground = true)
 @Composable
