@@ -21,11 +21,9 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import soup.compose.material.motion.MotionConstants.motionDurationLong1
-import soup.compose.material.motion.MotionConstants.motionDurationShort1
-import soup.compose.material.motion.MotionConstants.motionDurationShort2
 import soup.compose.material.motion.internal.CrossfadeSpec
 import soup.compose.material.motion.internal.ElevationScaleSpec
 import soup.compose.material.motion.internal.FadeSpec
@@ -45,7 +43,24 @@ object MotionConstants {
 abstract class MotionSpec(
     val primaryAnimatorProvider: VisibilityAnimationProvider,
     val secondaryAnimatorProvider: VisibilityAnimationProvider,
-)
+) {
+
+    @SuppressLint("ComposableNaming")
+    @Composable
+    internal fun applyThemeValues() {
+        primaryAnimatorProvider.apply {
+            setAppearDuration(getDuration(appearing = true))
+            setDisappearDuration(getDuration(appearing = false))
+        }
+        secondaryAnimatorProvider.apply {
+            setAppearDuration(getDuration(appearing = true))
+            setDisappearDuration(getDuration(appearing = false))
+        }
+    }
+
+    @Composable
+    protected abstract fun getDuration(appearing: Boolean): Int
+}
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 interface VisibilityAnimationProvider {
@@ -63,71 +78,56 @@ interface VisibilityAnimationProvider {
  *
  * @param axis movement axis of the animation.
  * @param forward whether the direction of the animation is forward.
- * @param durationMillis total duration of the animation.
  * @param slideDistance slide distance of the animation.
  */
 fun sharedAxis(
     axis: Axis,
     forward: Boolean,
-    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(axis, forward, durationMillis, slideDistance)
+): MotionSpec = SharedAxisSpec(axis, forward, slideDistance)
 
 /**
  * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.X].
  *
  * @param forward whether the direction of the animation is forward.
- * @param durationMillis total duration of the animation.
  * @param slideDistance slide distance of the animation.
  */
 fun sharedAxisX(
     forward: Boolean,
-    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(Axis.X, forward, durationMillis, slideDistance)
+): MotionSpec = SharedAxisSpec(Axis.X, forward, slideDistance)
 
 /**
  * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.Y].
  *
  * @param forward whether the direction of the animation is forward.
- * @param durationMillis total duration of the animation.
  * @param slideDistance slide distance of the animation.
  */
 fun sharedAxisY(
     forward: Boolean,
-    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(Axis.Y, forward, durationMillis, slideDistance)
+): MotionSpec = SharedAxisSpec(Axis.Y, forward, slideDistance)
 
 /**
  * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.Z].
  *
  * @param forward whether the direction of the animation is forward.
- * @param durationMillis total duration of the animation.
  * @param slideDistance slide distance of the animation.
  */
 fun sharedAxisZ(
     forward: Boolean,
-    durationMillis: Int = motionDurationLong1,
     slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(Axis.Z, forward, durationMillis, slideDistance)
+): MotionSpec = SharedAxisSpec(Axis.Z, forward, slideDistance)
 
 /**
  * [fadeThrough] allows to switch a layout with a fade through animation.
- *
- * @param durationMillis total duration of the animation.
  */
-fun fadeThrough(
-    durationMillis: Int = motionDurationLong1,
-): MotionSpec = FadeThroughSpec(durationMillis)
+fun fadeThrough(): MotionSpec = FadeThroughSpec()
 
 /**
  * [fade] allows to switch a layout with a fade animation.
  */
-fun fade(
-    appearingDurationMillis: Int = motionDurationShort2,
-    disappearDurationMillis: Int = motionDurationShort1,
-): MotionSpec = FadeSpec(appearingDurationMillis, disappearDurationMillis)
+fun fade(): MotionSpec = FadeSpec()
 
 /**
  * [crossfade] allows to switch a layout with a crossfade animation.
@@ -140,18 +140,10 @@ fun crossfade(
 
 /**
  * [hold] allows to switch a layout with no animation.
- *
- * @param durationMillis total duration of the animation.
  */
-fun hold(
-    durationMillis: Int = motionDurationLong1,
-): MotionSpec = HoldSpec(durationMillis)
+fun hold(): MotionSpec = HoldSpec()
 
 /**
  * [elevationScale] allows to switch a layout with a elevation scale animation.
- *
- * @param durationMillis total duration of the animation.
  */
-fun elevationScale(
-    durationMillis: Int = motionDurationLong1,
-): MotionSpec = ElevationScaleSpec(durationMillis)
+fun elevationScale(): MotionSpec = ElevationScaleSpec()

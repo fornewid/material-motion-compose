@@ -17,6 +17,7 @@ package soup.compose.material.motion.internal
 
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Composable
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.CrossfadeProvider
@@ -28,6 +29,11 @@ internal data class CrossfadeSpec(
     createPrimaryAnimatorProvider(animationSpec),
     createSecondaryAnimatorProvider()
 ) {
+
+    @Composable
+    override fun getDuration(appearing: Boolean): Int {
+        return 0
+    }
 
     companion object {
 

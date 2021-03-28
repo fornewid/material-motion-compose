@@ -15,25 +15,25 @@
  */
 package soup.compose.material.motion.internal
 
+import androidx.compose.runtime.Composable
+import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.FadeThroughProvider
 import soup.compose.material.motion.provider.ScaleProvider
 
-internal data class FadeThroughSpec(
-    private val durationMillis: Int,
-) : MotionSpec(
-    createPrimaryAnimatorProvider().withDuration(durationMillis),
-    createSecondaryAnimatorProvider().withDuration(durationMillis)
+internal class FadeThroughSpec : MotionSpec(
+    createPrimaryAnimatorProvider(),
+    createSecondaryAnimatorProvider()
 ) {
+
+    @Composable
+    override fun getDuration(appearing: Boolean): Int {
+        return MaterialMotions.durations.motionDurationLong1
+    }
 
     companion object {
         private const val DEFAULT_START_SCALE = 0.92f
-
-        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) = apply {
-            setAppearDuration(durationMillis)
-            setDisappearDuration(durationMillis)
-        }
 
         private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
             return FadeThroughProvider()
