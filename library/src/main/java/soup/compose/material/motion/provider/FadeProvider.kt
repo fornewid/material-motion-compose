@@ -29,9 +29,12 @@ import soup.compose.material.motion.internal.MotionUtils.lerp
 @SuppressLint("ModifierFactoryExtensionFunction")
 class FadeProvider : VisibilityAnimationProvider {
 
+    private var durationMillis: Int? = null
+
     var incomingEndThreshold = 1f
 
     override fun setDuration(durationMillis: Int) {
+        this.durationMillis = durationMillis
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
@@ -52,7 +55,8 @@ class FadeProvider : VisibilityAnimationProvider {
 
     private fun createFadeAnimationSpec(appear: Boolean): FiniteAnimationSpec<Float> {
         return tween(
-            durationMillis = if (appear) motionDurationShort2 else motionDurationShort1,
+            durationMillis = durationMillis
+                ?: if (appear) motionDurationShort2 else motionDurationShort1,
             delayMillis = 0,
             easing = LinearEasing
         )
