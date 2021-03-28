@@ -28,7 +28,7 @@ class CrossfadeProvider(
     private val animationSpec: FiniteAnimationSpec<Float> = tween(),
 ) : VisibilityAnimationProvider {
 
-    override fun setDuration(durationMillis: Int) {
+    override fun setAppearDuration(durationMillis: Int) {
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
@@ -37,6 +37,9 @@ class CrossfadeProvider(
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
         return modifier.alpha(alpha = lerp(0f, 1f, 0f, 1f, fraction))
+    }
+
+    override fun setDisappearDuration(durationMillis: Int) {
     }
 
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {

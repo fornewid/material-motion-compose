@@ -29,34 +29,38 @@ import soup.compose.material.motion.internal.MotionUtils.lerp
 @SuppressLint("ModifierFactoryExtensionFunction")
 class FadeProvider : VisibilityAnimationProvider {
 
-    private var durationMillis: Int? = null
+    private var appearDurationMillis: Int = motionDurationShort2
+    private var disappearDurationMillis: Int = motionDurationShort1
 
     var incomingEndThreshold = 1f
 
-    override fun setDuration(durationMillis: Int) {
-        this.durationMillis = durationMillis
+    override fun setAppearDuration(durationMillis: Int) {
+        this.appearDurationMillis = durationMillis
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return createFadeAnimationSpec(appear = true)
+        return createFadeAnimationSpec(appearing = true)
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
         return modifier.alpha(alpha = lerp(0f, 1f, 0f, incomingEndThreshold, fraction))
     }
 
+    override fun setDisappearDuration(durationMillis: Int) {
+        this.disappearDurationMillis = durationMillis
+    }
+
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return createFadeAnimationSpec(appear = false)
+        return createFadeAnimationSpec(appearing = false)
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
         return modifier.alpha(alpha = lerp(1f, 0f, 0f, 1f, fraction))
     }
 
-    private fun createFadeAnimationSpec(appear: Boolean): FiniteAnimationSpec<Float> {
+    private fun createFadeAnimationSpec(appearing: Boolean): FiniteAnimationSpec<Float> {
         return tween(
-            durationMillis = durationMillis
-                ?: if (appear) motionDurationShort2 else motionDurationShort1,
+            durationMillis = if (appearing) appearDurationMillis else disappearDurationMillis,
             delayMillis = 0,
             easing = LinearEasing
         )

@@ -15,19 +15,32 @@
  */
 package soup.compose.material.motion.internal
 
+import soup.compose.material.motion.MotionConstants.motionDurationShort1
+import soup.compose.material.motion.MotionConstants.motionDurationShort2
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.FadeProvider
 import soup.compose.material.motion.provider.ScaleProvider
 
-internal class FadeSpec : MotionSpec(
-    createPrimaryAnimatorProvider(),
-    createSecondaryAnimatorProvider()
+internal class FadeSpec(
+    appearingDurationMillis: Int = motionDurationShort2,
+    disappearDurationMillis: Int = motionDurationShort1,
+) : MotionSpec(
+    createPrimaryAnimatorProvider().withDuration(appearingDurationMillis, disappearDurationMillis),
+    createSecondaryAnimatorProvider().withDuration(appearingDurationMillis, disappearDurationMillis)
 ) {
 
     companion object {
         private const val DEFAULT_START_SCALE = 0.8f
         private const val DEFAULT_FADE_END_THRESHOLD_ENTER = 0.3f
+
+        private fun VisibilityAnimationProvider.withDuration(
+            appearingDurationMillis: Int,
+            disappearDurationMillis: Int,
+        ) = apply {
+            setAppearDuration(appearingDurationMillis)
+            setDisappearDuration(disappearDurationMillis)
+        }
 
         private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
             return FadeProvider().apply {

@@ -20,15 +20,25 @@ import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.HoldProvider
 
 internal data class HoldSpec(
-    private val durationMillis: Int
+    private val durationMillis: Int,
 ) : MotionSpec(
-    HoldProvider().withDuration(durationMillis),
-    HoldProvider().withDuration(durationMillis)
+    createPrimaryAnimatorProvider().withDuration(durationMillis),
+    createSecondaryAnimatorProvider().withDuration(durationMillis)
 ) {
 
     companion object {
 
-        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) =
-            apply { setDuration(durationMillis) }
+        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) = apply {
+            setAppearDuration(durationMillis)
+            setDisappearDuration(durationMillis)
+        }
+
+        private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
+            return HoldProvider()
+        }
+
+        private fun createSecondaryAnimatorProvider(): VisibilityAnimationProvider {
+            return HoldProvider()
+        }
     }
 }

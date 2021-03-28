@@ -92,12 +92,12 @@ fun <T> MaterialMotion(
         items.clear()
         keys.mapTo(items) { key ->
             MotionAnimationItem(key) {
-                val appear = transition.targetState == key
-                val motionSpec = if (appear) enterMotionSpec else exitMotionSpec
+                val appearing = transition.targetState == key
+                val motionSpec = if (appearing) enterMotionSpec else exitMotionSpec
 
-                fun Modifier.primary(appear: Boolean, fraction: Float): Modifier = run {
+                fun Modifier.primary(appearing: Boolean, fraction: Float): Modifier = run {
                     motionSpec.primaryAnimatorProvider.let { provider ->
-                        if (appear) {
+                        if (appearing) {
                             provider.appear(this, fraction)
                         } else {
                             provider.disappear(this, 1f - fraction)
@@ -105,9 +105,9 @@ fun <T> MaterialMotion(
                     }
                 }
 
-                fun Modifier.secondary(target: Boolean, fraction: Float): Modifier = run {
+                fun Modifier.secondary(appearing: Boolean, fraction: Float): Modifier = run {
                     motionSpec.secondaryAnimatorProvider.let { provider ->
-                        if (target) {
+                        if (appearing) {
                             provider.appear(this, fraction)
                         } else {
                             provider.disappear(this, 1f - fraction)
@@ -143,8 +143,8 @@ fun <T> MaterialMotion(
 
                 Box(
                     modifier = Modifier
-                        .primary(appear, primaryFraction)
-                        .secondary(appear, secondaryFraction)
+                        .primary(appearing, primaryFraction)
+                        .secondary(appearing, secondaryFraction)
                 ) {
                     content(key)
                 }

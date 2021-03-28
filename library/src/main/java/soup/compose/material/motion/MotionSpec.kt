@@ -24,6 +24,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import soup.compose.material.motion.MotionConstants.motionDurationLong1
+import soup.compose.material.motion.MotionConstants.motionDurationShort1
+import soup.compose.material.motion.MotionConstants.motionDurationShort2
 import soup.compose.material.motion.internal.CrossfadeSpec
 import soup.compose.material.motion.internal.ElevationScaleSpec
 import soup.compose.material.motion.internal.FadeSpec
@@ -47,11 +49,11 @@ abstract class MotionSpec(
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 interface VisibilityAnimationProvider {
-    fun setDuration(durationMillis: Int)
-
+    fun setAppearDuration(durationMillis: Int)
     fun createAppearAnimationSpec(): FiniteAnimationSpec<Float>
     fun appear(modifier: Modifier, fraction: Float): Modifier
 
+    fun setDisappearDuration(durationMillis: Int)
     fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float>
     fun disappear(modifier: Modifier, fraction: Float): Modifier
 }
@@ -122,7 +124,10 @@ fun fadeThrough(
 /**
  * [fade] allows to switch a layout with a fade animation.
  */
-fun fade(): MotionSpec = FadeSpec()
+fun fade(
+    appearingDurationMillis: Int = motionDurationShort2,
+    disappearDurationMillis: Int = motionDurationShort1,
+): MotionSpec = FadeSpec(appearingDurationMillis, disappearDurationMillis)
 
 /**
  * [crossfade] allows to switch a layout with a crossfade animation.
