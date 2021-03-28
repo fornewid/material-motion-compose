@@ -30,8 +30,10 @@ internal data class FadeThroughSpec(
     companion object {
         private const val DEFAULT_START_SCALE = 0.92f
 
-        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) =
-            apply { setDuration(durationMillis) }
+        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) = apply {
+            setAppearDuration(durationMillis)
+            setDisappearDuration(durationMillis)
+        }
 
         private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
             return FadeThroughProvider()

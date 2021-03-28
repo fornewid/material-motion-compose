@@ -25,25 +25,36 @@ import soup.compose.material.motion.VisibilityAnimationProvider
 @SuppressLint("ModifierFactoryExtensionFunction")
 class HoldProvider : VisibilityAnimationProvider {
 
-    private var durationMillis: Int = motionDurationLong1
+    private var appearDurationMillis: Int = motionDurationLong1
+    private var disappearDurationMillis: Int = motionDurationLong1
 
-    override fun setDuration(durationMillis: Int) {
-        this.durationMillis = durationMillis
+    override fun setAppearDuration(durationMillis: Int) {
+        this.appearDurationMillis = durationMillis
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return tween(durationMillis = durationMillis)
+        return createHoldAnimationSpec(appearing = true)
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
         return modifier
     }
 
+    override fun setDisappearDuration(durationMillis: Int) {
+        this.disappearDurationMillis = durationMillis
+    }
+
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return tween(durationMillis = durationMillis)
+        return createHoldAnimationSpec(appearing = false)
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
         return modifier
+    }
+
+    private fun createHoldAnimationSpec(appearing: Boolean): FiniteAnimationSpec<Float> {
+        return tween(
+            durationMillis = if (appearing) appearDurationMillis else disappearDurationMillis
+        )
     }
 }

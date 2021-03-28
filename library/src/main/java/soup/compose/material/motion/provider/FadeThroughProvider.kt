@@ -29,32 +29,38 @@ import soup.compose.material.motion.internal.MotionUtils.lerp
 @SuppressLint("ModifierFactoryExtensionFunction")
 class FadeThroughProvider : VisibilityAnimationProvider {
 
-    private var durationMillis: Int = motionDurationLong1
+    private var appearDurationMillis: Int = motionDurationLong1
+    private var disappearDurationMillis: Int = motionDurationLong1
 
-    override fun setDuration(durationMillis: Int) {
-        this.durationMillis = durationMillis
+    override fun setAppearDuration(durationMillis: Int) {
+        this.appearDurationMillis = durationMillis
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return createFadeThroughAnimationSpec(appear = true)
+        return createFadeThroughAnimationSpec(appearing = true)
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
         return modifier.alpha(alpha = lerp(0f, 1f, fraction))
     }
 
+    override fun setDisappearDuration(durationMillis: Int) {
+        this.disappearDurationMillis = durationMillis
+    }
+
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return createFadeThroughAnimationSpec(appear = false)
+        return createFadeThroughAnimationSpec(appearing = false)
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
         return modifier.alpha(alpha = lerp(1f, 0f, fraction))
     }
 
-    private fun createFadeThroughAnimationSpec(appear: Boolean): FiniteAnimationSpec<Float> {
+    private fun createFadeThroughAnimationSpec(appearing: Boolean): FiniteAnimationSpec<Float> {
+        val durationMillis = if (appearing) appearDurationMillis else disappearDurationMillis
         val outgoingDurationMillis = (durationMillis * PROGRESS_THRESHOLD).toInt()
         val incomingDurationMillis = durationMillis - outgoingDurationMillis
-        return if (appear) {
+        return if (appearing) {
             tween(
                 durationMillis = incomingDurationMillis,
                 delayMillis = outgoingDurationMillis,

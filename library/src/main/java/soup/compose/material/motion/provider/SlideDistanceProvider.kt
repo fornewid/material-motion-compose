@@ -37,17 +37,15 @@ class SlideDistanceProvider(
         LEFT, TOP, RIGHT, BOTTOM
     }
 
-    private var durationMillis: Int = motionDurationLong1
+    private var appearDurationMillis: Int = motionDurationLong1
+    private var disappearDurationMillis: Int = motionDurationLong1
 
-    override fun setDuration(durationMillis: Int) {
-        this.durationMillis = durationMillis
+    override fun setAppearDuration(durationMillis: Int) {
+        this.appearDurationMillis = durationMillis
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
+        return createSlideDistanceAnimationSpec(appearing = true)
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
@@ -60,11 +58,12 @@ class SlideDistanceProvider(
         }
     }
 
+    override fun setDisappearDuration(durationMillis: Int) {
+        this.disappearDurationMillis = durationMillis
+    }
+
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
+        return createSlideDistanceAnimationSpec(appearing = false)
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
@@ -75,6 +74,13 @@ class SlideDistanceProvider(
             SlideEdge.RIGHT -> modifier.appearOffsetX(fraction, 0.dp, -slideDistance)
             SlideEdge.BOTTOM -> modifier.appearOffsetY(fraction, 0.dp, -slideDistance)
         }
+    }
+
+    private fun createSlideDistanceAnimationSpec(appearing: Boolean): FiniteAnimationSpec<Float> {
+        return tween(
+            durationMillis = if (appearing) appearDurationMillis else disappearDurationMillis,
+            easing = FastOutSlowInEasing
+        )
     }
 
     private fun Modifier.appearOffsetX(

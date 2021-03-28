@@ -24,7 +24,7 @@ import soup.compose.material.motion.VisibilityAnimationProvider
 @SuppressLint("ModifierFactoryExtensionFunction")
 class EmptyProvider : VisibilityAnimationProvider {
 
-    override fun setDuration(durationMillis: Int) {
+    override fun setAppearDuration(durationMillis: Int) {
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
@@ -33,6 +33,9 @@ class EmptyProvider : VisibilityAnimationProvider {
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
         return modifier
+    }
+
+    override fun setDisappearDuration(durationMillis: Int) {
     }
 
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {

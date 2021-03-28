@@ -30,7 +30,8 @@ class ScaleProvider(
     private val growing: Boolean = true,
 ) : VisibilityAnimationProvider {
 
-    private var durationMillis: Int = motionDurationLong1
+    private var appearDurationMillis: Int = motionDurationLong1
+    private var disappearDurationMillis: Int = motionDurationLong1
 
     var scaleOnDisappear = true
     var outgoingStartScale = 1f
@@ -38,12 +39,12 @@ class ScaleProvider(
     var incomingStartScale = 0.8f
     var incomingEndScale = 1f
 
-    override fun setDuration(durationMillis: Int) {
-        this.durationMillis = durationMillis
+    override fun setAppearDuration(durationMillis: Int) {
+        this.appearDurationMillis = durationMillis
     }
 
     override fun createAppearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return createScaleAnimationSpec()
+        return createScaleAnimationSpec(appearing = true)
     }
 
     override fun appear(modifier: Modifier, fraction: Float): Modifier {
@@ -56,8 +57,12 @@ class ScaleProvider(
         )
     }
 
+    override fun setDisappearDuration(durationMillis: Int) {
+        this.disappearDurationMillis = durationMillis
+    }
+
     override fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float> {
-        return createScaleAnimationSpec()
+        return createScaleAnimationSpec(appearing = false)
     }
 
     override fun disappear(modifier: Modifier, fraction: Float): Modifier {
@@ -73,9 +78,9 @@ class ScaleProvider(
         )
     }
 
-    private fun createScaleAnimationSpec(): FiniteAnimationSpec<Float> {
+    private fun createScaleAnimationSpec(appearing: Boolean): FiniteAnimationSpec<Float> {
         return tween(
-            durationMillis = durationMillis,
+            durationMillis = if (appearing) appearDurationMillis else disappearDurationMillis,
             easing = FastOutSlowInEasing
         )
     }

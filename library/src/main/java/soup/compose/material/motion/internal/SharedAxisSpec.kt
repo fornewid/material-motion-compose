@@ -36,8 +36,10 @@ internal data class SharedAxisSpec(
 
     companion object {
 
-        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) =
-            apply { setDuration(durationMillis) }
+        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) = apply {
+            setAppearDuration(durationMillis)
+            setDisappearDuration(durationMillis)
+        }
 
         private fun createPrimaryAnimatorProvider(
             axis: Axis,
