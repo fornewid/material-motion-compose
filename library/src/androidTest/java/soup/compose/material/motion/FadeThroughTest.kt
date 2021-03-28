@@ -30,10 +30,6 @@ class FadeThroughTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return if (durationMillis == null) {
-            fadeThrough()
-        } else {
-            fadeThrough(durationMillis = durationMillis)
-        }
+        return fadeThrough()
     }
 }

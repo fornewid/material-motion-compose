@@ -30,10 +30,6 @@ class HoldTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return if (durationMillis == null) {
-            hold()
-        } else {
-            hold(durationMillis = durationMillis)
-        }
+        return hold()
     }
 }
