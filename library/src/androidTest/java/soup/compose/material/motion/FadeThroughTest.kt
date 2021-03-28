@@ -24,16 +24,16 @@ import soup.compose.material.motion.MotionConstants.motionDurationLong1
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @OptIn(ExperimentalTestApi::class)
-class ElevationScaleTest : MaterialMotionTest() {
+class FadeThroughTest : MaterialMotionTest() {
 
     override val defaultDurationMillis: Int
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
         return if (durationMillis == null) {
-            elevationScale()
+            fadeThrough()
         } else {
-            elevationScale(durationMillis = durationMillis)
+            fadeThrough(durationMillis = durationMillis)
         }
     }
 }

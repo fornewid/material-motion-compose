@@ -15,25 +15,25 @@
  */
 package soup.compose.material.motion
 
+import androidx.compose.animation.core.tween
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import org.junit.runner.RunWith
-import soup.compose.material.motion.MotionConstants.motionDurationLong1
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @OptIn(ExperimentalTestApi::class)
-class ElevationScaleTest : MaterialMotionTest() {
+class CrossfadeTest : MaterialMotionTest() {
 
     override val defaultDurationMillis: Int
-        get() = motionDurationLong1
+        get() = MotionConstants.motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
         return if (durationMillis == null) {
-            elevationScale()
+            crossfade()
         } else {
-            elevationScale(durationMillis = durationMillis)
+            crossfade(animationSpec = tween(durationMillis))
         }
     }
 }
