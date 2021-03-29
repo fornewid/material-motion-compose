@@ -9,6 +9,24 @@
 
 Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android.
 
+## Installation
+
+Add Jitpack repository to your project's `build.gradle`:
+```
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+And add the dependency. Depend on the [latest version](https://github.com/fornewid/material-motion-compose/releases) of the library.
+```
+dependencies {
+    implementation 'com.github.fornewid:material-motion-compose:<version>'
+}
+```
+
 ## Usage
 
 This library provides support for [motion patterns](https://material.io/design/motion/the-motion-system.html) defined in the Material spec.
@@ -113,8 +131,16 @@ or use [Crossfade](https://github.com/androidx/androidx/blob/androidx-main/compo
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+Hold(
+    targetState = screen
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
 MaterialMotion(
-    targetState = selectedTab,
+    targetState = screen,
     motionSpec = hold()
 ) { newScreen ->
     // composable according to screen
@@ -124,6 +150,30 @@ MaterialMotion(
 | Hold                       |
 | -------------------------- |
 | <img width="200" src="docs/hold.gif" /> |
+
+### Elevation scale
+
+```kt
+val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+ElevationScale(
+    targetState = screen
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
+MaterialMotion(
+    targetState = screen,
+    motionSpec = elevationScale()
+) { newScreen ->
+    // composable according to screen
+}
+```
+
+| ElevationScale             |
+| -------------------------- |
+| <img width="200" src="docs/elevation_scale.gif" /> |
 
 ### If you want to use different motions depending on the state:
 
@@ -156,24 +206,6 @@ MaterialMotion(
 | Demo                       |
 | -------------------------- |
 | <img width="200" src="docs/demo.gif" /> |
-
-## Installation
-
-Add Jitpack repository to your project's `build.gradle`:
-```
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
-}
-```
-
-And add the dependency. Depend on the [latest version](https://github.com/fornewid/material-motion-compose/releases) of the library.
-```
-dependencies {
-    implementation 'com.github.fornewid:material-motion-compose:<version>'
-}
-```
 
 ## License
 Licensed under the Apache 2.0 license. See [LICENSE](https://github.com/fornewid/material-motion-compose/blob/main/LICENSE) for details.
