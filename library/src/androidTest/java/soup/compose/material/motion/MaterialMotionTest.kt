@@ -95,7 +95,7 @@ abstract class MaterialMotionTest {
         var showFirst by mutableStateOf(true)
         var disposed = false
         rule.setContentWithMaterialMotion(durationMillis = duration) {
-            MaterialMotion(showFirst, motionSpec = motionSpec(showFirst)) {
+            MaterialMotion(showFirst, motionSpec = motionSpec(showFirst, duration)) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
                     onDispose {
@@ -159,7 +159,7 @@ abstract class MaterialMotionTest {
         var counter2 = 0
         rule.setContentWithMaterialMotion(durationMillis = duration) {
             val saveableStateHolder = rememberSaveableStateHolder()
-            MaterialMotion(showFirst, motionSpec = motionSpec(showFirst)) {
+            MaterialMotion(showFirst, motionSpec = motionSpec(showFirst, duration)) {
                 saveableStateHolder.SaveableStateProvider(it) {
                     if (it) {
                         counter1 = rememberSaveable { counter++ }
