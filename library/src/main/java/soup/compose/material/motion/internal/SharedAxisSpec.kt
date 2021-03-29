@@ -15,8 +15,10 @@
  */
 package soup.compose.material.motion.internal
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import soup.compose.material.motion.Axis
+import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.FadeThroughProvider
@@ -27,19 +29,18 @@ import soup.compose.material.motion.provider.SlideDistanceProvider.SlideEdge
 internal data class SharedAxisSpec(
     private val axis: Axis,
     private val forward: Boolean,
-    private val durationMillis: Int,
     private val slideDistance: Dp? = null,
 ) : MotionSpec(
-    createPrimaryAnimatorProvider(axis, forward, slideDistance).withDuration(durationMillis),
-    createSecondaryAnimatorProvider().withDuration(durationMillis)
+    createPrimaryAnimatorProvider(axis, forward, slideDistance),
+    createSecondaryAnimatorProvider()
 ) {
 
-    companion object {
+    @Composable
+    override fun getDuration(appearing: Boolean): Int {
+        return MaterialMotions.durations.motionDurationLong1
+    }
 
-        private fun VisibilityAnimationProvider.withDuration(durationMillis: Int) = apply {
-            setAppearDuration(durationMillis)
-            setDisappearDuration(durationMillis)
-        }
+    companion object {
 
         private fun createPrimaryAnimatorProvider(
             axis: Axis,

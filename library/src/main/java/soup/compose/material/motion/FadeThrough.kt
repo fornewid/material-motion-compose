@@ -19,7 +19,6 @@ package soup.compose.material.motion
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import soup.compose.material.motion.MotionConstants.motionDurationLong1
 
 /**
  * [FadeThrough] allows to switch between two layouts with a fade through animation.
@@ -30,18 +29,16 @@ import soup.compose.material.motion.MotionConstants.motionDurationLong1
  * the animation will be triggered. The [content] called with the old key will be faded out while
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
- * @param durationMillis total duration of the animation.
  */
 @Composable
 fun <T> FadeThrough(
     targetState: T,
     modifier: Modifier = Modifier,
-    durationMillis: Int = motionDurationLong1,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = fadeThrough(durationMillis),
+        motionSpec = fadeThrough(),
         modifier = modifier,
         content = content
     )

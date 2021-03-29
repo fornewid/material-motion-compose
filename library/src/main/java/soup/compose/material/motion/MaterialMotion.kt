@@ -94,6 +94,7 @@ fun <T> MaterialMotion(
             MotionAnimationItem(key) {
                 val appearing = transition.targetState == key
                 val motionSpec = if (appearing) enterMotionSpec else exitMotionSpec
+                motionSpec.applyThemeValues()
 
                 fun Modifier.primary(appearing: Boolean, fraction: Float): Modifier = run {
                     motionSpec.primaryAnimatorProvider.let { provider ->

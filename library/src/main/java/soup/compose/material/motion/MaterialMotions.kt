@@ -15,21 +15,25 @@
  */
 package soup.compose.material.motion
 
-import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.MediumTest
-import org.junit.runner.RunWith
-import soup.compose.material.motion.MotionConstants.motionDurationLong1
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
-@RunWith(AndroidJUnit4::class)
-@MediumTest
-@OptIn(ExperimentalTestApi::class)
-class HoldTest : MaterialMotionTest() {
+object MaterialMotions {
 
-    override val defaultDurationMillis: Int
-        get() = motionDurationLong1
+    val durations: Durations
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDurations.current
+}
 
-    override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return hold()
-    }
+@Composable
+fun ProvideMaterialMotions(
+    durations: Durations = MaterialMotions.durations,
+    content: @Composable () -> Unit,
+) {
+    CompositionLocalProvider(
+        LocalDurations provides durations,
+        content = content
+    )
 }

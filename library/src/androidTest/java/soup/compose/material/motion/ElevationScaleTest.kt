@@ -30,10 +30,6 @@ class ElevationScaleTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return if (durationMillis == null) {
-            elevationScale()
-        } else {
-            elevationScale(durationMillis = durationMillis)
-        }
+        return elevationScale()
     }
 }
