@@ -207,5 +207,23 @@ MaterialMotion(
 | -------------------------- |
 | <img width="200" src="docs/demo.gif" /> |
 
+### If you want to change motion durations:
+
+You need to call the `ProvideMaterialMotions` function with custom durations and wrap your content.
+
+This would typically be done near the top level of your composable hierarchy.
+
+```kt
+setContent {
+  MaterialTheme {
+    ProvideMaterialMotions(
+        durations = Durations(...)
+    ) {
+      // your content
+    }
+  }
+}
+```
+
 ## License
 Licensed under the Apache 2.0 license. See [LICENSE](https://github.com/fornewid/material-motion-compose/blob/main/LICENSE) for details.
