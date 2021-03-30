@@ -15,13 +15,37 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.hold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+import soup.compose.material.motion.sharedAxisZ
 
 @Composable
 fun DemoScreen() {
-    LibraryScreen()
+    val (state, onStateChanged) = remember {
+        mutableStateOf<Long?>(null)
+    }
+    MaterialMotion(
+        targetState = state,
+        enterMotionSpec = if (state != null) sharedAxisZ(true) else hold(),
+        exitMotionSpec = if (state != null) hold() else sharedAxisZ(false),
+        pop = state == null
+    ) { currentId ->
+        if (currentId != null) {
+            BackHandler { onStateChanged(null) }
+            val dispatcher = LocalOnBackPressedDispatcherOwner.current.onBackPressedDispatcher
+            val album = MusicData.albums.first { it.id == currentId }
+            AlbumScreen(album, upPress = { dispatcher.onBackPressed() })
+        } else {
+            LibraryScreen(onItemClick = { onStateChanged(it.id) })
+        }
+    }
 }
 
 @Preview(showBackground = true)

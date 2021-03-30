@@ -48,6 +48,7 @@ import androidx.constraintlayout.compose.Dimension
 @Composable
 fun LibraryGridContents(
     items: List<MusicData.Album>,
+    onItemClick: (MusicData.Album) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -56,7 +57,7 @@ fun LibraryGridContents(
         contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
     ) {
         items(items) {
-            LibraryGridItem(it, onItemClick = {})
+            LibraryGridItem(it, onItemClick = onItemClick)
         }
     }
 }
@@ -133,6 +134,7 @@ private fun LibraryGridItem(
 @Composable
 fun LibraryLinearContents(
     items: List<MusicData.Album>,
+    onItemClick: (MusicData.Album) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -140,7 +142,7 @@ fun LibraryLinearContents(
         contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
     ) {
         items(items) {
-            LibraryLinearItem(it, onItemClick = {})
+            LibraryLinearItem(it, onItemClick = onItemClick)
             Divider()
         }
     }

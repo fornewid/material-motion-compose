@@ -21,12 +21,30 @@ import soup.compose.material.motion.sample.R
 /** A static store of data to be used in the transition's main music player flow example.  */
 object MusicData {
 
+    private val tracks: List<Track> = listOf(
+        Track(1, "First", "3:25", true),
+        Track(2, "Second", "4:51", false),
+        Track(3, "Third", "4:12", false),
+        Track(4, "Fourth", "2:34", false),
+        Track(5, "Fifth", "439", false),
+        Track(6, "Sixth", "2:31", false),
+        Track(7, "Seventh", "5:25", false),
+        Track(8, "Eighth", "3:46", false),
+        Track(9, "Ninth", "4:28", false),
+        Track(10, "Tenth", "4:47", false),
+        Track(11, "Eleventh", "5:14", false),
+        Track(12, "Twelfth", "4:46", false),
+        Track(13, "Thirteenth", "7:13", false),
+        Track(14, "Fourteenth", "2:43", false)
+    )
+
     val albums: List<Album> = listOf(
         Album(
             0L,
             "Metamorphosis",
             "Sandra Adams",
             R.drawable.album_efe_kurnaz_unsplash,
+            tracks,
             "52 mins"
         ),
         Album(
@@ -34,6 +52,7 @@ object MusicData {
             "Continuity",
             "Ali Connors",
             R.drawable.album_pawel_czerwinski_unsplash,
+            tracks,
             "92 mins"
         ),
         Album(
@@ -41,6 +60,7 @@ object MusicData {
             "Break Point",
             "David Park",
             R.drawable.album_jean_philippe_delberghe_unsplash,
+            tracks,
             "45 mins"
         ),
         Album(
@@ -48,6 +68,7 @@ object MusicData {
             "Headspace",
             "Charlie z.",
             R.drawable.album_karina_vorozheeva_unsplash,
+            tracks,
             "65 mins"
         ),
         Album(
@@ -55,6 +76,7 @@ object MusicData {
             "New Neighbors",
             "Trevor Hansen",
             R.drawable.album_amy_shamblen_unsplash,
+            tracks,
             "73 mins"
         ),
         Album(
@@ -62,6 +84,7 @@ object MusicData {
             "Spaced Out",
             "Jonas Eckhart",
             R.drawable.album_pawel_czerwinski_unsplash_2,
+            tracks,
             "4 mins"
         ),
         Album(
@@ -69,6 +92,7 @@ object MusicData {
             "Holding on",
             "Elizabeth Park",
             R.drawable.album_kristopher_roller_unsplash,
+            tracks,
             "40 mins"
         ),
         Album(
@@ -76,6 +100,7 @@ object MusicData {
             "Persistence",
             "Britta Holt",
             R.drawable.album_emile_seguin_unsplash,
+            tracks,
             "39 mins"
         ),
         Album(
@@ -83,6 +108,7 @@ object MusicData {
             "At the Top",
             "Annie Chiu",
             R.drawable.album_ellen_qin_unsplash,
+            tracks,
             "46 mins"
         ),
         Album(
@@ -90,6 +116,7 @@ object MusicData {
             "On Dry Land",
             "Alfonso Gonzalez",
             R.drawable.album_david_clode_unsplash,
+            tracks,
             "55 mins"
         )
     )
@@ -104,6 +131,15 @@ object MusicData {
         val title: String,
         val artist: String,
         @DrawableRes val cover: Int,
+        val tracks: List<Track>,
         val duration: String,
+    )
+
+    /** A data class to hold information about a track on an album.  */
+    data class Track(
+        val track: Int,
+        val title: String,
+        val duration: String,
+        var playing: Boolean,
     )
 }
