@@ -46,7 +46,7 @@ import androidx.constraintlayout.compose.Dimension
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AlbumGridContents(
+fun LibraryGridContents(
     items: List<MusicData.Album>,
     modifier: Modifier = Modifier,
 ) {
@@ -56,13 +56,13 @@ fun AlbumGridContents(
         contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
     ) {
         items(items) {
-            AlbumGridItem(it, onItemClick = {})
+            LibraryGridItem(it, onItemClick = {})
         }
     }
 }
 
 @Composable
-private fun AlbumGridItem(
+private fun LibraryGridItem(
     album: MusicData.Album,
     onItemClick: (MusicData.Album) -> Unit,
 ) {
@@ -131,7 +131,7 @@ private fun AlbumGridItem(
 }
 
 @Composable
-fun AlbumLinearContents(
+fun LibraryLinearContents(
     items: List<MusicData.Album>,
     modifier: Modifier = Modifier,
 ) {
@@ -140,14 +140,14 @@ fun AlbumLinearContents(
         contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
     ) {
         items(items) {
-            AlbumLinearItem(it, onItemClick = {})
+            LibraryLinearItem(it, onItemClick = {})
             Divider()
         }
     }
 }
 
 @Composable
-private fun AlbumLinearItem(
+private fun LibraryLinearItem(
     album: MusicData.Album,
     onItemClick: (MusicData.Album) -> Unit,
 ) {

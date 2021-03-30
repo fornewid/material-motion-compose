@@ -133,8 +133,8 @@ private fun LibraryContents(state: LibraryState) {
             SortType.Z_TO_A -> MusicData.albums.asReversed()
         }
         when (state.listType) {
-            ListType.Grid -> AlbumGridContents(items)
-            ListType.Linear -> AlbumLinearContents(items)
+            ListType.Grid -> LibraryGridContents(items)
+            ListType.Linear -> LibraryLinearContents(items)
         }
     }
 }
