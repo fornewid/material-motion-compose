@@ -136,7 +136,6 @@ fun AlbumHeader(album: MusicData.Album) {
             )
         }
     }
-    Spacer(modifier = Modifier.requiredHeight(8.dp))
 }
 
 @Composable

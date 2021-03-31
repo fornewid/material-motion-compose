@@ -15,22 +15,80 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 @Composable
 fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
+    val collapsedHeaderSize = LocalDensity.current.run { 56.dp.toPx().toInt() }
     val listState = rememberLazyListState()
-    AlbumScaffold(upPress = upPress, collapse = listState.firstVisibleItemIndex > 0) {
+    val coroutineScope = rememberCoroutineScope()
+    OnHeaderCollapse(listState, collapsedHeaderSize) { scrollOffset ->
+        coroutineScope.launch {
+            listState.animateScrollToItem(0, scrollOffset = scrollOffset)
+        }
+    }
+    AlbumScaffold(
+        upPress = upPress,
+        collapse = listState.isHeaderCollapsed(collapsedHeaderSize)
+    ) {
         LazyColumn(state = listState) {
             item {
                 AlbumHeader(album)
+            }
+            item {
+                Spacer(modifier = Modifier.requiredHeight(8.dp))
             }
             items(album.tracks) { track ->
                 AlbumTrackItem(track = track)
             }
         }
     }
+}
+
+@Composable
+private fun OnHeaderCollapse(
+    listState: LazyListState,
+    collapsedHeaderSize: Int,
+    scrollToOffset: (Int) -> Unit,
+) {
+    fun LazyListState.needsCollapse(): Boolean {
+        val header = layoutInfo.visibleItemsInfo.getOrNull(0)
+        if (header != null) {
+            return header.size / 2 < firstVisibleItemScrollOffset
+        }
+        return false
+    }
+    if (!listState.isScrollInProgress.not() || listState.firstVisibleItemIndex != 0) return
+    val header = listState.layoutInfo.visibleItemsInfo.getOrNull(0) ?: return
+    LaunchedEffect(Unit) {
+        val scrollOffset = if (listState.needsCollapse()) {
+            header.size - collapsedHeaderSize
+        } else {
+            0
+        }
+        scrollToOffset(scrollOffset)
+    }
+}
+
+private fun LazyListState.isHeaderCollapsed(collapsedHeaderSize: Int): Boolean {
+    if (firstVisibleItemIndex > 0) {
+        return true
+    }
+    val header = layoutInfo.visibleItemsInfo.getOrNull(0)
+    if (header != null) {
+        return header.size - firstVisibleItemScrollOffset <= collapsedHeaderSize + 5
+    }
+    return false
 }
