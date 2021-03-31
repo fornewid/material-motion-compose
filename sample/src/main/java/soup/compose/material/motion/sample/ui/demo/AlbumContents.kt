@@ -28,10 +28,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.material.Card
+import androidx.compose.material.Colors
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.LocalAbsoluteElevation
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -40,6 +44,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,7 +56,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import soup.compose.material.motion.sample.R
+import soup.compose.material.motion.sample.ui.theme.Purple200
 
 @Composable
 fun AlbumScaffold(
@@ -60,7 +68,10 @@ fun AlbumScaffold(
     content: @Composable () -> Unit,
 ) {
     val backgroundColor = if (collapse) {
-        MaterialTheme.colors.primarySurface
+        val color = MaterialTheme.colors.primarySurface
+        val elevationOverlay = LocalElevationOverlay.current
+        val absoluteElevation = LocalAbsoluteElevation.current + 1.dp
+        elevationOverlay?.apply(color, absoluteElevation) ?: color
     } else {
         Color.Transparent
     }
@@ -102,41 +113,80 @@ fun AlbumScaffold(
 
 @Composable
 fun AlbumHeader(album: MusicData.Album) {
-    Image(
-        painter = painterResource(album.cover),
-        contentDescription = null,
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f),
-        contentScale = ContentScale.Crop
-    )
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .requiredHeight(196.dp),
-        shape = RectangleShape,
-        backgroundColor = MaterialTheme.colors.primarySurface
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
+    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+        val (image, info, fab) = createRefs()
+        Image(
+            painter = painterResource(album.cover),
+            contentDescription = null,
             modifier = Modifier
-                .padding(start = 56.dp, end = 16.dp),
+                .aspectRatio(1f)
+                .constrainAs(image) {
+                    width = Dimension.fillToConstraints
+                    linkTo(
+                        start = parent.start,
+                        end = parent.end,
+                        top = parent.top,
+                        bottom = info.top
+                    )
+                },
+            contentScale = ContentScale.Crop
+        )
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(196.dp)
+                .constrainAs(info) {
+                    width = Dimension.fillToConstraints
+                    linkTo(
+                        start = parent.start,
+                        end = parent.end,
+                        top = image.bottom,
+                        bottom = parent.bottom
+                    )
+                },
+            shape = RectangleShape,
+            backgroundColor = MaterialTheme.colors.primarySurface
         ) {
-            Text(
-                text = album.title,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                style = MaterialTheme.typography.h3
-            )
-            Text(
-                text = album.artist,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                style = MaterialTheme.typography.subtitle1
-            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .padding(start = 56.dp, end = 16.dp),
+            ) {
+                Text(
+                    text = album.title,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.h3
+                )
+                Text(
+                    text = album.artist,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.subtitle1
+                )
+            }
+        }
+        FloatingActionButton(
+            onClick = {},
+            backgroundColor = MaterialTheme.colors.fabBackground,
+            contentColor = MaterialTheme.colors.surface,
+            modifier = Modifier
+                .padding(16.dp)
+                .constrainAs(fab) {
+                    end.linkTo(parent.end, margin = 16.dp)
+                    linkTo(
+                        top = info.top,
+                        bottom = info.top
+                    )
+                }
+        ) {
+            Icon(Icons.Default.PlayArrow, contentDescription = null)
         }
     }
 }
+
+private val Colors.fabBackground: Color
+    get() = if (isLight) Color.Black else Purple200
 
 @Composable
 fun AlbumTrackItem(track: MusicData.Track) {
