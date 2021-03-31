@@ -144,7 +144,7 @@ fun AlbumTrackItem(track: MusicData.Track) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .requiredHeight(48.dp)
+            .requiredHeight(56.dp)
             .padding(horizontal = 16.dp)
     ) {
         Image(
