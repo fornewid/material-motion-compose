@@ -16,6 +16,7 @@
 package soup.compose.material.motion.sample.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,9 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.ElevationScale
@@ -90,47 +88,25 @@ private fun HomeMenuItem(
     menu: Destination,
     onItemClick: (Destination) -> Unit,
 ) {
-    ConstraintLayout(
+    Column(
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
             .requiredHeight(64.dp)
+            .padding(horizontal = 16.dp)
             .clickable { onItemClick(menu) }
     ) {
-        val (title, description) = createRefs()
         Text(
             text = menu.name,
-            modifier = Modifier
-                .constrainAs(title) {
-                    width = Dimension.fillToConstraints
-                    linkTo(
-                        start = parent.start,
-                        top = parent.top,
-                        end = parent.end,
-                        bottom = description.top,
-                        startMargin = 16.dp,
-                        endMargin = 16.dp
-                    )
-                },
+            modifier = Modifier.fillMaxWidth(),
             fontWeight = FontWeight.SemiBold,
             style = MaterialTheme.typography.body2
         )
         Text(
-            modifier = Modifier
-                .constrainAs(description) {
-                    width = Dimension.fillToConstraints
-                    linkTo(
-                        start = parent.start,
-                        top = title.bottom,
-                        end = parent.end,
-                        bottom = parent.bottom,
-                        startMargin = 16.dp,
-                        endMargin = 16.dp
-                    )
-                },
+            modifier = Modifier.fillMaxWidth(),
             text = menu.description,
             style = MaterialTheme.typography.caption
         )
-        createVerticalChain(title, description, chainStyle = ChainStyle.Packed)
     }
 }
 

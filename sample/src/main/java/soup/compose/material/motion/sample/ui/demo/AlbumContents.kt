@@ -19,12 +19,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.material.Card
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
@@ -49,9 +51,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import soup.compose.material.motion.sample.R
 
 @Composable
@@ -142,71 +141,42 @@ fun AlbumHeader(album: MusicData.Album) {
 
 @Composable
 fun AlbumTrackItem(track: MusicData.Track) {
-    ConstraintLayout(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .requiredHeight(48.dp)
             .padding(horizontal = 16.dp)
     ) {
-        val (playingIcon, number, title, duration) = createRefs()
         Image(
             painter = painterResource(R.drawable.ic_volume_up_black_24dp),
             contentDescription = null,
-            modifier = Modifier
-                .constrainAs(playingIcon) {
-                    start.linkTo(parent.start)
-                    linkTo(
-                        top = parent.top,
-                        bottom = parent.bottom
-                    )
-                },
+            modifier = Modifier.align(Alignment.CenterVertically),
             contentScale = ContentScale.Crop,
             colorFilter = ColorFilter.tint(
                 LocalContentColor.current.copy(alpha = ContentAlpha.medium)
             )
         )
+        Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
             text = track.track.toString(),
-            modifier = Modifier
-                .constrainAs(number) {
-                    start.linkTo(playingIcon.end, margin = 16.dp)
-                    linkTo(
-                        top = parent.top,
-                        bottom = parent.bottom,
-                    )
-                },
+            modifier = Modifier.align(Alignment.CenterVertically),
             style = MaterialTheme.typography.body2
         )
+        Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
             text = track.title,
             modifier = Modifier
-                .constrainAs(title) {
-                    width = Dimension.fillToConstraints
-                    linkTo(
-                        start = number.end,
-                        top = parent.top,
-                        end = duration.start,
-                        bottom = parent.bottom,
-                        startMargin = 16.dp,
-                        endMargin = 16.dp
-                    )
-                },
+                .align(Alignment.CenterVertically)
+                .weight(1f),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.subtitle2
         )
+        Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
             text = track.duration,
-            modifier = Modifier
-                .constrainAs(duration) {
-                    end.linkTo(parent.end)
-                    linkTo(
-                        top = parent.top,
-                        bottom = parent.bottom
-                    )
-                },
+            modifier = Modifier.align(Alignment.CenterVertically),
             style = MaterialTheme.typography.body2
         )
-        createVerticalChain(title, number, chainStyle = ChainStyle.Packed)
     }
 }
