@@ -15,208 +15,217 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.material.Card
+import androidx.compose.material.Colors
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Divider
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalAbsoluteElevation
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import soup.compose.material.motion.sample.R
+import soup.compose.material.motion.sample.ui.theme.Purple200
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AlbumGridContents(
-    items: List<MusicData.Album>,
-    modifier: Modifier = Modifier,
+fun AlbumScaffold(
+    upPress: () -> Unit,
+    collapse: Boolean,
+    content: @Composable () -> Unit,
 ) {
-    LazyVerticalGrid(
-        cells = GridCells.Fixed(2),
-        modifier = modifier,
-        contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
-    ) {
-        items(items) {
-            AlbumGridItem(it, onItemClick = {})
-        }
+    val backgroundColor = if (collapse) {
+        val color = MaterialTheme.colors.primarySurface
+        val elevationOverlay = LocalElevationOverlay.current
+        val absoluteElevation = LocalAbsoluteElevation.current + 1.dp
+        elevationOverlay?.apply(color, absoluteElevation) ?: color
+    } else {
+        Color.Transparent
     }
-}
-
-@Composable
-private fun AlbumGridItem(
-    album: MusicData.Album,
-    onItemClick: (MusicData.Album) -> Unit,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(4.dp)
-            .clickable { onItemClick(album) }
-    ) {
-        ConstraintLayout(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Surface(modifier = Modifier.fillMaxSize(), content = content)
+        TopAppBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        ) {
-            val (image, title, artist) = createRefs()
-            Image(
-                painter = painterResource(album.cover),
-                contentDescription = null,
-                modifier = Modifier
-                    .aspectRatio(1f)
-                    .constrainAs(image) {
-                        width = Dimension.fillToConstraints
-                        linkTo(
-                            start = parent.start,
-                            end = parent.end
-                        )
-                        top.linkTo(parent.top)
-                    },
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                text = album.title,
-                modifier = Modifier
-                    .constrainAs(title) {
-                        width = Dimension.wrapContent
-                        linkTo(
-                            start = parent.start,
-                            end = parent.end,
-                            startMargin = 16.dp,
-                            endMargin = 16.dp
-                        )
-                        top.linkTo(image.bottom, 16.dp)
-                    },
-                maxLines = 1,
-                style = MaterialTheme.typography.h6
-            )
-            Text(
-                text = album.artist,
-                modifier = Modifier
-                    .constrainAs(artist) {
-                        width = Dimension.wrapContent
-                        linkTo(
-                            start = parent.start,
-                            end = parent.end,
-                            startMargin = 16.dp,
-                            endMargin = 16.dp,
-                        )
-                        top.linkTo(title.bottom, 2.dp)
-                    },
-                maxLines = 1,
-                style = MaterialTheme.typography.body2
-            )
-            createVerticalChain(title, artist, chainStyle = ChainStyle.Packed)
-        }
+                .align(Alignment.TopCenter),
+            navigationIcon = {
+                IconButton(onClick = upPress) {
+                    Icon(
+                        Icons.Default.ArrowBack,
+                        contentDescription = null
+                    )
+                }
+            },
+            title = {},
+            actions = {
+                IconButton(onClick = {}) {
+                    Icon(
+                        Icons.Default.Favorite,
+                        contentDescription = null
+                    )
+                }
+                IconButton(onClick = {}) {
+                    Icon(
+                        Icons.Default.MoreVert,
+                        contentDescription = null
+                    )
+                }
+            },
+            backgroundColor = backgroundColor,
+            contentColor = Color.White,
+            elevation = 0.dp
+        )
     }
 }
 
 @Composable
-fun AlbumLinearContents(
-    items: List<MusicData.Album>,
-    modifier: Modifier = Modifier,
-) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
-    ) {
-        items(items) {
-            AlbumLinearItem(it, onItemClick = {})
-            Divider()
-        }
-    }
-}
-
-@Composable
-private fun AlbumLinearItem(
-    album: MusicData.Album,
-    onItemClick: (MusicData.Album) -> Unit,
-) {
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxWidth()
-            .requiredHeight(88.dp)
-            .clickable { onItemClick(album) }
-    ) {
-        val (image, title, artist, duration) = createRefs()
+fun AlbumHeader(album: MusicData.Album) {
+    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+        val (image, info, fab) = createRefs()
         Image(
             painter = painterResource(album.cover),
             contentDescription = null,
             modifier = Modifier
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(4.dp))
                 .constrainAs(image) {
-                    height = Dimension.fillToConstraints
-                    start.linkTo(parent.start, margin = 16.dp)
+                    width = Dimension.fillToConstraints
                     linkTo(
+                        start = parent.start,
+                        end = parent.end,
                         top = parent.top,
-                        bottom = parent.bottom,
-                        topMargin = 12.dp,
-                        bottomMargin = 12.dp
+                        bottom = info.top
                     )
                 },
             contentScale = ContentScale.Crop
         )
-        Text(
-            text = album.title,
+        Card(
             modifier = Modifier
-                .constrainAs(title) {
+                .fillMaxWidth()
+                .requiredHeight(196.dp)
+                .constrainAs(info) {
                     width = Dimension.fillToConstraints
                     linkTo(
-                        start = image.end,
-                        top = parent.top,
-                        end = duration.start,
-                        bottom = artist.top,
-                        startMargin = 16.dp
+                        start = parent.start,
+                        end = parent.end,
+                        top = image.bottom,
+                        bottom = parent.bottom
                     )
                 },
-            style = MaterialTheme.typography.h6
-        )
-        Text(
-            text = album.artist,
+            shape = RectangleShape,
+            backgroundColor = MaterialTheme.colors.primarySurface
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .padding(start = 56.dp, end = 16.dp),
+            ) {
+                Text(
+                    text = album.title,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.h3
+                )
+                Text(
+                    text = album.artist,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.subtitle1
+                )
+            }
+        }
+        FloatingActionButton(
+            onClick = {},
+            backgroundColor = MaterialTheme.colors.fabBackground,
+            contentColor = MaterialTheme.colors.surface,
             modifier = Modifier
-                .constrainAs(artist) {
-                    width = Dimension.fillToConstraints
-                    linkTo(
-                        start = image.end,
-                        top = title.bottom,
-                        end = duration.start,
-                        bottom = parent.bottom,
-                        startMargin = 16.dp
-                    )
-                },
-            style = MaterialTheme.typography.body2
-        )
-        Text(
-            text = album.duration,
-            modifier = Modifier
-                .constrainAs(duration) {
-                    width = Dimension.wrapContent
-                    baseline.linkTo(title.baseline)
+                .padding(16.dp)
+                .constrainAs(fab) {
                     end.linkTo(parent.end, margin = 16.dp)
-                },
-            color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                    linkTo(
+                        top = info.top,
+                        bottom = info.top
+                    )
+                }
+        ) {
+            Icon(Icons.Default.PlayArrow, contentDescription = null)
+        }
+    }
+}
+
+private val Colors.fabBackground: Color
+    get() = if (isLight) Color.Black else Purple200
+
+@Composable
+fun AlbumTrackItem(track: MusicData.Track) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .requiredHeight(56.dp)
+            .padding(horizontal = 16.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_volume_up_black_24dp),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.CenterVertically),
+            contentScale = ContentScale.Crop,
+            colorFilter = ColorFilter.tint(
+                LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+            )
+        )
+        Spacer(modifier = Modifier.requiredWidth(16.dp))
+        Text(
+            text = track.track.toString(),
+            modifier = Modifier.align(Alignment.CenterVertically),
             style = MaterialTheme.typography.body2
         )
-        createVerticalChain(title, artist, chainStyle = ChainStyle.Packed)
+        Spacer(modifier = Modifier.requiredWidth(16.dp))
+        Text(
+            text = track.title,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(1f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.subtitle2
+        )
+        Spacer(modifier = Modifier.requiredWidth(16.dp))
+        Text(
+            text = track.duration,
+            modifier = Modifier.align(Alignment.CenterVertically),
+            style = MaterialTheme.typography.body2
+        )
     }
 }

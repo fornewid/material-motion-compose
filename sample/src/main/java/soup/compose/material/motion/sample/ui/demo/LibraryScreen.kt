@@ -38,6 +38,7 @@ import soup.compose.material.motion.sharedAxisY
 private enum class SortType {
     A_TO_Z, Z_TO_A
 }
+
 private enum class ListType {
     Grid, Linear
 }
@@ -45,11 +46,11 @@ private enum class ListType {
 private data class LibraryState(
     val sortType: SortType,
     val listType: ListType,
-    val motionSpec: MotionSpec = fadeThrough()
+    val motionSpec: MotionSpec = fadeThrough(),
 )
 
 @Composable
-fun LibraryScreen() {
+fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
     val (state, onStateChanged) = remember {
         mutableStateOf(LibraryState(SortType.A_TO_Z, ListType.Grid))
     }
@@ -61,6 +62,7 @@ fun LibraryScreen() {
             )
         )
     }
+
     fun onListTypeChange(listType: ListType) {
         onStateChanged(
             state.copy(
@@ -90,7 +92,7 @@ fun LibraryScreen() {
             motionSpec = state.motionSpec,
             modifier = Modifier.padding(innerPadding)
         ) { currentDestination ->
-            LibraryContents(currentDestination)
+            LibraryContents(currentDestination, onItemClick)
         }
     }
 }
@@ -126,15 +128,18 @@ fun LibraryScaffold(
 }
 
 @Composable
-private fun LibraryContents(state: LibraryState) {
+private fun LibraryContents(
+    state: LibraryState,
+    onItemClick: (MusicData.Album) -> Unit,
+) {
     Surface(modifier = Modifier.fillMaxSize()) {
         val items = when (state.sortType) {
             SortType.A_TO_Z -> MusicData.albums
             SortType.Z_TO_A -> MusicData.albums.asReversed()
         }
         when (state.listType) {
-            ListType.Grid -> AlbumGridContents(items)
-            ListType.Linear -> AlbumLinearContents(items)
+            ListType.Grid -> LibraryGridContents(items, onItemClick)
+            ListType.Linear -> LibraryLinearContents(items, onItemClick)
         }
     }
 }
