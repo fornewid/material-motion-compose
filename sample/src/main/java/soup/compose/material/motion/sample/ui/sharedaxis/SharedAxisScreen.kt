@@ -22,7 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.Axis
-import soup.compose.material.motion.SharedAxis
+import soup.compose.material.motion.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
@@ -33,7 +33,7 @@ fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
         forward = forward,
         onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        SharedAxis(
+        MaterialSharedAxis(
             axis = axis,
             forward = forward,
             targetState = forward,

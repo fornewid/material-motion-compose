@@ -26,7 +26,7 @@ enum class Axis {
 }
 
 /**
- * [SharedAxis] allows to switch between two layouts with a shared axis animation.
+ * [MaterialSharedAxis] allows to switch between two layouts with a shared axis animation.
  *
  * @see com.google.android.material.transition.MaterialSharedAxis
  *
@@ -39,7 +39,7 @@ enum class Axis {
  * @param slideDistance slide distance of the animation.
  */
 @Composable
-fun <T> SharedAxis(
+fun <T> MaterialSharedAxis(
     targetState: T,
     axis: Axis,
     forward: Boolean,
