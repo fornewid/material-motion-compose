@@ -22,7 +22,7 @@ import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.FadeProvider
 import soup.compose.material.motion.provider.ScaleProvider
 
-internal class ElevationScaleSpec : MotionSpec(
+internal class MaterialElevationScaleSpec : MotionSpec(
     createPrimaryAnimatorProvider(),
     createSecondaryAnimatorProvider()
 ) {

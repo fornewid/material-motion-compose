@@ -27,7 +27,7 @@ import soup.compose.material.motion.hold
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.sharedAxis
+import soup.compose.material.motion.materialSharedAxis
 
 @Composable
 fun HoldScreen(upPress: () -> Unit) {
@@ -39,8 +39,8 @@ fun HoldScreen(upPress: () -> Unit) {
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
-            enterMotionSpec = if (forward) sharedAxis(Axis.Z, forward) else hold(),
-            exitMotionSpec = if (forward) hold() else sharedAxis(Axis.Z, forward),
+            enterMotionSpec = if (forward) materialSharedAxis(Axis.Z, forward) else hold(),
+            exitMotionSpec = if (forward) hold() else materialSharedAxis(Axis.Z, forward),
             pop = forward.not(),
             modifier = Modifier.padding(innerPadding)
         ) { forward ->

@@ -16,14 +16,22 @@
 package soup.compose.material.motion.internal
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.Dp
+import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.FadeThroughProvider
 import soup.compose.material.motion.provider.ScaleProvider
+import soup.compose.material.motion.provider.SlideDistanceProvider
+import soup.compose.material.motion.provider.SlideDistanceProvider.SlideEdge
 
-internal class FadeThroughSpec : MotionSpec(
-    createPrimaryAnimatorProvider(),
+internal data class MaterialSharedAxisSpec(
+    private val axis: Axis,
+    private val forward: Boolean,
+    private val slideDistance: Dp? = null,
+) : MotionSpec(
+    createPrimaryAnimatorProvider(axis, forward, slideDistance),
     createSecondaryAnimatorProvider()
 ) {
 
@@ -33,17 +41,25 @@ internal class FadeThroughSpec : MotionSpec(
     }
 
     companion object {
-        private const val DEFAULT_START_SCALE = 0.92f
 
-        private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
-            return FadeThroughProvider()
+        private fun createPrimaryAnimatorProvider(
+            axis: Axis,
+            forward: Boolean,
+            slideDistance: Dp?,
+        ): VisibilityAnimationProvider = when (axis) {
+            Axis.X -> SlideDistanceProvider(
+                if (forward) SlideEdge.RIGHT else SlideEdge.LEFT,
+                slideDistance
+            )
+            Axis.Y -> SlideDistanceProvider(
+                if (forward) SlideEdge.BOTTOM else SlideEdge.TOP,
+                slideDistance
+            )
+            Axis.Z -> ScaleProvider(forward)
         }
 
         private fun createSecondaryAnimatorProvider(): VisibilityAnimationProvider {
-            return ScaleProvider().apply {
-                scaleOnDisappear = false
-                incomingStartScale = DEFAULT_START_SCALE
-            }
+            return FadeThroughProvider()
         }
     }
 }

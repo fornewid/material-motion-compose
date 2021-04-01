@@ -21,7 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.ElevationScale
+import soup.compose.material.motion.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
@@ -34,7 +34,7 @@ fun ElevationScaleScreen(upPress: () -> Unit) {
         forward = forward,
         onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        ElevationScale(
+        MaterialElevationScale(
             targetState = forward,
             modifier = Modifier.padding(innerPadding)
         ) { forward ->

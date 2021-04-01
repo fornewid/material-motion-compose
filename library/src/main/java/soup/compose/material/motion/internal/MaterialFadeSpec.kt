@@ -16,50 +16,41 @@
 package soup.compose.material.motion.internal
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.Dp
-import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
-import soup.compose.material.motion.provider.FadeThroughProvider
+import soup.compose.material.motion.provider.FadeProvider
 import soup.compose.material.motion.provider.ScaleProvider
-import soup.compose.material.motion.provider.SlideDistanceProvider
-import soup.compose.material.motion.provider.SlideDistanceProvider.SlideEdge
 
-internal data class SharedAxisSpec(
-    private val axis: Axis,
-    private val forward: Boolean,
-    private val slideDistance: Dp? = null,
-) : MotionSpec(
-    createPrimaryAnimatorProvider(axis, forward, slideDistance),
+internal class MaterialFadeSpec : MotionSpec(
+    createPrimaryAnimatorProvider(),
     createSecondaryAnimatorProvider()
 ) {
 
     @Composable
     override fun getDuration(appearing: Boolean): Int {
-        return MaterialMotions.durations.motionDurationLong1
+        return if (appearing) {
+            MaterialMotions.durations.motionDurationShort2
+        } else {
+            MaterialMotions.durations.motionDurationShort1
+        }
     }
 
     companion object {
+        private const val DEFAULT_START_SCALE = 0.8f
+        private const val DEFAULT_FADE_END_THRESHOLD_ENTER = 0.3f
 
-        private fun createPrimaryAnimatorProvider(
-            axis: Axis,
-            forward: Boolean,
-            slideDistance: Dp?,
-        ): VisibilityAnimationProvider = when (axis) {
-            Axis.X -> SlideDistanceProvider(
-                if (forward) SlideEdge.RIGHT else SlideEdge.LEFT,
-                slideDistance
-            )
-            Axis.Y -> SlideDistanceProvider(
-                if (forward) SlideEdge.BOTTOM else SlideEdge.TOP,
-                slideDistance
-            )
-            Axis.Z -> ScaleProvider(forward)
+        private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
+            return FadeProvider().apply {
+                incomingEndThreshold = DEFAULT_FADE_END_THRESHOLD_ENTER
+            }
         }
 
         private fun createSecondaryAnimatorProvider(): VisibilityAnimationProvider {
-            return FadeThroughProvider()
+            return ScaleProvider().apply {
+                scaleOnDisappear = false
+                incomingStartScale = DEFAULT_START_SCALE
+            }
         }
     }
 }

@@ -13,30 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("unused")
+
 package soup.compose.material.motion
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
+
+enum class Axis {
+    X, Y, Z
+}
 
 /**
- * [Fade] allows to switch between two layouts with a fade animation.
+ * [SharedAxis] allows to switch between two layouts with a shared axis animation.
  *
- * @see com.google.android.material.transition.MaterialFade
+ * @see com.google.android.material.transition.MaterialSharedAxis
  *
  * @param targetState is a key representing your target layout state. Every time you change a key
  * the animation will be triggered. The [content] called with the old key will be faded out while
  * the [content] called with the new key will be faded in.
+ * @param axis movement axis of the animation.
+ * @param forward whether the direction of the animation is forward.
  * @param modifier Modifier to be applied to the animation container.
+ * @param slideDistance slide distance of the animation.
  */
 @Composable
-fun <T> Fade(
+fun <T> SharedAxis(
     targetState: T,
+    axis: Axis,
+    forward: Boolean,
     modifier: Modifier = Modifier,
+    slideDistance: Dp? = null,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = fade(),
+        motionSpec = materialSharedAxis(axis, forward, slideDistance),
         modifier = modifier,
         content = content
     )

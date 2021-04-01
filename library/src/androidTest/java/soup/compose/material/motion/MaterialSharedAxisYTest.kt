@@ -24,12 +24,12 @@ import soup.compose.material.motion.MotionConstants.motionDurationLong1
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @OptIn(ExperimentalTestApi::class)
-class SharedAxisXTest : MaterialMotionTest() {
+class MaterialSharedAxisYTest : MaterialMotionTest() {
 
     override val defaultDurationMillis: Int
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return sharedAxis(axis = Axis.X, forward = forward)
+        return materialSharedAxis(axis = Axis.Y, forward = forward)
     }
 }

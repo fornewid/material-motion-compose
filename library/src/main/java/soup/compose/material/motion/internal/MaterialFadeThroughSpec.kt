@@ -19,31 +19,24 @@ import androidx.compose.runtime.Composable
 import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.VisibilityAnimationProvider
-import soup.compose.material.motion.provider.FadeProvider
+import soup.compose.material.motion.provider.FadeThroughProvider
 import soup.compose.material.motion.provider.ScaleProvider
 
-internal class FadeSpec : MotionSpec(
+internal class MaterialFadeThroughSpec : MotionSpec(
     createPrimaryAnimatorProvider(),
     createSecondaryAnimatorProvider()
 ) {
 
     @Composable
     override fun getDuration(appearing: Boolean): Int {
-        return if (appearing) {
-            MaterialMotions.durations.motionDurationShort2
-        } else {
-            MaterialMotions.durations.motionDurationShort1
-        }
+        return MaterialMotions.durations.motionDurationLong1
     }
 
     companion object {
-        private const val DEFAULT_START_SCALE = 0.8f
-        private const val DEFAULT_FADE_END_THRESHOLD_ENTER = 0.3f
+        private const val DEFAULT_START_SCALE = 0.92f
 
         private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
-            return FadeProvider().apply {
-                incomingEndThreshold = DEFAULT_FADE_END_THRESHOLD_ENTER
-            }
+            return FadeThroughProvider()
         }
 
         private fun createSecondaryAnimatorProvider(): VisibilityAnimationProvider {
