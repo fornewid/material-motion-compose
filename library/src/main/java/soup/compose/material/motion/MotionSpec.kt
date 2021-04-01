@@ -29,6 +29,7 @@ import soup.compose.material.motion.internal.ElevationScaleSpec
 import soup.compose.material.motion.internal.FadeSpec
 import soup.compose.material.motion.internal.FadeThroughSpec
 import soup.compose.material.motion.internal.HoldSpec
+import soup.compose.material.motion.internal.ScaleSpec
 import soup.compose.material.motion.internal.SharedAxisSpec
 
 object MotionConstants {
@@ -147,3 +148,8 @@ fun hold(): MotionSpec = HoldSpec()
  * [elevationScale] allows to switch a layout with a elevation scale animation.
  */
 fun elevationScale(): MotionSpec = ElevationScaleSpec()
+
+/**
+ * [scale] allows to switch a layout with a scale animation.
+ */
+fun scale(): MotionSpec = ScaleSpec()
