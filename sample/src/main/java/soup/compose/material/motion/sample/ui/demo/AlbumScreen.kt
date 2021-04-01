@@ -45,7 +45,7 @@ fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
     ) {
         LazyColumn(state = listState) {
             item {
-                AlbumHeader(album)
+                AlbumHeader(album, listState)
             }
             item {
                 Spacer(modifier = Modifier.requiredHeight(8.dp))
