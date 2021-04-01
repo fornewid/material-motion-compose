@@ -33,8 +33,8 @@ import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.materialFadeThrough
-import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.materialSharedAxis
+import soup.compose.material.motion.sample.R
 
 private enum class SortType {
     A_TO_Z, Z_TO_A

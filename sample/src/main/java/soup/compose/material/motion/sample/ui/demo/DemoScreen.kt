@@ -24,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
-import soup.compose.material.motion.sample.ui.theme.SampleTheme
 import soup.compose.material.motion.materialSharedAxis
+import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun DemoScreen() {
