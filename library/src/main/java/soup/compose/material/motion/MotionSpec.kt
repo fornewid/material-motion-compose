@@ -88,39 +88,6 @@ fun sharedAxis(
 ): MotionSpec = SharedAxisSpec(axis, forward, slideDistance)
 
 /**
- * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.X].
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance slide distance of the animation.
- */
-fun sharedAxisX(
-    forward: Boolean,
-    slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(Axis.X, forward, slideDistance)
-
-/**
- * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.Y].
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance slide distance of the animation.
- */
-fun sharedAxisY(
-    forward: Boolean,
-    slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(Axis.Y, forward, slideDistance)
-
-/**
- * [sharedAxis] allows to switch a layout with a shared axis animation for [Axis.Z].
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance slide distance of the animation.
- */
-fun sharedAxisZ(
-    forward: Boolean,
-    slideDistance: Dp? = null,
-): MotionSpec = SharedAxisSpec(Axis.Z, forward, slideDistance)
-
-/**
  * [fadeThrough] allows to switch a layout with a fade through animation.
  */
 fun fadeThrough(): MotionSpec = FadeThroughSpec()

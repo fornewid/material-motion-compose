@@ -30,6 +30,6 @@ class SharedAxisZTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return sharedAxisZ(forward = forward)
+        return sharedAxis(axis = Axis.Z, forward = forward)
     }
 }

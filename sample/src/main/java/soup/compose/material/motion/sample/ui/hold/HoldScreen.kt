@@ -21,12 +21,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.sharedAxisZ
+import soup.compose.material.motion.sharedAxis
 
 @Composable
 fun HoldScreen(upPress: () -> Unit) {
@@ -38,8 +39,8 @@ fun HoldScreen(upPress: () -> Unit) {
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
-            enterMotionSpec = if (forward) sharedAxisZ(forward) else hold(),
-            exitMotionSpec = if (forward) hold() else sharedAxisZ(forward),
+            enterMotionSpec = if (forward) sharedAxis(Axis.Z, forward) else hold(),
+            exitMotionSpec = if (forward) hold() else sharedAxis(Axis.Z, forward),
             pop = forward.not(),
             modifier = Modifier.padding(innerPadding)
         ) { forward ->
