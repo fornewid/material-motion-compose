@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.sharedaxis
+package soup.compose.material.motion.sample.ui.material.hold
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -22,21 +22,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.Axis
-import soup.compose.material.motion.MaterialSharedAxis
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.hold
+import soup.compose.material.motion.materialSharedAxis
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
+fun HoldScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
     ForwardBackwardScaffold(
         upPress = upPress,
         forward = forward,
         onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        MaterialSharedAxis(
-            axis = axis,
-            forward = forward,
+        MaterialMotion(
             targetState = forward,
+            enterMotionSpec = if (forward) materialSharedAxis(Axis.Z, forward) else hold(),
+            exitMotionSpec = if (forward) hold() else materialSharedAxis(Axis.Z, forward),
+            pop = forward.not(),
             modifier = Modifier.padding(innerPadding)
         ) { forward ->
             ForwardBackwardContents(forward)
@@ -46,24 +51,16 @@ fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun AxisXPreview() {
+private fun LightPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.X, upPress = {})
+        HoldScreen {}
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun AxisYPreview() {
-    SampleTheme {
-        SharedAxisScreen(axis = Axis.Y, upPress = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AxisZPreview() {
-    SampleTheme {
-        SharedAxisScreen(axis = Axis.Z, upPress = {})
+private fun DarkPreview() {
+    SampleTheme(darkTheme = true) {
+        HoldScreen {}
     }
 }

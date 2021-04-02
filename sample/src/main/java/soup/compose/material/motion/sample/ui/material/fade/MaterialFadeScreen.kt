@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.fade
+package soup.compose.material.motion.sample.ui.material.fade
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,7 +37,7 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 import soup.compose.material.motion.sample.ui.widget.DefaultTopAppBar
 
 @Composable
-fun FadeScreen(upPress: () -> Unit) {
+fun MaterialFadeScreen(upPress: () -> Unit) {
     Scaffold(
         topBar = { DefaultTopAppBar(upPress) }
     ) { innerPadding ->
@@ -74,7 +74,7 @@ fun FadeScreen(upPress: () -> Unit) {
 @Composable
 private fun LightPreview() {
     SampleTheme {
-        FadeScreen(upPress = {})
+        MaterialFadeScreen(upPress = {})
     }
 }
 
@@ -82,6 +82,6 @@ private fun LightPreview() {
 @Composable
 private fun DarkPreview() {
     SampleTheme(darkTheme = true) {
-        FadeScreen(upPress = {})
+        MaterialFadeScreen(upPress = {})
     }
 }

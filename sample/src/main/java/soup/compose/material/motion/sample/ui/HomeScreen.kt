@@ -36,14 +36,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
-import soup.compose.material.motion.sample.ui.Destination.ElevationScale
-import soup.compose.material.motion.sample.ui.Destination.Fade
-import soup.compose.material.motion.sample.ui.Destination.FadeThrough
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
-import soup.compose.material.motion.sample.ui.Destination.SharedAxisX
-import soup.compose.material.motion.sample.ui.Destination.SharedAxisY
-import soup.compose.material.motion.sample.ui.Destination.SharedAxisZ
+import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
+import soup.compose.material.motion.sample.ui.Destination.MaterialFade
+import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisX
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisY
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisZ
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
@@ -114,14 +114,14 @@ private val Destination.description: String
     get() = when (this) {
         Home -> "HomeScreen"
         Demo -> "DemoScreen"
-        SharedAxisX -> "SharedAxisScreen"
-        SharedAxisY -> "SharedAxisScreen"
-        SharedAxisZ -> "SharedAxisScreen"
-        FadeThrough -> "FadeThroughScreen"
-        Fade -> "FadeScreen"
-        Crossfade -> "CrossfadeScreen"
+        MaterialSharedAxisX -> "MaterialSharedAxisScreen"
+        MaterialSharedAxisY -> "MaterialSharedAxisScreen"
+        MaterialSharedAxisZ -> "MaterialSharedAxisScreen"
+        MaterialFadeThrough -> "MaterialFadeThroughScreen"
+        MaterialFade -> "MaterialFadeScreen"
+        MaterialElevationScale -> "MaterialElevationScaleScreen"
         Hold -> "HoldScreen"
-        ElevationScale -> "ElevationScaleScreen"
+        Crossfade -> "CrossfadeScreen"
     }
 
 @Preview(showBackground = true)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.elevationscale
+package soup.compose.material.motion.sample.ui.material.sharedaxis
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -21,20 +21,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.MaterialElevationScale
-import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardContents
-import soup.compose.material.motion.sample.ui.sharedaxis.ForwardBackwardScaffold
+import soup.compose.material.motion.Axis
+import soup.compose.material.motion.MaterialSharedAxis
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun ElevationScaleScreen(upPress: () -> Unit) {
+fun MaterialSharedAxisScreen(axis: Axis, upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
     ForwardBackwardScaffold(
         upPress = upPress,
         forward = forward,
         onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        MaterialElevationScale(
+        MaterialSharedAxis(
+            axis = axis,
+            forward = forward,
             targetState = forward,
             modifier = Modifier.padding(innerPadding)
         ) { forward ->
@@ -45,16 +48,24 @@ fun ElevationScaleScreen(upPress: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun LightPreview() {
+private fun AxisXPreview() {
     SampleTheme {
-        ElevationScaleScreen(upPress = {})
+        MaterialSharedAxisScreen(axis = Axis.X, upPress = {})
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun DarkPreview() {
-    SampleTheme(darkTheme = true) {
-        ElevationScaleScreen(upPress = {})
+private fun AxisYPreview() {
+    SampleTheme {
+        MaterialSharedAxisScreen(axis = Axis.Y, upPress = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AxisZPreview() {
+    SampleTheme {
+        MaterialSharedAxisScreen(axis = Axis.Z, upPress = {})
     }
 }
