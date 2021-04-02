@@ -25,33 +25,33 @@ import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
-import soup.compose.material.motion.sample.ui.Destination.ElevationScale
-import soup.compose.material.motion.sample.ui.Destination.Fade
-import soup.compose.material.motion.sample.ui.Destination.FadeThrough
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
-import soup.compose.material.motion.sample.ui.Destination.SharedAxisX
-import soup.compose.material.motion.sample.ui.Destination.SharedAxisY
-import soup.compose.material.motion.sample.ui.Destination.SharedAxisZ
+import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
+import soup.compose.material.motion.sample.ui.Destination.MaterialFade
+import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisX
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisY
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisZ
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
-import soup.compose.material.motion.sample.ui.elevationscale.ElevationScaleScreen
-import soup.compose.material.motion.sample.ui.fade.FadeScreen
-import soup.compose.material.motion.sample.ui.fadethrough.FadeThroughScreen
-import soup.compose.material.motion.sample.ui.hold.HoldScreen
-import soup.compose.material.motion.sample.ui.sharedaxis.SharedAxisScreen
+import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
+import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
+import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
+import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
+import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
 
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
     Demo("demo"),
-    SharedAxisX("shared_axis_x"),
-    SharedAxisY("shared_axis_y"),
-    SharedAxisZ("shared_axis_z"),
-    FadeThrough("fade_through"),
-    Fade("fade"),
-    Crossfade("crossfade"),
+    MaterialSharedAxisX("material_shared_axis_x"),
+    MaterialSharedAxisY("material_shared_axis_y"),
+    MaterialSharedAxisZ("material_shared_axis_z"),
+    MaterialFadeThrough("material_fade_through"),
+    MaterialFade("material_fade"),
+    MaterialElevationScale("material_elevation_scale"),
     Hold("hold"),
-    ElevationScale("elevation_scale"),
+    Crossfade("crossfade"),
 }
 
 @Composable
@@ -70,16 +70,17 @@ fun NavGraph(
             HomeScreen(
                 onItemClick = { menu ->
                     when (menu) {
-                        Home -> {}
+                        Home -> {
+                        }
                         Demo -> actions.goToDemo()
-                        SharedAxisX -> actions.goToSharedAxis(Axis.X)
-                        SharedAxisY -> actions.goToSharedAxis(Axis.Y)
-                        SharedAxisZ -> actions.goToSharedAxis(Axis.Z)
-                        FadeThrough -> actions.goToFadeThrough()
-                        Fade -> actions.goToFade()
-                        Crossfade -> actions.goToCrossfade()
+                        MaterialSharedAxisX -> actions.goToMaterialSharedAxis(Axis.X)
+                        MaterialSharedAxisY -> actions.goToMaterialSharedAxis(Axis.Y)
+                        MaterialSharedAxisZ -> actions.goToMaterialSharedAxis(Axis.Z)
+                        MaterialFadeThrough -> actions.goToMaterialFadeThrough()
+                        MaterialFade -> actions.goToMaterialFade()
+                        MaterialElevationScale -> actions.goToMaterialElevationScale()
                         Hold -> actions.goToHold()
-                        ElevationScale -> actions.goToElevationScale()
+                        Crossfade -> actions.goToCrossfade()
                     }
                 }
             )
@@ -87,29 +88,33 @@ fun NavGraph(
         composable(Demo.route) {
             DemoScreen()
         }
-        composable(SharedAxisX.route) {
-            SharedAxisScreen(Axis.X, actions.upPress)
+
+        /* Material transition patterns */
+        composable(MaterialSharedAxisX.route) {
+            MaterialSharedAxisScreen(Axis.X, actions.upPress)
         }
-        composable(SharedAxisY.route) {
-            SharedAxisScreen(Axis.Y, actions.upPress)
+        composable(MaterialSharedAxisY.route) {
+            MaterialSharedAxisScreen(Axis.Y, actions.upPress)
         }
-        composable(SharedAxisZ.route) {
-            SharedAxisScreen(Axis.Z, actions.upPress)
+        composable(MaterialSharedAxisZ.route) {
+            MaterialSharedAxisScreen(Axis.Z, actions.upPress)
         }
-        composable(FadeThrough.route) {
-            FadeThroughScreen(actions.upPress)
+        composable(MaterialFadeThrough.route) {
+            MaterialFadeThroughScreen(actions.upPress)
         }
-        composable(Fade.route) {
-            FadeScreen(actions.upPress)
+        composable(MaterialFade.route) {
+            MaterialFadeScreen(actions.upPress)
         }
-        composable(Crossfade.route) {
-            CrossfadeScreen(actions.upPress)
+        composable(MaterialElevationScale.route) {
+            MaterialElevationScaleScreen(actions.upPress)
         }
         composable(Hold.route) {
             HoldScreen(actions.upPress)
         }
-        composable(ElevationScale.route) {
-            ElevationScaleScreen(actions.upPress)
+
+        /* Etc */
+        composable(Crossfade.route) {
+            CrossfadeScreen(actions.upPress)
         }
     }
 }
@@ -121,27 +126,27 @@ private class MainActions(navController: NavHostController) {
     val goToDemo: () -> Unit = {
         navController.navigate(Demo.route)
     }
-    val goToSharedAxis: (Axis) -> Unit = { axis ->
+    val goToMaterialSharedAxis: (Axis) -> Unit = { axis ->
         val route = when (axis) {
-            Axis.X -> SharedAxisX.route
-            Axis.Y -> SharedAxisY.route
-            Axis.Z -> SharedAxisZ.route
+            Axis.X -> MaterialSharedAxisX.route
+            Axis.Y -> MaterialSharedAxisY.route
+            Axis.Z -> MaterialSharedAxisZ.route
         }
         navController.navigate(route)
     }
-    val goToFadeThrough: () -> Unit = {
-        navController.navigate(FadeThrough.route)
+    val goToMaterialFadeThrough: () -> Unit = {
+        navController.navigate(MaterialFadeThrough.route)
     }
-    val goToFade: () -> Unit = {
-        navController.navigate(Fade.route)
+    val goToMaterialFade: () -> Unit = {
+        navController.navigate(MaterialFade.route)
     }
-    val goToCrossfade: () -> Unit = {
-        navController.navigate(Crossfade.route)
+    val goToMaterialElevationScale: () -> Unit = {
+        navController.navigate(MaterialElevationScale.route)
     }
     val goToHold: () -> Unit = {
         navController.navigate(Hold.route)
     }
-    val goToElevationScale: () -> Unit = {
-        navController.navigate(ElevationScale.route)
+    val goToCrossfade: () -> Unit = {
+        navController.navigate(Crossfade.route)
     }
 }

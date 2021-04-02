@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 /**
- * [Fade] allows to switch between two layouts with a fade animation.
+ * [MaterialFade] allows to switch between two layouts with a fade animation.
  *
  * @see com.google.android.material.transition.MaterialFade
  *
@@ -29,14 +29,14 @@ import androidx.compose.ui.Modifier
  * @param modifier Modifier to be applied to the animation container.
  */
 @Composable
-fun <T> Fade(
+fun <T> MaterialFade(
     targetState: T,
     modifier: Modifier = Modifier,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = fade(),
+        motionSpec = materialFade(),
         modifier = modifier,
         content = content
     )

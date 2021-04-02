@@ -24,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
+import soup.compose.material.motion.materialSharedAxis
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.sharedAxis
 
 @Composable
 fun DemoScreen() {
@@ -34,8 +34,8 @@ fun DemoScreen() {
     }
     MaterialMotion(
         targetState = state,
-        enterMotionSpec = if (state != null) sharedAxis(Axis.Z, true) else hold(),
-        exitMotionSpec = if (state != null) hold() else sharedAxis(Axis.Z, false),
+        enterMotionSpec = if (state != null) materialSharedAxis(Axis.Z, true) else hold(),
+        exitMotionSpec = if (state != null) hold() else materialSharedAxis(Axis.Z, false),
         pop = state == null
     ) { currentId ->
         if (currentId != null) {

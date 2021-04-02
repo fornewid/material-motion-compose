@@ -32,9 +32,9 @@ import androidx.compose.ui.res.painterResource
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.MotionSpec
-import soup.compose.material.motion.fadeThrough
+import soup.compose.material.motion.materialFadeThrough
+import soup.compose.material.motion.materialSharedAxis
 import soup.compose.material.motion.sample.R
-import soup.compose.material.motion.sharedAxis
 
 private enum class SortType {
     A_TO_Z, Z_TO_A
@@ -47,7 +47,7 @@ private enum class ListType {
 private data class LibraryState(
     val sortType: SortType,
     val listType: ListType,
-    val motionSpec: MotionSpec = fadeThrough(),
+    val motionSpec: MotionSpec = materialFadeThrough(),
 )
 
 @Composable
@@ -59,7 +59,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         onStateChanged(
             state.copy(
                 sortType = sortType,
-                motionSpec = sharedAxis(Axis.Y, forward = true)
+                motionSpec = materialSharedAxis(Axis.Y, forward = true)
             )
         )
     }
@@ -68,7 +68,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         onStateChanged(
             state.copy(
                 listType = listType,
-                motionSpec = fadeThrough()
+                motionSpec = materialFadeThrough()
             )
         )
     }

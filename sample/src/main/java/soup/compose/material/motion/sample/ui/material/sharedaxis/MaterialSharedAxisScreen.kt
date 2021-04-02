@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.sharedaxis
+package soup.compose.material.motion.sample.ui.material.sharedaxis
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -22,18 +22,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.Axis
-import soup.compose.material.motion.SharedAxis
+import soup.compose.material.motion.MaterialSharedAxis
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
+fun MaterialSharedAxisScreen(axis: Axis, upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
     ForwardBackwardScaffold(
         upPress = upPress,
         forward = forward,
         onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        SharedAxis(
+        MaterialSharedAxis(
             axis = axis,
             forward = forward,
             targetState = forward,
@@ -48,7 +50,7 @@ fun SharedAxisScreen(axis: Axis, upPress: () -> Unit) {
 @Composable
 private fun AxisXPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.X, upPress = {})
+        MaterialSharedAxisScreen(axis = Axis.X, upPress = {})
     }
 }
 
@@ -56,7 +58,7 @@ private fun AxisXPreview() {
 @Composable
 private fun AxisYPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.Y, upPress = {})
+        MaterialSharedAxisScreen(axis = Axis.Y, upPress = {})
     }
 }
 
@@ -64,6 +66,6 @@ private fun AxisYPreview() {
 @Composable
 private fun AxisZPreview() {
     SampleTheme {
-        SharedAxisScreen(axis = Axis.Z, upPress = {})
+        MaterialSharedAxisScreen(axis = Axis.Z, upPress = {})
     }
 }

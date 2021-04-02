@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.fadethrough
+package soup.compose.material.motion.sample.ui.material.hold
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -21,25 +21,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.FadeThrough
-import soup.compose.material.motion.sample.ui.common.BottomTabs
-import soup.compose.material.motion.sample.ui.common.BottomTabsContents
-import soup.compose.material.motion.sample.ui.common.BottomTabsScaffold
+import soup.compose.material.motion.Axis
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.hold
+import soup.compose.material.motion.materialSharedAxis
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun FadeThroughScreen(upPress: () -> Unit) {
-    val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomTabs.Albums) }
-    BottomTabsScaffold(
+fun HoldScreen(upPress: () -> Unit) {
+    val (forward, onForwardChanged) = remember { mutableStateOf(false) }
+    ForwardBackwardScaffold(
         upPress = upPress,
-        selectedTab = selectedTab,
-        setSelectedTab = setSelectedTab
+        forward = forward,
+        onForwardChanged = onForwardChanged,
     ) { innerPadding ->
-        FadeThrough(
-            targetState = selectedTab,
+        MaterialMotion(
+            targetState = forward,
+            enterMotionSpec = if (forward) materialSharedAxis(Axis.Z, forward) else hold(),
+            exitMotionSpec = if (forward) hold() else materialSharedAxis(Axis.Z, forward),
+            pop = forward.not(),
             modifier = Modifier.padding(innerPadding)
-        ) { currentTab ->
-            BottomTabsContents(currentTab)
+        ) { forward ->
+            ForwardBackwardContents(forward)
         }
     }
 }
@@ -48,7 +53,7 @@ fun FadeThroughScreen(upPress: () -> Unit) {
 @Composable
 private fun LightPreview() {
     SampleTheme {
-        FadeThroughScreen(upPress = {})
+        HoldScreen {}
     }
 }
 
@@ -56,6 +61,6 @@ private fun LightPreview() {
 @Composable
 private fun DarkPreview() {
     SampleTheme(darkTheme = true) {
-        FadeThroughScreen(upPress = {})
+        HoldScreen {}
     }
 }

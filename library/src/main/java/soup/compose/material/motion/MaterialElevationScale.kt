@@ -21,9 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 /**
- * [FadeThrough] allows to switch between two layouts with a fade through animation.
+ * [MaterialElevationScale] allows to switch between two layouts with a elevation scale animation.
  *
- * @see com.google.android.material.transition.MaterialFadeThrough
+ * @see com.google.android.material.transition.MaterialElevationScale
  *
  * @param targetState is a key representing your target layout state. Every time you change a key
  * the animation will be triggered. The [content] called with the old key will be faded out while
@@ -31,14 +31,14 @@ import androidx.compose.ui.Modifier
  * @param modifier Modifier to be applied to the animation container.
  */
 @Composable
-fun <T> FadeThrough(
+fun <T> MaterialElevationScale(
     targetState: T,
     modifier: Modifier = Modifier,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = fadeThrough(),
+        motionSpec = materialElevationScale(),
         modifier = modifier,
         content = content
     )

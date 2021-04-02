@@ -19,17 +19,17 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import org.junit.runner.RunWith
-import soup.compose.material.motion.MotionConstants.motionDurationLong1
+import soup.compose.material.motion.MotionConstants.motionDurationShort2
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @OptIn(ExperimentalTestApi::class)
-class SharedAxisZTest : MaterialMotionTest() {
+class MaterialFadeTest : MaterialMotionTest() {
 
     override val defaultDurationMillis: Int
-        get() = motionDurationLong1
+        get() = motionDurationShort2
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return sharedAxis(axis = Axis.Z, forward = forward)
+        return materialFade()
     }
 }

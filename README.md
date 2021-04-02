@@ -35,7 +35,7 @@ This library provides support for [motion patterns](https://material.io/design/m
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-SharedAxis(
+MaterialSharedAxis(
     targetState = screen,
     axis = Axis.X,
     forward = true,
@@ -48,7 +48,7 @@ SharedAxis(
 
 MaterialMotion(
     targetState = screen,
-    motionSpec = sharedAxis(
+    motionSpec = materialSharedAxis(
         axis = Axis.X,
         forward = true,
         slideDistance = 30.dp // (optional)
@@ -66,7 +66,7 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-FadeThrough(
+MaterialFadeThrough(
     targetState = screen
 ) { newScreen ->
     // composable according to screen
@@ -76,7 +76,7 @@ FadeThrough(
 
 MaterialMotion(
     targetState = screen,
-    motionSpec = fadeThrough()
+    motionSpec = materialFadeThrough()
 ) { newScreen ->
     // composable according to screen
 }
@@ -90,7 +90,7 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-Fade(
+MaterialFade(
     targetState = screen
 ) { newScreen ->
     // composable according to screen
@@ -100,7 +100,7 @@ Fade(
 
 MaterialMotion(
     targetState = selectedTab,
-    motionSpec = fade()
+    motionSpec = materialFade()
 ) { newScreen ->
     // composable according to screen
 }
@@ -110,22 +110,29 @@ MaterialMotion(
 | -------------------------- |
 | <img width="200" src="docs/fade.gif" /> |
 
-### Crossfade
+### Elevation scale
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+MaterialElevationScale(
+    targetState = screen
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
 MaterialMotion(
-    targetState = selectedTab,
-    motionSpec = crossfade()
+    targetState = screen,
+    motionSpec = materialElevationScale()
 ) { newScreen ->
     // composable according to screen
 }
 ```
-or use [Crossfade](https://github.com/androidx/androidx/blob/androidx-main/compose/animation/animation/src/commonMain/kotlin/androidx/compose/animation/Crossfade.kt) in compose-animation.
 
-| Crossfade                  |
+| ElevationScale             |
 | -------------------------- |
-| <img width="200" src="docs/crossfade.gif" /> |
+| <img width="200" src="docs/elevation_scale.gif" /> |
 
 ### Hold
 
@@ -151,29 +158,22 @@ MaterialMotion(
 | -------------------------- |
 | <img width="200" src="docs/hold.gif" /> |
 
-### Elevation scale
+### Crossfade
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-ElevationScale(
-    targetState = screen
-) { newScreen ->
-    // composable according to screen
-}
-
-// or
-
 MaterialMotion(
-    targetState = screen,
-    motionSpec = elevationScale()
+    targetState = selectedTab,
+    motionSpec = crossfade()
 ) { newScreen ->
     // composable according to screen
 }
 ```
+or use [Crossfade](https://github.com/androidx/androidx/blob/androidx-main/compose/animation/animation/src/commonMain/kotlin/androidx/compose/animation/Crossfade.kt) in compose-animation.
 
-| ElevationScale             |
+| Crossfade                  |
 | -------------------------- |
-| <img width="200" src="docs/elevation_scale.gif" /> |
+| <img width="200" src="docs/crossfade.gif" /> |
 
 ### If you want to use different motions depending on the state:
 
