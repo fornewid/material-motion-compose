@@ -41,9 +41,7 @@ import soup.compose.material.motion.sample.ui.Destination.Home
 import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
-import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisX
-import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisY
-import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxisZ
+import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
@@ -114,9 +112,7 @@ private val Destination.description: String
     get() = when (this) {
         Home -> "HomeScreen"
         Demo -> "DemoScreen"
-        MaterialSharedAxisX -> "MaterialSharedAxisScreen"
-        MaterialSharedAxisY -> "MaterialSharedAxisScreen"
-        MaterialSharedAxisZ -> "MaterialSharedAxisScreen"
+        MaterialSharedAxis -> "MaterialSharedAxisScreen"
         MaterialFadeThrough -> "MaterialFadeThroughScreen"
         MaterialFade -> "MaterialFadeScreen"
         MaterialElevationScale -> "MaterialElevationScaleScreen"

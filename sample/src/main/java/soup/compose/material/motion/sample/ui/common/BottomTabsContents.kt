@@ -17,7 +17,6 @@ package soup.compose.material.motion.sample.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,7 +27,6 @@ import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -41,37 +39,28 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.sample.R
-import soup.compose.material.motion.sample.ui.widget.DefaultTopAppBar
 
 enum class BottomTabs {
     Albums, Photos, Search
 }
 
 @Composable
-fun BottomTabsScaffold(
-    upPress: () -> Unit,
+fun BottomTabsControls(
     selectedTab: BottomTabs,
     setSelectedTab: (BottomTabs) -> Unit,
-    content: @Composable (PaddingValues) -> Unit,
 ) {
-    Scaffold(
-        topBar = { DefaultTopAppBar(upPress) },
-        bottomBar = {
-            BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
-                BottomTabs.values().forEach { tab ->
-                    BottomNavigationItem(
-                        icon = { Icon(tab.icon(), contentDescription = null) },
-                        label = { Text(tab.name) },
-                        selected = tab == selectedTab,
-                        onClick = { setSelectedTab(tab) },
-                        selectedContentColor = MaterialTheme.colors.primary,
-                        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
-                    )
-                }
-            }
-        },
-        content = content
-    )
+    BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
+        BottomTabs.values().forEach { tab ->
+            BottomNavigationItem(
+                icon = { Icon(tab.icon(), contentDescription = null) },
+                label = { Text(tab.name) },
+                selected = tab == selectedTab,
+                onClick = { setSelectedTab(tab) },
+                selectedContentColor = MaterialTheme.colors.primary,
+                unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+            )
+        }
+    }
 }
 
 @Composable

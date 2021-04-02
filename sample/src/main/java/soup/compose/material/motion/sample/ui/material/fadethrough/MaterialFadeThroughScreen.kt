@@ -24,16 +24,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.common.BottomTabsContents
-import soup.compose.material.motion.sample.ui.common.BottomTabsScaffold
+import soup.compose.material.motion.sample.ui.common.BottomTabsControls
+import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun MaterialFadeThroughScreen(upPress: () -> Unit) {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomTabs.Albums) }
-    BottomTabsScaffold(
+    DefaultScaffold(
         upPress = upPress,
-        selectedTab = selectedTab,
-        setSelectedTab = setSelectedTab
+        bottomBar = { BottomTabsControls(selectedTab, setSelectedTab) }
     ) { innerPadding ->
         MaterialFadeThrough(
             targetState = selectedTab,

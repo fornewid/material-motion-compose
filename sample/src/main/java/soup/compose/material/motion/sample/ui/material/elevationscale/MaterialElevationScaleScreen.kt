@@ -22,17 +22,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialElevationScale
+import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
-import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun MaterialElevationScaleScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    ForwardBackwardScaffold(
+    DefaultScaffold(
         upPress = upPress,
-        forward = forward,
-        onForwardChanged = onForwardChanged,
+        bottomBar = {
+            ForwardBackwardControls(forward, onForwardChanged)
+        }
     ) { innerPadding ->
         MaterialElevationScale(
             targetState = forward,
