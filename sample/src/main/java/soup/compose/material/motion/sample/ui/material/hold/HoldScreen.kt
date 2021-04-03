@@ -25,17 +25,19 @@ import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
 import soup.compose.material.motion.materialSharedAxis
+import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
-import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
 fun HoldScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    ForwardBackwardScaffold(
+    DefaultScaffold(
         upPress = upPress,
-        forward = forward,
-        onForwardChanged = onForwardChanged,
+        bottomBar = {
+            ForwardBackwardControls(forward, onForwardChanged)
+        }
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,

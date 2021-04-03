@@ -15,28 +15,48 @@
  */
 package soup.compose.material.motion.sample.ui.material.sharedaxis
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material.RadioButton
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialSharedAxis
+import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
-import soup.compose.material.motion.sample.ui.common.ForwardBackwardScaffold
+import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun MaterialSharedAxisScreen(axis: Axis, upPress: () -> Unit) {
+fun MaterialSharedAxisScreen(upPress: () -> Unit) {
+    val (selectedAxis, onAxisSelected) = remember { mutableStateOf(Axis.X) }
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    ForwardBackwardScaffold(
+    DefaultScaffold(
         upPress = upPress,
-        forward = forward,
-        onForwardChanged = onForwardChanged,
+        bottomBar = {
+            Column {
+                ForwardBackwardControls(forward, onForwardChanged)
+                MaterialSharedAxisControls(selectedAxis, onAxisSelected)
+            }
+        }
     ) { innerPadding ->
         MaterialSharedAxis(
-            axis = axis,
+            axis = selectedAxis,
             forward = forward,
             targetState = forward,
             modifier = Modifier.padding(innerPadding)
@@ -46,26 +66,52 @@ fun MaterialSharedAxisScreen(axis: Axis, upPress: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun AxisXPreview() {
-    SampleTheme {
-        MaterialSharedAxisScreen(axis = Axis.X, upPress = {})
+private fun MaterialSharedAxisControls(
+    selectedAxis: Axis,
+    onAxisSelected: (Axis) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .selectableGroup(),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Axis.values().forEach { axis ->
+            Row(
+                Modifier
+                    .wrapContentSize()
+                    .selectable(
+                        selected = axis == selectedAxis,
+                        onClick = { onAxisSelected(axis) },
+                        role = Role.RadioButton
+                    )
+                    .padding(horizontal = 8.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = axis == selectedAxis,
+                    onClick = null
+                )
+                Spacer(modifier = Modifier.requiredWidth(4.dp))
+                Text(text = axis.name)
+            }
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun AxisYPreview() {
+private fun LightPreview() {
     SampleTheme {
-        MaterialSharedAxisScreen(axis = Axis.Y, upPress = {})
+        MaterialSharedAxisScreen(upPress = {})
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun AxisZPreview() {
-    SampleTheme {
-        MaterialSharedAxisScreen(axis = Axis.Z, upPress = {})
+private fun DarkPreview() {
+    SampleTheme(darkTheme = true) {
+        MaterialSharedAxisScreen(upPress = {})
     }
 }

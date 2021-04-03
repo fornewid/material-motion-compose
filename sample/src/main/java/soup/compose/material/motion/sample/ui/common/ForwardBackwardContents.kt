@@ -17,7 +17,6 @@ package soup.compose.material.motion.sample.ui.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,7 +32,6 @@ import androidx.compose.material.LocalContentColor
 import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
@@ -48,41 +46,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.sample.ui.widget.DefaultTopAppBar
 
 @Composable
-fun ForwardBackwardScaffold(
-    upPress: () -> Unit,
+fun ForwardBackwardControls(
     forward: Boolean,
     onForwardChanged: (Boolean) -> Unit,
-    content: @Composable (PaddingValues) -> Unit,
 ) {
-    Scaffold(
-        topBar = { DefaultTopAppBar(upPress) },
-        bottomBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 16.dp)
-            ) {
-                TextButton(
-                    onClick = { onForwardChanged(false) },
-                    modifier = Modifier.align(Alignment.BottomStart),
-                    enabled = forward
-                ) {
-                    Text(text = "Back".toUpperCase())
-                }
-                Button(
-                    onClick = { onForwardChanged(true) },
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    enabled = forward.not()
-                ) {
-                    Text(text = "Next".toUpperCase())
-                }
-            }
-        },
-        content = content
-    )
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(all = 16.dp)
+    ) {
+        TextButton(
+            onClick = { onForwardChanged(false) },
+            modifier = Modifier.align(Alignment.BottomStart),
+            enabled = forward
+        ) {
+            Text(text = "Back".toUpperCase())
+        }
+        Button(
+            onClick = { onForwardChanged(true) },
+            modifier = Modifier.align(Alignment.BottomEnd),
+            enabled = forward.not()
+        ) {
+            Text(text = "Next".toUpperCase())
+        }
+    }
 }
 
 @Composable

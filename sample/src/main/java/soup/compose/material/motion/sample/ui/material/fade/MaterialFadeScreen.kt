@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -33,14 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.MaterialFade
+import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.sample.ui.widget.DefaultTopAppBar
 
 @Composable
 fun MaterialFadeScreen(upPress: () -> Unit) {
-    Scaffold(
-        topBar = { DefaultTopAppBar(upPress) }
-    ) { innerPadding ->
+    DefaultScaffold(upPress = upPress) { innerPadding ->
         val (visible, onVisibleChanged) = remember { mutableStateOf(true) }
         Box(
             modifier = Modifier
