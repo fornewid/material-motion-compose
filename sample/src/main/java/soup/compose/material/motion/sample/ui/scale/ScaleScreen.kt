@@ -31,9 +31,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.Scale
+import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+import soup.compose.material.motion.scale
 
 @Composable
 fun ScaleScreen(upPress: () -> Unit) {
@@ -50,8 +51,9 @@ fun ScaleScreen(upPress: () -> Unit) {
             ) {
                 Text(text = if (visible) "HIDE FAB" else "SHOW FAB")
             }
-            Scale(
+            MaterialMotion(
                 targetState = visible,
+                motionSpec = scale(0f, 1f),
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) { visible ->
                 if (visible) {

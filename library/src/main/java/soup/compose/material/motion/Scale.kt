@@ -17,29 +17,26 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import soup.compose.material.motion.internal.GraphicsLayerSpec
+import soup.compose.material.motion.provider.GraphicsLayerData
 
 /**
- * [Scale] allows to switch between two layouts with a scale animation.
- *
- * @see android.view.animation.ScaleAnimation
- *
- * @param targetState is a key representing your target layout state. Every time you change a key
- * the animation will be triggered. The [content] called with the old key will be faded out while
- * the [content] called with the new key will be faded in.
- * @param modifier Modifier to be applied to the animation container.
+ * [scale] allows to switch a layout with a scale animation.
  */
-@Composable
-fun <T> Scale(
-    targetState: T,
-    modifier: Modifier = Modifier,
-    content: @Composable (T) -> Unit,
-) {
-    MaterialMotion(
-        targetState = targetState,
-        motionSpec = scale(),
-        modifier = modifier,
-        content = content
-    )
-}
+fun scale(
+    fromX: Float,
+    toX: Float,
+    fromY: Float,
+    toY: Float,
+): MotionSpec = GraphicsLayerSpec(
+    from = GraphicsLayerData(scaleX = fromX, scaleY = fromY),
+    to = GraphicsLayerData(scaleX = toX, scaleY = toY)
+)
+
+/**
+ * [scale] allows to switch a layout with a scale animation.
+ */
+fun scale(
+    from: Float,
+    to: Float,
+): MotionSpec = scale(from, to, from, to)

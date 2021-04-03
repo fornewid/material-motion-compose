@@ -30,7 +30,6 @@ import soup.compose.material.motion.internal.MaterialElevationScaleSpec
 import soup.compose.material.motion.internal.MaterialFadeSpec
 import soup.compose.material.motion.internal.MaterialFadeThroughSpec
 import soup.compose.material.motion.internal.MaterialSharedAxisSpec
-import soup.compose.material.motion.internal.ScaleSpec
 
 object MotionConstants {
     const val motionDurationShort1 = 75
@@ -115,8 +114,3 @@ fun hold(): MotionSpec = HoldSpec()
 fun crossfade(
     animationSpec: FiniteAnimationSpec<Float> = tween(),
 ): MotionSpec = CrossfadeSpec(animationSpec)
-
-/**
- * [scale] allows to switch a layout with a scale animation.
- */
-fun scale(): MotionSpec = ScaleSpec()
