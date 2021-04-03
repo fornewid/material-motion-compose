@@ -48,7 +48,7 @@ fun ScaleScreen(upPress: () -> Unit) {
                 onClick = { onVisibleChanged(visible.not()) },
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                Text(text = if (visible) "SHOW FAB" else "HIDE FAB")
+                Text(text = if (visible) "HIDE FAB" else "SHOW FAB")
             }
             Scale(
                 targetState = visible,
