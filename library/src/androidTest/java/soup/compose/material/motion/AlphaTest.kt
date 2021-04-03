@@ -24,12 +24,12 @@ import soup.compose.material.motion.MotionConstants.motionDurationLong1
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @OptIn(ExperimentalTestApi::class)
-class ScaleTest : MaterialMotionTest() {
+class AlphaTest : MaterialMotionTest() {
 
     override val defaultDurationMillis: Int
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return scale(0f, 1f)
+        return alpha(0f, 1f)
     }
 }
