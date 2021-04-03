@@ -32,6 +32,7 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Scale
+import soup.compose.material.motion.sample.ui.Destination.Translate
 import soup.compose.material.motion.sample.ui.alpha.AlphaScreen
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
@@ -41,6 +42,7 @@ import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeT
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
 import soup.compose.material.motion.sample.ui.scale.ScaleScreen
+import soup.compose.material.motion.sample.ui.translate.TranslateScreen
 
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
@@ -53,6 +55,7 @@ enum class Destination(val route: String, val root: Boolean = false) {
     Crossfade("crossfade"),
     Alpha("alpha"),
     Scale("scale"),
+    Translate("translate"),
 }
 
 @Composable
@@ -81,6 +84,7 @@ fun NavGraph(
                         Hold -> actions.goToHold()
                         Alpha -> actions.goToAlpha()
                         Scale -> actions.goToScale()
+                        Translate -> actions.goToTranslate()
                         Crossfade -> actions.goToCrossfade()
                     }
                 }
@@ -117,6 +121,9 @@ fun NavGraph(
         composable(Scale.route) {
             ScaleScreen(actions.upPress)
         }
+        composable(Translate.route) {
+            TranslateScreen(actions.upPress)
+        }
     }
 }
 
@@ -150,5 +157,8 @@ private class MainActions(navController: NavHostController) {
     }
     val goToScale: () -> Unit = {
         navController.navigate(Scale.route)
+    }
+    val goToTranslate: () -> Unit = {
+        navController.navigate(Translate.route)
     }
 }

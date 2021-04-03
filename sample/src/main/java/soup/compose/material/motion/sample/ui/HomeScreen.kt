@@ -44,6 +44,7 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Scale
+import soup.compose.material.motion.sample.ui.Destination.Translate
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
@@ -122,6 +123,7 @@ private val Destination.description: String
         Crossfade -> "CrossfadeScreen"
         Alpha -> "AlphaScreen"
         Scale -> "ScaleScreen"
+        Translate -> "TranslateScreen"
     }
 
 @Preview(showBackground = true)
