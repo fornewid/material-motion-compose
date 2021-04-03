@@ -59,10 +59,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.Scale
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.theme.Purple200
-import soup.compose.material.motion.scale
 
 @Composable
 fun AlbumScaffold(
@@ -175,9 +174,8 @@ fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
                 )
             }
         }
-        MaterialMotion(
+        Scale(
             targetState = showFab,
-            motionSpec = scale(),
             modifier = Modifier
                 .constrainAs(fab) {
                     end.linkTo(parent.end, margin = 16.dp)
