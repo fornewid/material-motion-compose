@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import soup.compose.material.motion.sample.ui.Destination.Alpha
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.Hold
@@ -118,8 +119,9 @@ private val Destination.description: String
         MaterialFade -> "MaterialFadeScreen"
         MaterialElevationScale -> "MaterialElevationScaleScreen"
         Hold -> "HoldScreen"
-        Scale -> "ScaleScreen"
         Crossfade -> "CrossfadeScreen"
+        Alpha -> "AlphaScreen"
+        Scale -> "ScaleScreen"
     }
 
 @Preview(showBackground = true)
