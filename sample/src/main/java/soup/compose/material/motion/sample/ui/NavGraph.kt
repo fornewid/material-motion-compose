@@ -30,6 +30,7 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
+import soup.compose.material.motion.sample.ui.Destination.Scale
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
@@ -37,6 +38,7 @@ import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
+import soup.compose.material.motion.sample.ui.scale.ScaleScreen
 
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
@@ -46,6 +48,7 @@ enum class Destination(val route: String, val root: Boolean = false) {
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
     Hold("hold"),
+    Scale("scale"),
     Crossfade("crossfade"),
 }
 
@@ -73,6 +76,7 @@ fun NavGraph(
                         MaterialFade -> actions.goToMaterialFade()
                         MaterialElevationScale -> actions.goToMaterialElevationScale()
                         Hold -> actions.goToHold()
+                        Scale -> actions.goToScale()
                         Crossfade -> actions.goToCrossfade()
                     }
                 }
@@ -100,6 +104,9 @@ fun NavGraph(
         }
 
         /* Etc */
+        composable(Scale.route) {
+            ScaleScreen(actions.upPress)
+        }
         composable(Crossfade.route) {
             CrossfadeScreen(actions.upPress)
         }
@@ -127,6 +134,9 @@ private class MainActions(navController: NavHostController) {
     }
     val goToHold: () -> Unit = {
         navController.navigate(Hold.route)
+    }
+    val goToScale: () -> Unit = {
+        navController.navigate(Scale.route)
     }
     val goToCrossfade: () -> Unit = {
         navController.navigate(Crossfade.route)
