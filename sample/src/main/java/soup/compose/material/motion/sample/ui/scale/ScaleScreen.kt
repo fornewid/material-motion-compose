@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.material.fade
+package soup.compose.material.motion.sample.ui.scale
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,12 +31,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.MaterialFade
+import soup.compose.material.motion.Scale
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
-fun MaterialFadeScreen(upPress: () -> Unit) {
+fun ScaleScreen(upPress: () -> Unit) {
     DefaultScaffold(upPress = upPress) { innerPadding ->
         val (visible, onVisibleChanged) = remember { mutableStateOf(true) }
         Box(
@@ -50,7 +50,7 @@ fun MaterialFadeScreen(upPress: () -> Unit) {
             ) {
                 Text(text = if (visible) "HIDE FAB" else "SHOW FAB")
             }
-            MaterialFade(
+            Scale(
                 targetState = visible,
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) { visible ->
@@ -71,7 +71,7 @@ fun MaterialFadeScreen(upPress: () -> Unit) {
 @Composable
 private fun LightPreview() {
     SampleTheme {
-        MaterialFadeScreen(upPress = {})
+        ScaleScreen(upPress = {})
     }
 }
 
@@ -79,6 +79,6 @@ private fun LightPreview() {
 @Composable
 private fun DarkPreview() {
     SampleTheme(darkTheme = true) {
-        MaterialFadeScreen(upPress = {})
+        ScaleScreen(upPress = {})
     }
 }
