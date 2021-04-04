@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.sample.ui.scale
+package soup.compose.material.motion.sample.ui.alpha
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,12 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.alpha
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.scale
 
 @Composable
-fun ScaleScreen(upPress: () -> Unit) {
+fun AlphaScreen(upPress: () -> Unit) {
     DefaultScaffold(upPress = upPress) { innerPadding ->
         val (visible, onVisibleChanged) = remember { mutableStateOf(true) }
         Box(
@@ -53,7 +53,7 @@ fun ScaleScreen(upPress: () -> Unit) {
             }
             MaterialMotion(
                 targetState = visible,
-                motionSpec = scale(0f, 1f),
+                motionSpec = alpha(0f, 1f),
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) { visible ->
                 if (visible) {
@@ -73,7 +73,7 @@ fun ScaleScreen(upPress: () -> Unit) {
 @Composable
 private fun LightPreview() {
     SampleTheme {
-        ScaleScreen(upPress = {})
+        AlphaScreen(upPress = {})
     }
 }
 
@@ -81,6 +81,6 @@ private fun LightPreview() {
 @Composable
 private fun DarkPreview() {
     SampleTheme(darkTheme = true) {
-        ScaleScreen(upPress = {})
+        AlphaScreen(upPress = {})
     }
 }

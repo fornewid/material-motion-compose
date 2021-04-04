@@ -17,26 +17,17 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.ui.draw.rotate
 import soup.compose.material.motion.internal.GraphicsLayerSpec
 import soup.compose.material.motion.provider.GraphicsLayerData
 
 /**
- * [scale] allows to switch a layout with a scale animation.
+ * [rotate] allows to switch a layout with a rotate animation.
  */
-fun scale(
-    fromX: Float,
-    toX: Float,
-    fromY: Float,
-    toY: Float,
-): MotionSpec = GraphicsLayerSpec(
-    from = GraphicsLayerData(scaleX = fromX, scaleY = fromY),
-    to = GraphicsLayerData(scaleX = toX, scaleY = toY)
-)
-
-/**
- * [scale] allows to switch a layout with a scale animation.
- */
-fun scale(
+fun rotate(
     from: Float,
     to: Float,
-): MotionSpec = scale(from, to, from, to)
+): MotionSpec = GraphicsLayerSpec(
+    from = GraphicsLayerData(rotationZ = from),
+    to = GraphicsLayerData(rotationZ = to)
+)

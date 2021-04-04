@@ -13,30 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("unused")
-
 package soup.compose.material.motion
 
-import soup.compose.material.motion.internal.GraphicsLayerSpec
-import soup.compose.material.motion.provider.GraphicsLayerData
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
+import org.junit.runner.RunWith
+import soup.compose.material.motion.MotionConstants.motionDurationLong1
 
-/**
- * [scale] allows to switch a layout with a scale animation.
- */
-fun scale(
-    fromX: Float,
-    toX: Float,
-    fromY: Float,
-    toY: Float,
-): MotionSpec = GraphicsLayerSpec(
-    from = GraphicsLayerData(scaleX = fromX, scaleY = fromY),
-    to = GraphicsLayerData(scaleX = toX, scaleY = toY)
-)
+@RunWith(AndroidJUnit4::class)
+@MediumTest
+@OptIn(ExperimentalTestApi::class)
+class TranslateYTest : MaterialMotionTest() {
 
-/**
- * [scale] allows to switch a layout with a scale animation.
- */
-fun scale(
-    from: Float,
-    to: Float,
-): MotionSpec = scale(from, to, from, to)
+    override val defaultDurationMillis: Int
+        get() = motionDurationLong1
+
+    override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
+        return translateY(0f, 100f)
+    }
+}

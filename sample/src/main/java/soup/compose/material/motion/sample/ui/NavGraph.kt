@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import soup.compose.material.motion.sample.ui.Destination.Alpha
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.Hold
@@ -31,6 +32,8 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Scale
+import soup.compose.material.motion.sample.ui.Destination.Translate
+import soup.compose.material.motion.sample.ui.alpha.AlphaScreen
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
@@ -39,6 +42,7 @@ import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeT
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
 import soup.compose.material.motion.sample.ui.scale.ScaleScreen
+import soup.compose.material.motion.sample.ui.translate.TranslateScreen
 
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
@@ -48,8 +52,10 @@ enum class Destination(val route: String, val root: Boolean = false) {
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
     Hold("hold"),
-    Scale("scale"),
     Crossfade("crossfade"),
+    Alpha("alpha"),
+    Scale("scale"),
+    Translate("translate"),
 }
 
 @Composable
@@ -76,7 +82,9 @@ fun NavGraph(
                         MaterialFade -> actions.goToMaterialFade()
                         MaterialElevationScale -> actions.goToMaterialElevationScale()
                         Hold -> actions.goToHold()
+                        Alpha -> actions.goToAlpha()
                         Scale -> actions.goToScale()
+                        Translate -> actions.goToTranslate()
                         Crossfade -> actions.goToCrossfade()
                     }
                 }
@@ -104,11 +112,17 @@ fun NavGraph(
         }
 
         /* Etc */
+        composable(Crossfade.route) {
+            CrossfadeScreen(actions.upPress)
+        }
+        composable(Alpha.route) {
+            AlphaScreen(actions.upPress)
+        }
         composable(Scale.route) {
             ScaleScreen(actions.upPress)
         }
-        composable(Crossfade.route) {
-            CrossfadeScreen(actions.upPress)
+        composable(Translate.route) {
+            TranslateScreen(actions.upPress)
         }
     }
 }
@@ -135,10 +149,16 @@ private class MainActions(navController: NavHostController) {
     val goToHold: () -> Unit = {
         navController.navigate(Hold.route)
     }
+    val goToCrossfade: () -> Unit = {
+        navController.navigate(Crossfade.route)
+    }
+    val goToAlpha: () -> Unit = {
+        navController.navigate(Alpha.route)
+    }
     val goToScale: () -> Unit = {
         navController.navigate(Scale.route)
     }
-    val goToCrossfade: () -> Unit = {
-        navController.navigate(Crossfade.route)
+    val goToTranslate: () -> Unit = {
+        navController.navigate(Translate.route)
     }
 }

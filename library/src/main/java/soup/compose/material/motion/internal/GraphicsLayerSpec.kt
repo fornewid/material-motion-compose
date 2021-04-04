@@ -18,32 +18,20 @@ package soup.compose.material.motion.internal
 import androidx.compose.runtime.Composable
 import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.MotionSpec
-import soup.compose.material.motion.VisibilityAnimationProvider
-import soup.compose.material.motion.provider.FadeProvider
-import soup.compose.material.motion.provider.ScaleProvider
+import soup.compose.material.motion.provider.EmptyProvider
+import soup.compose.material.motion.provider.GraphicsLayerData
+import soup.compose.material.motion.provider.GraphicsLayerProvider
 
-internal class ScaleSpec : MotionSpec(
-    createPrimaryAnimatorProvider(),
-    createSecondaryAnimatorProvider()
+internal data class GraphicsLayerSpec(
+    private val from: GraphicsLayerData,
+    private val to: GraphicsLayerData,
+) : MotionSpec(
+    GraphicsLayerProvider(from, to),
+    EmptyProvider()
 ) {
 
     @Composable
     override fun getDuration(appearing: Boolean): Int {
         return MaterialMotions.durations.motionDurationLong1
-    }
-
-    companion object {
-        private const val DEFAULT_START_SCALE = 0f
-
-        private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
-            return ScaleProvider().apply {
-                outgoingEndScale = DEFAULT_START_SCALE
-                incomingStartScale = DEFAULT_START_SCALE
-            }
-        }
-
-        private fun createSecondaryAnimatorProvider(): VisibilityAnimationProvider {
-            return FadeProvider()
-        }
     }
 }
