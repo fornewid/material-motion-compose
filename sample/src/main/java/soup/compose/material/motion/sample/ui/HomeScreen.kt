@@ -94,8 +94,8 @@ private fun HomeMenuItem(
         modifier = Modifier
             .fillMaxWidth()
             .requiredHeight(64.dp)
-            .padding(horizontal = 16.dp)
             .clickable { onItemClick(menu) }
+            .padding(horizontal = 16.dp)
     ) {
         Text(
             text = menu.name,
