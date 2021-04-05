@@ -175,6 +175,13 @@ or use [Crossfade](https://github.com/androidx/androidx/blob/androidx-main/compo
 | -------------------------- |
 | <img width="200" src="docs/crossfade.gif" /> |
 
+### More...
+
+- `alpha()`
+- `rotate()`
+- `scale()`
+- `translate()`
+
 ### If you want to use different motions depending on the state:
 
 ```kt
