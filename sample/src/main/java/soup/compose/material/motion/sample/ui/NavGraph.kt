@@ -31,6 +31,7 @@ import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
+import soup.compose.material.motion.sample.ui.Destination.MaterialContainerTransform
 import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
@@ -40,6 +41,7 @@ import soup.compose.material.motion.sample.ui.Destination.Translate
 import soup.compose.material.motion.sample.ui.alpha.AlphaScreen
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
+import soup.compose.material.motion.sample.ui.material.containertransform.MaterialContainerTransformScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
@@ -51,6 +53,7 @@ import soup.compose.material.motion.sample.ui.translate.TranslateScreen
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
     Demo("demo"),
+    MaterialContainerTransform("material_container_transform"),
     MaterialSharedAxis("material_shared_axis"),
     MaterialFadeThrough("material_fade_through"),
     MaterialFade("material_fade"),
@@ -97,6 +100,7 @@ fun NavGraph(
                         Home -> {
                         }
                         Demo -> navigate(Demo)
+                        MaterialContainerTransform -> navigate(MaterialContainerTransform)
                         MaterialSharedAxis -> navigate(MaterialSharedAxis)
                         MaterialFadeThrough -> navigate(MaterialFadeThrough)
                         MaterialFade -> navigate(MaterialFade)
@@ -113,6 +117,9 @@ fun NavGraph(
                 }
 
                 /* Material transition patterns */
+                MaterialContainerTransform -> {
+                    MaterialContainerTransformScreen(upPress)
+                }
                 MaterialSharedAxis -> {
                     MaterialSharedAxisScreen(upPress)
                 }

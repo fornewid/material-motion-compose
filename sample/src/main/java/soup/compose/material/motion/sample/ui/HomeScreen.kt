@@ -39,6 +39,7 @@ import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
+import soup.compose.material.motion.sample.ui.Destination.MaterialContainerTransform
 import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
@@ -115,6 +116,7 @@ private val Destination.description: String
     get() = when (this) {
         Home -> "HomeScreen"
         Demo -> "DemoScreen"
+        MaterialContainerTransform -> "MaterialContainerTransformScreen"
         MaterialSharedAxis -> "MaterialSharedAxisScreen"
         MaterialFadeThrough -> "MaterialFadeThroughScreen"
         MaterialFade -> "MaterialFadeScreen"
