@@ -42,10 +42,18 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
     ) { innerPadding ->
         BoxWithConstraints {
             val offset = LocalDensity.current.run { maxHeight.toPx() }
+            val enterMotionSpec = when {
+                forward -> translateY(offset, 0f)
+                else -> materialElevationScale(true)
+            }
+            val exitMotionSpec = when {
+                forward -> materialElevationScale(false)
+                else -> translateY(offset, 0f)
+            }
             MaterialMotion(
                 targetState = forward,
-                enterMotionSpec = if (forward) translateY(offset, 0f) else materialElevationScale(),
-                exitMotionSpec = if (forward) materialElevationScale() else translateY(offset, 0f),
+                enterMotionSpec = enterMotionSpec,
+                exitMotionSpec = exitMotionSpec,
                 pop = forward.not(),
                 modifier = Modifier.padding(innerPadding)
             ) { forward ->

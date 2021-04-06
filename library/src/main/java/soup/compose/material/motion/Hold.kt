@@ -17,29 +17,9 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import soup.compose.material.motion.internal.HoldSpec
 
 /**
- * [Hold] allows to switch between two layouts with no animation.
- *
- * @see com.google.android.material.transition.Hold
- *
- * @param targetState is a key representing your target layout state. Every time you change a key
- * the animation will be triggered. The [content] called with the old key will be faded out while
- * the [content] called with the new key will be faded in.
- * @param modifier Modifier to be applied to the animation container.
+ * [hold] allows to switch a layout with no animation.
  */
-@Composable
-fun <T> Hold(
-    targetState: T,
-    modifier: Modifier = Modifier,
-    content: @Composable (T) -> Unit,
-) {
-    MaterialMotion(
-        targetState = targetState,
-        motionSpec = hold(),
-        modifier = modifier,
-        content = content
-    )
-}
+fun hold(): MotionSpec = HoldSpec()

@@ -38,12 +38,14 @@ import soup.compose.material.motion.internal.MotionAnimationItem
  * the [content] called with the new key will be faded in.
  * @param motionSpec the [MotionSpec] to configure the animation.
  * @param modifier Modifier to be applied to the animation container.
+ * @param pop whether motion contents are rendered in reverse order.
  */
 @Composable
 fun <T> MaterialMotion(
     targetState: T,
     motionSpec: MotionSpec,
     modifier: Modifier = Modifier,
+    pop: Boolean = false,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(
@@ -51,6 +53,7 @@ fun <T> MaterialMotion(
         enterMotionSpec = motionSpec,
         exitMotionSpec = motionSpec,
         modifier = modifier,
+        pop = pop,
         content = content
     )
 }
@@ -64,7 +67,7 @@ fun <T> MaterialMotion(
  * @param enterMotionSpec the [MotionSpec] to configure the enter animation.
  * @param exitMotionSpec the [MotionSpec] to configure the exit animation.
  * @param modifier Modifier to be applied to the animation container.
- * @param pop whether popping off the back stack.
+ * @param pop whether motion contents are rendered in reverse order.
  */
 @Composable
 fun <T> MaterialMotion(

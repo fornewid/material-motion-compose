@@ -30,6 +30,6 @@ class MaterialElevationScaleTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return materialElevationScale()
+        return materialElevationScale(growing = false)
     }
 }

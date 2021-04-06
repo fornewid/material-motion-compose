@@ -114,17 +114,9 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-MaterialElevationScale(
-    targetState = screen
-) { newScreen ->
-    // composable according to screen
-}
-
-// or
-
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialElevationScale()
+    motionSpec = materialElevationScale(growing = false)
 ) { newScreen ->
     // composable according to screen
 }
@@ -138,14 +130,6 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-Hold(
-    targetState = screen
-) { newScreen ->
-    // composable according to screen
-}
-
-// or
-
 MaterialMotion(
     targetState = screen,
     motionSpec = hold()
@@ -162,6 +146,14 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+Crossfade(
+    targetState = screen
+) { newScreen ->
+    // composable according to screen
+}
+
+// or
+
 MaterialMotion(
     targetState = selectedTab,
     motionSpec = crossfade()
@@ -193,7 +185,8 @@ val motionSpec = when (screen) {
 }
 MaterialMotion(
     targetState = screen,
-    motionSpec = motionSpec
+    motionSpec = motionSpec,
+    pop = false // whether motion contents are rendered in reverse order.
 ) { newScreen ->
     // composable according to screen
 }
@@ -204,7 +197,7 @@ MaterialMotion(
     targetState = screen,
     enterMotionSpec = motionSpec,
     exitMotionSpec = motionSpec,
-    pop = false // whether popping off the back stack.
+    pop = false // whether motion contents are rendered in reverse order.
 ) { newScreen ->
     // composable according to screen
 }

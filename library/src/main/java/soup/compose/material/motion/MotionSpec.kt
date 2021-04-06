@@ -18,18 +18,9 @@
 package soup.compose.material.motion
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
-import soup.compose.material.motion.internal.CrossfadeSpec
-import soup.compose.material.motion.internal.HoldSpec
-import soup.compose.material.motion.internal.MaterialElevationScaleSpec
-import soup.compose.material.motion.internal.MaterialFadeSpec
-import soup.compose.material.motion.internal.MaterialFadeThroughSpec
-import soup.compose.material.motion.internal.MaterialSharedAxisSpec
 
 object MotionConstants {
     const val motionDurationShort1 = 75
@@ -72,45 +63,3 @@ interface VisibilityAnimationProvider {
     fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float>
     fun disappear(modifier: Modifier, fraction: Float): Modifier
 }
-
-/**
- * [materialSharedAxis] allows to switch a layout with a shared axis animation.
- *
- * @param axis movement axis of the animation.
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance slide distance of the animation.
- */
-fun materialSharedAxis(
-    axis: Axis,
-    forward: Boolean,
-    slideDistance: Dp? = null,
-): MotionSpec = MaterialSharedAxisSpec(axis, forward, slideDistance)
-
-/**
- * [materialFadeThrough] allows to switch a layout with a fade through animation.
- */
-fun materialFadeThrough(): MotionSpec = MaterialFadeThroughSpec()
-
-/**
- * [materialFade] allows to switch a layout with a fade animation.
- */
-fun materialFade(): MotionSpec = MaterialFadeSpec()
-
-/**
- * [materialElevationScale] allows to switch a layout with a elevation scale animation.
- */
-fun materialElevationScale(): MotionSpec = MaterialElevationScaleSpec()
-
-/**
- * [hold] allows to switch a layout with no animation.
- */
-fun hold(): MotionSpec = HoldSpec()
-
-/**
- * [crossfade] allows to switch a layout with a crossfade animation.
- *
- * @param animationSpec the [AnimationSpec] to configure the animation.
- */
-fun crossfade(
-    animationSpec: FiniteAnimationSpec<Float> = tween(),
-): MotionSpec = CrossfadeSpec(animationSpec)

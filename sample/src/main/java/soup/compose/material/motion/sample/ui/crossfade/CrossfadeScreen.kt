@@ -21,8 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.crossfade
+import soup.compose.material.motion.Crossfade
 import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.common.BottomTabsContents
 import soup.compose.material.motion.sample.ui.common.BottomTabsControls
@@ -36,9 +35,8 @@ fun CrossfadeScreen(upPress: () -> Unit) {
         upPress = upPress,
         bottomBar = { BottomTabsControls(selectedTab, setSelectedTab) }
     ) { innerPadding ->
-        MaterialMotion(
+        Crossfade(
             targetState = selectedTab,
-            motionSpec = crossfade(),
             modifier = Modifier.padding(innerPadding)
         ) { currentTab ->
             BottomTabsContents(currentTab)
