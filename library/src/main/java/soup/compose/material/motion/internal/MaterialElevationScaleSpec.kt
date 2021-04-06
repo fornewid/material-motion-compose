@@ -22,8 +22,8 @@ import soup.compose.material.motion.VisibilityAnimationProvider
 import soup.compose.material.motion.provider.FadeProvider
 import soup.compose.material.motion.provider.ScaleProvider
 
-internal class MaterialElevationScaleSpec : MotionSpec(
-    createPrimaryAnimatorProvider(),
+internal class MaterialElevationScaleSpec(growing: Boolean) : MotionSpec(
+    createPrimaryAnimatorProvider(growing),
     createSecondaryAnimatorProvider()
 ) {
 
@@ -35,8 +35,8 @@ internal class MaterialElevationScaleSpec : MotionSpec(
     companion object {
         private const val DEFAULT_START_SCALE = 0.85f
 
-        private fun createPrimaryAnimatorProvider(): VisibilityAnimationProvider {
-            return ScaleProvider().apply {
+        private fun createPrimaryAnimatorProvider(growing: Boolean): VisibilityAnimationProvider {
+            return ScaleProvider(growing).apply {
                 outgoingEndScale = DEFAULT_START_SCALE
                 incomingStartScale = DEFAULT_START_SCALE
             }

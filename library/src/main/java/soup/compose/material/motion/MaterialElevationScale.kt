@@ -17,29 +17,13 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import soup.compose.material.motion.internal.MaterialElevationScaleSpec
 
 /**
- * [MaterialElevationScale] allows to switch between two layouts with a elevation scale animation.
+ * [materialElevationScale] allows to switch a layout with a elevation scale animation.
  *
- * @see com.google.android.material.transition.MaterialElevationScale
- *
- * @param targetState is a key representing your target layout state. Every time you change a key
- * the animation will be triggered. The [content] called with the old key will be faded out while
- * the [content] called with the new key will be faded in.
- * @param modifier Modifier to be applied to the animation container.
+ * @param growing if true, increase the size both when appearing and disappearing.
  */
-@Composable
-fun <T> MaterialElevationScale(
-    targetState: T,
-    modifier: Modifier = Modifier,
-    content: @Composable (T) -> Unit,
-) {
-    MaterialMotion(
-        targetState = targetState,
-        motionSpec = materialElevationScale(),
-        modifier = modifier,
-        content = content
-    )
-}
+fun materialElevationScale(
+    growing: Boolean,
+): MotionSpec = MaterialElevationScaleSpec(growing)

@@ -82,7 +82,8 @@ fun TranslateScreen(upPress: () -> Unit) {
             MaterialMotion(
                 targetState = forward,
                 enterMotionSpec = enterMotionSpec,
-                exitMotionSpec = exitMotionSpec
+                exitMotionSpec = exitMotionSpec,
+                pop = forward.not()
             ) { forward ->
                 ForwardBackwardContents(forward)
             }

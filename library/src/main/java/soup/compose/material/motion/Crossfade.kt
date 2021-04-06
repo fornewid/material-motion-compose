@@ -17,10 +17,21 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import soup.compose.material.motion.internal.CrossfadeSpec
+
+/**
+ * [crossfade] allows to switch a layout with a crossfade animation.
+ *
+ * @param animationSpec the [AnimationSpec] to configure the animation.
+ */
+fun crossfade(
+    animationSpec: FiniteAnimationSpec<Float> = tween(),
+): MotionSpec = CrossfadeSpec(animationSpec)
 
 /**
  * [Crossfade] allows to switch between two layouts with a crossfade animation.
@@ -31,7 +42,6 @@ import androidx.compose.ui.Modifier
  * the animation will be triggered. The [content] called with the old key will be faded out while
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
- * @param durationMillis total duration of the animation.
  */
 @Composable
 fun <T> Crossfade(

@@ -19,6 +19,12 @@ package soup.compose.material.motion
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import soup.compose.material.motion.internal.MaterialFadeThroughSpec
+
+/**
+ * [materialFadeThrough] allows to switch a layout with a fade through animation.
+ */
+fun materialFadeThrough(): MotionSpec = MaterialFadeThroughSpec()
 
 /**
  * [MaterialFadeThrough] allows to switch between two layouts with a fade through animation.

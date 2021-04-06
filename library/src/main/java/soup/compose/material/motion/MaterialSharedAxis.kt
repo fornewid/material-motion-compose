@@ -20,10 +20,24 @@ package soup.compose.material.motion
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import soup.compose.material.motion.internal.MaterialSharedAxisSpec
 
 enum class Axis {
     X, Y, Z
 }
+
+/**
+ * [materialSharedAxis] allows to switch a layout with a shared axis animation.
+ *
+ * @param axis movement axis of the animation.
+ * @param forward whether the direction of the animation is forward.
+ * @param slideDistance slide distance of the animation.
+ */
+fun materialSharedAxis(
+    axis: Axis,
+    forward: Boolean,
+    slideDistance: Dp? = null,
+): MotionSpec = MaterialSharedAxisSpec(axis, forward, slideDistance)
 
 /**
  * [MaterialSharedAxis] allows to switch between two layouts with a shared axis animation.
