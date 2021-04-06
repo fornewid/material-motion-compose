@@ -15,20 +15,21 @@
  */
 package soup.compose.material.motion.sample.ui.material.hold
 
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
-import soup.compose.material.motion.materialSharedAxis
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+import soup.compose.material.motion.translateX
 
 @Composable
 fun HoldScreen(upPress: () -> Unit) {
@@ -39,14 +40,17 @@ fun HoldScreen(upPress: () -> Unit) {
             ForwardBackwardControls(forward, onForwardChanged)
         }
     ) { innerPadding ->
-        MaterialMotion(
-            targetState = forward,
-            enterMotionSpec = if (forward) materialSharedAxis(Axis.Z, forward) else hold(),
-            exitMotionSpec = if (forward) hold() else materialSharedAxis(Axis.Z, forward),
-            pop = forward.not(),
-            modifier = Modifier.padding(innerPadding)
-        ) { forward ->
-            ForwardBackwardContents(forward)
+        BoxWithConstraints {
+            val offset = LocalDensity.current.run { maxWidth.toPx() }
+            MaterialMotion(
+                targetState = forward,
+                enterMotionSpec = if (forward) translateX(offset, 0f) else hold(),
+                exitMotionSpec = if (forward) hold() else translateX(offset, 0f),
+                pop = forward.not(),
+                modifier = Modifier.padding(innerPadding)
+            ) { forward ->
+                ForwardBackwardContents(forward)
+            }
         }
     }
 }
