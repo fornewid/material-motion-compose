@@ -76,11 +76,7 @@ fun ForwardBackwardControls(
 
 @Composable
 fun ForwardBackwardContents(forward: Boolean) {
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(all = 16.dp)
-    ) {
+    Surface(modifier = Modifier.fillMaxSize()) {
         if (forward) {
             ForwardContents()
         } else {
@@ -91,7 +87,7 @@ fun ForwardBackwardContents(forward: Boolean) {
 
 @Composable
 private fun BackwardContents() {
-    Column {
+    Column(modifier = Modifier.padding(all = 16.dp)) {
         Spacer(modifier = Modifier.requiredHeight(48.dp))
         Icon(
             Icons.Default.AccountCircle,
@@ -140,7 +136,7 @@ private fun BackwardContents() {
 
 @Composable
 private fun ForwardContents() {
-    Column {
+    Column(modifier = Modifier.padding(all = 16.dp)) {
         Text(
             "Streamline your courses",
             modifier = Modifier.align(Alignment.CenterHorizontally),
