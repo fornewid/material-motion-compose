@@ -61,7 +61,7 @@ afterEvaluate {
                 from components.release
                 group = 'com.github.fornewid'
                 artifactId = 'material-motion-compose'
-                version = '0.4.1'
+                version = '0.4.2'
             }
         }
     }
