@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.material.elevationscale
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -34,6 +35,9 @@ import soup.compose.material.motion.translateY
 @Composable
 fun MaterialElevationScaleScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
+    if (forward) {
+        BackHandler { onForwardChanged(false) }
+    }
     DefaultScaffold(
         upPress = upPress,
         bottomBar = {

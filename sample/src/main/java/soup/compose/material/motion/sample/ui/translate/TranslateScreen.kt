@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.translate
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -55,6 +56,9 @@ private enum class Axis {
 fun TranslateScreen(upPress: () -> Unit) {
     val (selectedAxis, onAxisSelected) = remember { mutableStateOf(Axis.X) }
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
+    if (forward) {
+        BackHandler { onForwardChanged(false) }
+    }
     DefaultScaffold(
         upPress = upPress,
         bottomBar = {
