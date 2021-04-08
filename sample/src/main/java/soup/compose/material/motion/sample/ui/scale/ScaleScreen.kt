@@ -53,7 +53,7 @@ fun ScaleScreen(upPress: () -> Unit) {
             }
             MaterialMotion(
                 targetState = visible,
-                motionSpec = scale(0f, 1f),
+                motionSpec = scale(),
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) { visible ->
                 if (visible) {

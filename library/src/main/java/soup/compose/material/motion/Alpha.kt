@@ -24,8 +24,8 @@ import soup.compose.material.motion.provider.GraphicsLayerData
  * [alpha] allows to switch a layout with a alpha animation.
  */
 fun alpha(
-    from: Float,
-    to: Float,
+    from: Float = 0f,
+    to: Float = 1f,
 ): MotionSpec = GraphicsLayerSpec(
     from = GraphicsLayerData(alpha = from),
     to = GraphicsLayerData(alpha = to)

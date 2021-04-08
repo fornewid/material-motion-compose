@@ -37,6 +37,6 @@ fun scale(
  * [scale] allows to switch a layout with a scale animation.
  */
 fun scale(
-    from: Float,
-    to: Float,
+    from: Float = 0f,
+    to: Float = 1f,
 ): MotionSpec = scale(from, to, from, to)

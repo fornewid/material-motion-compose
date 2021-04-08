@@ -30,6 +30,6 @@ class ScaleTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return scale(0f, 1f)
+        return scale()
     }
 }

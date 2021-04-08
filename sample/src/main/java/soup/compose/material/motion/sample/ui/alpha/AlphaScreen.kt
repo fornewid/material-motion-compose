@@ -53,7 +53,7 @@ fun AlphaScreen(upPress: () -> Unit) {
             }
             MaterialMotion(
                 targetState = visible,
-                motionSpec = alpha(0f, 1f),
+                motionSpec = alpha(),
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) { visible ->
                 if (visible) {
