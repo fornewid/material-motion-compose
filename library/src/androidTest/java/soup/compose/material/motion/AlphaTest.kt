@@ -30,6 +30,6 @@ class AlphaTest : MaterialMotionTest() {
         get() = motionDurationLong1
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
-        return alpha(0f, 1f)
+        return alpha()
     }
 }

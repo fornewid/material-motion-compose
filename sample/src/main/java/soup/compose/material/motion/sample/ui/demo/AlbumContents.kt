@@ -177,7 +177,7 @@ fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
         }
         MaterialMotion(
             targetState = showFab,
-            motionSpec = scale(0f, 1f),
+            motionSpec = scale(),
             modifier = Modifier
                 .constrainAs(fab) {
                     end.linkTo(parent.end, margin = 16.dp)
