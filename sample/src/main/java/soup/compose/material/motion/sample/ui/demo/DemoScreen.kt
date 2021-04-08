@@ -40,9 +40,9 @@ fun DemoScreen() {
     ) { currentId ->
         if (currentId != null) {
             BackHandler { onStateChanged(null) }
-            val dispatcher = LocalOnBackPressedDispatcherOwner.current.onBackPressedDispatcher
+            val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
             val album = MusicData.albums.first { it.id == currentId }
-            AlbumScreen(album, upPress = { dispatcher.onBackPressed() })
+            AlbumScreen(album, upPress = { dispatcher?.onBackPressed() })
         } else {
             LibraryScreen(onItemClick = { onStateChanged(it.id) })
         }
