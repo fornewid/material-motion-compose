@@ -22,9 +22,9 @@ import soup.compose.material.motion.provider.EmptyProvider
 import soup.compose.material.motion.provider.GraphicsLayerData
 import soup.compose.material.motion.provider.GraphicsLayerProvider
 
-internal data class GraphicsLayerSpec(
-    private val from: GraphicsLayerData,
-    private val to: GraphicsLayerData,
+internal class GraphicsLayerSpec(
+    from: GraphicsLayerData,
+    to: GraphicsLayerData,
 ) : MotionSpec(
     GraphicsLayerProvider(from, to),
     EmptyProvider()
