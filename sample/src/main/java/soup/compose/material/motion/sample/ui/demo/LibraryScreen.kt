@@ -26,15 +26,16 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.mapSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.MotionSpec
 import soup.compose.material.motion.materialFadeThrough
 import soup.compose.material.motion.materialSharedAxis
 import soup.compose.material.motion.sample.R
+import soup.compose.material.motion.sample.ui.demo.LibraryState.Companion.Saver
 
 private enum class SortType {
     A_TO_Z, Z_TO_A
@@ -44,22 +45,51 @@ private enum class ListType {
     Grid, Linear
 }
 
+private enum class MotionSpecType {
+    SharedAxis, FadeThrough
+}
+
 private data class LibraryState(
     val sortType: SortType,
     val listType: ListType,
-    val motionSpec: MotionSpec = materialFadeThrough(),
-)
+    val motionSpecType: MotionSpecType = MotionSpecType.FadeThrough,
+) {
+    companion object {
+
+        val Saver = run {
+            val sortTypeKey = "SortType"
+            val listTypeKey = "ListType"
+            val motionSpecTypeKey = "MotionSpecType"
+            mapSaver(
+                save = {
+                    mapOf(
+                        sortTypeKey to it.sortType,
+                        listTypeKey to it.listType,
+                        motionSpecTypeKey to it.motionSpecType
+                    )
+                },
+                restore = {
+                    LibraryState(
+                        it[sortTypeKey] as SortType,
+                        it[listTypeKey] as ListType,
+                        it[motionSpecTypeKey] as MotionSpecType
+                    )
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
-    val (state, onStateChanged) = remember {
+    val (state, onStateChanged) = rememberSaveable(stateSaver = Saver) {
         mutableStateOf(LibraryState(SortType.A_TO_Z, ListType.Grid))
     }
     fun onSortTypeChange(sortType: SortType) {
         onStateChanged(
             state.copy(
                 sortType = sortType,
-                motionSpec = materialSharedAxis(Axis.Y, forward = true)
+                motionSpecType = MotionSpecType.SharedAxis
             )
         )
     }
@@ -68,7 +98,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         onStateChanged(
             state.copy(
                 listType = listType,
-                motionSpec = materialFadeThrough()
+                motionSpecType = MotionSpecType.FadeThrough
             )
         )
     }
@@ -88,9 +118,13 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
             onListTypeChange(newType)
         },
     ) { innerPadding ->
+        val motionSpec = when (state.motionSpecType) {
+            MotionSpecType.SharedAxis -> materialSharedAxis(Axis.Y, forward = true)
+            MotionSpecType.FadeThrough -> materialFadeThrough()
+        }
         MaterialMotion(
             targetState = state,
-            motionSpec = state.motionSpec,
+            motionSpec = motionSpec,
             modifier = Modifier.padding(innerPadding)
         ) { currentDestination ->
             LibraryContents(currentDestination, onItemClick)
