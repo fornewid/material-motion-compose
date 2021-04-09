@@ -17,10 +17,13 @@ package soup.compose.material.motion.sample.ui.demo
 
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialMotion
@@ -30,9 +33,29 @@ import soup.compose.material.motion.translateY
 
 @Composable
 fun DemoScreen() {
-    val (state, onStateChanged) = remember {
+    val (state, onStateChanged) = rememberSaveable {
         mutableStateOf<Long?>(null)
     }
+    DemoNavigation(state) { currentId ->
+        if (currentId != null) {
+            BackHandler { onStateChanged(null) }
+            val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+            val album = MusicData.albums.first { it.id == currentId }
+            AlbumScreen(album, upPress = { dispatcher?.onBackPressed() })
+        } else {
+            LibraryScreen(onItemClick = { onStateChanged(it.id) })
+        }
+    }
+}
+
+@Composable
+private fun DemoNavigation(
+    state: Long?,
+    modifier: Modifier = Modifier,
+    content: @Composable (Long?) -> Unit,
+) {
+    val saveableStateHolder = rememberSaveableStateHolder()
+
     BoxWithConstraints {
         val offset = LocalDensity.current.run { maxHeight.toPx() }
         val enterMotionSpec = when {
@@ -49,13 +72,13 @@ fun DemoScreen() {
             exitMotionSpec = exitMotionSpec,
             pop = state == null
         ) { currentId ->
-            if (currentId != null) {
-                BackHandler { onStateChanged(null) }
-                val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-                val album = MusicData.albums.first { it.id == currentId }
-                AlbumScreen(album, upPress = { dispatcher?.onBackPressed() })
-            } else {
-                LibraryScreen(onItemClick = { onStateChanged(it.id) })
+            Box(modifier) {
+                // Wrap the content representing the `currentScreen` inside `SaveableStateProvider`.
+                // Here you can also add a screen switch animation like Crossfade where during the
+                // animation multiple screens will be displayed at the same time.
+                saveableStateHolder.SaveableStateProvider(currentId.toString()) {
+                    content(currentId)
+                }
             }
         }
     }
