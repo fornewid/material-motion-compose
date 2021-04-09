@@ -17,34 +17,46 @@ package soup.compose.material.motion.sample.ui.demo
 
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.hold
-import soup.compose.material.motion.materialSharedAxis
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+import soup.compose.material.motion.translateY
 
 @Composable
 fun DemoScreen() {
     val (state, onStateChanged) = remember {
         mutableStateOf<Long?>(null)
     }
-    MaterialMotion(
-        targetState = state,
-        enterMotionSpec = if (state != null) materialSharedAxis(Axis.Z, true) else hold(),
-        exitMotionSpec = if (state != null) hold() else materialSharedAxis(Axis.Z, false),
-        pop = state == null
-    ) { currentId ->
-        if (currentId != null) {
-            BackHandler { onStateChanged(null) }
-            val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-            val album = MusicData.albums.first { it.id == currentId }
-            AlbumScreen(album, upPress = { dispatcher?.onBackPressed() })
-        } else {
-            LibraryScreen(onItemClick = { onStateChanged(it.id) })
+    BoxWithConstraints {
+        val offset = LocalDensity.current.run { maxHeight.toPx() }
+        val enterMotionSpec = when {
+            state != null -> translateY(offset, 0f)
+            else -> hold()
+        }
+        val exitMotionSpec = when {
+            state != null -> hold()
+            else -> translateY(offset, 0f)
+        }
+        MaterialMotion(
+            targetState = state,
+            enterMotionSpec = enterMotionSpec,
+            exitMotionSpec = exitMotionSpec,
+            pop = state == null
+        ) { currentId ->
+            if (currentId != null) {
+                BackHandler { onStateChanged(null) }
+                val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+                val album = MusicData.albums.first { it.id == currentId }
+                AlbumScreen(album, upPress = { dispatcher?.onBackPressed() })
+            } else {
+                LibraryScreen(onItemClick = { onStateChanged(it.id) })
+            }
         }
     }
 }
