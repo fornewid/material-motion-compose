@@ -76,8 +76,12 @@ private fun DemoNavigation(
                 // Wrap the content representing the `currentScreen` inside `SaveableStateProvider`.
                 // Here you can also add a screen switch animation like Crossfade where during the
                 // animation multiple screens will be displayed at the same time.
-                saveableStateHolder.SaveableStateProvider(currentId.toString()) {
+                if (currentId != null) {
                     content(currentId)
+                } else {
+                    saveableStateHolder.SaveableStateProvider("library") {
+                        content(currentId)
+                    }
                 }
             }
         }
