@@ -15,13 +15,17 @@
  */
 package soup.compose.material.motion.sample.ui
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import soup.compose.material.motion.Axis
+import soup.compose.material.motion.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Alpha
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
@@ -55,110 +59,90 @@ enum class Destination(val route: String, val root: Boolean = false) {
     Crossfade("crossfade"),
     Alpha("alpha"),
     Scale("scale"),
-    Translate("translate"),
+    Translate("translate");
+
+    companion object {
+        fun of(route: String): Destination {
+            return values().first { it.route == route }
+        }
+    }
 }
 
 @Composable
 fun NavGraph(
     startDestination: String = Home.route,
 ) {
-    val navController = rememberNavController()
-    val actions = remember(navController) {
-        MainActions(navController)
+    var route by rememberSaveable { mutableStateOf(startDestination) }
+    val upPress: () -> Unit = {
+        route = startDestination
     }
-    NavHost(
-        navController = navController,
-        startDestination = startDestination
-    ) {
-        composable(Home.route) {
-            HomeScreen(
-                onItemClick = { menu ->
+    val navigate: (Destination) -> Unit = {
+        route = it.route
+    }
+    val destination = Destination.of(route)
+    if (destination.root.not()) {
+        BackHandler { upPress() }
+    }
+    val saveableStateHolder = rememberSaveableStateHolder()
+    MaterialSharedAxis(
+        targetState = destination,
+        axis = Axis.Z,
+        forward = destination.root.not(),
+        modifier = Modifier.fillMaxSize()
+    ) { current ->
+        saveableStateHolder.SaveableStateProvider(current.route) {
+            when (current) {
+                Home -> HomeScreen { menu ->
                     when (menu) {
                         Home -> {
                         }
-                        Demo -> actions.goToDemo()
-                        MaterialSharedAxis -> actions.goToMaterialSharedAxis()
-                        MaterialFadeThrough -> actions.goToMaterialFadeThrough()
-                        MaterialFade -> actions.goToMaterialFade()
-                        MaterialElevationScale -> actions.goToMaterialElevationScale()
-                        Hold -> actions.goToHold()
-                        Alpha -> actions.goToAlpha()
-                        Scale -> actions.goToScale()
-                        Translate -> actions.goToTranslate()
-                        Crossfade -> actions.goToCrossfade()
+                        Demo -> navigate(Demo)
+                        MaterialSharedAxis -> navigate(MaterialSharedAxis)
+                        MaterialFadeThrough -> navigate(MaterialFadeThrough)
+                        MaterialFade -> navigate(MaterialFade)
+                        MaterialElevationScale -> navigate(MaterialElevationScale)
+                        Hold -> navigate(Hold)
+                        Alpha -> navigate(Crossfade)
+                        Scale -> navigate(Alpha)
+                        Translate -> navigate(Scale)
+                        Crossfade -> navigate(Translate)
                     }
                 }
-            )
-        }
-        composable(Demo.route) {
-            DemoScreen()
-        }
+                Demo -> {
+                    DemoScreen()
+                }
 
-        /* Material transition patterns */
-        composable(MaterialSharedAxis.route) {
-            MaterialSharedAxisScreen(actions.upPress)
-        }
-        composable(MaterialFadeThrough.route) {
-            MaterialFadeThroughScreen(actions.upPress)
-        }
-        composable(MaterialFade.route) {
-            MaterialFadeScreen(actions.upPress)
-        }
-        composable(MaterialElevationScale.route) {
-            MaterialElevationScaleScreen(actions.upPress)
-        }
-        composable(Hold.route) {
-            HoldScreen(actions.upPress)
-        }
+                /* Material transition patterns */
+                MaterialSharedAxis -> {
+                    MaterialSharedAxisScreen(upPress)
+                }
+                MaterialFadeThrough -> {
+                    MaterialFadeThroughScreen(upPress)
+                }
+                MaterialFade -> {
+                    MaterialFadeScreen(upPress)
+                }
+                MaterialElevationScale -> {
+                    MaterialElevationScaleScreen(upPress)
+                }
+                Hold -> {
+                    HoldScreen(upPress)
+                }
 
-        /* Etc */
-        composable(Crossfade.route) {
-            CrossfadeScreen(actions.upPress)
+                /* Etc */
+                Crossfade -> {
+                    CrossfadeScreen(upPress)
+                }
+                Alpha -> {
+                    AlphaScreen(upPress)
+                }
+                Scale -> {
+                    ScaleScreen(upPress)
+                }
+                Translate -> {
+                    TranslateScreen(upPress)
+                }
+            }
         }
-        composable(Alpha.route) {
-            AlphaScreen(actions.upPress)
-        }
-        composable(Scale.route) {
-            ScaleScreen(actions.upPress)
-        }
-        composable(Translate.route) {
-            TranslateScreen(actions.upPress)
-        }
-    }
-}
-
-private class MainActions(navController: NavHostController) {
-    val upPress: () -> Unit = {
-        navController.navigateUp()
-    }
-    val goToDemo: () -> Unit = {
-        navController.navigate(Demo.route)
-    }
-    val goToMaterialSharedAxis: () -> Unit = {
-        navController.navigate(MaterialSharedAxis.route)
-    }
-    val goToMaterialFadeThrough: () -> Unit = {
-        navController.navigate(MaterialFadeThrough.route)
-    }
-    val goToMaterialFade: () -> Unit = {
-        navController.navigate(MaterialFade.route)
-    }
-    val goToMaterialElevationScale: () -> Unit = {
-        navController.navigate(MaterialElevationScale.route)
-    }
-    val goToHold: () -> Unit = {
-        navController.navigate(Hold.route)
-    }
-    val goToCrossfade: () -> Unit = {
-        navController.navigate(Crossfade.route)
-    }
-    val goToAlpha: () -> Unit = {
-        navController.navigate(Alpha.route)
-    }
-    val goToScale: () -> Unit = {
-        navController.navigate(Scale.route)
-    }
-    val goToTranslate: () -> Unit = {
-        navController.navigate(Translate.route)
     }
 }
