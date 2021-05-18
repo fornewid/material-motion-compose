@@ -18,11 +18,11 @@ object Libs {
     }
 
     object Compose {
-        const val version = "1.0.0-beta06"
-        const val activity = "androidx.activity:activity-compose:1.3.0-alpha07"
+        const val version = "1.0.0-beta07"
+        const val activity = "androidx.activity:activity-compose:1.3.0-alpha08"
         const val constraintlayout =
-            "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
-        const val navigation = "androidx.navigation:navigation-compose:1.0.0-alpha10"
+            "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha07"
+        const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha01"
         const val runtime = "androidx.compose.runtime:runtime:$version"
         const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$version"
         const val foundation = "androidx.compose.foundation:foundation:$version"
@@ -38,8 +38,8 @@ object Libs {
     }
 
     object AndroidX {
-        const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
-        const val core_ktx = "androidx.core:core-ktx:1.3.2"
+        const val appcompat = "androidx.appcompat:appcompat:1.3.0"
+        const val core_ktx = "androidx.core:core-ktx:1.5.0"
         const val lifecycle_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
 
         object Test {
