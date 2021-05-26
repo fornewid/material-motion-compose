@@ -5,5 +5,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-include ':sample'
 include ':library'
+include ':android'
