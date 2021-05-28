@@ -71,7 +71,7 @@ dependencies {
     implementation Libs.Compose.constraintlayout
 
     testImplementation Libs.Test.junit
-    androidTestImplementation Libs.Compose.ui_test
+    androidTestImplementation Libs.Compose.ui_test_junit4
     androidTestImplementation Libs.AndroidX.Test.rules
     androidTestImplementation Libs.AndroidX.Test.runner
 }
