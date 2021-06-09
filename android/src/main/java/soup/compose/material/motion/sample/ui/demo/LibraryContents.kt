@@ -31,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -62,16 +63,17 @@ fun LibraryGridContents(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun LibraryGridItem(
     album: MusicData.Album,
     onItemClick: (MusicData.Album) -> Unit,
 ) {
     Card(
+        onClick = { onItemClick(album) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
-            .clickable { onItemClick(album) }
     ) {
         ConstraintLayout(
             modifier = Modifier
