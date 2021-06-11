@@ -1,0 +1,1 @@
+typealias Libs = dependencies.Libs
