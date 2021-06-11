@@ -14,8 +14,6 @@ android {
         targetSdkVersion Versions.targetSdk
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         // We use a bundled debug keystore, to allow debug builds from CI to be upgradable
@@ -69,9 +67,4 @@ dependencies {
     implementation Libs.Compose.material
     implementation Libs.Compose.activity
     implementation Libs.Compose.constraintlayout
-
-    testImplementation Libs.Test.junit
-    androidTestImplementation Libs.Compose.ui_test_junit4
-    androidTestImplementation Libs.AndroidX.Test.rules
-    androidTestImplementation Libs.AndroidX.Test.runner
 }

@@ -48,7 +48,6 @@ dependencies {
     implementation Libs.Compose.ui
     implementation Libs.Compose.ui_util
 
-    testImplementation Libs.Test.junit
     androidTestImplementation Libs.Compose.ui_test_junit4
     androidTestImplementation Libs.Compose.ui_test_manifest
     androidTestImplementation Libs.AndroidX.Test.rules
