@@ -102,10 +102,10 @@ fun NavGraph(
                         MaterialFade -> navigate(MaterialFade)
                         MaterialElevationScale -> navigate(MaterialElevationScale)
                         Hold -> navigate(Hold)
-                        Alpha -> navigate(Crossfade)
-                        Scale -> navigate(Alpha)
-                        Translate -> navigate(Scale)
-                        Crossfade -> navigate(Translate)
+                        Crossfade -> navigate(Crossfade)
+                        Alpha -> navigate(Alpha)
+                        Scale -> navigate(Scale)
+                        Translate -> navigate(Translate)
                     }
                 }
                 Demo -> {
