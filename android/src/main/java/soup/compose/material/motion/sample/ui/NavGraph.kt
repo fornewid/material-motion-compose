@@ -29,6 +29,11 @@ import soup.compose.material.motion.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Alpha
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalHold
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialElevationScale
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialFade
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialFadeThrough
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
 import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
@@ -40,6 +45,11 @@ import soup.compose.material.motion.sample.ui.Destination.Translate
 import soup.compose.material.motion.sample.ui.alpha.AlphaScreen
 import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
+import soup.compose.material.motion.sample.ui.experimental.elevationscale.ExperimentalMaterialElevationScaleScreen
+import soup.compose.material.motion.sample.ui.experimental.fade.ExperimentalMaterialFadeScreen
+import soup.compose.material.motion.sample.ui.experimental.fadethrough.ExperimentalMaterialFadeThroughScreen
+import soup.compose.material.motion.sample.ui.experimental.hold.ExperimentalHoldScreen
+import soup.compose.material.motion.sample.ui.experimental.sharedaxis.ExperimentalMaterialSharedAxisScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
@@ -59,12 +69,37 @@ enum class Destination(val route: String, val root: Boolean = false) {
     Crossfade("crossfade"),
     Alpha("alpha"),
     Scale("scale"),
-    Translate("translate");
+    Translate("translate"),
+    ExperimentalMaterialSharedAxis("experimental_material_shared_axis"),
+    ExperimentalMaterialFadeThrough("experimental_material_fade_through"),
+    ExperimentalMaterialFade("experimental_material_fade"),
+    ExperimentalMaterialElevationScale("experimental_material_elevation_scale"),
+    ExperimentalHold("experimental_hold");
 
     companion object {
         fun of(route: String): Destination {
             return values().first { it.route == route }
         }
+
+        fun additionalExampleList(): List<Destination> = listOf(
+            MaterialSharedAxis,
+            MaterialFadeThrough,
+            MaterialFade,
+            MaterialElevationScale,
+            Hold,
+            Crossfade,
+            Alpha,
+            Scale,
+            Translate
+        )
+
+        fun experimentalList(): List<Destination> = listOf(
+            ExperimentalMaterialSharedAxis,
+            ExperimentalMaterialFadeThrough,
+            ExperimentalMaterialFade,
+            ExperimentalMaterialElevationScale,
+            ExperimentalHold
+        )
     }
 }
 
@@ -106,6 +141,12 @@ fun NavGraph(
                         Alpha -> navigate(Alpha)
                         Scale -> navigate(Scale)
                         Translate -> navigate(Translate)
+                        ExperimentalMaterialSharedAxis -> navigate(ExperimentalMaterialSharedAxis)
+                        ExperimentalMaterialFadeThrough -> navigate(ExperimentalMaterialFadeThrough)
+                        ExperimentalMaterialFade -> navigate(ExperimentalMaterialFade)
+                        ExperimentalMaterialElevationScale ->
+                            navigate(ExperimentalMaterialElevationScale)
+                        ExperimentalHold -> navigate(ExperimentalHold)
                     }
                 }
                 Demo -> {
@@ -141,6 +182,23 @@ fun NavGraph(
                 }
                 Translate -> {
                     TranslateScreen(upPress)
+                }
+
+                /* Experimental for material transition patterns */
+                ExperimentalMaterialSharedAxis -> {
+                    ExperimentalMaterialSharedAxisScreen(upPress)
+                }
+                ExperimentalMaterialFadeThrough -> {
+                    ExperimentalMaterialFadeThroughScreen(upPress)
+                }
+                ExperimentalMaterialFade -> {
+                    ExperimentalMaterialFadeScreen(upPress)
+                }
+                ExperimentalMaterialElevationScale -> {
+                    ExperimentalMaterialElevationScaleScreen(upPress)
+                }
+                ExperimentalHold -> {
+                    ExperimentalHoldScreen(upPress)
                 }
             }
         }
