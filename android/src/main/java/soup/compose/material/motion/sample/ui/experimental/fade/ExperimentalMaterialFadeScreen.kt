@@ -15,7 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.experimental.fade
 
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.experimental.materialFade
+import soup.compose.material.motion.experimental.materialFadeIn
+import soup.compose.material.motion.experimental.materialFadeOut
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
@@ -53,18 +54,17 @@ fun ExperimentalMaterialFadeScreen(upPress: () -> Unit) {
             ) {
                 Text(text = if (visible) "HIDE FAB" else "SHOW FAB")
             }
-            AnimatedContent(
-                targetState = visible,
+            AnimatedVisibility(
+                visible = visible,
                 modifier = Modifier.align(Alignment.BottomEnd),
-                transitionSpec = { materialFade(appearing = visible) }
-            ) { visible ->
-                if (visible) {
-                    FloatingActionButton(
-                        onClick = {},
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Icon(Icons.Default.Add, contentDescription = null)
-                    }
+                enter = materialFadeIn(),
+                exit = materialFadeOut()
+            ) {
+                FloatingActionButton(
+                    onClick = {},
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = null)
                 }
             }
         }

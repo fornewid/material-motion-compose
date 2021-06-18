@@ -15,7 +15,6 @@
  */
 package soup.compose.material.motion.experimental
 
-import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -23,26 +22,13 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.with
 import soup.compose.material.motion.MotionConstants
 
 private const val DefaultFadeEndThresholdEnter = 0.3f
 
 @ExperimentalAnimationApi
-fun materialFade(
-    appearing: Boolean,
-    durationMillis: Int = if (appearing) MotionConstants.motionDurationLong1 else MotionConstants.motionDurationShort1,
-): ContentTransform {
-    return if (appearing) {
-        materialFadeIn(durationMillis) with ExitTransition.None
-    } else {
-        EnterTransition.None with materialFadeOut(durationMillis)
-    }
-}
-
-@ExperimentalAnimationApi
 fun materialFadeIn(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.motionDurationShort2,
 ): EnterTransition {
     val fadeDurationMillis = (durationMillis * DefaultFadeEndThresholdEnter).toInt()
     return fadeIn(
