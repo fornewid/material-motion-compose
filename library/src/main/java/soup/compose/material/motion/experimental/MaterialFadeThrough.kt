@@ -20,6 +20,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -28,6 +29,12 @@ import androidx.compose.animation.with
 import soup.compose.material.motion.MotionConstants
 
 private const val ProgressThreshold = 0.35f
+
+private val Int.ForOutgoing: Int
+    get() = (this * ProgressThreshold).toInt()
+
+private val Int.ForIncoming: Int
+    get() = this - this.ForOutgoing
 
 @ExperimentalAnimationApi
 fun materialFadeThrough(
@@ -39,13 +46,12 @@ fun materialFadeThrough(
 @ExperimentalAnimationApi
 fun materialFadeThroughIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): EnterTransition {
-    val outgoingDurationMillis = (durationMillis * ProgressThreshold).toInt()
-    val incomingDurationMillis = durationMillis - outgoingDurationMillis
     return fadeIn(
-        animationSpec = tween(
-            durationMillis = incomingDurationMillis,
-            delayMillis = outgoingDurationMillis,
+        animationSpec = animationSpec ?: tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
             easing = LinearOutSlowInEasing
         )
     )
@@ -65,11 +71,11 @@ fun materialFadeThroughIn(
 @ExperimentalAnimationApi
 fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): ExitTransition {
-    val outgoingDurationMillis = (durationMillis * ProgressThreshold).toInt()
     return fadeOut(
-        animationSpec = tween(
-            durationMillis = outgoingDurationMillis,
+        animationSpec = animationSpec ?: tween(
+            durationMillis = durationMillis.ForOutgoing,
             delayMillis = 0,
             easing = FastOutLinearInEasing
         )

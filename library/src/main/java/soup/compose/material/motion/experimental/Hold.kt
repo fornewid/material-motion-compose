@@ -18,6 +18,7 @@ package soup.compose.material.motion.experimental
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -27,10 +28,11 @@ import soup.compose.material.motion.MotionConstants
 @ExperimentalAnimationApi
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): EnterTransition {
     return fadeIn(
         initialAlpha = 1f,
-        animationSpec = tween(
+        animationSpec = animationSpec ?: tween(
             durationMillis = durationMillis,
             easing = LinearEasing
         )
@@ -40,10 +42,11 @@ fun holdIn(
 @ExperimentalAnimationApi
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): ExitTransition {
     return fadeOut(
         targetAlpha = 1f,
-        animationSpec = tween(
+        animationSpec = animationSpec ?: tween(
             durationMillis = durationMillis,
             easing = LinearEasing
         )
