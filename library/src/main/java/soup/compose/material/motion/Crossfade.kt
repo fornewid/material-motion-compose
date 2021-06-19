@@ -22,16 +22,16 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import soup.compose.material.motion.internal.CrossfadeSpec
 
 /**
  * [crossfade] allows to switch a layout with a crossfade animation.
  *
  * @param animationSpec the [AnimationSpec] to configure the animation.
  */
+@Deprecated(message = "Use official Crossfade() instead", level = DeprecationLevel.ERROR)
 fun crossfade(
     animationSpec: FiniteAnimationSpec<Float> = tween(),
-): MotionSpec = CrossfadeSpec(animationSpec)
+): MotionSpec = throw IllegalArgumentException("Unsupported MotionSpec: crossfade")
 
 /**
  * [Crossfade] allows to switch between two layouts with a crossfade animation.
@@ -43,6 +43,21 @@ fun crossfade(
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
  */
+@Deprecated(
+    "Replaced with official Crossfade()",
+    ReplaceWith(
+        """Crossfade(
+        targetState = targetState,
+        modifier = modifier,
+        animationSpec = animationSpec,
+        content = content
+    )""",
+        imports = arrayOf(
+            "androidx.compose.animation.Crossfade",
+            "androidx.compose.animation.core.tween"
+        )
+    )
+)
 @Composable
 fun <T> Crossfade(
     targetState: T,
@@ -50,10 +65,10 @@ fun <T> Crossfade(
     animationSpec: FiniteAnimationSpec<Float> = tween(),
     content: @Composable (T) -> Unit,
 ) {
-    MaterialMotion(
+    androidx.compose.animation.Crossfade(
         targetState = targetState,
-        motionSpec = crossfade(animationSpec),
         modifier = modifier,
+        animationSpec = animationSpec,
         content = content
     )
 }

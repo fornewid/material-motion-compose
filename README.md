@@ -142,31 +142,6 @@ MaterialMotion(
 | -------------------------- |
 | <img width="200" src="docs/hold.gif" /> |
 
-### Crossfade
-
-```kt
-val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-Crossfade(
-    targetState = screen
-) { newScreen ->
-    // composable according to screen
-}
-
-// or
-
-MaterialMotion(
-    targetState = selectedTab,
-    motionSpec = crossfade()
-) { newScreen ->
-    // composable according to screen
-}
-```
-or use [Crossfade](https://github.com/androidx/androidx/blob/androidx-main/compose/animation/animation/src/commonMain/kotlin/androidx/compose/animation/Crossfade.kt) in compose-animation.
-
-| Crossfade                  |
-| -------------------------- |
-| <img width="200" src="docs/crossfade.gif" /> |
-
 ### More...
 
 - `alpha()`
