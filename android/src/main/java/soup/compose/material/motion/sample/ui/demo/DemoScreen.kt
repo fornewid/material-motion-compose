@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Box
@@ -88,18 +89,11 @@ private fun DemoNavigation(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
+@Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun LightPreview() {
+private fun DefaultPreview() {
     SampleTheme {
-        DemoScreen()
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DarkPreview() {
-    SampleTheme(darkTheme = true) {
         DemoScreen()
     }
 }

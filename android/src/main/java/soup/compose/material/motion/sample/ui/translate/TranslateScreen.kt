@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.translate
 
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -129,18 +130,11 @@ private fun TranslateAxisControls(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
+@Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun LightPreview() {
+private fun DefaultPreview() {
     SampleTheme {
-        TranslateScreen(upPress = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DarkPreview() {
-    SampleTheme(darkTheme = true) {
         TranslateScreen(upPress = {})
     }
 }

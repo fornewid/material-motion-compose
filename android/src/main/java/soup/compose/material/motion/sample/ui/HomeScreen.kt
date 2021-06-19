@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -157,18 +158,11 @@ private val Destination.description: String
         ExperimentalHold -> "HoldScreen"
     }
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
+@Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun LightPreview() {
+private fun DefaultPreview() {
     SampleTheme {
-        HomeScreen(onItemClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DarkPreview() {
-    SampleTheme(darkTheme = true) {
         HomeScreen(onItemClick = {})
     }
 }
