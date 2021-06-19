@@ -30,127 +30,217 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.with
-import soup.compose.material.motion.Axis
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.MotionConstants
 
 private const val ProgressThreshold = 0.35f
 
+private val Int.ForOutgoing: Int
+    get() = (this * ProgressThreshold).toInt()
+
+private val Int.ForIncoming: Int
+    get() = this - this.ForOutgoing
+
+@Composable
+fun rememberSlideDistance(slideDistance: Dp = 30.dp): Int {
+    val density = LocalDensity.current
+    return remember(density) {
+        with(density) { slideDistance.roundToPx() }
+    }
+}
+
 @ExperimentalAnimationApi
-fun materialSharedAxis(
-    axis: Axis,
+fun materialSharedAxisX(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ContentTransform {
+    return materialSharedAxisXIn(
+        forward = forward,
+        slideDistance = slideDistance,
+        durationMillis = durationMillis
+    ) with materialSharedAxisXOut(
+        forward = forward,
+        slideDistance = slideDistance,
+        durationMillis = durationMillis
+    )
+}
+
+@ExperimentalAnimationApi
+fun materialSharedAxisY(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ContentTransform {
+    return materialSharedAxisYIn(
+        forward = forward,
+        slideDistance = slideDistance,
+        durationMillis = durationMillis
+    ) with materialSharedAxisYOut(
+        forward = forward,
+        slideDistance = slideDistance,
+        durationMillis = durationMillis
+    )
+}
+
+@ExperimentalAnimationApi
+fun materialSharedAxisZ(
     forward: Boolean,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ContentTransform {
-    return materialSharedAxisIn(
-        axis = axis,
+    return materialSharedAxisZIn(
         forward = forward,
         durationMillis = durationMillis
-    ) with materialSharedAxisOut(
-        axis = axis,
+    ) with materialSharedAxisZOut(
         forward = forward,
         durationMillis = durationMillis
     )
 }
 
 @ExperimentalAnimationApi
-fun materialSharedAxisIn(
-    axis: Axis,
+fun materialSharedAxisXIn(
     forward: Boolean,
+    slideDistance: Int,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterTransition {
-    val outgoingDurationMillis = (durationMillis * ProgressThreshold).toInt()
-    val incomingDurationMillis = durationMillis - outgoingDurationMillis
-    return when (axis) {
-        Axis.X -> {
-            slideInHorizontally(
-                initialOffsetX = {
-                    // TODO: if possible, use 30.dp instead.
-                    if (forward) 30 else -30
-                },
-                animationSpec = tween(
-                    durationMillis = durationMillis,
-                    easing = FastOutSlowInEasing
-                )
-            )
-        }
-        Axis.Y -> {
-            slideInVertically(
-                initialOffsetY = {
-                    // TODO: if possible, use 30.dp instead.
-                    if (forward) 30 else -30
-                },
-                animationSpec = tween(
-                    durationMillis = durationMillis,
-                    easing = FastOutSlowInEasing
-                )
-            )
-        }
-        Axis.Z -> {
-            EnterTransition.None
-            // TODO: I want scaleIn() instead of expandIn()
-            //      https://issuetracker.google.com/issues/191325593
-            // expandIn(
-            //    expandFrom = Alignment.Center,
-            //    initialSize = { fullSize -> fullSize * 0.8f },
-            //    animationSpec = tween(
-            //        durationMillis = durationMillis,
-            //        easing = FastOutSlowInEasing
-            //    )
-            // )
-        }
-    } + fadeIn(
+    return slideInHorizontally(
+        initialOffsetX = {
+            if (forward) slideDistance else -slideDistance
+        },
         animationSpec = tween(
-            durationMillis = incomingDurationMillis,
-            delayMillis = outgoingDurationMillis,
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
             easing = LinearOutSlowInEasing
         )
     )
 }
 
 @ExperimentalAnimationApi
-fun materialSharedAxisOut(
-    axis: Axis,
+fun materialSharedAxisYIn(
     forward: Boolean,
+    slideDistance: Int,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): ExitTransition {
-    val outgoingDurationMillis = (durationMillis * ProgressThreshold).toInt()
-    return when (axis) {
-        Axis.X -> slideOutHorizontally(
-            targetOffsetX = {
-                // TODO: if possible, use 30.dp instead.
-                if (forward) -30 else 30
-            },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
+): EnterTransition {
+    return slideInVertically(
+        initialOffsetY = {
+            if (forward) slideDistance else -slideDistance
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
         )
-        Axis.Y -> slideOutVertically(
-            targetOffsetY = {
-                // TODO: if possible, use 30.dp instead.
-                if (forward) -30 else 30
-            },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
+    ) + fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
         )
-        Axis.Z -> ExitTransition.None
-        // TODO: I want scaleOut() instead of shrinkOut()
+    )
+}
+
+@ExperimentalAnimationApi
+fun materialSharedAxisZIn(
+    forward: Boolean,
+    initialScale: Float = 0.8f,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterTransition {
+    return EnterTransition.None +
+        // TODO: I want scaleIn() instead of expandIn()
         //      https://issuetracker.google.com/issues/191325593
-        // shrinkOut(
-        //    shrinkTowards = Alignment.Center,
-        //    targetSize = { fullSize -> fullSize * 1.1f },
+        // expandIn(
+        //    expandFrom = Alignment.Center,
+        //    initialSize = { fullSize -> fullSize * initialScale },
         //    animationSpec = tween(
         //        durationMillis = durationMillis,
         //        easing = FastOutSlowInEasing
         //    )
         // )
-    } + fadeOut(
+        fadeIn(
+            animationSpec = tween(
+                durationMillis = durationMillis.ForIncoming,
+                delayMillis = durationMillis.ForOutgoing,
+                easing = LinearOutSlowInEasing
+            )
+        )
+}
+
+@ExperimentalAnimationApi
+fun materialSharedAxisXOut(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitTransition {
+    return slideOutHorizontally(
+        targetOffsetX = {
+            if (forward) -slideDistance else slideDistance
+        },
         animationSpec = tween(
-            durationMillis = outgoingDurationMillis,
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
             delayMillis = 0,
             easing = FastOutLinearInEasing
         )
     )
+}
+
+@ExperimentalAnimationApi
+fun materialSharedAxisYOut(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitTransition {
+    return slideOutVertically(
+        targetOffsetY = {
+            if (forward) -slideDistance else slideDistance
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
+            delayMillis = 0,
+            easing = FastOutLinearInEasing
+        )
+    )
+}
+
+@ExperimentalAnimationApi
+fun materialSharedAxisZOut(
+    forward: Boolean,
+    targetScale: Float = 1.1f,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitTransition {
+    return ExitTransition.None +
+        // TODO: I want scaleOut() instead of shrinkOut()
+        //      https://issuetracker.google.com/issues/191325593
+        // shrinkOut(
+        //    shrinkTowards = Alignment.Center,
+        //    targetSize = { fullSize -> fullSize * targetScale },
+        //    animationSpec = tween(
+        //        durationMillis = durationMillis,
+        //        easing = FastOutSlowInEasing
+        //    )
+        // )
+        fadeOut(
+            animationSpec = tween(
+                durationMillis = durationMillis.ForOutgoing,
+                delayMillis = 0,
+                easing = FastOutLinearInEasing
+            )
+        )
 }

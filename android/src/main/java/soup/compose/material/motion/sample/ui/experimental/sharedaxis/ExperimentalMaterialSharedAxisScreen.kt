@@ -39,7 +39,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.Axis
-import soup.compose.material.motion.experimental.materialSharedAxis
+import soup.compose.material.motion.experimental.materialSharedAxisX
+import soup.compose.material.motion.experimental.materialSharedAxisY
+import soup.compose.material.motion.experimental.materialSharedAxisZ
+import soup.compose.material.motion.experimental.rememberSlideDistance
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
@@ -62,10 +65,17 @@ fun ExperimentalMaterialSharedAxisScreen(upPress: () -> Unit) {
             }
         }
     ) { innerPadding ->
+        val slideDistance = rememberSlideDistance()
         AnimatedContent(
             targetState = forward,
             modifier = Modifier.padding(innerPadding),
-            transitionSpec = { materialSharedAxis(axis = selectedAxis, forward = forward) }
+            transitionSpec = {
+                when (selectedAxis) {
+                    Axis.X -> materialSharedAxisX(forward = forward, slideDistance = slideDistance)
+                    Axis.Y -> materialSharedAxisY(forward = forward, slideDistance = slideDistance)
+                    Axis.Z -> materialSharedAxisZ(forward = forward)
+                }
+            }
         ) { forward ->
             ForwardBackwardContents(forward)
         }

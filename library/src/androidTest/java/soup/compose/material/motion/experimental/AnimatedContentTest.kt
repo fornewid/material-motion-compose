@@ -52,7 +52,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import soup.compose.material.motion.Axis
 
 @LargeTest
 @RunWith(Parameterized::class)
@@ -67,22 +66,39 @@ class AnimatedContentTest(
         @JvmStatic
         @Parameterized.Parameters
         fun data(): Collection<Array<Any>> = listOf(
-            parameters(materialFadeThroughIn(), materialFadeThroughOut()),
-            parametersOfSharedAxis(Axis.X),
-            parametersOfSharedAxis(Axis.Y),
-            parametersOfSharedAxis(Axis.Z),
-            parameters(materialElevationScaleIn(), materialElevationScaleOut()),
-            parameters(holdIn(), holdOut()),
-        )
+            // forwardEnterTransition, forwardExitTransition
+            // backwardEnterTransition, backwardExitTransition
 
-        private fun parameters(enter: EnterTransition, exit: ExitTransition) =
-            arrayOf(enter, exit, enter, exit)
-
-        private fun parametersOfSharedAxis(axis: Axis) = arrayOf(
-            materialSharedAxisIn(axis, forward = true),
-            materialSharedAxisOut(axis, forward = true),
-            materialSharedAxisIn(axis, forward = false),
-            materialSharedAxisOut(axis, forward = false)
+            arrayOf(
+                materialFadeThroughIn(), materialFadeThroughOut(),
+                materialFadeThroughIn(), materialFadeThroughOut()
+            ),
+            arrayOf(
+                materialSharedAxisXIn(forward = true, slideDistance = 30),
+                materialSharedAxisXOut(forward = true, slideDistance = 30),
+                materialSharedAxisXIn(forward = false, slideDistance = 30),
+                materialSharedAxisXOut(forward = false, slideDistance = 30),
+            ),
+            arrayOf(
+                materialSharedAxisYIn(forward = true, slideDistance = 30),
+                materialSharedAxisYOut(forward = true, slideDistance = 30),
+                materialSharedAxisYIn(forward = false, slideDistance = 30),
+                materialSharedAxisYOut(forward = false, slideDistance = 30),
+            ),
+            arrayOf(
+                materialSharedAxisZIn(forward = true),
+                materialSharedAxisZOut(forward = true),
+                materialSharedAxisZIn(forward = false),
+                materialSharedAxisZOut(forward = false),
+            ),
+            arrayOf(
+                materialElevationScaleIn(), materialElevationScaleOut(),
+                materialElevationScaleIn(), materialElevationScaleOut()
+            ),
+            arrayOf(
+                holdIn(), holdOut(),
+                holdIn(), holdOut()
+            ),
         )
     }
 
