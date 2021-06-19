@@ -25,6 +25,11 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import soup.compose.material.motion.MotionConstants
 
+/**
+ * [holdIn] allows to switch a layout with no enter transition.
+ *
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -39,6 +44,11 @@ fun holdIn(
     )
 }
 
+/**
+ * [holdOut] allows to switch a layout with no exit transition.
+ *
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,

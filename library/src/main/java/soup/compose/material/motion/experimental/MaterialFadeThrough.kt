@@ -36,6 +36,11 @@ private val Int.ForOutgoing: Int
 private val Int.ForIncoming: Int
     get() = this - this.ForOutgoing
 
+/**
+ * [materialFadeThrough] allows to switch between two layouts with fade through transitions.
+ *
+ * @param durationMillis the duration of the transitions.
+ */
 @ExperimentalAnimationApi
 fun materialFadeThrough(
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -43,6 +48,13 @@ fun materialFadeThrough(
     return materialFadeThroughIn(durationMillis) with materialFadeThroughOut(durationMillis)
 }
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialFadeThroughIn] allows to switch a layout with fade through enter transition.
+ *
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun materialFadeThroughIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -68,6 +80,11 @@ fun materialFadeThroughIn(
     // )
 }
 
+/**
+ * [materialFadeThroughOut] allows to switch a layout with fade through exit transition.
+ *
+ * @param durationMillis the duration of the exit transition.
+ */
 @ExperimentalAnimationApi
 fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,

@@ -30,6 +30,11 @@ private const val DefaultFadeEndThresholdEnter = 0.3f
 private val Int.ForFade: Int
     get() = (this * DefaultFadeEndThresholdEnter).toInt()
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialFadeIn] allows to switch a layout with a fade-in animation.
+ */
 @ExperimentalAnimationApi
 fun materialFadeIn(
     durationMillis: Int = MotionConstants.motionDurationShort2,
@@ -53,6 +58,9 @@ fun materialFadeIn(
     // )
 }
 
+/**
+ * [materialFadeOut] allows to switch a layout with a fade-out animation.
+ */
 @ExperimentalAnimationApi
 fun materialFadeOut(
     durationMillis: Int = MotionConstants.motionDurationShort1,

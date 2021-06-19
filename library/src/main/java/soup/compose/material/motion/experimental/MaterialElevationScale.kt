@@ -25,6 +25,14 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import soup.compose.material.motion.MotionConstants
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialElevationScaleIn] allows to switch a layout with elevation scale enter transition.
+ *
+ * @param initialAlpha the starting alpha of the enter transition.
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
@@ -50,6 +58,14 @@ fun materialElevationScaleIn(
     // )
 }
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialElevationScaleOut] allows to switch a layout with elevation scale exit transition.
+ *
+ * @param targetAlpha the target alpha of the exit transition.
+ * @param durationMillis the duration of the exit transition.
+ */
 @ExperimentalAnimationApi
 fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,

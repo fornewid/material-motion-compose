@@ -45,6 +45,11 @@ private val Int.ForOutgoing: Int
 private val Int.ForIncoming: Int
     get() = this - this.ForOutgoing
 
+/**
+ * Returns the provided [Dp] as an [Int] value by the [LocalDensity].
+ *
+ * @param slideDistance Value to the slide distance dimension, 30dp by default.
+ */
 @Composable
 fun rememberSlideDistance(slideDistance: Dp = 30.dp): Int {
     val density = LocalDensity.current
@@ -53,6 +58,13 @@ fun rememberSlideDistance(slideDistance: Dp = 30.dp): Int {
     }
 }
 
+/**
+ * [materialSharedAxisX] allows to switch between two layouts with shared Y-axis transitions.
+ *
+ * @param forward whether the direction of the transitions is forward.
+ * @param slideDistance the slide distance of the transitions.
+ * @param durationMillis the duration of the transitions.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisX(
     forward: Boolean,
@@ -70,6 +82,13 @@ fun materialSharedAxisX(
     )
 }
 
+/**
+ * [materialSharedAxisY] allows to switch between two layouts with shared Y-axis transitions.
+ *
+ * @param forward whether the direction of the transitions is forward.
+ * @param slideDistance the slide distance of the transitions.
+ * @param durationMillis the duration of the transitions.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisY(
     forward: Boolean,
@@ -87,6 +106,14 @@ fun materialSharedAxisY(
     )
 }
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialSharedAxisZ] allows to switch between two layouts with shared Z-axis transitions.
+ *
+ * @param forward whether the direction of the transitions is forward.
+ * @param durationMillis the duration of the transitions.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisZ(
     forward: Boolean,
@@ -101,6 +128,13 @@ fun materialSharedAxisZ(
     )
 }
 
+/**
+ * [materialSharedAxisXIn] allows to switch a layout with shared X-axis enter transition.
+ *
+ * @param forward whether the direction of the enter transition is forward.
+ * @param slideDistance the slide distance of the enter transition.
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisXIn(
     forward: Boolean,
@@ -124,6 +158,13 @@ fun materialSharedAxisXIn(
     )
 }
 
+/**
+ * [materialSharedAxisYIn] allows to switch a layout with shared Y-axis enter transition.
+ *
+ * @param forward whether the direction of the enter transition is forward.
+ * @param slideDistance the slide distance of the enter transition.
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisYIn(
     forward: Boolean,
@@ -147,6 +188,15 @@ fun materialSharedAxisYIn(
     )
 }
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialSharedAxisZIn] allows to switch a layout with shared Z-axis enter transition.
+ *
+ * @param forward whether the direction of the enter transition is forward.
+ * @param initialScale the starting scale of the enter transition.
+ * @param durationMillis the duration of the enter transition.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisZIn(
     forward: Boolean,
@@ -173,6 +223,13 @@ fun materialSharedAxisZIn(
         )
 }
 
+/**
+ * [materialSharedAxisXOut] allows to switch a layout with shared X-axis exit transition.
+ *
+ * @param forward whether the direction of the exit transition is forward.
+ * @param slideDistance the slide distance of the exit transition.
+ * @param durationMillis the duration of the exit transition.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisXOut(
     forward: Boolean,
@@ -196,6 +253,13 @@ fun materialSharedAxisXOut(
     )
 }
 
+/**
+ * [materialSharedAxisYOut] allows to switch a layout with shared Y-axis exit transition.
+ *
+ * @param forward whether the direction of the exit transition is forward.
+ * @param slideDistance the slide distance of the exit transition.
+ * @param durationMillis the duration of the exit transition.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisYOut(
     forward: Boolean,
@@ -219,6 +283,15 @@ fun materialSharedAxisYOut(
     )
 }
 
+/**
+ * TODO: This is an experimental feature that is not fully implemented!
+ *
+ * [materialSharedAxisZOut] allows to switch a layout with shared Z-axis exit transition.
+ *
+ * @param forward whether the direction of the exit transition is forward.
+ * @param targetScale the target scale of the exit transition.
+ * @param durationMillis the duration of the exit transition.
+ */
 @ExperimentalAnimationApi
 fun materialSharedAxisZOut(
     forward: Boolean,
