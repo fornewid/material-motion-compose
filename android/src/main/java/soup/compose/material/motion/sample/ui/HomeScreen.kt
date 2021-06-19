@@ -37,6 +37,11 @@ import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.sample.ui.Destination.Alpha
 import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalHold
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialElevationScale
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialFade
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialFadeThrough
+import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
 import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
@@ -77,7 +82,18 @@ fun HomeScreen(onItemClick: (Destination) -> Unit) {
                     )
                 }
             }
-            items(Destination.values().filterNot { it.root || it == Demo }) {
+            items(Destination.additionalExampleList()) {
+                HomeMenuItem(it, onItemClick = onItemClick)
+            }
+            item {
+                Divider()
+                Text(
+                    text = "Experimental Examples",
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+                    style = MaterialTheme.typography.subtitle1
+                )
+            }
+            items(Destination.experimentalList()) {
                 HomeMenuItem(it, onItemClick = onItemClick)
             }
         }
@@ -98,7 +114,7 @@ private fun HomeMenuItem(
             .padding(horizontal = 16.dp)
     ) {
         Text(
-            text = menu.name,
+            text = menu.title,
             modifier = Modifier.fillMaxWidth(),
             fontWeight = FontWeight.SemiBold,
             style = MaterialTheme.typography.body2
@@ -110,6 +126,16 @@ private fun HomeMenuItem(
         )
     }
 }
+
+private val Destination.title: String
+    get() = when (this) {
+        ExperimentalMaterialSharedAxis -> "MaterialSharedAxis (Experimental)"
+        ExperimentalMaterialFadeThrough -> "MaterialFadeThrough (Experimental)"
+        ExperimentalMaterialFade -> "MaterialFade (Experimental)"
+        ExperimentalMaterialElevationScale -> "MaterialElevationScale (Experimental)"
+        ExperimentalHold -> "Hold (Experimental)"
+        else -> name
+    }
 
 private val Destination.description: String
     get() = when (this) {
@@ -124,6 +150,11 @@ private val Destination.description: String
         Alpha -> "AlphaScreen"
         Scale -> "ScaleScreen"
         Translate -> "TranslateScreen"
+        ExperimentalMaterialSharedAxis -> "MaterialSharedAxisScreen"
+        ExperimentalMaterialFadeThrough -> "MaterialFadeThroughScreen"
+        ExperimentalMaterialFade -> "MaterialFadeScreen"
+        ExperimentalMaterialElevationScale -> "MaterialElevationScaleScreen"
+        ExperimentalHold -> "HoldScreen"
     }
 
 @Preview(showBackground = true)
