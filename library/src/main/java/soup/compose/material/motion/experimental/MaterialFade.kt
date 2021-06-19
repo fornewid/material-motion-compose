@@ -20,11 +20,14 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import soup.compose.material.motion.MotionConstants
 
+private const val DefaultStartScale = 0.8f
 private const val DefaultFadeEndThresholdEnter = 0.3f
 
 private val Int.ForFade: Int
@@ -45,17 +48,16 @@ fun materialFadeIn(
             durationMillis = durationMillis.ForFade,
             easing = LinearEasing
         )
-    )
-    // TODO: I want scaleIn() instead of expandIn()
-    //      https://issuetracker.google.com/issues/191325593
-    // + expandIn(
-    //    expandFrom = Alignment.Center,
-    //    initialSize = { fullSize -> fullSize * 0.8f },
-    //    animationSpec = tween(
-    //        durationMillis = durationMillis,
-    //        easing = LinearOutSlowInEasing
-    //    )
-    // )
+    ) +
+        // TODO: I want scaleIn() instead of expandIn()
+        //       https://issuetracker.google.com/issues/191325593
+        expandIn(
+            initialSize = { fullSize -> fullSize * DefaultStartScale },
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = LinearOutSlowInEasing
+            )
+        )
 }
 
 /**

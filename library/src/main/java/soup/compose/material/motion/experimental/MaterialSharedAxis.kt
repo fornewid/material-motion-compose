@@ -23,8 +23,10 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -194,33 +196,31 @@ fun materialSharedAxisYIn(
  * [materialSharedAxisZIn] allows to switch a layout with shared Z-axis enter transition.
  *
  * @param forward whether the direction of the enter transition is forward.
- * @param initialScale the starting scale of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisZIn(
     forward: Boolean,
-    initialScale: Float = 0.8f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterTransition {
-    return EnterTransition.None +
-        // TODO: I want scaleIn() instead of expandIn()
-        //      https://issuetracker.google.com/issues/191325593
-        // expandIn(
-        //    expandFrom = Alignment.Center,
-        //    initialSize = { fullSize -> fullSize * initialScale },
-        //    animationSpec = tween(
-        //        durationMillis = durationMillis,
-        //        easing = FastOutSlowInEasing
-        //    )
-        // )
-        fadeIn(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForIncoming,
-                delayMillis = durationMillis.ForOutgoing,
-                easing = LinearOutSlowInEasing
-            )
+    // TODO: I want scaleIn() instead of expandIn()
+    //       https://issuetracker.google.com/issues/191325593
+    return expandIn(
+        initialSize = { fullSize ->
+            val initialScale = if (forward) 1.1f else 0.8f
+            fullSize * initialScale
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
         )
+    ) + fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
+        )
+    )
 }
 
 /**
@@ -289,31 +289,29 @@ fun materialSharedAxisYOut(
  * [materialSharedAxisZOut] allows to switch a layout with shared Z-axis exit transition.
  *
  * @param forward whether the direction of the exit transition is forward.
- * @param targetScale the target scale of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisZOut(
     forward: Boolean,
-    targetScale: Float = 1.1f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitTransition {
-    return ExitTransition.None +
-        // TODO: I want scaleOut() instead of shrinkOut()
-        //      https://issuetracker.google.com/issues/191325593
-        // shrinkOut(
-        //    shrinkTowards = Alignment.Center,
-        //    targetSize = { fullSize -> fullSize * targetScale },
-        //    animationSpec = tween(
-        //        durationMillis = durationMillis,
-        //        easing = FastOutSlowInEasing
-        //    )
-        // )
-        fadeOut(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForOutgoing,
-                delayMillis = 0,
-                easing = FastOutLinearInEasing
-            )
+    // TODO: I want scaleOut() instead of shrinkOut()
+    //       https://issuetracker.google.com/issues/191325593
+    return shrinkOut(
+        targetSize = { fullSize ->
+            val targetScale = if (forward) 1.1f else 0.8f
+            fullSize * targetScale
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
         )
+    ) + fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
+            delayMillis = 0,
+            easing = FastOutLinearInEasing
+        )
+    )
 }

@@ -23,6 +23,7 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.with
@@ -45,7 +46,8 @@ private val Int.ForIncoming: Int
 fun materialFadeThrough(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ContentTransform {
-    return materialFadeThroughIn(durationMillis) with materialFadeThroughOut(durationMillis)
+    return materialFadeThroughIn(durationMillis = durationMillis) with
+        materialFadeThroughOut(durationMillis = durationMillis)
 }
 
 /**
@@ -53,10 +55,12 @@ fun materialFadeThrough(
  *
  * [materialFadeThroughIn] allows to switch a layout with fade through enter transition.
  *
+ * @param initialScale the starting scale of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
 fun materialFadeThroughIn(
+    initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
     animationSpec: FiniteAnimationSpec<Float>? = null,
 ): EnterTransition {
@@ -66,18 +70,17 @@ fun materialFadeThroughIn(
             delayMillis = durationMillis.ForOutgoing,
             easing = LinearOutSlowInEasing
         )
-    )
-    // TODO: I want scaleIn() instead of expandIn()
-    //      https://issuetracker.google.com/issues/191325593
-    // + expandIn(
-    //    expandFrom = Alignment.Center,
-    //    initialSize = { fullSize -> fullSize * 0.92f },
-    //    animationSpec = tween(
-    //        durationMillis = incomingDurationMillis,
-    //        delayMillis = outgoingDurationMillis,
-    //        easing = LinearOutSlowInEasing
-    //    )
-    // )
+    ) +
+        // TODO: I want scaleIn() instead of expandIn()
+        //      https://issuetracker.google.com/issues/191325593
+        expandIn(
+            initialSize = { fullSize -> fullSize * initialScale },
+            animationSpec = tween(
+                durationMillis = durationMillis.ForIncoming,
+                delayMillis = durationMillis.ForOutgoing,
+                easing = LinearOutSlowInEasing
+            )
+        )
 }
 
 /**
