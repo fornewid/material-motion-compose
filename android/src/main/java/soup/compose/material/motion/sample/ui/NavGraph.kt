@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Alpha
-import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.ExperimentalHold
 import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialElevationScale
@@ -43,7 +42,6 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Scale
 import soup.compose.material.motion.sample.ui.Destination.Translate
 import soup.compose.material.motion.sample.ui.alpha.AlphaScreen
-import soup.compose.material.motion.sample.ui.crossfade.CrossfadeScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.experimental.elevationscale.ExperimentalMaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.experimental.fade.ExperimentalMaterialFadeScreen
@@ -66,7 +64,6 @@ enum class Destination(val route: String, val root: Boolean = false) {
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
     Hold("hold"),
-    Crossfade("crossfade"),
     Alpha("alpha"),
     Scale("scale"),
     Translate("translate"),
@@ -87,7 +84,6 @@ enum class Destination(val route: String, val root: Boolean = false) {
             MaterialFade,
             MaterialElevationScale,
             Hold,
-            Crossfade,
             Alpha,
             Scale,
             Translate
@@ -137,7 +133,6 @@ fun NavGraph(
                         MaterialFade -> navigate(MaterialFade)
                         MaterialElevationScale -> navigate(MaterialElevationScale)
                         Hold -> navigate(Hold)
-                        Crossfade -> navigate(Crossfade)
                         Alpha -> navigate(Alpha)
                         Scale -> navigate(Scale)
                         Translate -> navigate(Translate)
@@ -171,9 +166,6 @@ fun NavGraph(
                 }
 
                 /* Etc */
-                Crossfade -> {
-                    CrossfadeScreen(upPress)
-                }
                 Alpha -> {
                     AlphaScreen(upPress)
                 }

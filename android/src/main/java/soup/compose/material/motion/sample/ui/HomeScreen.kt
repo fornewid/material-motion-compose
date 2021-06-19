@@ -36,7 +36,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.sample.ui.Destination.Alpha
-import soup.compose.material.motion.sample.ui.Destination.Crossfade
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.ExperimentalHold
 import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialElevationScale
@@ -147,7 +146,6 @@ private val Destination.description: String
         MaterialFade -> "MaterialFadeScreen"
         MaterialElevationScale -> "MaterialElevationScaleScreen"
         Hold -> "HoldScreen"
-        Crossfade -> "CrossfadeScreen"
         Alpha -> "AlphaScreen"
         Scale -> "ScaleScreen"
         Translate -> "TranslateScreen"
