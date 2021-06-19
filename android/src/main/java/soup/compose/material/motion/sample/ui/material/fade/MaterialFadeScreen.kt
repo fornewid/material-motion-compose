@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.material.fade
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -67,18 +68,11 @@ fun MaterialFadeScreen(upPress: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
+@Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun LightPreview() {
+private fun DefaultPreview() {
     SampleTheme {
-        MaterialFadeScreen(upPress = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DarkPreview() {
-    SampleTheme(darkTheme = true) {
         MaterialFadeScreen(upPress = {})
     }
 }
