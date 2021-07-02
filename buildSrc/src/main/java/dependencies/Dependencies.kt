@@ -18,11 +18,11 @@ object Libs {
     }
 
     object Compose {
-        const val version = "1.0.0-beta09"
-        const val activity = "androidx.activity:activity-compose:1.3.0-beta02"
+        const val version = "1.0.0-rc01"
+        const val activity = "androidx.activity:activity-compose:1.3.0-rc01"
         const val constraintlayout =
             "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha07"
-        const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha03"
+        const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha04"
         const val runtime = "androidx.compose.runtime:runtime:$version"
         const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$version"
         const val foundation = "androidx.compose.foundation:foundation:$version"
