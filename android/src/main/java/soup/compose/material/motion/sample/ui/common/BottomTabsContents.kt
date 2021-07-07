@@ -64,9 +64,9 @@ fun BottomTabsControls(
 }
 
 @Composable
-fun BottomTabsContents(selectedTab: BottomTabs) {
+fun BottomTabsContents(selectedTab: BottomTabs, modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(4.dp)
     ) {

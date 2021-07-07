@@ -16,6 +16,7 @@
 package soup.compose.material.motion.experimental
 
 import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -23,7 +24,6 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.with
@@ -62,26 +62,13 @@ fun materialFadeThrough(
 fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): EnterTransition {
-    return fadeIn(
-        animationSpec = animationSpec ?: tween(
-            durationMillis = durationMillis.ForIncoming,
-            delayMillis = durationMillis.ForOutgoing,
-            easing = LinearOutSlowInEasing
-        )
-    ) +
-        // TODO: I want scaleIn() instead of expandIn()
-        //      https://issuetracker.google.com/issues/191325593
-        expandIn(
-            initialSize = { fullSize -> fullSize * initialScale },
-            animationSpec = tween(
-                durationMillis = durationMillis.ForIncoming,
-                delayMillis = durationMillis.ForOutgoing,
-                easing = LinearOutSlowInEasing
-            )
-        )
-}
+): EnterTransition = fadeIn(
+    animationSpec = tween(
+        durationMillis = durationMillis.ForIncoming,
+        delayMillis = durationMillis.ForOutgoing,
+        easing = LinearOutSlowInEasing
+    )
+)
 
 /**
  * [materialFadeThroughOut] allows to switch a layout with fade through exit transition.
@@ -91,13 +78,48 @@ fun materialFadeThroughIn(
 @ExperimentalAnimationApi
 fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): ExitTransition {
-    return fadeOut(
-        animationSpec = animationSpec ?: tween(
-            durationMillis = durationMillis.ForOutgoing,
-            delayMillis = 0,
-            easing = FastOutLinearInEasing
-        )
+): ExitTransition = fadeOut(
+    animationSpec = tween(
+        durationMillis = durationMillis.ForOutgoing,
+        delayMillis = 0,
+        easing = FastOutLinearInEasing
     )
+)
+
+@ExperimentalAnimationApi
+fun materialFadeThroughScale(
+    targetState: EnterExitState,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): FiniteAnimationSpec<Float> = when (targetState) {
+    EnterExitState.PreEnter,
+    EnterExitState.Visible,
+    -> materialFadeThroughScaleIn(durationMillis)
+    EnterExitState.PostExit -> materialFadeThroughScaleOut(durationMillis)
+}
+
+@ExperimentalAnimationApi
+private fun materialFadeThroughScaleIn(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): FiniteAnimationSpec<Float> = tween(
+    durationMillis = durationMillis.ForIncoming,
+    delayMillis = durationMillis.ForOutgoing,
+    easing = LinearOutSlowInEasing
+)
+
+@ExperimentalAnimationApi
+private fun materialFadeThroughScaleOut(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): FiniteAnimationSpec<Float> = tween(
+    durationMillis = durationMillis.ForOutgoing,
+    delayMillis = 0,
+    easing = FastOutLinearInEasing
+)
+
+@ExperimentalAnimationApi
+fun materialFadeThroughScaleValueOf(
+    targetState: EnterExitState,
+): Float = when (targetState) {
+    EnterExitState.PreEnter -> 0.92f
+    EnterExitState.Visible -> 1f
+    EnterExitState.PostExit -> 1f
 }

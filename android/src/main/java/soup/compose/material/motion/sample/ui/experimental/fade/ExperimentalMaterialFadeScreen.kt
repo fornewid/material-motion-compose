@@ -17,7 +17,10 @@ package soup.compose.material.motion.sample.ui.experimental.fade
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,14 +31,19 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.experimental.materialFadeIn
 import soup.compose.material.motion.experimental.materialFadeOut
+import soup.compose.material.motion.experimental.materialFadeScaleIn
+import soup.compose.material.motion.experimental.materialFadeScaleOut
+import soup.compose.material.motion.experimental.materialFadeScaleValueOf
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
@@ -61,9 +69,25 @@ fun ExperimentalMaterialFadeScreen(upPress: () -> Unit) {
                 enter = materialFadeIn(),
                 exit = materialFadeOut()
             ) {
+                val scale by transition.animateFloat(
+                    transitionSpec = {
+                        when (targetState) {
+                            EnterExitState.PreEnter -> tween(durationMillis = 0)
+                            EnterExitState.Visible -> materialFadeScaleIn()
+                            EnterExitState.PostExit -> materialFadeScaleOut()
+                        }
+                    },
+                    label = "scale"
+                ) { materialFadeScaleValueOf(it) }
+
                 FloatingActionButton(
                     onClick = {},
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                        }
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null)
                 }

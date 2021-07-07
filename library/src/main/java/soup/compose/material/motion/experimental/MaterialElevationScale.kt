@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.experimental
 
+import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -22,11 +23,8 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkOut
-import androidx.compose.ui.Alignment
 import soup.compose.material.motion.MotionConstants
 
 /**
@@ -43,25 +41,14 @@ fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): EnterTransition {
     return fadeIn(
         initialAlpha = initialAlpha,
-        animationSpec = animationSpec ?: tween(
+        animationSpec = tween(
             durationMillis = durationMillis,
             easing = LinearEasing
         )
-    ) +
-        // TODO: I want scaleIn() instead of expandIn()
-        //       https://issuetracker.google.com/issues/191325593
-        expandIn(
-            expandFrom = Alignment.TopCenter,
-            initialSize = { fullSize -> fullSize * initialScale },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
-        )
+    )
 }
 
 /**
@@ -78,23 +65,29 @@ fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): ExitTransition {
     return fadeOut(
         targetAlpha = targetAlpha,
-        animationSpec = animationSpec ?: tween(
+        animationSpec = tween(
             durationMillis = durationMillis,
             easing = LinearEasing
         )
-    ) +
-        // TODO: I want scaleOut() instead of shrinkOut()
-        //       https://issuetracker.google.com/issues/191325593
-        shrinkOut(
-            shrinkTowards = Alignment.TopCenter,
-            targetSize = { fullSize -> fullSize * targetScale },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
-        )
+    )
+}
+
+@ExperimentalAnimationApi
+fun materialElevationScaleSpec(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): FiniteAnimationSpec<Float> = tween(
+    durationMillis = durationMillis,
+    easing = FastOutSlowInEasing
+)
+
+@ExperimentalAnimationApi
+fun materialElevationScaleValueOf(
+    targetState: EnterExitState,
+): Float = when (targetState) {
+    EnterExitState.PreEnter -> 0.85f
+    EnterExitState.Visible -> 1f
+    EnterExitState.PostExit -> 0.85f
 }
