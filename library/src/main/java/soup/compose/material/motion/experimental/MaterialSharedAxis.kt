@@ -16,17 +16,17 @@
 package soup.compose.material.motion.experimental
 
 import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -202,26 +202,13 @@ fun materialSharedAxisYIn(
 fun materialSharedAxisZIn(
     forward: Boolean,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): EnterTransition {
-    // TODO: I want scaleIn() instead of expandIn()
-    //       https://issuetracker.google.com/issues/191325593
-    return expandIn(
-        initialSize = { fullSize ->
-            val initialScale = if (forward) 1.1f else 0.8f
-            fullSize * initialScale
-        },
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
-    ) + fadeIn(
-        animationSpec = tween(
-            durationMillis = durationMillis.ForIncoming,
-            delayMillis = durationMillis.ForOutgoing,
-            easing = LinearOutSlowInEasing
-        )
+): EnterTransition = fadeIn(
+    animationSpec = tween(
+        durationMillis = durationMillis.ForIncoming,
+        delayMillis = durationMillis.ForOutgoing,
+        easing = LinearOutSlowInEasing
     )
-}
+)
 
 /**
  * [materialSharedAxisXOut] allows to switch a layout with shared X-axis exit transition.
@@ -295,23 +282,29 @@ fun materialSharedAxisYOut(
 fun materialSharedAxisZOut(
     forward: Boolean,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): ExitTransition {
-    // TODO: I want scaleOut() instead of shrinkOut()
-    //       https://issuetracker.google.com/issues/191325593
-    return shrinkOut(
-        targetSize = { fullSize ->
-            val targetScale = if (forward) 1.1f else 0.8f
-            fullSize * targetScale
-        },
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
-    ) + fadeOut(
-        animationSpec = tween(
-            durationMillis = durationMillis.ForOutgoing,
-            delayMillis = 0,
-            easing = FastOutLinearInEasing
-        )
+): ExitTransition = fadeOut(
+    animationSpec = tween(
+        durationMillis = durationMillis.ForOutgoing,
+        delayMillis = 0,
+        easing = FastOutLinearInEasing
     )
+)
+
+@ExperimentalAnimationApi
+fun materialSharedAxisZScale(
+    targetState: EnterExitState,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): FiniteAnimationSpec<Float> = tween(
+    durationMillis = durationMillis,
+    easing = FastOutSlowInEasing
+)
+
+@ExperimentalAnimationApi
+fun materialSharedAxisZScaleValueOf(
+    targetState: EnterExitState,
+    forward: Boolean,
+): Float = when (targetState) {
+    EnterExitState.PreEnter -> if (forward) 0.8f else 1.1f
+    EnterExitState.Visible -> 1f
+    EnterExitState.PostExit -> if (forward) 0.8f else 1.1f
 }

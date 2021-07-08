@@ -75,8 +75,8 @@ fun ForwardBackwardControls(
 }
 
 @Composable
-fun ForwardBackwardContents(forward: Boolean) {
-    Surface(modifier = Modifier.fillMaxSize()) {
+fun ForwardBackwardContents(forward: Boolean, modifier: Modifier = Modifier) {
+    Surface(modifier = modifier.fillMaxSize()) {
         if (forward) {
             ForwardContents()
         } else {

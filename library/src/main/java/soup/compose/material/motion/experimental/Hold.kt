@@ -34,31 +34,29 @@ import soup.compose.material.motion.MotionConstants
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
     animationSpec: FiniteAnimationSpec<Float>? = null,
-): EnterTransition {
-    return fadeIn(
-        initialAlpha = 1f,
-        animationSpec = animationSpec ?: tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
-        )
+): EnterTransition = fadeIn(
+    initialAlpha = 1f,
+    animationSpec = animationSpec ?: tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
     )
-}
+)
 
 /**
  * [holdOut] allows to switch a layout with no exit transition.
  *
- * @param durationMillis the duration of the enter transition.
+ * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
     animationSpec: FiniteAnimationSpec<Float>? = null,
-): ExitTransition {
-    return fadeOut(
-        targetAlpha = 1f,
-        animationSpec = animationSpec ?: tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
-        )
+): ExitTransition = fadeOut(
+    // TODO: Refer https://issuetracker.google.com/issues/192993290
+    // targetAlpha = 1f,
+    targetAlpha = 0.999f,
+    animationSpec = animationSpec ?: tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
     )
-}
+)

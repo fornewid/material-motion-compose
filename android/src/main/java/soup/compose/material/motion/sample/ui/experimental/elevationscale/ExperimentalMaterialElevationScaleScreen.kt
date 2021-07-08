@@ -19,17 +19,23 @@ import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.experimental.materialElevationScaleIn
 import soup.compose.material.motion.experimental.materialElevationScaleOut
+import soup.compose.material.motion.experimental.materialElevationScaleSpec
+import soup.compose.material.motion.experimental.materialElevationScaleValueOf
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
@@ -62,7 +68,30 @@ fun ExperimentalMaterialElevationScaleScreen(upPress: () -> Unit) {
                 }
             }
         ) { forward ->
-            ForwardBackwardContents(forward)
+            val scale by transition.animateFloat(
+                transitionSpec = {
+                    if (forward) {
+                        tween(durationMillis = 0)
+                    } else {
+                        materialElevationScaleSpec()
+                    }
+                },
+                label = "scale"
+            ) {
+                if (forward) {
+                    1f
+                } else {
+                    materialElevationScaleValueOf(it)
+                }
+            }
+
+            ForwardBackwardContents(
+                forward,
+                modifier = Modifier.graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                }
+            )
         }
     }
 }

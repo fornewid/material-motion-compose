@@ -18,13 +18,18 @@ package soup.compose.material.motion.sample.ui.experimental.fadethrough
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.experimental.materialFadeThrough
+import soup.compose.material.motion.experimental.materialFadeThroughScale
+import soup.compose.material.motion.experimental.materialFadeThroughScaleValueOf
 import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.common.BottomTabsContents
 import soup.compose.material.motion.sample.ui.common.BottomTabsControls
@@ -44,7 +49,18 @@ fun ExperimentalMaterialFadeThroughScreen(upPress: () -> Unit) {
             modifier = Modifier.padding(innerPadding),
             transitionSpec = { materialFadeThrough() }
         ) { currentTab ->
-            BottomTabsContents(currentTab)
+            val scale by transition.animateFloat(
+                transitionSpec = { materialFadeThroughScale(targetState) },
+                label = "scale"
+            ) { materialFadeThroughScaleValueOf(it) }
+
+            BottomTabsContents(
+                currentTab,
+                modifier = Modifier.graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                }
+            )
         }
     }
 }
