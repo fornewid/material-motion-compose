@@ -62,8 +62,9 @@ fun materialFadeThrough(
 fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): EnterTransition = fadeIn(
-    animationSpec = tween(
+    animationSpec = animationSpec ?: tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
         easing = LinearOutSlowInEasing
@@ -78,8 +79,9 @@ fun materialFadeThroughIn(
 @ExperimentalAnimationApi
 fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    animationSpec: FiniteAnimationSpec<Float>? = null,
 ): ExitTransition = fadeOut(
-    animationSpec = tween(
+    animationSpec = animationSpec ?: tween(
         durationMillis = durationMillis.ForOutgoing,
         delayMillis = 0,
         easing = FastOutLinearInEasing
