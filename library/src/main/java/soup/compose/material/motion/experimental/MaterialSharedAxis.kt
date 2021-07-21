@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.MotionConstants
 
+val DefaultSlideDistance: Dp = 30.dp
+
 private const val ProgressThreshold = 0.35f
 
 private val Int.ForOutgoing: Int
@@ -53,7 +55,7 @@ private val Int.ForIncoming: Int
  * @param slideDistance Value to the slide distance dimension, 30dp by default.
  */
 @Composable
-fun rememberSlideDistance(slideDistance: Dp = 30.dp): Int {
+fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Int {
     val density = LocalDensity.current
     return remember(density) {
         with(density) { slideDistance.roundToPx() }

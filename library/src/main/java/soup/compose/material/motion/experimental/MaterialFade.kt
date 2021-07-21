@@ -41,12 +41,12 @@ private val Int.ForFade: Int
 @ExperimentalAnimationApi
 fun materialFadeIn(
     durationMillis: Int = MotionConstants.motionDurationShort2,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): EnterTransition = fadeIn(
-    animationSpec = animationSpec ?: tween(
+    animationSpec: FiniteAnimationSpec<Float> = tween(
         durationMillis = durationMillis.ForFade,
         easing = LinearEasing
     )
+): EnterTransition = fadeIn(
+    animationSpec = animationSpec
 )
 
 /**
@@ -55,29 +55,31 @@ fun materialFadeIn(
 @ExperimentalAnimationApi
 fun materialFadeOut(
     durationMillis: Int = MotionConstants.motionDurationShort1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): ExitTransition = fadeOut(
-    animationSpec = animationSpec ?: tween(
+    animationSpec: FiniteAnimationSpec<Float> = tween(
         durationMillis = durationMillis,
         easing = LinearEasing
     )
+): ExitTransition = fadeOut(
+    animationSpec = animationSpec
 )
 
 @ExperimentalAnimationApi
 fun materialFadeScaleIn(
     durationMillis: Int = MotionConstants.motionDurationShort2,
-): FiniteAnimationSpec<Float> = tween(
-    durationMillis = durationMillis,
-    easing = FastOutSlowInEasing
-)
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis,
+        easing = FastOutSlowInEasing
+    )
+): FiniteAnimationSpec<Float> = animationSpec
 
 @ExperimentalAnimationApi
 fun materialFadeScaleOut(
     durationMillis: Int = MotionConstants.motionDurationShort1,
-): FiniteAnimationSpec<Float> = tween(
-    durationMillis = durationMillis,
-    easing = LinearEasing
-)
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    )
+): FiniteAnimationSpec<Float> = animationSpec
 
 @ExperimentalAnimationApi
 fun materialFadeScaleValueOf(
