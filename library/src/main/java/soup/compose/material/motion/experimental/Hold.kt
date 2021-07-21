@@ -33,13 +33,13 @@ import soup.compose.material.motion.MotionConstants
 @ExperimentalAnimationApi
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): EnterTransition = fadeIn(
-    initialAlpha = 1f,
-    animationSpec = animationSpec ?: tween(
+    animationSpec: FiniteAnimationSpec<Float> = tween(
         durationMillis = durationMillis,
         easing = LinearEasing
-    )
+    ),
+): EnterTransition = fadeIn(
+    initialAlpha = 1f,
+    animationSpec = animationSpec
 )
 
 /**
@@ -50,13 +50,13 @@ fun holdIn(
 @ExperimentalAnimationApi
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    )
 ): ExitTransition = fadeOut(
     // TODO: Refer https://issuetracker.google.com/issues/192993290
     // targetAlpha = 1f,
     targetAlpha = 0.999f,
-    animationSpec = animationSpec ?: tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
-    )
+    animationSpec = animationSpec
 )

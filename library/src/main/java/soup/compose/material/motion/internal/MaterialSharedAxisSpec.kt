@@ -29,7 +29,7 @@ import soup.compose.material.motion.provider.SlideDistanceProvider.SlideEdge
 internal data class MaterialSharedAxisSpec(
     private val axis: Axis,
     private val forward: Boolean,
-    private val slideDistance: Dp? = null,
+    private val slideDistance: Dp,
 ) : MotionSpec(
     createPrimaryAnimatorProvider(axis, forward, slideDistance),
     createSecondaryAnimatorProvider()
@@ -45,7 +45,7 @@ internal data class MaterialSharedAxisSpec(
         private fun createPrimaryAnimatorProvider(
             axis: Axis,
             forward: Boolean,
-            slideDistance: Dp?,
+            slideDistance: Dp,
         ): VisibilityAnimationProvider = when (axis) {
             Axis.X -> SlideDistanceProvider(
                 if (forward) SlideEdge.RIGHT else SlideEdge.LEFT,

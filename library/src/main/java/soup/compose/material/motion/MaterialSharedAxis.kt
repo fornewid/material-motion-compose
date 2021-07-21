@@ -20,7 +20,10 @@ package soup.compose.material.motion
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.internal.MaterialSharedAxisSpec
+
+val DefaultSlideDistance: Dp = 30.dp
 
 enum class Axis {
     X, Y, Z
@@ -36,7 +39,7 @@ enum class Axis {
 fun materialSharedAxis(
     axis: Axis,
     forward: Boolean,
-    slideDistance: Dp? = null,
+    slideDistance: Dp = DefaultSlideDistance,
 ): MotionSpec = MaterialSharedAxisSpec(axis, forward, slideDistance)
 
 /**
@@ -58,7 +61,7 @@ fun <T> MaterialSharedAxis(
     axis: Axis,
     forward: Boolean,
     modifier: Modifier = Modifier,
-    slideDistance: Dp? = null,
+    slideDistance: Dp = DefaultSlideDistance,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(

@@ -30,7 +30,7 @@ import soup.compose.material.motion.VisibilityAnimationProvider
 @SuppressLint("ModifierFactoryExtensionFunction")
 class SlideDistanceProvider(
     private val slideEdge: SlideEdge,
-    private val slideDistance: Dp? = null,
+    private val slideDistance: Dp,
 ) : VisibilityAnimationProvider {
 
     enum class SlideEdge {
@@ -86,7 +86,7 @@ class SlideDistanceProvider(
     private fun Modifier.appearOffsetX(
         fraction: Float,
         startTranslation: Dp,
-        endTranslation: Dp
+        endTranslation: Dp,
     ): Modifier {
         return offset(x = lerp(startTranslation, endTranslation, fraction))
     }
@@ -94,12 +94,12 @@ class SlideDistanceProvider(
     private fun Modifier.appearOffsetY(
         fraction: Float,
         startTranslation: Dp,
-        endTranslation: Dp
+        endTranslation: Dp,
     ): Modifier {
         return offset(y = lerp(startTranslation, endTranslation, fraction))
     }
 
     private fun getSlideDistanceOrDefault(): Dp {
-        return slideDistance ?: 30.dp
+        return slideDistance
     }
 }

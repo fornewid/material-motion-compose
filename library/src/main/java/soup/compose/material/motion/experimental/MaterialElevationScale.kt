@@ -41,14 +41,14 @@ fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    )
 ): EnterTransition {
     return fadeIn(
         initialAlpha = initialAlpha,
-        animationSpec = animationSpec ?: tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
-        )
+        animationSpec = animationSpec
     )
 }
 
@@ -66,24 +66,25 @@ fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    )
 ): ExitTransition {
     return fadeOut(
         targetAlpha = targetAlpha,
-        animationSpec = animationSpec ?: tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
-        )
+        animationSpec = animationSpec
     )
 }
 
 @ExperimentalAnimationApi
 fun materialElevationScaleSpec(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): FiniteAnimationSpec<Float> = tween(
-    durationMillis = durationMillis,
-    easing = FastOutSlowInEasing
-)
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis,
+        easing = FastOutSlowInEasing
+    )
+): FiniteAnimationSpec<Float> = animationSpec
 
 @ExperimentalAnimationApi
 fun materialElevationScaleValueOf(

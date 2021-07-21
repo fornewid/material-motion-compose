@@ -62,13 +62,13 @@ fun materialFadeThrough(
 fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): EnterTransition = fadeIn(
-    animationSpec = animationSpec ?: tween(
+    animationSpec: FiniteAnimationSpec<Float> = tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
         easing = LinearOutSlowInEasing
-    )
+    ),
+): EnterTransition = fadeIn(
+    animationSpec = animationSpec
 )
 
 /**
@@ -79,13 +79,13 @@ fun materialFadeThroughIn(
 @ExperimentalAnimationApi
 fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float>? = null,
-): ExitTransition = fadeOut(
-    animationSpec = animationSpec ?: tween(
+    animationSpec: FiniteAnimationSpec<Float> = tween(
         durationMillis = durationMillis.ForOutgoing,
         delayMillis = 0,
         easing = FastOutLinearInEasing
-    )
+    ),
+): ExitTransition = fadeOut(
+    animationSpec = animationSpec
 )
 
 @ExperimentalAnimationApi
@@ -102,20 +102,22 @@ fun materialFadeThroughScale(
 @ExperimentalAnimationApi
 private fun materialFadeThroughScaleIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): FiniteAnimationSpec<Float> = tween(
-    durationMillis = durationMillis.ForIncoming,
-    delayMillis = durationMillis.ForOutgoing,
-    easing = LinearOutSlowInEasing
-)
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis.ForIncoming,
+        delayMillis = durationMillis.ForOutgoing,
+        easing = LinearOutSlowInEasing
+    ),
+): FiniteAnimationSpec<Float> = animationSpec
 
 @ExperimentalAnimationApi
 private fun materialFadeThroughScaleOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): FiniteAnimationSpec<Float> = tween(
-    durationMillis = durationMillis.ForOutgoing,
-    delayMillis = 0,
-    easing = FastOutLinearInEasing
-)
+    animationSpec: FiniteAnimationSpec<Float> = tween(
+        durationMillis = durationMillis.ForOutgoing,
+        delayMillis = 0,
+        easing = FastOutLinearInEasing
+    ),
+): FiniteAnimationSpec<Float> = animationSpec
 
 @ExperimentalAnimationApi
 fun materialFadeThroughScaleValueOf(
