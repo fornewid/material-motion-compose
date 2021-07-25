@@ -16,15 +16,17 @@
 package soup.compose.material.motion.experimental
 
 import androidx.compose.animation.EnterExitState
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import soup.compose.material.motion.MotionConstants
 
 /**
@@ -41,16 +43,22 @@ fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
-    )
-): EnterTransition {
-    return fadeIn(
+): EnterMotionSpec = EnterMotionSpec(
+    transition = fadeIn(
         initialAlpha = initialAlpha,
-        animationSpec = animationSpec
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = LinearEasing
+        )
+    ),
+    transitionExtra = scaleIn(
+        initialScale = initialScale,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
     )
-}
+)
 
 /**
  * TODO: This is an experimental feature that is not fully implemented!
@@ -66,31 +74,65 @@ fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
-    )
-): ExitTransition {
-    return fadeOut(
-        targetAlpha = targetAlpha,
-        animationSpec = animationSpec
+): ExitMotionSpec {
+    return ExitMotionSpec(
+        transition = fadeOut(
+            targetAlpha = targetAlpha,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = LinearEasing
+            )
+        ),
+        transitionExtra = scaleOut(
+            targetScale = targetScale,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = FastOutSlowInEasing
+            )
+        )
     )
 }
 
 @ExperimentalAnimationApi
-fun materialElevationScaleSpec(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
-    )
-): FiniteAnimationSpec<Float> = animationSpec
+private fun scaleIn(
+    initialScale: Float,
+    animationSpec: FiniteAnimationSpec<Float>,
+): TransitionExtra<Float> = scaleTransitionExtra(
+    initialScale = initialScale,
+    animationSpec = animationSpec
+)
 
 @ExperimentalAnimationApi
-fun materialElevationScaleValueOf(
-    targetState: EnterExitState,
-): Float = when (targetState) {
-    EnterExitState.PreEnter -> 0.85f
-    EnterExitState.Visible -> 1f
-    EnterExitState.PostExit -> 0.85f
-}
+private fun scaleOut(
+    targetScale: Float,
+    animationSpec: FiniteAnimationSpec<Float>,
+): TransitionExtra<Float> = scaleTransitionExtra(
+    initialScale = targetScale,
+    animationSpec = animationSpec
+)
+
+@ExperimentalAnimationApi
+private fun scaleTransitionExtra(
+    initialScale: Float,
+    targetScale: Float = 1f,
+    animationSpec: FiniteAnimationSpec<Float> = spring(),
+): TransitionExtra<Float> = TransitionExtra(
+    animateExtra = {
+        animateFloat(
+            transitionSpec = { animationSpec },
+            label = "scale"
+        ) {
+            when (it) {
+                EnterExitState.PreEnter -> initialScale
+                EnterExitState.Visible -> targetScale
+                EnterExitState.PostExit -> initialScale
+            }
+        }
+    },
+    modifierByExtra = { scale ->
+        Modifier.graphicsLayer {
+            scaleX = scale
+            scaleY = scale
+        }
+    }
+)
