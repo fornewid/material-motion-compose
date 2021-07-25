@@ -15,18 +15,12 @@
  */
 package soup.compose.material.motion.experimental
 
-import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import soup.compose.material.motion.MotionConstants
 
 /**
@@ -92,47 +86,3 @@ fun materialElevationScaleOut(
         )
     )
 }
-
-@ExperimentalAnimationApi
-private fun scaleIn(
-    initialScale: Float,
-    animationSpec: FiniteAnimationSpec<Float>,
-): TransitionExtra<Float> = scaleTransitionExtra(
-    initialScale = initialScale,
-    animationSpec = animationSpec
-)
-
-@ExperimentalAnimationApi
-private fun scaleOut(
-    targetScale: Float,
-    animationSpec: FiniteAnimationSpec<Float>,
-): TransitionExtra<Float> = scaleTransitionExtra(
-    initialScale = targetScale,
-    animationSpec = animationSpec
-)
-
-@ExperimentalAnimationApi
-private fun scaleTransitionExtra(
-    initialScale: Float,
-    targetScale: Float = 1f,
-    animationSpec: FiniteAnimationSpec<Float> = spring(),
-): TransitionExtra<Float> = TransitionExtra(
-    animateExtra = {
-        animateFloat(
-            transitionSpec = { animationSpec },
-            label = "scale"
-        ) {
-            when (it) {
-                EnterExitState.PreEnter -> initialScale
-                EnterExitState.Visible -> targetScale
-                EnterExitState.PostExit -> initialScale
-            }
-        }
-    },
-    modifierByExtra = { scale ->
-        Modifier.graphicsLayer {
-            scaleX = scale
-            scaleY = scale
-        }
-    }
-)
