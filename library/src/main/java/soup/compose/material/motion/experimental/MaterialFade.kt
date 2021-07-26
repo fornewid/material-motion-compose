@@ -15,77 +15,106 @@
  */
 package soup.compose.material.motion.experimental
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.Layout
+import soup.compose.material.motion.MaterialFade
 import soup.compose.material.motion.MotionConstants
 
-private const val DefaultStartScale = 0.8f
 private const val DefaultFadeEndThresholdEnter = 0.3f
 
 private val Int.ForFade: Int
     get() = (this * DefaultFadeEndThresholdEnter).toInt()
 
 /**
- * TODO: This is an experimental feature that is not fully implemented!
- *
  * [materialFadeIn] allows to switch a layout with a fade-in animation.
  */
 @ExperimentalAnimationApi
-fun materialFadeIn(
+private fun materialFadeIn(
     durationMillis: Int = MotionConstants.motionDurationShort2,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
+): EnterTransition = fadeIn(
+    animationSpec = tween(
         durationMillis = durationMillis.ForFade,
         easing = LinearEasing
     )
-): EnterTransition = fadeIn(
-    animationSpec = animationSpec
 )
 
 /**
  * [materialFadeOut] allows to switch a layout with a fade-out animation.
  */
 @ExperimentalAnimationApi
-fun materialFadeOut(
+private fun materialFadeOut(
     durationMillis: Int = MotionConstants.motionDurationShort1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
+): ExitTransition = fadeOut(
+    animationSpec = tween(
         durationMillis = durationMillis,
         easing = LinearEasing
     )
-): ExitTransition = fadeOut(
-    animationSpec = animationSpec
 )
 
+/**
+ * [MaterialFade] animates the appearance and disappearance of its content, as [visible] value changes.
+ *
+ * @see com.google.android.material.transition.MaterialFade
+ *
+ * @param visible defines whether the [content] should be visible
+ * @param modifier modifier for the [Layout] created to contain the [content]
+ * @param enterDurationMillis enter duration
+ * @param exitDurationMillis exit duration
+ */
 @ExperimentalAnimationApi
-fun materialFadeScaleIn(
-    durationMillis: Int = MotionConstants.motionDurationShort2,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
-    )
-): FiniteAnimationSpec<Float> = animationSpec
-
-@ExperimentalAnimationApi
-fun materialFadeScaleOut(
-    durationMillis: Int = MotionConstants.motionDurationShort1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
-    )
-): FiniteAnimationSpec<Float> = animationSpec
-
-@ExperimentalAnimationApi
-fun materialFadeScaleValueOf(
-    targetState: EnterExitState,
-): Float = when (targetState) {
-    EnterExitState.PreEnter -> DefaultStartScale
-    EnterExitState.Visible -> 1f
-    EnterExitState.PostExit -> 1f
+@Composable
+fun MaterialFade(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    enterDurationMillis: Int = MotionConstants.motionDurationShort2,
+    exitDurationMillis: Int = MotionConstants.motionDurationShort1,
+    content: @Composable () -> Unit,
+) {
+    AnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = materialFadeIn(enterDurationMillis),
+        exit = materialFadeOut(exitDurationMillis)
+    ) {
+        val scale by transition.animateFloat(
+            transitionSpec = {
+                when (targetState) {
+                    EnterExitState.PreEnter -> tween(durationMillis = 0)
+                    EnterExitState.Visible -> tween(
+                        durationMillis = enterDurationMillis,
+                        easing = FastOutSlowInEasing
+                    )
+                    EnterExitState.PostExit -> tween(durationMillis = 0)
+                }
+            },
+            label = "scale"
+        ) {
+            when (it) {
+                EnterExitState.PreEnter -> 0.8f
+                EnterExitState.Visible -> 1f
+                EnterExitState.PostExit -> 1f
+            }
+        }
+        Box(modifier = Modifier.graphicsLayer {
+            scaleX = scale
+            scaleY = scale
+        }) {
+            content()
+        }
+    }
 }
