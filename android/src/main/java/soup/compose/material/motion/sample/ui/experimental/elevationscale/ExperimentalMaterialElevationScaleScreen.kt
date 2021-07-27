@@ -51,14 +51,6 @@ fun ExperimentalMaterialElevationScaleScreen(upPress: () -> Unit) {
             ForwardBackwardControls(forward, onForwardChanged)
         }
     ) { innerPadding ->
-        val motionSpec = when {
-            forward -> EnterMotionSpec(
-                transition = slideInVertically(initialOffsetY = { it }, animationSpec = tween(300))
-            ) with materialElevationScaleOut()
-            else -> materialElevationScaleIn() with ExitMotionSpec(
-                transition = slideOutVertically(targetOffsetY = { it }, animationSpec = tween(300))
-            )
-        }
         MaterialMotion(
             targetState = forward,
             modifier = Modifier.padding(innerPadding),
