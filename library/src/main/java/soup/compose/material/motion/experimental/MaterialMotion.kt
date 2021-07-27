@@ -32,8 +32,7 @@ import soup.compose.material.motion.MaterialMotion
  * @param targetState is a key representing your target layout state. Every time you change a key
  * the animation will be triggered. The [content] called with the old key will be faded out while
  * the [content] called with the new key will be faded in.
- * @param enterMotionSpec the [EnterMotionSpec] to configure the enter animation.
- * @param exitMotionSpec the [ExitMotionSpec] to configure the exit animation.
+ * @param motionSpec the [MotionSpec] to configure the enter/exit animation.
  * @param modifier Modifier to be applied to the animation container.
  * @param pop whether motion contents are rendered in reverse order.
  */
@@ -41,8 +40,7 @@ import soup.compose.material.motion.MaterialMotion
 @Composable
 fun <T> MaterialMotion(
     targetState: T,
-    enterMotionSpec: EnterMotionSpec,
-    exitMotionSpec: ExitMotionSpec,
+    motionSpec: MotionSpec,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     content: @Composable (T) -> Unit,
@@ -51,7 +49,7 @@ fun <T> MaterialMotion(
         targetState = targetState,
         modifier = modifier,
         transitionSpec = {
-            (enterMotionSpec.transition with exitMotionSpec.transition)
+            (motionSpec.enter.transition with motionSpec.exit.transition)
                 .apply {
                     // Show forward contents over the backward contents.
                     targetContentZIndex = if (!pop) 0.1f else 0f
@@ -60,19 +58,19 @@ fun <T> MaterialMotion(
     ) { currentState ->
         val extraModifier: Modifier
         if (currentState == targetState) {
-            extraModifier = if (enterMotionSpec.transitionExtra == TransitionExtra.None) {
+            extraModifier = if (motionSpec.enter.transitionExtra == TransitionExtra.None) {
                 Modifier
             } else {
-                with(enterMotionSpec.transitionExtra) {
+                with(motionSpec.enter.transitionExtra) {
                     val extra by transition.animateExtra()
                     modifierByExtra(extra)
                 }
             }
         } else {
-            extraModifier = if (exitMotionSpec.transitionExtra == TransitionExtra.None) {
+            extraModifier = if (motionSpec.exit.transitionExtra == TransitionExtra.None) {
                 Modifier
             } else {
-                with(exitMotionSpec.transitionExtra) {
+                with(motionSpec.exit.transitionExtra) {
                     val extra by transition.animateExtra()
                     modifierByExtra(extra)
                 }

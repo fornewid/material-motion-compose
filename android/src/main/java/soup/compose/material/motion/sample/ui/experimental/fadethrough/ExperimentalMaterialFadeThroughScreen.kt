@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.experimental.MaterialMotion
 import soup.compose.material.motion.experimental.materialFadeThroughIn
 import soup.compose.material.motion.experimental.materialFadeThroughOut
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.common.BottomTabsContents
 import soup.compose.material.motion.sample.ui.common.BottomTabsControls
@@ -43,8 +44,7 @@ fun ExperimentalMaterialFadeThroughScreen(upPress: () -> Unit) {
         MaterialMotion(
             targetState = selectedTab,
             modifier = Modifier.padding(innerPadding),
-            enterMotionSpec = materialFadeThroughIn(),
-            exitMotionSpec = materialFadeThroughOut()
+            motionSpec = materialFadeThroughIn() with materialFadeThroughOut()
         ) { currentTab ->
             BottomTabsContents(currentTab)
         }

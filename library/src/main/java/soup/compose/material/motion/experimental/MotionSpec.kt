@@ -31,6 +31,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 
 @ExperimentalAnimationApi
+class MotionSpec(
+    val enter: EnterMotionSpec,
+    val exit: ExitMotionSpec
+)
+
+@ExperimentalAnimationApi
+infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
+
+@ExperimentalAnimationApi
 class EnterMotionSpec(
     val transition: EnterTransition,
     val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,

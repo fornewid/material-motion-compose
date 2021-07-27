@@ -47,6 +47,7 @@ import soup.compose.material.motion.experimental.materialSharedAxisYOut
 import soup.compose.material.motion.experimental.materialSharedAxisZIn
 import soup.compose.material.motion.experimental.materialSharedAxisZOut
 import soup.compose.material.motion.experimental.rememberSlideDistance
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
@@ -73,15 +74,16 @@ fun ExperimentalMaterialSharedAxisScreen(upPress: () -> Unit) {
         MaterialMotion(
             targetState = forward,
             modifier = Modifier.padding(innerPadding),
-            enterMotionSpec = when (selectedAxis) {
-                Axis.X -> materialSharedAxisXIn(forward = forward, slideDistance = slideDistance)
-                Axis.Y -> materialSharedAxisYIn(forward = forward, slideDistance = slideDistance)
-                Axis.Z -> materialSharedAxisZIn(forward = forward)
-            },
-            exitMotionSpec = when (selectedAxis) {
-                Axis.X -> materialSharedAxisXOut(forward = forward, slideDistance = slideDistance)
-                Axis.Y -> materialSharedAxisYOut(forward = forward, slideDistance = slideDistance)
-                Axis.Z -> materialSharedAxisZOut(forward = forward)
+            motionSpec = when (selectedAxis) {
+                Axis.X ->
+                    materialSharedAxisXIn(forward = forward, slideDistance = slideDistance) with
+                        materialSharedAxisXOut(forward = forward, slideDistance = slideDistance)
+                Axis.Y ->
+                    materialSharedAxisYIn(forward = forward, slideDistance = slideDistance) with
+                        materialSharedAxisYOut(forward = forward, slideDistance = slideDistance)
+                Axis.Z ->
+                    materialSharedAxisZIn(forward = forward) with
+                        materialSharedAxisZOut(forward = forward)
             }
         ) { forward ->
             ForwardBackwardContents(forward)

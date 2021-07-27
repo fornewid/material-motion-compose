@@ -32,6 +32,7 @@ import soup.compose.material.motion.experimental.ExitMotionSpec
 import soup.compose.material.motion.experimental.MaterialMotion
 import soup.compose.material.motion.experimental.materialElevationScaleIn
 import soup.compose.material.motion.experimental.materialElevationScaleOut
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
@@ -50,23 +51,34 @@ fun ExperimentalMaterialElevationScaleScreen(upPress: () -> Unit) {
             ForwardBackwardControls(forward, onForwardChanged)
         }
     ) { innerPadding ->
-        val enterMotionSpec = when {
+        val motionSpec = when {
             forward -> EnterMotionSpec(
                 transition = slideInVertically(initialOffsetY = { it }, animationSpec = tween(300))
-            )
-            else -> materialElevationScaleIn()
-        }
-        val exitMotionSpec = when {
-            forward -> materialElevationScaleOut()
-            else -> ExitMotionSpec(
+            ) with materialElevationScaleOut()
+            else -> materialElevationScaleIn() with ExitMotionSpec(
                 transition = slideOutVertically(targetOffsetY = { it }, animationSpec = tween(300))
             )
         }
         MaterialMotion(
             targetState = forward,
             modifier = Modifier.padding(innerPadding),
-            enterMotionSpec = enterMotionSpec,
-            exitMotionSpec = exitMotionSpec,
+            motionSpec = when {
+                forward ->
+                    EnterMotionSpec(
+                        transition = slideInVertically(
+                            initialOffsetY = { it },
+                            animationSpec = tween(300)
+                        )
+                    ) with materialElevationScaleOut()
+                else ->
+                    materialElevationScaleIn() with
+                        ExitMotionSpec(
+                            transition = slideOutVertically(
+                                targetOffsetY = { it },
+                                animationSpec = tween(300)
+                            )
+                        )
+            },
             pop = forward.not()
         ) { forward ->
             ForwardBackwardContents(forward)

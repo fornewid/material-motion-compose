@@ -21,15 +21,19 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import soup.compose.material.motion.MaterialMotions
 import soup.compose.material.motion.experimental.EnterMotionSpec
 import soup.compose.material.motion.experimental.ExitMotionSpec
 import soup.compose.material.motion.experimental.MaterialMotion
 import soup.compose.material.motion.experimental.holdIn
 import soup.compose.material.motion.experimental.holdOut
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
@@ -48,28 +52,23 @@ fun ExperimentalHoldScreen(upPress: () -> Unit) {
             ForwardBackwardControls(forward, onForwardChanged)
         }
     ) { innerPadding ->
-        val enterMotionSpec = when {
-            forward -> EnterMotionSpec(
-                transition = slideInHorizontally(
-                    initialOffsetX = { it },
-                    animationSpec = tween(300)
-                )
-            )
-            else -> holdIn()
-        }
-        val exitMotionSpec = when {
-            forward -> holdOut()
-            else -> ExitMotionSpec(
-                transition = slideOutHorizontally(
-                    targetOffsetX = { it },
-                    animationSpec = tween(300)
-                )
-            )
-        }
         MaterialMotion(
             targetState = forward,
-            enterMotionSpec = enterMotionSpec,
-            exitMotionSpec = exitMotionSpec,
+            motionSpec = when {
+                forward -> EnterMotionSpec(
+                    transition = slideInHorizontally(
+                        initialOffsetX = { it },
+                        animationSpec = tween(MaterialMotions.durations.motionDurationLong1)
+                    )
+                ) with holdOut()
+                else -> holdIn() with ExitMotionSpec(
+                    transition = slideOutHorizontally(
+                        targetOffsetX = { it },
+                        animationSpec = tween(MaterialMotions.durations.motionDurationLong1)
+                    )
+                )
+            },
+            modifier = Modifier.padding(innerPadding),
             pop = forward.not()
         ) { forward ->
             ForwardBackwardContents(forward)

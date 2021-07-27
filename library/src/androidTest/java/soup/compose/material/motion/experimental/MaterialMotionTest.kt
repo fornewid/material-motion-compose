@@ -108,8 +108,11 @@ class MaterialMotionTest(
         rule.setContent {
             MaterialMotion(
                 targetState = forward,
-                enterMotionSpec = if (forward) forwardEnterMotionSpec else backwardEnterMotionSpec,
-                exitMotionSpec = if (forward) forwardExitMotionSpec else backwardExitMotionSpec
+                motionSpec = if (forward) {
+                    forwardEnterMotionSpec with forwardExitMotionSpec
+                } else {
+                    backwardEnterMotionSpec with backwardExitMotionSpec
+                }
             ) { forward ->
                 if (forward) {
                     Box(
