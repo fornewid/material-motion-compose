@@ -17,34 +17,31 @@
 
 package soup.compose.material.motion
 
-import soup.compose.material.motion.internal.GraphicsLayerSpec
-import soup.compose.material.motion.provider.GraphicsLayerData
-
 /**
  * [translate] allows to switch a layout with a translate animation.
  */
+@Deprecated("translate() is now deprecated.")
 fun translate(
     fromX: Float,
     toX: Float,
     fromY: Float,
     toY: Float,
-): MotionSpec = GraphicsLayerSpec(
-    from = GraphicsLayerData(translationX = fromX, translationY = fromY),
-    to = GraphicsLayerData(translationX = toX, translationY = toY)
-)
+): MotionSpec = TODO()
 
 /**
  * [translateX] allows to switch a layout with a translate animation as x axis.
  */
+@Deprecated("translate() is now deprecated.")
 fun translateX(
     from: Float,
     to: Float,
-): MotionSpec = translate(from, to, 0f, 0f)
+): MotionSpec = TODO()
 
 /**
  * [translateY] allows to switch a layout with a translate animation as y axis.
  */
+@Deprecated("translate() is now deprecated.")
 fun translateY(
     from: Float,
     to: Float,
-): MotionSpec = translate(0f, 0f, from, to)
+): MotionSpec = TODO()
