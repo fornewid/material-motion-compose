@@ -112,15 +112,19 @@ class MaterialMotionTest(
                 exitMotionSpec = if (forward) forwardExitMotionSpec else backwardExitMotionSpec
             ) { forward ->
                 if (forward) {
-                    Box(modifier = Modifier
-                        .size(size = 20.dp)
-                        .background(Color.White)
-                        .testTag(forwardContentTag))
+                    Box(
+                        modifier = Modifier
+                            .size(size = 20.dp)
+                            .background(Color.White)
+                            .testTag(forwardContentTag)
+                    )
                 } else {
-                    Box(modifier = Modifier
-                        .size(size = 40.dp)
-                        .background(Color.Red)
-                        .testTag(backwardContentTag))
+                    Box(
+                        modifier = Modifier
+                            .size(size = 40.dp)
+                            .background(Color.Red)
+                            .testTag(backwardContentTag)
+                    )
                 }
             }
         }

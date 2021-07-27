@@ -66,10 +66,12 @@ class MaterialFadeTest {
                 enterDurationMillis = 500,
                 exitDurationMillis = 300
             ) {
-                Box(modifier = Modifier
-                    .size(size = 20.dp)
-                    .background(Color.White)
-                    .testTag(contentTag))
+                Box(
+                    modifier = Modifier
+                        .size(size = 20.dp)
+                        .background(Color.White)
+                        .testTag(contentTag)
+                )
             }
         }
         rule.onNodeWithTag(contentTag).assertDoesNotExist()

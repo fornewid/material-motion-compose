@@ -110,10 +110,12 @@ fun MaterialFade(
                 EnterExitState.PostExit -> 1f
             }
         }
-        Box(modifier = Modifier.graphicsLayer {
-            scaleX = scale
-            scaleY = scale
-        }) {
+        Box(
+            modifier = Modifier.graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+        ) {
             content()
         }
     }
