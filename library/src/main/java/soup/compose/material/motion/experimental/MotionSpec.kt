@@ -43,13 +43,21 @@ infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
 class EnterMotionSpec(
     val transition: EnterTransition,
     val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,
-)
+) {
+    companion object {
+        val None: EnterMotionSpec = EnterMotionSpec(transition = EnterTransition.None)
+    }
+}
 
 @ExperimentalAnimationApi
 class ExitMotionSpec(
     val transition: ExitTransition,
     val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,
-)
+) {
+    companion object {
+        val None: ExitMotionSpec = ExitMotionSpec(transition = ExitTransition.None)
+    }
+}
 
 @ExperimentalAnimationApi
 class TransitionExtra<E>(
