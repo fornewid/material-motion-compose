@@ -15,12 +15,8 @@
  */
 package soup.compose.material.motion.experimental
 
-import androidx.compose.animation.EnterExitState
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -41,16 +37,22 @@ fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
-    )
-): EnterTransition {
-    return fadeIn(
+): EnterMotionSpec = EnterMotionSpec(
+    transition = fadeIn(
         initialAlpha = initialAlpha,
-        animationSpec = animationSpec
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = LinearEasing
+        )
+    ),
+    transitionExtra = scaleIn(
+        initialScale = initialScale,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
     )
-}
+)
 
 /**
  * TODO: This is an experimental feature that is not fully implemented!
@@ -66,31 +68,21 @@ fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
+): ExitMotionSpec {
+    return ExitMotionSpec(
+        transition = fadeOut(
+            targetAlpha = targetAlpha,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = LinearEasing
+            )
+        ),
+        transitionExtra = scaleOut(
+            targetScale = targetScale,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = FastOutSlowInEasing
+            )
+        )
     )
-): ExitTransition {
-    return fadeOut(
-        targetAlpha = targetAlpha,
-        animationSpec = animationSpec
-    )
-}
-
-@ExperimentalAnimationApi
-fun materialElevationScaleSpec(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-    animationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
-    )
-): FiniteAnimationSpec<Float> = animationSpec
-
-@ExperimentalAnimationApi
-fun materialElevationScaleValueOf(
-    targetState: EnterExitState,
-): Float = when (targetState) {
-    EnterExitState.PreEnter -> 0.85f
-    EnterExitState.Visible -> 1f
-    EnterExitState.PostExit -> 0.85f
 }

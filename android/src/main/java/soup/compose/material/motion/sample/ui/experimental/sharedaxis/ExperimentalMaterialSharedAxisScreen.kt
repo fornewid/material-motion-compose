@@ -17,10 +17,7 @@ package soup.compose.material.motion.sample.ui.experimental.sharedaxis
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,21 +31,21 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.Axis
-import soup.compose.material.motion.experimental.materialSharedAxisX
-import soup.compose.material.motion.experimental.materialSharedAxisY
-import soup.compose.material.motion.experimental.materialSharedAxisZ
-import soup.compose.material.motion.experimental.materialSharedAxisZScale
-import soup.compose.material.motion.experimental.materialSharedAxisZScaleValueOf
+import soup.compose.material.motion.experimental.MaterialMotion
+import soup.compose.material.motion.experimental.materialSharedAxisXIn
+import soup.compose.material.motion.experimental.materialSharedAxisXOut
+import soup.compose.material.motion.experimental.materialSharedAxisYIn
+import soup.compose.material.motion.experimental.materialSharedAxisYOut
+import soup.compose.material.motion.experimental.materialSharedAxisZIn
+import soup.compose.material.motion.experimental.materialSharedAxisZOut
 import soup.compose.material.motion.experimental.rememberSlideDistance
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
@@ -73,41 +70,21 @@ fun ExperimentalMaterialSharedAxisScreen(upPress: () -> Unit) {
         }
     ) { innerPadding ->
         val slideDistance = rememberSlideDistance()
-        AnimatedContent(
+        MaterialMotion(
             targetState = forward,
             modifier = Modifier.padding(innerPadding),
-            transitionSpec = {
-                when (selectedAxis) {
-                    Axis.X -> materialSharedAxisX(forward = forward, slideDistance = slideDistance)
-                    Axis.Y -> materialSharedAxisY(forward = forward, slideDistance = slideDistance)
-                    Axis.Z -> materialSharedAxisZ(forward = forward)
-                }
+            enterMotionSpec = when (selectedAxis) {
+                Axis.X -> materialSharedAxisXIn(forward = forward, slideDistance = slideDistance)
+                Axis.Y -> materialSharedAxisYIn(forward = forward, slideDistance = slideDistance)
+                Axis.Z -> materialSharedAxisZIn(forward = forward)
+            },
+            exitMotionSpec = when (selectedAxis) {
+                Axis.X -> materialSharedAxisXOut(forward = forward, slideDistance = slideDistance)
+                Axis.Y -> materialSharedAxisYOut(forward = forward, slideDistance = slideDistance)
+                Axis.Z -> materialSharedAxisZOut(forward = forward)
             }
         ) { forward ->
-            val scale by transition.animateFloat(
-                transitionSpec = {
-                    if (selectedAxis == Axis.Z) {
-                        materialSharedAxisZScale(targetState)
-                    } else {
-                        tween(durationMillis = 0)
-                    }
-                },
-                label = "scale"
-            ) {
-                if (selectedAxis == Axis.Z) {
-                    materialSharedAxisZScaleValueOf(it, forward)
-                } else {
-                    1f
-                }
-            }
-
-            ForwardBackwardContents(
-                forward,
-                modifier = Modifier.graphicsLayer {
-                    scaleX = scale
-                    scaleY = scale
-                }
-            )
+            ForwardBackwardContents(forward)
         }
     }
 }
