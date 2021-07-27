@@ -18,16 +18,12 @@
 package soup.compose.material.motion
 
 import androidx.compose.ui.draw.rotate
-import soup.compose.material.motion.internal.GraphicsLayerSpec
-import soup.compose.material.motion.provider.GraphicsLayerData
 
 /**
  * [rotate] allows to switch a layout with a rotate animation.
  */
+@Deprecated("rotate() is now deprecated.")
 fun rotate(
     from: Float,
     to: Float,
-): MotionSpec = GraphicsLayerSpec(
-    from = GraphicsLayerData(rotationZ = from),
-    to = GraphicsLayerData(rotationZ = to)
-)
+): MotionSpec = TODO()

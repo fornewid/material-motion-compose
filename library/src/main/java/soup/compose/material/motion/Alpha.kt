@@ -17,16 +17,11 @@
 
 package soup.compose.material.motion
 
-import soup.compose.material.motion.internal.GraphicsLayerSpec
-import soup.compose.material.motion.provider.GraphicsLayerData
-
 /**
  * [alpha] allows to switch a layout with a alpha animation.
  */
+@Deprecated("alpha() is now deprecated.")
 fun alpha(
     from: Float = 0f,
     to: Float = 1f,
-): MotionSpec = GraphicsLayerSpec(
-    from = GraphicsLayerData(alpha = from),
-    to = GraphicsLayerData(alpha = to)
-)
+): MotionSpec = TODO()

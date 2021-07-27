@@ -26,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialSharedAxis
-import soup.compose.material.motion.sample.ui.Destination.Alpha
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.ExperimentalHold
 import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialElevationScale
@@ -39,9 +38,6 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
-import soup.compose.material.motion.sample.ui.Destination.Scale
-import soup.compose.material.motion.sample.ui.Destination.Translate
-import soup.compose.material.motion.sample.ui.alpha.AlphaScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.experimental.elevationscale.ExperimentalMaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.experimental.fade.ExperimentalMaterialFadeScreen
@@ -53,8 +49,6 @@ import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
-import soup.compose.material.motion.sample.ui.scale.ScaleScreen
-import soup.compose.material.motion.sample.ui.translate.TranslateScreen
 
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
@@ -64,9 +58,6 @@ enum class Destination(val route: String, val root: Boolean = false) {
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
     Hold("hold"),
-    Alpha("alpha"),
-    Scale("scale"),
-    Translate("translate"),
     ExperimentalMaterialSharedAxis("experimental_material_shared_axis"),
     ExperimentalMaterialFadeThrough("experimental_material_fade_through"),
     ExperimentalMaterialFade("experimental_material_fade"),
@@ -83,10 +74,7 @@ enum class Destination(val route: String, val root: Boolean = false) {
             MaterialFadeThrough,
             MaterialFade,
             MaterialElevationScale,
-            Hold,
-            Alpha,
-            Scale,
-            Translate
+            Hold
         )
 
         fun experimentalList(): List<Destination> = listOf(
@@ -133,9 +121,6 @@ fun NavGraph(
                         MaterialFade -> navigate(MaterialFade)
                         MaterialElevationScale -> navigate(MaterialElevationScale)
                         Hold -> navigate(Hold)
-                        Alpha -> navigate(Alpha)
-                        Scale -> navigate(Scale)
-                        Translate -> navigate(Translate)
                         ExperimentalMaterialSharedAxis -> navigate(ExperimentalMaterialSharedAxis)
                         ExperimentalMaterialFadeThrough -> navigate(ExperimentalMaterialFadeThrough)
                         ExperimentalMaterialFade -> navigate(ExperimentalMaterialFade)
@@ -163,17 +148,6 @@ fun NavGraph(
                 }
                 Hold -> {
                     HoldScreen(upPress)
-                }
-
-                /* Etc */
-                Alpha -> {
-                    AlphaScreen(upPress)
-                }
-                Scale -> {
-                    ScaleScreen(upPress)
-                }
-                Translate -> {
-                    TranslateScreen(upPress)
                 }
 
                 /* Experimental for material transition patterns */

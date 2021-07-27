@@ -17,26 +17,22 @@
 
 package soup.compose.material.motion
 
-import soup.compose.material.motion.internal.GraphicsLayerSpec
-import soup.compose.material.motion.provider.GraphicsLayerData
-
 /**
  * [scale] allows to switch a layout with a scale animation.
  */
+@Deprecated("scale() is now deprecated.")
 fun scale(
     fromX: Float,
     toX: Float,
     fromY: Float,
     toY: Float,
-): MotionSpec = GraphicsLayerSpec(
-    from = GraphicsLayerData(scaleX = fromX, scaleY = fromY),
-    to = GraphicsLayerData(scaleX = toX, scaleY = toY)
-)
+): MotionSpec = TODO()
 
 /**
  * [scale] allows to switch a layout with a scale animation.
  */
+@Deprecated("scale() is now deprecated.")
 fun scale(
     from: Float = 0f,
     to: Float = 1f,
-): MotionSpec = scale(from, to, from, to)
+): MotionSpec = TODO()
