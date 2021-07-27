@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("unused")
+
 package soup.compose.material.motion.experimental
 
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -21,6 +23,8 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import soup.compose.material.motion.MotionConstants
 
 private const val ProgressThreshold = 0.35f
@@ -32,8 +36,6 @@ private val Int.ForIncoming: Int
     get() = this - this.ForOutgoing
 
 /**
- * TODO: This is an experimental feature that is not fully implemented!
- *
  * [materialFadeThroughIn] allows to switch a layout with fade through enter transition.
  *
  * @param initialScale the starting scale of the enter transition.
@@ -78,3 +80,28 @@ fun materialFadeThroughOut(
         )
     )
 )
+
+/**
+ * [MaterialFadeThrough] allows to switch between two layouts with a fade through animation.
+ *
+ * @see com.google.android.material.transition.MaterialFadeThrough
+ *
+ * @param targetState is a key representing your target layout state. Every time you change a key
+ * the animation will be triggered. The [content] called with the old key will be faded out while
+ * the [content] called with the new key will be faded in.
+ * @param modifier Modifier to be applied to the animation container.
+ */
+@ExperimentalAnimationApi
+@Composable
+fun <T> MaterialFadeThrough(
+    targetState: T,
+    modifier: Modifier = Modifier,
+    content: @Composable (T) -> Unit,
+) {
+    MaterialMotion(
+        targetState = targetState,
+        motionSpec = materialFadeThroughIn() with materialFadeThroughOut(),
+        modifier = modifier,
+        content = content
+    )
+}

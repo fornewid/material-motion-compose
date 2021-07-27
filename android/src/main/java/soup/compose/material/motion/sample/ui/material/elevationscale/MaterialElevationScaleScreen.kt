@@ -17,22 +17,28 @@ package soup.compose.material.motion.sample.ui.material.elevationscale
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialElevationScale
+import soup.compose.material.motion.experimental.EnterMotionSpec
+import soup.compose.material.motion.experimental.ExitMotionSpec
+import soup.compose.material.motion.experimental.MaterialMotion
+import soup.compose.material.motion.experimental.materialElevationScaleIn
+import soup.compose.material.motion.experimental.materialElevationScaleOut
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.translateY
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MaterialElevationScaleScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
@@ -45,25 +51,29 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
             ForwardBackwardControls(forward, onForwardChanged)
         }
     ) { innerPadding ->
-        BoxWithConstraints {
-            val offset = LocalDensity.current.run { maxHeight.toPx() }
-            val enterMotionSpec = when {
-                forward -> translateY(offset, 0f)
-                else -> materialElevationScale(true)
-            }
-            val exitMotionSpec = when {
-                forward -> materialElevationScale(false)
-                else -> translateY(offset, 0f)
-            }
-            MaterialMotion(
-                targetState = forward,
-                enterMotionSpec = enterMotionSpec,
-                exitMotionSpec = exitMotionSpec,
-                pop = forward.not(),
-                modifier = Modifier.padding(innerPadding)
-            ) { forward ->
-                ForwardBackwardContents(forward)
-            }
+        MaterialMotion(
+            targetState = forward,
+            modifier = Modifier.padding(innerPadding),
+            motionSpec = when {
+                forward ->
+                    EnterMotionSpec(
+                        transition = slideInVertically(
+                            initialOffsetY = { it },
+                            animationSpec = tween(300)
+                        )
+                    ) with materialElevationScaleOut()
+                else ->
+                    materialElevationScaleIn() with
+                        ExitMotionSpec(
+                            transition = slideOutVertically(
+                                targetOffsetY = { it },
+                                animationSpec = tween(300)
+                            )
+                        )
+            },
+            pop = forward.not()
+        ) { forward ->
+            ForwardBackwardContents(forward)
         }
     }
 }

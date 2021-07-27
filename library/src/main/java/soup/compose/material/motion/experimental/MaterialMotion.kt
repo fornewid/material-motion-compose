@@ -81,3 +81,45 @@ fun <T> MaterialMotion(
         }
     }
 }
+
+/**
+ * [MaterialMotion] allows to switch between two layouts with a material motion animation.
+ *
+ * @param targetState is a key representing your target layout state. Every time you change a key
+ * the animation will be triggered. The [content] called with the old key will be faded out while
+ * the [content] called with the new key will be faded in.
+ * @param enterMotionSpec the [MotionSpec] to configure the enter animation.
+ * @param exitMotionSpec the [MotionSpec] to configure the exit animation.
+ * @param modifier Modifier to be applied to the animation container.
+ * @param pop whether motion contents are rendered in reverse order.
+ */
+@Deprecated(
+    message = "Replaced with MaterialMotion()",
+    replaceWith = ReplaceWith(
+        expression = """MaterialMotion(
+            targetState = targetState,
+            motionSpec = enterMotionSpec with exitMotionSpec,
+            modifier = modifier,
+            pop = pop,
+            content = content
+        )"""
+    )
+)
+@ExperimentalAnimationApi
+@Composable
+fun <T> MaterialMotion(
+    targetState: T,
+    enterMotionSpec: EnterMotionSpec,
+    exitMotionSpec: ExitMotionSpec,
+    modifier: Modifier = Modifier,
+    pop: Boolean = false,
+    content: @Composable (T) -> Unit,
+) {
+    MaterialMotion(
+        targetState = targetState,
+        motionSpec = enterMotionSpec with exitMotionSpec,
+        modifier = modifier,
+        pop = pop,
+        content = content
+    )
+}

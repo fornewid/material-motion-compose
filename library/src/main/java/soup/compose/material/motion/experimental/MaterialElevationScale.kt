@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("unused")
+
 package soup.compose.material.motion.experimental
 
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -24,8 +26,6 @@ import androidx.compose.animation.fadeOut
 import soup.compose.material.motion.MotionConstants
 
 /**
- * TODO: This is an experimental feature that is not fully implemented!
- *
  * [materialElevationScaleIn] allows to switch a layout with elevation scale enter transition.
  *
  * @param initialAlpha the starting alpha of the enter transition.
@@ -55,8 +55,6 @@ fun materialElevationScaleIn(
 )
 
 /**
- * TODO: This is an experimental feature that is not fully implemented!
- *
  * [materialElevationScaleOut] allows to switch a layout with elevation scale exit transition.
  *
  * @param targetAlpha the target alpha of the exit transition.

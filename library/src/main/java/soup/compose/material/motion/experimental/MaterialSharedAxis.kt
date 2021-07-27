@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("unused")
+
 package soup.compose.material.motion.experimental
 
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -28,9 +30,11 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MotionConstants
 
 val DefaultSlideDistance: Dp = 30.dp
@@ -117,8 +121,6 @@ fun materialSharedAxisYIn(
 )
 
 /**
- * TODO: This is an experimental feature that is not fully implemented!
- *
  * [materialSharedAxisZIn] allows to switch a layout with shared Z-axis enter transition.
  *
  * @param forward whether the direction of the enter transition is forward.
@@ -206,8 +208,6 @@ fun materialSharedAxisYOut(
 )
 
 /**
- * TODO: This is an experimental feature that is not fully implemented!
- *
  * [materialSharedAxisZOut] allows to switch a layout with shared Z-axis exit transition.
  *
  * @param forward whether the direction of the exit transition is forward.
@@ -233,3 +233,48 @@ fun materialSharedAxisZOut(
         )
     )
 )
+
+/**
+ * [MaterialSharedAxis] allows to switch between two layouts with a shared axis animation.
+ *
+ * @see com.google.android.material.transition.MaterialSharedAxis
+ *
+ * @param targetState is a key representing your target layout state. Every time you change a key
+ * the animation will be triggered. The [content] called with the old key will be faded out while
+ * the [content] called with the new key will be faded in.
+ * @param axis movement axis of the animation.
+ * @param forward whether the direction of the animation is forward.
+ * @param modifier Modifier to be applied to the animation container.
+ * @param slideDistance slide distance of the animation.
+ */
+@ExperimentalAnimationApi
+@Composable
+fun <T> MaterialSharedAxis(
+    targetState: T,
+    axis: Axis,
+    forward: Boolean,
+    modifier: Modifier = Modifier,
+    slideDistance: Dp = DefaultSlideDistance,
+    content: @Composable (T) -> Unit,
+) {
+    MaterialMotion(
+        targetState = targetState,
+        motionSpec = when (axis) {
+            Axis.X -> {
+                val distance = rememberSlideDistance(slideDistance)
+                materialSharedAxisXIn(forward, distance) with
+                    materialSharedAxisXOut(forward, distance)
+            }
+            Axis.Y -> {
+                val distance = rememberSlideDistance(slideDistance)
+                materialSharedAxisYIn(forward, distance) with
+                    materialSharedAxisYOut(forward, distance)
+            }
+            Axis.Z -> {
+                materialSharedAxisZIn(forward) with materialSharedAxisZOut(forward)
+            }
+        },
+        modifier = modifier,
+        content = content
+    )
+}
