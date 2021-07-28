@@ -34,8 +34,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MotionConstants
+
+enum class Axis {
+    X, Y, Z
+}
 
 val DefaultSlideDistance: Dp = 30.dp
 

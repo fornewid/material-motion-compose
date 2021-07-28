@@ -24,4 +24,4 @@ package soup.compose.material.motion
 fun alpha(
     from: Float = 0f,
     to: Float = 1f,
-): MotionSpec = TODO()
+): Nothing = TODO()

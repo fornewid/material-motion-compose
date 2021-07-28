@@ -17,9 +17,11 @@
 
 package soup.compose.material.motion
 
-import soup.compose.material.motion.internal.HoldSpec
-
-/**
- * [hold] allows to switch a layout with no animation.
- */
-fun hold(): MotionSpec = HoldSpec()
+object MotionConstants {
+    const val motionDurationShort1 = 75
+    const val motionDurationShort2 = 150
+    const val motionDurationMedium1 = 200
+    const val motionDurationMedium2 = 250
+    const val motionDurationLong1 = 300
+    const val motionDurationLong2 = 350
+}
