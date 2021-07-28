@@ -26,13 +26,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.experimental.MaterialMotion
-import soup.compose.material.motion.experimental.holdIn
-import soup.compose.material.motion.experimental.holdOut
-import soup.compose.material.motion.experimental.with
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.holdIn
+import soup.compose.material.motion.holdOut
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 import soup.compose.material.motion.translateYIn
 import soup.compose.material.motion.translateYOut
+import soup.compose.material.motion.with
 
 @Composable
 fun DemoScreen() {

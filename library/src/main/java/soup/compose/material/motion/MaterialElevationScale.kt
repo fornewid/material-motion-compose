@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.material.motion.experimental
+package soup.compose.material.motion
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -23,7 +23,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import soup.compose.material.motion.MotionConstants
 
 /**
  * [materialElevationScaleIn] allows to switch a layout with elevation scale enter transition.

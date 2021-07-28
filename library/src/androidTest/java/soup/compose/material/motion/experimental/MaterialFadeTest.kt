@@ -36,6 +36,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import soup.compose.material.motion.MaterialFade
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest

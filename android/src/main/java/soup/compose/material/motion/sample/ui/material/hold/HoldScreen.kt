@@ -24,16 +24,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.experimental.MaterialMotion
-import soup.compose.material.motion.experimental.holdIn
-import soup.compose.material.motion.experimental.holdOut
-import soup.compose.material.motion.experimental.with
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.holdIn
+import soup.compose.material.motion.holdOut
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 import soup.compose.material.motion.translateXIn
 import soup.compose.material.motion.translateXOut
+import soup.compose.material.motion.with
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

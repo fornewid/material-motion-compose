@@ -36,6 +36,16 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import soup.compose.material.motion.EnterMotionSpec
+import soup.compose.material.motion.ExitMotionSpec
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.holdIn
+import soup.compose.material.motion.holdOut
+import soup.compose.material.motion.materialElevationScaleIn
+import soup.compose.material.motion.materialElevationScaleOut
+import soup.compose.material.motion.materialFadeThroughIn
+import soup.compose.material.motion.materialFadeThroughOut
+import soup.compose.material.motion.with
 
 @LargeTest
 @RunWith(Parameterized::class)

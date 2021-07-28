@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.material.motion.experimental
+package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi

@@ -23,8 +23,6 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
-import soup.compose.material.motion.experimental.EnterMotionSpec
-import soup.compose.material.motion.experimental.ExitMotionSpec
 
 /**
  * [translate] allows to switch a layout with a translate animation.

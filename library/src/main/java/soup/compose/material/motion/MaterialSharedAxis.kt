@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.material.motion.experimental
+package soup.compose.material.motion
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.MotionConstants
 
 enum class Axis {
     X, Y, Z

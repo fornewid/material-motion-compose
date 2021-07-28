@@ -31,15 +31,15 @@ import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import soup.compose.material.motion.experimental.MaterialMotion
-import soup.compose.material.motion.experimental.materialFadeThroughIn
-import soup.compose.material.motion.experimental.materialFadeThroughOut
-import soup.compose.material.motion.experimental.materialSharedAxisYIn
-import soup.compose.material.motion.experimental.materialSharedAxisYOut
-import soup.compose.material.motion.experimental.rememberSlideDistance
-import soup.compose.material.motion.experimental.with
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.materialFadeThroughIn
+import soup.compose.material.motion.materialFadeThroughOut
+import soup.compose.material.motion.materialSharedAxisYIn
+import soup.compose.material.motion.materialSharedAxisYOut
+import soup.compose.material.motion.rememberSlideDistance
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.demo.LibraryState.Companion.Saver
+import soup.compose.material.motion.with
 
 private enum class SortType {
     A_TO_Z, Z_TO_A

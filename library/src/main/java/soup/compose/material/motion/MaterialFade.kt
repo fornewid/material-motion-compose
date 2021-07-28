@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.material.motion.experimental
+package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterExitState
@@ -34,8 +34,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
-import soup.compose.material.motion.MaterialFade
-import soup.compose.material.motion.MotionConstants
 
 private const val DefaultFadeEndThresholdEnter = 0.3f
 

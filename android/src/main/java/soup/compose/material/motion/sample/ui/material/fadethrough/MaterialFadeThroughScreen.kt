@@ -23,7 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.experimental.MaterialFadeThrough
+import soup.compose.material.motion.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.common.BottomTabs
 import soup.compose.material.motion.sample.ui.common.BottomTabsContents
 import soup.compose.material.motion.sample.ui.common.BottomTabsControls

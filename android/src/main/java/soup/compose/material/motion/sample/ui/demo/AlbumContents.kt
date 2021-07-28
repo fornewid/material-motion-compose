@@ -60,7 +60,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import soup.compose.material.motion.experimental.MaterialFade
+import soup.compose.material.motion.MaterialFade
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.theme.Purple200
 
