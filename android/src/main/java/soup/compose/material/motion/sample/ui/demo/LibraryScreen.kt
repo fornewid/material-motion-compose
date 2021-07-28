@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -30,10 +31,13 @@ import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import soup.compose.material.motion.Axis
-import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialFadeThrough
-import soup.compose.material.motion.materialSharedAxis
+import soup.compose.material.motion.experimental.MaterialMotion
+import soup.compose.material.motion.experimental.materialFadeThroughIn
+import soup.compose.material.motion.experimental.materialFadeThroughOut
+import soup.compose.material.motion.experimental.materialSharedAxisYIn
+import soup.compose.material.motion.experimental.materialSharedAxisYOut
+import soup.compose.material.motion.experimental.rememberSlideDistance
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.demo.LibraryState.Companion.Saver
 
@@ -80,6 +84,7 @@ private data class LibraryState(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
     val (state, onStateChanged) = rememberSaveable(stateSaver = Saver) {
@@ -119,8 +124,11 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         },
     ) { innerPadding ->
         val motionSpec = when (state.motionSpecType) {
-            MotionSpecType.SharedAxis -> materialSharedAxis(Axis.Y, forward = true)
-            MotionSpecType.FadeThrough -> materialFadeThrough()
+            MotionSpecType.SharedAxis ->
+                materialSharedAxisYIn(forward = true, rememberSlideDistance()) with
+                    materialSharedAxisYOut(forward = true, rememberSlideDistance())
+            MotionSpecType.FadeThrough ->
+                materialFadeThroughIn() with materialFadeThroughOut()
         }
         MaterialMotion(
             targetState = state,

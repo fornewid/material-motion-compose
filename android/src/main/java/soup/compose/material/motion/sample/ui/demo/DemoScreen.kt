@@ -18,19 +18,25 @@ package soup.compose.material.motion.sample.ui.demo
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.hold
+import soup.compose.material.motion.MotionConstants
+import soup.compose.material.motion.experimental.EnterMotionSpec
+import soup.compose.material.motion.experimental.ExitMotionSpec
+import soup.compose.material.motion.experimental.MaterialMotion
+import soup.compose.material.motion.experimental.holdIn
+import soup.compose.material.motion.experimental.holdOut
+import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.translateY
 
 @Composable
 fun DemoScreen() {
@@ -49,6 +55,7 @@ fun DemoScreen() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun DemoNavigation(
     state: Long?,
@@ -56,33 +63,32 @@ private fun DemoNavigation(
     content: @Composable (Long?) -> Unit,
 ) {
     val saveableStateHolder = rememberSaveableStateHolder()
-
-    BoxWithConstraints {
-        val offset = LocalDensity.current.run { maxHeight.toPx() }
-        val enterMotionSpec = when {
-            state != null -> translateY(offset, 0f)
-            else -> hold()
-        }
-        val exitMotionSpec = when {
-            state != null -> hold()
-            else -> translateY(offset, 0f)
-        }
-        MaterialMotion(
-            targetState = state,
-            enterMotionSpec = enterMotionSpec,
-            exitMotionSpec = exitMotionSpec,
-            pop = state == null
-        ) { currentId ->
-            Box(modifier) {
-                // Wrap the content representing the `currentScreen` inside `SaveableStateProvider`.
-                // Here you can also add a screen switch animation like Crossfade where during the
-                // animation multiple screens will be displayed at the same time.
-                if (currentId != null) {
+    val enterMotionSpec = when {
+        state != null -> EnterMotionSpec(
+            transition = slideInVertically({ it }, tween(MotionConstants.motionDurationLong1))
+        )
+        else -> holdIn()
+    }
+    val exitMotionSpec = when {
+        state != null -> holdOut()
+        else -> ExitMotionSpec(
+            transition = slideOutVertically({ it }, tween(MotionConstants.motionDurationLong1))
+        )
+    }
+    MaterialMotion(
+        targetState = state,
+        motionSpec = enterMotionSpec with exitMotionSpec,
+        pop = state == null
+    ) { currentId ->
+        Box(modifier) {
+            // Wrap the content representing the `currentScreen` inside `SaveableStateProvider`.
+            // Here you can also add a screen switch animation like Crossfade where during the
+            // animation multiple screens will be displayed at the same time.
+            if (currentId != null) {
+                content(currentId)
+            } else {
+                saveableStateHolder.SaveableStateProvider("library") {
                     content(currentId)
-                } else {
-                    saveableStateHolder.SaveableStateProvider("library") {
-                        content(currentId)
-                    }
                 }
             }
         }

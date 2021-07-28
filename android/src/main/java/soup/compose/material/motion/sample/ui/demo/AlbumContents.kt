@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,10 +60,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.experimental.MaterialFade
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.theme.Purple200
-import soup.compose.material.motion.scale
 
 @Composable
 fun AlbumScaffold(
@@ -114,6 +114,7 @@ fun AlbumScaffold(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
     val header = listState.layoutInfo.visibleItemsInfo.getOrNull(0)
@@ -175,9 +176,8 @@ fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
                 )
             }
         }
-        MaterialMotion(
-            targetState = showFab,
-            motionSpec = scale(),
+        MaterialFade(
+            visible = showFab,
             modifier = Modifier
                 .constrainAs(fab) {
                     end.linkTo(parent.end, margin = 16.dp)
@@ -186,16 +186,14 @@ fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
                         bottom = info.top
                     )
                 }
-        ) { showFab ->
-            if (showFab) {
-                FloatingActionButton(
-                    onClick = {},
-                    backgroundColor = MaterialTheme.colors.fabBackground,
-                    contentColor = MaterialTheme.colors.surface,
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Icon(Icons.Default.PlayArrow, contentDescription = null)
-                }
+        ) {
+            FloatingActionButton(
+                onClick = {},
+                backgroundColor = MaterialTheme.colors.fabBackground,
+                contentColor = MaterialTheme.colors.surface,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Icon(Icons.Default.PlayArrow, contentDescription = null)
             }
         }
     }
