@@ -17,6 +17,15 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
+import soup.compose.material.motion.experimental.EnterMotionSpec
+import soup.compose.material.motion.experimental.ExitMotionSpec
+
 /**
  * [translate] allows to switch a layout with a translate animation.
  */
@@ -26,7 +35,7 @@ fun translate(
     toX: Float,
     fromY: Float,
     toY: Float,
-): MotionSpec = TODO()
+): Nothing = TODO()
 
 /**
  * [translateX] allows to switch a layout with a translate animation as x axis.
@@ -35,7 +44,7 @@ fun translate(
 fun translateX(
     from: Float,
     to: Float,
-): MotionSpec = TODO()
+): Nothing = TODO()
 
 /**
  * [translateY] allows to switch a layout with a translate animation as y axis.
@@ -44,4 +53,60 @@ fun translateX(
 fun translateY(
     from: Float,
     to: Float,
-): MotionSpec = TODO()
+): Nothing = TODO()
+
+/**
+ * [translateXIn] allows to switch a layout with a translate animation as x axis.
+ */
+@ExperimentalAnimationApi
+fun translateXIn(
+    initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = slideInHorizontally(
+        initialOffsetX = initialOffsetX,
+        animationSpec = tween(durationMillis)
+    )
+)
+
+/**
+ * [translateXOut] allows to switch a layout with a translate animation as x axis.
+ */
+@ExperimentalAnimationApi
+fun translateXOut(
+    targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = slideOutHorizontally(
+        targetOffsetX = targetOffsetX,
+        animationSpec = tween(durationMillis)
+    )
+)
+
+/**
+ * [translateYIn] allows to switch a layout with a translate animation as y axis.
+ */
+@ExperimentalAnimationApi
+fun translateYIn(
+    initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = slideInVertically(
+        initialOffsetY = initialOffsetY,
+        animationSpec = tween(durationMillis)
+    )
+)
+
+/**
+ * [translateYOut] allows to switch a layout with a translate animation as y axis.
+ */
+@ExperimentalAnimationApi
+fun translateYOut(
+    targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = slideOutVertically(
+        targetOffsetY = targetOffsetY,
+        animationSpec = tween(durationMillis)
+    )
+)

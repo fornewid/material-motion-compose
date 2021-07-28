@@ -19,9 +19,6 @@ import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,14 +26,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import soup.compose.material.motion.MotionConstants
-import soup.compose.material.motion.experimental.EnterMotionSpec
-import soup.compose.material.motion.experimental.ExitMotionSpec
 import soup.compose.material.motion.experimental.MaterialMotion
 import soup.compose.material.motion.experimental.holdIn
 import soup.compose.material.motion.experimental.holdOut
 import soup.compose.material.motion.experimental.with
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+import soup.compose.material.motion.translateYIn
+import soup.compose.material.motion.translateYOut
 
 @Composable
 fun DemoScreen() {
@@ -63,21 +59,12 @@ private fun DemoNavigation(
     content: @Composable (Long?) -> Unit,
 ) {
     val saveableStateHolder = rememberSaveableStateHolder()
-    val enterMotionSpec = when {
-        state != null -> EnterMotionSpec(
-            transition = slideInVertically({ it }, tween(MotionConstants.motionDurationLong1))
-        )
-        else -> holdIn()
-    }
-    val exitMotionSpec = when {
-        state != null -> holdOut()
-        else -> ExitMotionSpec(
-            transition = slideOutVertically({ it }, tween(MotionConstants.motionDurationLong1))
-        )
-    }
     MaterialMotion(
         targetState = state,
-        motionSpec = enterMotionSpec with exitMotionSpec,
+        motionSpec = when {
+            state != null -> translateYIn({ it }) with holdOut()
+            else -> holdIn() with translateYOut({ it })
+        },
         pop = state == null
     ) { currentId ->
         Box(modifier) {
