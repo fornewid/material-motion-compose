@@ -16,6 +16,7 @@
 package soup.compose.material.motion.sample.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,6 +65,7 @@ enum class Destination(val route: String, val root: Boolean = false) {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     startDestination: String = Home.route,
