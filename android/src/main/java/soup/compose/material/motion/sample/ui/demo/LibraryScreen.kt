@@ -32,8 +32,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialFadeThroughIn
-import soup.compose.material.motion.materialFadeThroughOut
+import soup.compose.material.motion.materialFadeThrough
 import soup.compose.material.motion.materialSharedAxisYIn
 import soup.compose.material.motion.materialSharedAxisYOut
 import soup.compose.material.motion.rememberSlideDistance
@@ -127,8 +126,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
             MotionSpecType.SharedAxis ->
                 materialSharedAxisYIn(forward = true, rememberSlideDistance()) with
                     materialSharedAxisYOut(forward = true, rememberSlideDistance())
-            MotionSpecType.FadeThrough ->
-                materialFadeThroughIn() with materialFadeThroughOut()
+            MotionSpecType.FadeThrough -> materialFadeThrough()
         }
         MaterialMotion(
             targetState = state,
