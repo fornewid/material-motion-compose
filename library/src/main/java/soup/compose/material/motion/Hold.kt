@@ -24,6 +24,28 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 
 /**
+ * [hold] allows to switch a layout with no animation.
+ *
+ * @param durationMillis the duration of no transition.
+ */
+@Deprecated(
+    message = "Replaced with holdIn() and holdOut()",
+    replaceWith = ReplaceWith(
+        "holdIn(durationMillis = durationMillis) with holdOut(durationMillis = durationMillis)",
+        "soup.compose.material.motion.holdIn",
+        "soup.compose.material.motion.holdOut"
+    )
+)
+@ExperimentalAnimationApi
+fun hold(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): MotionSpec = holdIn(
+    durationMillis = durationMillis
+) with holdOut(
+    durationMillis = durationMillis
+)
+
+/**
  * [holdIn] allows to switch a layout with no enter transition.
  *
  * @param durationMillis the duration of the enter transition.

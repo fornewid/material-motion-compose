@@ -29,14 +29,13 @@ class MaterialSharedAxisYTest : MaterialMotionTest() {
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
         return if (durationMillis != null) {
-            materialSharedAxisYIn(
-                forward = forward, slideDistance = 30, durationMillis = durationMillis
-            ) with materialSharedAxisYOut(
-                forward = forward, slideDistance = 30, durationMillis = durationMillis
+            materialSharedAxisY(
+                forward = forward,
+                slideDistance = 30,
+                durationMillis = durationMillis
             )
         } else {
-            materialSharedAxisYIn(forward = forward, slideDistance = 30) with
-                materialSharedAxisYOut(forward = forward, slideDistance = 30)
+            materialSharedAxisY(forward = forward, slideDistance = 30)
         }
     }
 }

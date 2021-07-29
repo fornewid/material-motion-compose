@@ -29,10 +29,9 @@ class MaterialSharedAxisZTest : MaterialMotionTest() {
 
     override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
         return if (durationMillis != null) {
-            materialSharedAxisZIn(forward = forward, durationMillis = durationMillis) with
-                materialSharedAxisZOut(forward = forward, durationMillis = durationMillis)
+            materialSharedAxisZ(forward = forward, durationMillis = durationMillis)
         } else {
-            materialSharedAxisZIn(forward = forward) with materialSharedAxisZOut(forward = forward)
+            materialSharedAxisZ(forward = forward)
         }
     }
 }
