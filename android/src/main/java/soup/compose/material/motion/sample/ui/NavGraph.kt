@@ -25,8 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import soup.compose.material.motion.Axis
-import soup.compose.material.motion.MaterialSharedAxis
+import soup.compose.material.motion.MaterialSharedAxisZ
 import soup.compose.material.motion.sample.ui.Destination.Demo
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
@@ -82,9 +81,8 @@ fun NavGraph(
         BackHandler { upPress() }
     }
     val saveableStateHolder = rememberSaveableStateHolder()
-    MaterialSharedAxis(
+    MaterialSharedAxisZ(
         targetState = destination,
-        axis = Axis.Z,
         forward = destination.root.not(),
         modifier = Modifier.fillMaxSize()
     ) { current ->
