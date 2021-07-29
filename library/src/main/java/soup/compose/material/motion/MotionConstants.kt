@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.internal
+@file:Suppress("unused")
 
-import androidx.compose.runtime.Composable
+package soup.compose.material.motion
 
-internal data class MotionAnimationItem<T>(
-    val key: T,
-    val content: @Composable () -> Unit,
-)
+object MotionConstants {
+    const val motionDurationShort1 = 75
+    const val motionDurationShort2 = 150
+    const val motionDurationMedium1 = 200
+    const val motionDurationMedium2 = 250
+    const val motionDurationLong1 = 300
+    const val motionDurationLong2 = 350
+}

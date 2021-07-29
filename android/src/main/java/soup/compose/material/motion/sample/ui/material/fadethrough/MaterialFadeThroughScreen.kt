@@ -16,6 +16,7 @@
 package soup.compose.material.motion.sample.ui.material.fadethrough
 
 import android.content.res.Configuration
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +30,7 @@ import soup.compose.material.motion.sample.ui.common.BottomTabsControls
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MaterialFadeThroughScreen(upPress: () -> Unit) {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomTabs.Albums) }

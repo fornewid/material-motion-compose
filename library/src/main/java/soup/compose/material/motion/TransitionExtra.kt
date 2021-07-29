@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.experimental
+@file:Suppress("unused")
+
+package soup.compose.material.motion
 
 import androidx.compose.animation.EnterExitState
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Transition
@@ -29,18 +29,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-
-@ExperimentalAnimationApi
-class EnterMotionSpec(
-    val transition: EnterTransition,
-    val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,
-)
-
-@ExperimentalAnimationApi
-class ExitMotionSpec(
-    val transition: ExitTransition,
-    val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,
-)
 
 @ExperimentalAnimationApi
 class TransitionExtra<E>(

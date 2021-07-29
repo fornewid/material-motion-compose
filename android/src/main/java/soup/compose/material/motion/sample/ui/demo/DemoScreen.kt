@@ -18,19 +18,21 @@ package soup.compose.material.motion.sample.ui.demo
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.hold
+import soup.compose.material.motion.holdIn
+import soup.compose.material.motion.holdOut
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.translateY
+import soup.compose.material.motion.translateYIn
+import soup.compose.material.motion.translateYOut
+import soup.compose.material.motion.with
 
 @Composable
 fun DemoScreen() {
@@ -49,6 +51,7 @@ fun DemoScreen() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun DemoNavigation(
     state: Long?,
@@ -56,33 +59,23 @@ private fun DemoNavigation(
     content: @Composable (Long?) -> Unit,
 ) {
     val saveableStateHolder = rememberSaveableStateHolder()
-
-    BoxWithConstraints {
-        val offset = LocalDensity.current.run { maxHeight.toPx() }
-        val enterMotionSpec = when {
-            state != null -> translateY(offset, 0f)
-            else -> hold()
-        }
-        val exitMotionSpec = when {
-            state != null -> hold()
-            else -> translateY(offset, 0f)
-        }
-        MaterialMotion(
-            targetState = state,
-            enterMotionSpec = enterMotionSpec,
-            exitMotionSpec = exitMotionSpec,
-            pop = state == null
-        ) { currentId ->
-            Box(modifier) {
-                // Wrap the content representing the `currentScreen` inside `SaveableStateProvider`.
-                // Here you can also add a screen switch animation like Crossfade where during the
-                // animation multiple screens will be displayed at the same time.
-                if (currentId != null) {
+    MaterialMotion(
+        targetState = state,
+        motionSpec = when {
+            state != null -> translateYIn({ it }) with holdOut()
+            else -> holdIn() with translateYOut({ it })
+        },
+        pop = state == null
+    ) { currentId ->
+        Box(modifier) {
+            // Wrap the content representing the `currentScreen` inside `SaveableStateProvider`.
+            // Here you can also add a screen switch animation like Crossfade where during the
+            // animation multiple screens will be displayed at the same time.
+            if (currentId != null) {
+                content(currentId)
+            } else {
+                saveableStateHolder.SaveableStateProvider("library") {
                     content(currentId)
-                } else {
-                    saveableStateHolder.SaveableStateProvider("library") {
-                        content(currentId)
-                    }
                 }
             }
         }

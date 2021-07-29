@@ -26,7 +26,7 @@ fun scale(
     toX: Float,
     fromY: Float,
     toY: Float,
-): MotionSpec = TODO()
+): Nothing = TODO()
 
 /**
  * [scale] allows to switch a layout with a scale animation.
@@ -35,4 +35,4 @@ fun scale(
 fun scale(
     from: Float = 0f,
     to: Float = 1f,
-): MotionSpec = TODO()
+): Nothing = TODO()

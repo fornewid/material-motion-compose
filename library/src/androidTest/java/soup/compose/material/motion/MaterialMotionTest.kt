@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -23,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -32,7 +32,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalTestApi::class)
+@OptIn(ExperimentalAnimationApi::class)
 abstract class MaterialMotionTest {
 
     protected abstract val defaultDurationMillis: Int
@@ -45,7 +45,7 @@ abstract class MaterialMotionTest {
     fun showsContent() {
         rule.mainClock.autoAdvance = false
 
-        rule.setContentWithMaterialMotion {
+        rule.setContent {
             val showFirst by remember { mutableStateOf(true) }
             MaterialMotion(showFirst, motionSpec = motionSpec(showFirst)) {
                 BasicText(if (it) First else Second)
@@ -62,7 +62,7 @@ abstract class MaterialMotionTest {
 
         var showFirst by mutableStateOf(true)
         var disposed = false
-        rule.setContentWithMaterialMotion {
+        rule.setContent {
             MaterialMotion(showFirst, motionSpec = motionSpec(showFirst)) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
@@ -94,7 +94,7 @@ abstract class MaterialMotionTest {
         val duration = 100 // smaller than default 300
         var showFirst by mutableStateOf(true)
         var disposed = false
-        rule.setContentWithMaterialMotion(durationMillis = duration) {
+        rule.setContent {
             MaterialMotion(showFirst, motionSpec = motionSpec(showFirst, duration)) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
@@ -124,7 +124,7 @@ abstract class MaterialMotionTest {
         rule.mainClock.autoAdvance = false
         var current by mutableStateOf<String?>(null)
 
-        rule.setContentWithMaterialMotion {
+        rule.setContent {
             MaterialMotion(current, motionSpec = motionSpec(current != null)) { value ->
                 BasicText(if (value == null) First else Second)
             }
@@ -157,7 +157,7 @@ abstract class MaterialMotionTest {
         var counter = 1
         var counter1 = 0
         var counter2 = 0
-        rule.setContentWithMaterialMotion(durationMillis = duration) {
+        rule.setContent {
             val saveableStateHolder = rememberSaveableStateHolder()
             MaterialMotion(showFirst, motionSpec = motionSpec(showFirst, duration)) {
                 saveableStateHolder.SaveableStateProvider(it) {

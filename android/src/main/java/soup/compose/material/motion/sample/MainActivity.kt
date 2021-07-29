@@ -18,7 +18,6 @@ package soup.compose.material.motion.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import soup.compose.material.motion.ProvideMaterialMotions
 import soup.compose.material.motion.sample.ui.NavGraph
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
@@ -26,10 +25,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ProvideMaterialMotions {
-                SampleTheme {
-                    NavGraph()
-                }
+            SampleTheme {
+                NavGraph()
             }
         }
     }

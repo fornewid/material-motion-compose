@@ -16,6 +16,7 @@
 package soup.compose.material.motion.sample.ui.material.fade
 
 import android.content.res.Configuration
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import soup.compose.material.motion.MaterialFade
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MaterialFadeScreen(upPress: () -> Unit) {
     DefaultScaffold(upPress = upPress) { innerPadding ->
@@ -52,16 +54,14 @@ fun MaterialFadeScreen(upPress: () -> Unit) {
                 Text(text = if (visible) "HIDE FAB" else "SHOW FAB")
             }
             MaterialFade(
-                targetState = visible,
+                visible = visible,
                 modifier = Modifier.align(Alignment.BottomEnd)
-            ) { visible ->
-                if (visible) {
-                    FloatingActionButton(
-                        onClick = {},
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Icon(Icons.Default.Add, contentDescription = null)
-                    }
+            ) {
+                FloatingActionButton(
+                    onClick = {},
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = null)
                 }
             }
         }

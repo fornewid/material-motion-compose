@@ -17,8 +17,6 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.ui.draw.rotate
-
 /**
  * [rotate] allows to switch a layout with a rotate animation.
  */
@@ -26,4 +24,4 @@ import androidx.compose.ui.draw.rotate
 fun rotate(
     from: Float,
     to: Float,
-): MotionSpec = TODO()
+): Nothing = TODO()

@@ -17,6 +17,7 @@ package soup.compose.material.motion.sample.ui.material.sharedaxis
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,7 @@ import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MaterialSharedAxisScreen(upPress: () -> Unit) {
     val (selectedAxis, onAxisSelected) = remember { mutableStateOf(Axis.X) }

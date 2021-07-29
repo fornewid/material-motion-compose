@@ -142,13 +142,6 @@ MaterialMotion(
 | -------------------------- |
 | <img width="200" src="docs/hold.gif" /> |
 
-### More...
-
-- `alpha()`
-- `rotate()`
-- `scale()`
-- `translate()`
-
 ### If you want to use different motions depending on the state:
 
 ```kt

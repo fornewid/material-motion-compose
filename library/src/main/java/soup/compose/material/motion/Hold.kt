@@ -17,9 +17,46 @@
 
 package soup.compose.material.motion
 
-import soup.compose.material.motion.internal.HoldSpec
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 
 /**
- * [hold] allows to switch a layout with no animation.
+ * [holdIn] allows to switch a layout with no enter transition.
+ *
+ * @param durationMillis the duration of the enter transition.
  */
-fun hold(): MotionSpec = HoldSpec()
+@ExperimentalAnimationApi
+fun holdIn(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = fadeIn(
+        initialAlpha = 1f,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = LinearEasing
+        )
+    )
+)
+
+/**
+ * [holdOut] allows to switch a layout with no exit transition.
+ *
+ * @param durationMillis the duration of the exit transition.
+ */
+@ExperimentalAnimationApi
+fun holdOut(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = fadeOut(
+        // TODO: Refer https://issuetracker.google.com/issues/192993290
+        // targetAlpha = 1f,
+        targetAlpha = 0.999f,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = LinearEasing
+        )
+    )
+)

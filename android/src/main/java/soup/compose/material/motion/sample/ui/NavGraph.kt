@@ -16,6 +16,7 @@
 package soup.compose.material.motion.sample.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,11 +28,6 @@ import androidx.compose.ui.Modifier
 import soup.compose.material.motion.Axis
 import soup.compose.material.motion.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Demo
-import soup.compose.material.motion.sample.ui.Destination.ExperimentalHold
-import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialElevationScale
-import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialFade
-import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialFadeThrough
-import soup.compose.material.motion.sample.ui.Destination.ExperimentalMaterialSharedAxis
 import soup.compose.material.motion.sample.ui.Destination.Hold
 import soup.compose.material.motion.sample.ui.Destination.Home
 import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
@@ -39,11 +35,6 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
-import soup.compose.material.motion.sample.ui.experimental.elevationscale.ExperimentalMaterialElevationScaleScreen
-import soup.compose.material.motion.sample.ui.experimental.fade.ExperimentalMaterialFadeScreen
-import soup.compose.material.motion.sample.ui.experimental.fadethrough.ExperimentalMaterialFadeThroughScreen
-import soup.compose.material.motion.sample.ui.experimental.hold.ExperimentalHoldScreen
-import soup.compose.material.motion.sample.ui.experimental.sharedaxis.ExperimentalMaterialSharedAxisScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
@@ -57,12 +48,7 @@ enum class Destination(val route: String, val root: Boolean = false) {
     MaterialFadeThrough("material_fade_through"),
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
-    Hold("hold"),
-    ExperimentalMaterialSharedAxis("experimental_material_shared_axis"),
-    ExperimentalMaterialFadeThrough("experimental_material_fade_through"),
-    ExperimentalMaterialFade("experimental_material_fade"),
-    ExperimentalMaterialElevationScale("experimental_material_elevation_scale"),
-    ExperimentalHold("experimental_hold");
+    Hold("hold");
 
     companion object {
         fun of(route: String): Destination {
@@ -76,17 +62,10 @@ enum class Destination(val route: String, val root: Boolean = false) {
             MaterialElevationScale,
             Hold
         )
-
-        fun experimentalList(): List<Destination> = listOf(
-            ExperimentalMaterialSharedAxis,
-            ExperimentalMaterialFadeThrough,
-            ExperimentalMaterialFade,
-            ExperimentalMaterialElevationScale,
-            ExperimentalHold
-        )
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     startDestination: String = Home.route,
@@ -121,12 +100,6 @@ fun NavGraph(
                         MaterialFade -> navigate(MaterialFade)
                         MaterialElevationScale -> navigate(MaterialElevationScale)
                         Hold -> navigate(Hold)
-                        ExperimentalMaterialSharedAxis -> navigate(ExperimentalMaterialSharedAxis)
-                        ExperimentalMaterialFadeThrough -> navigate(ExperimentalMaterialFadeThrough)
-                        ExperimentalMaterialFade -> navigate(ExperimentalMaterialFade)
-                        ExperimentalMaterialElevationScale ->
-                            navigate(ExperimentalMaterialElevationScale)
-                        ExperimentalHold -> navigate(ExperimentalHold)
                     }
                 }
                 Demo -> {
@@ -148,23 +121,6 @@ fun NavGraph(
                 }
                 Hold -> {
                     HoldScreen(upPress)
-                }
-
-                /* Experimental for material transition patterns */
-                ExperimentalMaterialSharedAxis -> {
-                    ExperimentalMaterialSharedAxisScreen(upPress)
-                }
-                ExperimentalMaterialFadeThrough -> {
-                    ExperimentalMaterialFadeThroughScreen(upPress)
-                }
-                ExperimentalMaterialFade -> {
-                    ExperimentalMaterialFadeScreen(upPress)
-                }
-                ExperimentalMaterialElevationScale -> {
-                    ExperimentalMaterialElevationScaleScreen(upPress)
-                }
-                ExperimentalHold -> {
-                    ExperimentalHoldScreen(upPress)
                 }
             }
         }

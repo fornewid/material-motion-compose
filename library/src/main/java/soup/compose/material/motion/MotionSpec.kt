@@ -17,49 +17,35 @@
 
 package soup.compose.material.motion
 
-import android.annotation.SuppressLint
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 
-object MotionConstants {
-    const val motionDurationShort1 = 75
-    const val motionDurationShort2 = 150
-    const val motionDurationMedium1 = 200
-    const val motionDurationMedium2 = 250
-    const val motionDurationLong1 = 300
-    const val motionDurationLong2 = 350
-}
+@ExperimentalAnimationApi
+class MotionSpec(
+    val enter: EnterMotionSpec,
+    val exit: ExitMotionSpec,
+)
 
-abstract class MotionSpec(
-    val primaryAnimatorProvider: VisibilityAnimationProvider,
-    val secondaryAnimatorProvider: VisibilityAnimationProvider,
+@ExperimentalAnimationApi
+infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
+
+@ExperimentalAnimationApi
+class EnterMotionSpec(
+    val transition: EnterTransition,
+    val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,
 ) {
-
-    @SuppressLint("ComposableNaming")
-    @Composable
-    internal fun applyThemeValues() {
-        primaryAnimatorProvider.apply {
-            setAppearDuration(getDuration(appearing = true))
-            setDisappearDuration(getDuration(appearing = false))
-        }
-        secondaryAnimatorProvider.apply {
-            setAppearDuration(getDuration(appearing = true))
-            setDisappearDuration(getDuration(appearing = false))
-        }
+    companion object {
+        val None: EnterMotionSpec = EnterMotionSpec(transition = EnterTransition.None)
     }
-
-    @Composable
-    protected abstract fun getDuration(appearing: Boolean): Int
 }
 
-@SuppressLint("ModifierFactoryExtensionFunction")
-interface VisibilityAnimationProvider {
-    fun setAppearDuration(durationMillis: Int)
-    fun createAppearAnimationSpec(): FiniteAnimationSpec<Float>
-    fun appear(modifier: Modifier, fraction: Float): Modifier
-
-    fun setDisappearDuration(durationMillis: Int)
-    fun createDisappearAnimationSpec(): FiniteAnimationSpec<Float>
-    fun disappear(modifier: Modifier, fraction: Float): Modifier
+@ExperimentalAnimationApi
+class ExitMotionSpec(
+    val transition: ExitTransition,
+    val transitionExtra: TransitionExtra<Float> = TransitionExtra.None,
+) {
+    companion object {
+        val None: ExitMotionSpec = ExitMotionSpec(transition = ExitTransition.None)
+    }
 }

@@ -17,14 +17,68 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import soup.compose.material.motion.internal.MaterialFadeThroughSpec
+
+private const val ProgressThreshold = 0.35f
+
+private val Int.ForOutgoing: Int
+    get() = (this * ProgressThreshold).toInt()
+
+private val Int.ForIncoming: Int
+    get() = this - this.ForOutgoing
 
 /**
- * [materialFadeThrough] allows to switch a layout with a fade through animation.
+ * [materialFadeThroughIn] allows to switch a layout with fade through enter transition.
+ *
+ * @param initialScale the starting scale of the enter transition.
+ * @param durationMillis the duration of the enter transition.
  */
-fun materialFadeThrough(): MotionSpec = MaterialFadeThroughSpec()
+@ExperimentalAnimationApi
+fun materialFadeThroughIn(
+    initialScale: Float = 0.92f,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
+        )
+    ),
+    transitionExtra = scaleIn(
+        initialScale = initialScale,
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
+        )
+    )
+)
+
+/**
+ * [materialFadeThroughOut] allows to switch a layout with fade through exit transition.
+ *
+ * @param durationMillis the duration of the exit transition.
+ */
+@ExperimentalAnimationApi
+fun materialFadeThroughOut(
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
+            delayMillis = 0,
+            easing = FastOutLinearInEasing
+        )
+    )
+)
 
 /**
  * [MaterialFadeThrough] allows to switch between two layouts with a fade through animation.
@@ -36,6 +90,7 @@ fun materialFadeThrough(): MotionSpec = MaterialFadeThroughSpec()
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
  */
+@ExperimentalAnimationApi
 @Composable
 fun <T> MaterialFadeThrough(
     targetState: T,
@@ -44,7 +99,7 @@ fun <T> MaterialFadeThrough(
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialFadeThrough(),
+        motionSpec = materialFadeThroughIn() with materialFadeThroughOut(),
         modifier = modifier,
         content = content
     )

@@ -17,30 +17,224 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.internal.MaterialSharedAxisSpec
-
-val DefaultSlideDistance: Dp = 30.dp
 
 enum class Axis {
     X, Y, Z
 }
 
+val DefaultSlideDistance: Dp = 30.dp
+
+private const val ProgressThreshold = 0.35f
+
+private val Int.ForOutgoing: Int
+    get() = (this * ProgressThreshold).toInt()
+
+private val Int.ForIncoming: Int
+    get() = this - this.ForOutgoing
+
 /**
- * [materialSharedAxis] allows to switch a layout with a shared axis animation.
+ * Returns the provided [Dp] as an [Int] value by the [LocalDensity].
  *
- * @param axis movement axis of the animation.
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance slide distance of the animation.
+ * @param slideDistance Value to the slide distance dimension, 30dp by default.
  */
-fun materialSharedAxis(
-    axis: Axis,
+@Composable
+fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Int {
+    val density = LocalDensity.current
+    return remember(density) {
+        with(density) { slideDistance.roundToPx() }
+    }
+}
+
+/**
+ * [materialSharedAxisXIn] allows to switch a layout with shared X-axis enter transition.
+ *
+ * @param forward whether the direction of the enter transition is forward.
+ * @param slideDistance the slide distance of the enter transition.
+ * @param durationMillis the duration of the enter transition.
+ */
+@ExperimentalAnimationApi
+fun materialSharedAxisXIn(
     forward: Boolean,
-    slideDistance: Dp = DefaultSlideDistance,
-): MotionSpec = MaterialSharedAxisSpec(axis, forward, slideDistance)
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = slideInHorizontally(
+        initialOffsetX = {
+            if (forward) slideDistance else -slideDistance
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
+        )
+    )
+)
+
+/**
+ * [materialSharedAxisYIn] allows to switch a layout with shared Y-axis enter transition.
+ *
+ * @param forward whether the direction of the enter transition is forward.
+ * @param slideDistance the slide distance of the enter transition.
+ * @param durationMillis the duration of the enter transition.
+ */
+@ExperimentalAnimationApi
+fun materialSharedAxisYIn(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = slideInVertically(
+        initialOffsetY = {
+            if (forward) slideDistance else -slideDistance
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
+        )
+    )
+)
+
+/**
+ * [materialSharedAxisZIn] allows to switch a layout with shared Z-axis enter transition.
+ *
+ * @param forward whether the direction of the enter transition is forward.
+ * @param durationMillis the duration of the enter transition.
+ */
+@ExperimentalAnimationApi
+fun materialSharedAxisZIn(
+    forward: Boolean,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): EnterMotionSpec = EnterMotionSpec(
+    transition = fadeIn(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForIncoming,
+            delayMillis = durationMillis.ForOutgoing,
+            easing = LinearOutSlowInEasing
+        )
+    ),
+    transitionExtra = scaleIn(
+        initialScale = if (forward) 0.8f else 1.1f,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    )
+)
+
+/**
+ * [materialSharedAxisXOut] allows to switch a layout with shared X-axis exit transition.
+ *
+ * @param forward whether the direction of the exit transition is forward.
+ * @param slideDistance the slide distance of the exit transition.
+ * @param durationMillis the duration of the exit transition.
+ */
+@ExperimentalAnimationApi
+fun materialSharedAxisXOut(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = slideOutHorizontally(
+        targetOffsetX = {
+            if (forward) -slideDistance else slideDistance
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
+            delayMillis = 0,
+            easing = FastOutLinearInEasing
+        )
+    )
+)
+
+/**
+ * [materialSharedAxisYOut] allows to switch a layout with shared Y-axis exit transition.
+ *
+ * @param forward whether the direction of the exit transition is forward.
+ * @param slideDistance the slide distance of the exit transition.
+ * @param durationMillis the duration of the exit transition.
+ */
+@ExperimentalAnimationApi
+fun materialSharedAxisYOut(
+    forward: Boolean,
+    slideDistance: Int,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = slideOutVertically(
+        targetOffsetY = {
+            if (forward) -slideDistance else slideDistance
+        },
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    ) + fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
+            delayMillis = 0,
+            easing = FastOutLinearInEasing
+        )
+    )
+)
+
+/**
+ * [materialSharedAxisZOut] allows to switch a layout with shared Z-axis exit transition.
+ *
+ * @param forward whether the direction of the exit transition is forward.
+ * @param durationMillis the duration of the exit transition.
+ */
+@ExperimentalAnimationApi
+fun materialSharedAxisZOut(
+    forward: Boolean,
+    durationMillis: Int = MotionConstants.motionDurationLong1,
+): ExitMotionSpec = ExitMotionSpec(
+    transition = fadeOut(
+        animationSpec = tween(
+            durationMillis = durationMillis.ForOutgoing,
+            delayMillis = 0,
+            easing = FastOutLinearInEasing
+        )
+    ),
+    transitionExtra = scaleOut(
+        targetScale = if (forward) 1.1f else 0.8f,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    )
+)
 
 /**
  * [MaterialSharedAxis] allows to switch between two layouts with a shared axis animation.
@@ -55,6 +249,7 @@ fun materialSharedAxis(
  * @param modifier Modifier to be applied to the animation container.
  * @param slideDistance slide distance of the animation.
  */
+@ExperimentalAnimationApi
 @Composable
 fun <T> MaterialSharedAxis(
     targetState: T,
@@ -66,7 +261,21 @@ fun <T> MaterialSharedAxis(
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialSharedAxis(axis, forward, slideDistance),
+        motionSpec = when (axis) {
+            Axis.X -> {
+                val distance = rememberSlideDistance(slideDistance)
+                materialSharedAxisXIn(forward, distance) with
+                    materialSharedAxisXOut(forward, distance)
+            }
+            Axis.Y -> {
+                val distance = rememberSlideDistance(slideDistance)
+                materialSharedAxisYIn(forward, distance) with
+                    materialSharedAxisYOut(forward, distance)
+            }
+            Axis.Z -> {
+                materialSharedAxisZIn(forward) with materialSharedAxisZOut(forward)
+            }
+        },
         modifier = modifier,
         content = content
     )
