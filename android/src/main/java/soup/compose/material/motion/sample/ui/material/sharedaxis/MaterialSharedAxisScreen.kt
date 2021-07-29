@@ -38,12 +38,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.Axis
-import soup.compose.material.motion.MaterialSharedAxis
+import soup.compose.material.motion.MaterialMotion
+import soup.compose.material.motion.materialSharedAxisX
+import soup.compose.material.motion.materialSharedAxisY
+import soup.compose.material.motion.materialSharedAxisZ
+import soup.compose.material.motion.rememberSlideDistance
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+
+private enum class Axis {
+    X, Y, Z
+}
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -62,14 +69,24 @@ fun MaterialSharedAxisScreen(upPress: () -> Unit) {
             }
         }
     ) { innerPadding ->
-        MaterialSharedAxis(
-            axis = selectedAxis,
-            forward = forward,
+        MaterialMotion(
             targetState = forward,
-            modifier = Modifier.padding(innerPadding)
-        ) { forward ->
-            ForwardBackwardContents(forward)
-        }
+            motionSpec = when (selectedAxis) {
+                Axis.X -> materialSharedAxisX(
+                    forward = forward,
+                    slideDistance = rememberSlideDistance()
+                )
+                Axis.Y -> materialSharedAxisY(
+                    forward = forward,
+                    slideDistance = rememberSlideDistance()
+                )
+                Axis.Z -> materialSharedAxisZ(forward = forward)
+            },
+            modifier = Modifier.padding(innerPadding),
+            content = { forward ->
+                ForwardBackwardContents(forward)
+            }
+        )
     }
 }
 

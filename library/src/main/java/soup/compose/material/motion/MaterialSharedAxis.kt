@@ -35,10 +35,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-enum class Axis {
-    X, Y, Z
-}
-
 val DefaultSlideDistance: Dp = 30.dp
 
 private const val ProgressThreshold = 0.35f
@@ -298,6 +294,11 @@ fun materialSharedAxisZOut(
     )
 )
 
+@Deprecated("Axis is now deprecated. Use apis for each axis instead.")
+enum class Axis {
+    X, Y, Z
+}
+
 /**
  * [MaterialSharedAxis] allows to switch between two layouts with a shared axis animation.
  *
@@ -311,6 +312,21 @@ fun materialSharedAxisZOut(
  * @param modifier Modifier to be applied to the animation container.
  * @param slideDistance slide distance of the animation.
  */
+@Deprecated(
+    message = "MaterialSharedAxis() is now deprecated. Use MaterialMotion instead.",
+    replaceWith = ReplaceWith(
+        expression = """MaterialMotion(
+            targetState = targetState,
+            motionSpec = when (axis) {
+                Axis.X -> materialSharedAxisX(forward, rememberSlideDistance(slideDistance))
+                Axis.Y -> materialSharedAxisY(forward, rememberSlideDistance(slideDistance))
+                Axis.Z -> materialSharedAxisZ(forward)
+            },
+            modifier = modifier,
+            content = content
+        )"""
+    )
+)
 @ExperimentalAnimationApi
 @Composable
 fun <T> MaterialSharedAxis(
@@ -324,15 +340,9 @@ fun <T> MaterialSharedAxis(
     MaterialMotion(
         targetState = targetState,
         motionSpec = when (axis) {
-            Axis.X -> {
-                materialSharedAxisX(forward, rememberSlideDistance(slideDistance))
-            }
-            Axis.Y -> {
-                materialSharedAxisY(forward, rememberSlideDistance(slideDistance))
-            }
-            Axis.Z -> {
-                materialSharedAxisZ(forward)
-            }
+            Axis.X -> materialSharedAxisX(forward, rememberSlideDistance(slideDistance))
+            Axis.Y -> materialSharedAxisY(forward, rememberSlideDistance(slideDistance))
+            Axis.Z -> materialSharedAxisZ(forward)
         },
         modifier = modifier,
         content = content
