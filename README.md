@@ -35,9 +35,8 @@ This library provides support for [motion patterns](https://material.io/design/m
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-MaterialSharedAxis(
+MaterialSharedAxisX(
     targetState = screen,
-    axis = Axis.X,
     forward = true,
     slideDistance = 30.dp // (optional)
 ) { newScreen ->
@@ -48,10 +47,9 @@ MaterialSharedAxis(
 
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialSharedAxis(
-        axis = Axis.X,
+    motionSpec = materialSharedAxisX(
         forward = true,
-        slideDistance = 30.dp // (optional)
+        slideDistance = rememberSlideDistance()
     )
 ) { newScreen ->
     // composable according to screen
@@ -89,20 +87,11 @@ MaterialMotion(
 ### Fade
 
 ```kt
-val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+val (visible, onVisibleChanged) = remember { mutableStateOf(...) }
 MaterialFade(
-    targetState = screen
-) { newScreen ->
-    // composable according to screen
-}
-
-// or
-
-MaterialMotion(
-    targetState = selectedTab,
-    motionSpec = materialFade()
-) { newScreen ->
-    // composable according to screen
+    visible = visible
+) {
+    // composable to show
 }
 ```
 
@@ -116,7 +105,9 @@ MaterialMotion(
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialElevationScale(growing = false)
+    motionSpec = materialElevationScaleIn() with ...
+    // or
+    motionSpec = ... with materialElevationScaleOut()
 ) { newScreen ->
     // composable according to screen
 }
@@ -132,7 +123,9 @@ MaterialMotion(
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    motionSpec = hold()
+    motionSpec = holdIn() with ...
+    // or
+    motionSpec = ... with holdOut()
 ) { newScreen ->
     // composable according to screen
 }
@@ -147,24 +140,13 @@ MaterialMotion(
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 val motionSpec = when (screen) {
-   ... -> fadeThrough()
-   ... -> sharedAxisY(forward = true)
+   ... -> materialSharedAxisY(forward = true, slideDistance = rememberSlideDistance())
+   ... -> materialFadeThroughIn() with materialFadeThroughOut()
    ...
 }
 MaterialMotion(
     targetState = screen,
     motionSpec = motionSpec,
-    pop = false // whether motion contents are rendered in reverse order.
-) { newScreen ->
-    // composable according to screen
-}
-
-// or
-
-MaterialMotion(
-    targetState = screen,
-    enterMotionSpec = motionSpec,
-    exitMotionSpec = motionSpec,
     pop = false // whether motion contents are rendered in reverse order.
 ) { newScreen ->
     // composable according to screen
@@ -177,20 +159,11 @@ MaterialMotion(
 
 ### If you want to change motion durations:
 
-You need to call the `ProvideMaterialMotions` function with custom durations and wrap your content.
+Just pass a duration(=ms) directly when creating material motion.
 
-This would typically be done near the top level of your composable hierarchy.
-
+For example:
 ```kt
-setContent {
-  MaterialTheme {
-    ProvideMaterialMotions(
-        durations = Durations(...)
-    ) {
-      // your content
-    }
-  }
-}
+val motionSpec = materialFadeThrough(durationMillis = 300)
 ```
 
 ## License
