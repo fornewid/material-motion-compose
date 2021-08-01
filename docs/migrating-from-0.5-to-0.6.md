@@ -173,7 +173,7 @@ MaterialFade(
 
 | MotionSpec                 | EnterMotionSpec              | ExitMotionSpec                |
 | -------------------------- | ---------------------------- | ----------------------------- |
-| `materialElevationScale()` | `materialElevationScaleIn()` | `materialElevationScaleOut()` |
+| -                          | `materialElevationScaleIn()` | `materialElevationScaleOut()` |
 
 -----
 
@@ -191,7 +191,7 @@ In `0.6.x`:
 ```kt
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialElevationScale()
+    motionSpec = materialElevationScaleIn() with materialElevationScaleOut()
 ) { newScreen ->
     // composable according to screen
 }
@@ -239,7 +239,7 @@ MaterialMotion(
 
 | MotionSpec | EnterMotionSpec | ExitMotionSpec |
 | ---------- | --------------- | -------------- |
-| `hold()`   | `holdIn()`      | `holdOut()`    |
+| -          | `holdIn()`      | `holdOut()`    |
 
 -----
 
@@ -257,7 +257,7 @@ In `0.6.x`:
 ```kt
 MaterialMotion(
     targetState = screen,
-    motionSpec = hold()
+    motionSpec = holdIn() with holdOut()
 ) { newScreen ->
     // composable according to screen
 }

@@ -294,61 +294,6 @@ fun materialSharedAxisZOut(
     )
 )
 
-@Deprecated("Axis is now deprecated. Use apis for each axis instead.")
-enum class Axis {
-    X, Y, Z
-}
-
-/**
- * [MaterialSharedAxis] allows to switch between two layouts with a shared axis animation.
- *
- * @see com.google.android.material.transition.MaterialSharedAxis
- *
- * @param targetState is a key representing your target layout state. Every time you change a key
- * the animation will be triggered. The [content] called with the old key will be faded out while
- * the [content] called with the new key will be faded in.
- * @param axis movement axis of the animation.
- * @param forward whether the direction of the animation is forward.
- * @param modifier Modifier to be applied to the animation container.
- * @param slideDistance slide distance of the animation.
- */
-@Deprecated(
-    message = "MaterialSharedAxis() is now deprecated. Use MaterialMotion instead.",
-    replaceWith = ReplaceWith(
-        expression = """MaterialMotion(
-            targetState = targetState,
-            motionSpec = when (axis) {
-                Axis.X -> materialSharedAxisX(forward, rememberSlideDistance(slideDistance))
-                Axis.Y -> materialSharedAxisY(forward, rememberSlideDistance(slideDistance))
-                Axis.Z -> materialSharedAxisZ(forward)
-            },
-            modifier = modifier,
-            content = content
-        )"""
-    )
-)
-@ExperimentalAnimationApi
-@Composable
-fun <T> MaterialSharedAxis(
-    targetState: T,
-    axis: Axis,
-    forward: Boolean,
-    modifier: Modifier = Modifier,
-    slideDistance: Dp = DefaultSlideDistance,
-    content: @Composable (T) -> Unit,
-) {
-    MaterialMotion(
-        targetState = targetState,
-        motionSpec = when (axis) {
-            Axis.X -> materialSharedAxisX(forward, rememberSlideDistance(slideDistance))
-            Axis.Y -> materialSharedAxisY(forward, rememberSlideDistance(slideDistance))
-            Axis.Z -> materialSharedAxisZ(forward)
-        },
-        modifier = modifier,
-        content = content
-    )
-}
-
 /**
  * [MaterialSharedAxisX] allows to switch between two layouts with a shared X-axis animation.
  *
