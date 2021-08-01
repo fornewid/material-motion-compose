@@ -25,35 +25,6 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 
 /**
- * [translate] allows to switch a layout with a translate animation.
- */
-@Deprecated("translate() is now deprecated.")
-fun translate(
-    fromX: Float,
-    toX: Float,
-    fromY: Float,
-    toY: Float,
-): Nothing = TODO()
-
-/**
- * [translateX] allows to switch a layout with a translate animation as x axis.
- */
-@Deprecated("translate() is now deprecated.")
-fun translateX(
-    from: Float,
-    to: Float,
-): Nothing = TODO()
-
-/**
- * [translateY] allows to switch a layout with a translate animation as y axis.
- */
-@Deprecated("translate() is now deprecated.")
-fun translateY(
-    from: Float,
-    to: Float,
-): Nothing = TODO()
-
-/**
  * [translateXIn] allows to switch a layout with a translate animation as x axis.
  */
 @ExperimentalAnimationApi
