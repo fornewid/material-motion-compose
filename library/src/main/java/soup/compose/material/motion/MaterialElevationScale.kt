@@ -25,29 +25,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 
 /**
- * [materialElevationScale] allows to switch a layout with a elevation scale animation.
- *
- * @param durationMillis the duration of transition.
- */
-@Deprecated(
-    message = "Replaced with materialElevationScaleIn() and materialElevationScaleOut()",
-    replaceWith = ReplaceWith(
-        "materialElevationScaleIn(durationMillis = durationMillis) with " +
-            "materialElevationScaleOut(durationMillis = durationMillis)",
-        "soup.compose.material.motion.materialElevationScaleIn",
-        "soup.compose.material.motion.materialElevationScaleOut"
-    ),
-)
-@ExperimentalAnimationApi
-fun materialElevationScale(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-): MotionSpec = materialElevationScaleIn(
-    durationMillis = durationMillis
-) with materialElevationScaleOut(
-    durationMillis = durationMillis
-)
-
-/**
  * [materialElevationScaleIn] allows to switch a layout with elevation scale enter transition.
  *
  * @param initialAlpha the starting alpha of the enter transition.
