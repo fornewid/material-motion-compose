@@ -19,6 +19,8 @@ package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -38,16 +40,41 @@ import androidx.compose.ui.Modifier
  */
 @ExperimentalAnimationApi
 @Composable
-fun <T> MaterialMotion(
-    targetState: T,
+fun <S> MaterialMotion(
+    targetState: S,
     motionSpec: MotionSpec,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
-    content: @Composable (T) -> Unit,
+    content: @Composable (targetState: S) -> Unit,
+) {
+    val transition = updateTransition(targetState = targetState, label = "MaterialMotion")
+    transition.MaterialMotion(
+        motionSpec,
+        modifier,
+        pop,
+        contentAlignment,
+        content
+    )
+}
+
+/**
+ * [MaterialMotion] allows to switch between two layouts with a material motion animation.
+ *
+ * @param motionSpec the [MotionSpec] to configure the enter/exit animation.
+ * @param modifier Modifier to be applied to the animation container.
+ * @param pop whether motion contents are rendered in reverse order.
+ */
+@ExperimentalAnimationApi
+@Composable
+fun <S> Transition<S>.MaterialMotion(
+    motionSpec: MotionSpec,
+    modifier: Modifier = Modifier,
+    pop: Boolean = false,
+    contentAlignment: Alignment = Alignment.TopStart,
+    content: @Composable (targetState: S) -> Unit
 ) {
     AnimatedContent(
-        targetState = targetState,
         modifier = modifier,
         transitionSpec = {
             (motionSpec.enter.transition with motionSpec.exit.transition)
