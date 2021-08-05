@@ -21,10 +21,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
+        buildConfig false
         compose true
     }
     composeOptions {
         kotlinCompilerExtensionVersion "${Libs.Compose.version}"
+    }
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+        checkReleaseBuilds false
     }
     testOptions {
         unitTests {
@@ -43,7 +49,10 @@ dependencies {
     implementation Libs.Kotlin.stdlib
     implementation Libs.Compose.foundation
     implementation Libs.Compose.ui
-    implementation Libs.Compose.ui_util
+
+    // ======================
+    // Test dependencies
+    // ======================
 
     androidTestImplementation Libs.Compose.ui_test_junit4
     androidTestImplementation Libs.Compose.ui_test_manifest
