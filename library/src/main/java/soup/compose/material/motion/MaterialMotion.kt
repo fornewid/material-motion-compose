@@ -23,6 +23,7 @@ import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 /**
@@ -42,6 +43,7 @@ fun <T> MaterialMotion(
     motionSpec: MotionSpec,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
+    contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable (T) -> Unit,
 ) {
     AnimatedContent(
@@ -53,7 +55,8 @@ fun <T> MaterialMotion(
                     // Show forward contents over the backward contents.
                     targetContentZIndex = if (!pop) 0.1f else 0f
                 }
-        }
+        },
+        contentAlignment = contentAlignment,
     ) { currentState ->
         val extraModifier: Modifier
         if (currentState == targetState) {
