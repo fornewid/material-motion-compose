@@ -25,6 +25,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion "${Libs.Compose.version}"
     }
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+        checkReleaseBuilds false
+    }
     testOptions {
         unitTests {
             includeAndroidResources = true
