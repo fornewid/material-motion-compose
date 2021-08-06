@@ -50,6 +50,8 @@ object Libs {
 
             const val junit = "androidx.test.ext:junit:1.1.2"
             const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
+
+            const val truth = "com.google.truth:truth:1.1.2"
         }
     }
 
