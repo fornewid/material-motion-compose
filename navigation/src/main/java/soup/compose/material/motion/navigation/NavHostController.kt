@@ -25,8 +25,10 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun rememberMaterialMotionNavController(): NavHostController {
     return rememberNavController().apply {
-        navigatorProvider.addNavigator(remember(this) {
-            MaterialMotionComposeNavigator()
-        })
+        navigatorProvider.addNavigator(
+            remember(this) {
+                MaterialMotionComposeNavigator()
+            }
+        )
     }
 }
