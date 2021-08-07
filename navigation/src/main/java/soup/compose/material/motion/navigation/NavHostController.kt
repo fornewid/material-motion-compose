@@ -20,14 +20,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.plusAssign
 
 @ExperimentalAnimationApi
 @Composable
 fun rememberMaterialMotionNavController(): NavHostController {
     return rememberNavController().apply {
-        navigatorProvider += remember(this) {
+        navigatorProvider.addNavigator(remember(this) {
             MaterialMotionComposeNavigator()
-        }
+        })
     }
 }

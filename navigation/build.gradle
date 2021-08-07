@@ -44,13 +44,18 @@ android {
 }
 
 dependencies {
-    api project(':library')
+    implementation project(':library')
+
     api Libs.Compose.navigation
     implementation Libs.Compose.activity
 
     implementation Libs.Compose.animation
     implementation Libs.Compose.foundation
     implementation Libs.Compose.material
+
+    // ======================
+    // Test dependencies
+    // ======================
 
     androidTestImplementation Libs.Compose.ui_test_junit4
     androidTestImplementation Libs.Compose.ui_test_manifest
