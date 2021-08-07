@@ -27,15 +27,14 @@ class MaterialSharedAxisXTest : MaterialMotionTest() {
     override val defaultDurationMillis: Int
         get() = motionDurationLong1
 
-    override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
+    override fun motionSpec(durationMillis: Int?): MotionSpec {
         return if (durationMillis != null) {
             materialSharedAxisX(
-                forward = forward,
                 slideDistance = 30,
                 durationMillis = durationMillis
             )
         } else {
-            materialSharedAxisX(forward = forward, slideDistance = 30)
+            materialSharedAxisX(slideDistance = 30)
         }
     }
 }

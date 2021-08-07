@@ -59,21 +59,25 @@ fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = fadeIn(
-        animationSpec = tween(
-            durationMillis = durationMillis.ForIncoming,
-            delayMillis = durationMillis.ForOutgoing,
-            easing = LinearOutSlowInEasing
+    transition = {
+        fadeIn(
+            animationSpec = tween(
+                durationMillis = durationMillis.ForIncoming,
+                delayMillis = durationMillis.ForOutgoing,
+                easing = LinearOutSlowInEasing
+            )
         )
-    ),
-    transitionExtra = scaleIn(
-        initialScale = initialScale,
-        animationSpec = tween(
-            durationMillis = durationMillis.ForIncoming,
-            delayMillis = durationMillis.ForOutgoing,
-            easing = LinearOutSlowInEasing
+    },
+    transitionExtra = {
+        scaleIn(
+            initialScale = initialScale,
+            animationSpec = tween(
+                durationMillis = durationMillis.ForIncoming,
+                delayMillis = durationMillis.ForOutgoing,
+                easing = LinearOutSlowInEasing
+            )
         )
-    )
+    }
 )
 
 /**
@@ -85,13 +89,15 @@ fun materialFadeThroughIn(
 fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = fadeOut(
-        animationSpec = tween(
-            durationMillis = durationMillis.ForOutgoing,
-            delayMillis = 0,
-            easing = FastOutLinearInEasing
+    transition = {
+        fadeOut(
+            animationSpec = tween(
+                durationMillis = durationMillis.ForOutgoing,
+                delayMillis = 0,
+                easing = FastOutLinearInEasing
+            )
         )
-    )
+    }
 )
 
 /**

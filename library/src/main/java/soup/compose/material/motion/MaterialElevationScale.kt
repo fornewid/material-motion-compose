@@ -37,20 +37,24 @@ fun materialElevationScaleIn(
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = fadeIn(
-        initialAlpha = initialAlpha,
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
+    transition = {
+        fadeIn(
+            initialAlpha = initialAlpha,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = LinearEasing
+            )
         )
-    ),
-    transitionExtra = scaleIn(
-        initialScale = initialScale,
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
+    },
+    transitionExtra = {
+        scaleIn(
+            initialScale = initialScale,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = FastOutSlowInEasing
+            )
         )
-    )
+    }
 )
 
 /**
@@ -67,19 +71,23 @@ fun materialElevationScaleOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec {
     return ExitMotionSpec(
-        transition = fadeOut(
-            targetAlpha = targetAlpha,
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = LinearEasing
+        transition = {
+            fadeOut(
+                targetAlpha = targetAlpha,
+                animationSpec = tween(
+                    durationMillis = durationMillis,
+                    easing = LinearEasing
+                )
             )
-        ),
-        transitionExtra = scaleOut(
-            targetScale = targetScale,
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
+        },
+        transitionExtra = {
+            scaleOut(
+                targetScale = targetScale,
+                animationSpec = tween(
+                    durationMillis = durationMillis,
+                    easing = FastOutSlowInEasing
+                )
             )
-        )
+        }
     )
 }
