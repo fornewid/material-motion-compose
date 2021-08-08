@@ -25,8 +25,8 @@ import androidx.navigation.get
 import androidx.navigation.navigation
 import soup.compose.material.motion.EnterMotionSpec
 import soup.compose.material.motion.ExitMotionSpec
-import soup.compose.material.motion.materialFadeThroughIn
-import soup.compose.material.motion.materialFadeThroughOut
+import soup.compose.material.motion.materialSharedAxisZIn
+import soup.compose.material.motion.materialSharedAxisZOut
 
 /**
  * Add the [Composable] to the [NavGraphBuilder]
@@ -46,10 +46,10 @@ fun NavGraphBuilder.composable(
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
-        materialFadeThroughIn()
+        materialSharedAxisZIn()
     },
     exitMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec = { _, _ ->
-        materialFadeThroughOut()
+        materialSharedAxisZOut()
     },
     popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
     popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
@@ -94,10 +94,10 @@ public fun NavGraphBuilder.navigation(
     startDestination: String,
     route: String,
     enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
-        materialFadeThroughIn()
+        materialSharedAxisZIn()
     },
     exitMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec = { _, _ ->
-        materialFadeThroughOut()
+        materialSharedAxisZOut()
     },
     popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
     popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
