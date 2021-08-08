@@ -32,10 +32,12 @@ fun translateXIn(
     initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = slideInHorizontally(
-        initialOffsetX = initialOffsetX,
-        animationSpec = tween(durationMillis)
-    )
+    transition = {
+        slideInHorizontally(
+            initialOffsetX = initialOffsetX,
+            animationSpec = tween(durationMillis)
+        )
+    }
 )
 
 /**
@@ -46,10 +48,12 @@ fun translateXOut(
     targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = slideOutHorizontally(
-        targetOffsetX = targetOffsetX,
-        animationSpec = tween(durationMillis)
-    )
+    transition = {
+        slideOutHorizontally(
+            targetOffsetX = targetOffsetX,
+            animationSpec = tween(durationMillis)
+        )
+    }
 )
 
 /**
@@ -60,10 +64,12 @@ fun translateYIn(
     initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = slideInVertically(
-        initialOffsetY = initialOffsetY,
-        animationSpec = tween(durationMillis)
-    )
+    transition = {
+        slideInVertically(
+            initialOffsetY = initialOffsetY,
+            animationSpec = tween(durationMillis)
+        )
+    }
 )
 
 /**
@@ -74,8 +80,10 @@ fun translateYOut(
     targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = slideOutVertically(
-        targetOffsetY = targetOffsetY,
-        animationSpec = tween(durationMillis)
-    )
+    transition = {
+        slideOutVertically(
+            targetOffsetY = targetOffsetY,
+            animationSpec = tween(durationMillis)
+        )
+    }
 )

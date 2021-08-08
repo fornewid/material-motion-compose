@@ -25,6 +25,7 @@ import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -72,34 +73,41 @@ fun <S> Transition<S>.MaterialMotion(
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
-    content: @Composable (targetState: S) -> Unit
+    content: @Composable (targetState: S) -> Unit,
 ) {
+    val forward: Boolean = pop.not()
     AnimatedContent(
         modifier = modifier,
         transitionSpec = {
-            (motionSpec.enter.transition with motionSpec.exit.transition)
+            (motionSpec.enter.transition(forward) with motionSpec.exit.transition(forward))
                 .apply {
                     // Show forward contents over the backward contents.
-                    targetContentZIndex = if (!pop) 0.1f else 0f
+                    targetContentZIndex = if (forward) 0.1f else 0f
                 }
         },
         contentAlignment = contentAlignment,
     ) { currentState ->
         val extraModifier: Modifier
         if (currentState == targetState) {
-            extraModifier = if (motionSpec.enter.transitionExtra == TransitionExtra.None) {
+            val transitionExtra = remember(motionSpec, forward) {
+                motionSpec.enter.transitionExtra(forward)
+            }
+            extraModifier = if (transitionExtra == TransitionExtra.None) {
                 Modifier
             } else {
-                with(motionSpec.enter.transitionExtra) {
+                with(transitionExtra) {
                     val extra by transition.animateExtra()
                     modifierByExtra(extra)
                 }
             }
         } else {
-            extraModifier = if (motionSpec.exit.transitionExtra == TransitionExtra.None) {
+            val transitionExtra = remember(motionSpec, forward) {
+                motionSpec.exit.transitionExtra(forward)
+            }
+            extraModifier = if (transitionExtra == TransitionExtra.None) {
                 Modifier
             } else {
-                with(motionSpec.exit.transitionExtra) {
+                with(transitionExtra) {
                     val extra by transition.animateExtra()
                     modifierByExtra(extra)
                 }

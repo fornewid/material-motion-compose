@@ -32,13 +32,15 @@ import androidx.compose.animation.fadeOut
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = fadeIn(
-        initialAlpha = 1f,
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
+    transition = {
+        fadeIn(
+            initialAlpha = 1f,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = LinearEasing
+            )
         )
-    )
+    }
 )
 
 /**
@@ -50,13 +52,15 @@ fun holdIn(
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = fadeOut(
-        // TODO: Refer https://issuetracker.google.com/issues/192993290
-        // targetAlpha = 1f,
-        targetAlpha = 0.999f,
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = LinearEasing
+    transition = {
+        fadeOut(
+            // TODO: Refer https://issuetracker.google.com/issues/192993290
+            // targetAlpha = 1f,
+            targetAlpha = 0.999f,
+            animationSpec = tween(
+                durationMillis = durationMillis,
+                easing = LinearEasing
+            )
         )
-    )
+    }
 )

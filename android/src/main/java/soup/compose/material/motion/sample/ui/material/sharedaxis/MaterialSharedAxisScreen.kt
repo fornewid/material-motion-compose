@@ -72,17 +72,12 @@ fun MaterialSharedAxisScreen(upPress: () -> Unit) {
         MaterialMotion(
             targetState = forward,
             motionSpec = when (selectedAxis) {
-                Axis.X -> materialSharedAxisX(
-                    forward = forward,
-                    slideDistance = rememberSlideDistance()
-                )
-                Axis.Y -> materialSharedAxisY(
-                    forward = forward,
-                    slideDistance = rememberSlideDistance()
-                )
-                Axis.Z -> materialSharedAxisZ(forward = forward)
+                Axis.X -> materialSharedAxisX(slideDistance = rememberSlideDistance())
+                Axis.Y -> materialSharedAxisY(slideDistance = rememberSlideDistance())
+                Axis.Z -> materialSharedAxisZ()
             },
             modifier = Modifier.padding(innerPadding),
+            pop = forward.not(),
             content = { forward ->
                 ForwardBackwardContents(forward)
             }

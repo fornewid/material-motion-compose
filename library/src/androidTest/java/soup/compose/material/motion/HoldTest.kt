@@ -27,7 +27,7 @@ class HoldTest : MaterialMotionTest() {
     override val defaultDurationMillis: Int
         get() = motionDurationLong1
 
-    override fun motionSpec(forward: Boolean, durationMillis: Int?): MotionSpec {
+    override fun motionSpec(durationMillis: Int?): MotionSpec {
         return if (durationMillis != null) {
             holdIn(durationMillis = durationMillis) with
                 holdOut(durationMillis = durationMillis)
