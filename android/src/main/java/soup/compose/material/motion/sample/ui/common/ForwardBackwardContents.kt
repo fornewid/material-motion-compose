@@ -62,14 +62,14 @@ fun ForwardBackwardControls(
             modifier = Modifier.align(Alignment.BottomStart),
             enabled = forward
         ) {
-            Text(text = "Back".toUpperCase())
+            Text(text = "Back".uppercase())
         }
         Button(
             onClick = { onForwardChanged(true) },
             modifier = Modifier.align(Alignment.BottomEnd),
             enabled = forward.not()
         ) {
-            Text(text = "Next".toUpperCase())
+            Text(text = "Next".uppercase())
         }
     }
 }
@@ -125,11 +125,11 @@ private fun BackwardContents() {
         )
         Spacer(modifier = Modifier.requiredHeight(12.dp))
         TextButton(onClick = {}) {
-            Text(text = "Forgot email?".toUpperCase())
+            Text(text = "Forgot email?".uppercase())
         }
         Spacer(modifier = Modifier.requiredHeight(8.dp))
         TextButton(onClick = {}) {
-            Text(text = "Create account".toUpperCase())
+            Text(text = "Create account".uppercase())
         }
     }
 }
