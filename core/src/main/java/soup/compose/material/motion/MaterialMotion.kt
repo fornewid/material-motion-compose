@@ -24,7 +24,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -87,33 +86,31 @@ fun <S> Transition<S>.MaterialMotion(
         },
         contentAlignment = contentAlignment,
     ) { currentState ->
-        val extraModifier: Modifier
+        val scaleModifier: Modifier
         if (currentState == targetState) {
-            val transitionExtra = remember(motionSpec, forward) {
+            val scaleTransition = remember(motionSpec, forward) {
                 motionSpec.enter.transitionExtra(forward)
             }
-            extraModifier = if (transitionExtra == TransitionExtra.None) {
+            scaleModifier = if (scaleTransition == ScaleTransition.None) {
                 Modifier
             } else {
-                with(transitionExtra) {
-                    val extra by transition.animateExtra()
-                    modifierByExtra(extra)
+                with(scaleTransition) {
+                    Modifier.animateModifier(transition)
                 }
             }
         } else {
-            val transitionExtra = remember(motionSpec, forward) {
+            val scaleTransition = remember(motionSpec, forward) {
                 motionSpec.exit.transitionExtra(forward)
             }
-            extraModifier = if (transitionExtra == TransitionExtra.None) {
+            scaleModifier = if (scaleTransition == ScaleTransition.None) {
                 Modifier
             } else {
-                with(transitionExtra) {
-                    val extra by transition.animateExtra()
-                    modifierByExtra(extra)
+                with(scaleTransition) {
+                    Modifier.animateModifier(transition)
                 }
             }
         }
-        Box(modifier = Modifier.then(extraModifier)) {
+        Box(modifier = Modifier.then(scaleModifier)) {
             content(currentState)
         }
     }
