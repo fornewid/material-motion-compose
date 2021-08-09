@@ -65,8 +65,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                group = 'com.github.fornewid'
-                artifactId = 'material-motion-compose'
+                groupId = 'com.github.fornewid.material-motion-compose'
+                artifactId = 'core'
                 version = '0.6.2'
             }
         }
