@@ -22,53 +22,23 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.spring
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
 
 @ExperimentalAnimationApi
-class TransitionExtra<E>(
-    val animateExtra: @Composable Transition<EnterExitState>.() -> State<E>,
-    val modifierByExtra: (E) -> Modifier,
+@Immutable
+data class ScaleTransition(
+    val initialScale: Float,
+    val targetScale: Float = 1f,
+    val animationSpec: FiniteAnimationSpec<Float>,
 ) {
-    companion object {
-        val None: TransitionExtra<Float> = TransitionExtra(
-            animateExtra = { remember { mutableStateOf(1f) } },
-            modifierByExtra = { Modifier }
-        )
-    }
-}
 
-@ExperimentalAnimationApi
-fun scaleIn(
-    initialScale: Float,
-    animationSpec: FiniteAnimationSpec<Float>,
-): TransitionExtra<Float> = scaleTransitionExtra(
-    initialScale = initialScale,
-    animationSpec = animationSpec
-)
-
-@ExperimentalAnimationApi
-fun scaleOut(
-    targetScale: Float,
-    animationSpec: FiniteAnimationSpec<Float>,
-): TransitionExtra<Float> = scaleTransitionExtra(
-    initialScale = targetScale,
-    animationSpec = animationSpec
-)
-
-@ExperimentalAnimationApi
-private fun scaleTransitionExtra(
-    initialScale: Float,
-    targetScale: Float = 1f,
-    animationSpec: FiniteAnimationSpec<Float> = spring(),
-): TransitionExtra<Float> = TransitionExtra(
-    animateExtra = {
-        animateFloat(
+    fun Modifier.animateModifier(transition: Transition<EnterExitState>): Modifier = composed {
+        val scale by transition.animateFloat(
             transitionSpec = { animationSpec },
             label = "scale"
         ) {
@@ -78,11 +48,34 @@ private fun scaleTransitionExtra(
                 EnterExitState.PostExit -> initialScale
             }
         }
-    },
-    modifierByExtra = { scale ->
         Modifier.graphicsLayer {
             scaleX = scale
             scaleY = scale
         }
     }
+
+    companion object {
+        val None: ScaleTransition = ScaleTransition(
+            initialScale = 1f,
+            animationSpec = tween(0)
+        )
+    }
+}
+
+@ExperimentalAnimationApi
+fun scaleIn(
+    initialScale: Float,
+    animationSpec: FiniteAnimationSpec<Float>,
+): ScaleTransition = ScaleTransition(
+    initialScale = initialScale,
+    animationSpec = animationSpec
+)
+
+@ExperimentalAnimationApi
+fun scaleOut(
+    targetScale: Float,
+    animationSpec: FiniteAnimationSpec<Float>,
+): ScaleTransition = ScaleTransition(
+    initialScale = targetScale,
+    animationSpec = animationSpec
 )

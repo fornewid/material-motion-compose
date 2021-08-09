@@ -20,9 +20,11 @@ package soup.compose.material.motion
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.Immutable
 
 @ExperimentalAnimationApi
-class MotionSpec(
+@Immutable
+data class MotionSpec(
     val enter: EnterMotionSpec,
     val exit: ExitMotionSpec,
 )
@@ -31,9 +33,10 @@ class MotionSpec(
 infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
 
 @ExperimentalAnimationApi
-class EnterMotionSpec(
+@Immutable
+data class EnterMotionSpec(
     val transition: (forward: Boolean) -> EnterTransition,
-    val transitionExtra: (forward: Boolean) -> TransitionExtra<Float> = { TransitionExtra.None },
+    val transitionExtra: (forward: Boolean) -> ScaleTransition = { ScaleTransition.None },
 ) {
     companion object {
         val None: EnterMotionSpec = EnterMotionSpec(transition = { EnterTransition.None })
@@ -41,9 +44,10 @@ class EnterMotionSpec(
 }
 
 @ExperimentalAnimationApi
-class ExitMotionSpec(
+@Immutable
+data class ExitMotionSpec(
     val transition: (forward: Boolean) -> ExitTransition,
-    val transitionExtra: (forward: Boolean) -> TransitionExtra<Float> = { TransitionExtra.None },
+    val transitionExtra: (forward: Boolean) -> ScaleTransition = { ScaleTransition.None },
 ) {
     companion object {
         val None: ExitMotionSpec = ExitMotionSpec(transition = { ExitTransition.None })
