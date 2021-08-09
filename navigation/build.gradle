@@ -4,6 +4,7 @@ import dependencies.Versions
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -20,6 +21,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
+        buildConfig false
         compose true
     }
     composeOptions {
@@ -48,7 +50,6 @@ dependencies {
 
     api Libs.Compose.navigation
     implementation Libs.Compose.activity
-
     implementation Libs.Compose.animation
     implementation Libs.Compose.foundation
     implementation Libs.Compose.material
@@ -62,4 +63,17 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Test.rules
     androidTestImplementation Libs.AndroidX.Test.runner
     androidTestImplementation Libs.AndroidX.Test.truth
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.fornewid.material-motion-compose'
+                artifactId = 'navigation'
+                version = '0.6.2'
+            }
+        }
+    }
 }
