@@ -2,8 +2,6 @@
 
 <a href="https://jitpack.io/#fornewid/material-motion-compose"><img src="https://jitpack.io/v/fornewid/material-motion-compose.svg"/></a>
 
-Material Motion Core is a Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android.
-
 ## Installation
 
 ```gradle
