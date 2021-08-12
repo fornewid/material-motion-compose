@@ -34,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.materialFadeThrough
 import soup.compose.material.motion.materialSharedAxisY
-import soup.compose.material.motion.rememberSlideDistance
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.demo.LibraryState.Companion.Saver
 
@@ -121,7 +120,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         },
     ) { innerPadding ->
         val motionSpec = when (state.motionSpecType) {
-            MotionSpecType.SharedAxis -> materialSharedAxisY(rememberSlideDistance())
+            MotionSpecType.SharedAxis -> materialSharedAxisY()
             MotionSpecType.FadeThrough -> materialFadeThrough()
         }
         MaterialMotion(

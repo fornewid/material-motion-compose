@@ -29,7 +29,6 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
@@ -50,12 +49,16 @@ private val Int.ForIncoming: Int
  *
  * @param slideDistance Value to the slide distance dimension, 30dp by default.
  */
+@Deprecated(
+    message = "Replaced to Dp",
+    replaceWith = ReplaceWith(
+        "slideDistance",
+        "soup.compose.material.motion.DefaultSlideDistance"
+    ),
+)
 @Composable
-fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Int {
-    val density = LocalDensity.current
-    return remember(density) {
-        with(density) { slideDistance.roundToPx() }
-    }
+fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Dp {
+    return slideDistance
 }
 
 /**
@@ -66,7 +69,7 @@ fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Int {
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisX(
-    slideDistance: Int,
+    slideDistance: Dp = DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisXIn(
     slideDistance = slideDistance,
@@ -84,13 +87,14 @@ fun materialSharedAxisX(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisXIn(
-    slideDistance: Int,
+    slideDistance: Dp = DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = { forward ->
+    transition = { forward, density ->
+        val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideInHorizontally(
             initialOffsetX = {
-                if (forward) slideDistance else -slideDistance
+                if (forward) slideDistancePx else -slideDistancePx
             },
             animationSpec = tween(
                 durationMillis = durationMillis,
@@ -114,13 +118,14 @@ fun materialSharedAxisXIn(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisXOut(
-    slideDistance: Int,
+    slideDistance: Dp = DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = { forward ->
+    transition = { forward, density ->
+        val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideOutHorizontally(
             targetOffsetX = {
-                if (forward) -slideDistance else slideDistance
+                if (forward) -slideDistancePx else slideDistancePx
             },
             animationSpec = tween(
                 durationMillis = durationMillis,
@@ -144,7 +149,7 @@ fun materialSharedAxisXOut(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisY(
-    slideDistance: Int,
+    slideDistance: Dp = DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisYIn(
     slideDistance = slideDistance,
@@ -162,13 +167,14 @@ fun materialSharedAxisY(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisYIn(
-    slideDistance: Int,
+    slideDistance: Dp = DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = { forward ->
+    transition = { forward, density ->
+        val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideInVertically(
             initialOffsetY = {
-                if (forward) slideDistance else -slideDistance
+                if (forward) slideDistancePx else -slideDistancePx
             },
             animationSpec = tween(
                 durationMillis = durationMillis,
@@ -192,13 +198,14 @@ fun materialSharedAxisYIn(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisYOut(
-    slideDistance: Int,
+    slideDistance: Dp = DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = { forward ->
+    transition = { forward, density ->
+        val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideOutVertically(
             targetOffsetY = {
-                if (forward) -slideDistance else slideDistance
+                if (forward) -slideDistancePx else slideDistancePx
             },
             animationSpec = tween(
                 durationMillis = durationMillis,
@@ -237,7 +244,7 @@ fun materialSharedAxisZ(
 fun materialSharedAxisZIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = {
+    transition = { _, _ ->
         fadeIn(
             animationSpec = tween(
                 durationMillis = durationMillis.ForIncoming,
@@ -266,7 +273,7 @@ fun materialSharedAxisZIn(
 fun materialSharedAxisZOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = {
+    transition = { _, _ ->
         fadeOut(
             animationSpec = tween(
                 durationMillis = durationMillis.ForOutgoing,
@@ -309,7 +316,7 @@ fun <T> MaterialSharedAxisX(
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialSharedAxisX(rememberSlideDistance(slideDistance)),
+        motionSpec = materialSharedAxisX(slideDistance),
         modifier = modifier,
         pop = forward.not(),
         content = content
@@ -339,7 +346,7 @@ fun <T> MaterialSharedAxisY(
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialSharedAxisY(rememberSlideDistance(slideDistance)),
+        motionSpec = materialSharedAxisY(slideDistance),
         modifier = modifier,
         pop = forward.not(),
         content = content

@@ -21,6 +21,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.unit.Density
 
 @ExperimentalAnimationApi
 @Immutable
@@ -35,21 +36,21 @@ infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
 @ExperimentalAnimationApi
 @Immutable
 data class EnterMotionSpec(
-    val transition: (forward: Boolean) -> EnterTransition,
+    val transition: (forward: Boolean, density: Density) -> EnterTransition,
     val transitionExtra: (forward: Boolean) -> ScaleTransition = { ScaleTransition.None },
 ) {
     companion object {
-        val None: EnterMotionSpec = EnterMotionSpec(transition = { EnterTransition.None })
+        val None: EnterMotionSpec = EnterMotionSpec(transition = { _, _ -> EnterTransition.None })
     }
 }
 
 @ExperimentalAnimationApi
 @Immutable
 data class ExitMotionSpec(
-    val transition: (forward: Boolean) -> ExitTransition,
+    val transition: (forward: Boolean, density: Density) -> ExitTransition,
     val transitionExtra: (forward: Boolean) -> ScaleTransition = { ScaleTransition.None },
 ) {
     companion object {
-        val None: ExitMotionSpec = ExitMotionSpec(transition = { ExitTransition.None })
+        val None: ExitMotionSpec = ExitMotionSpec(transition = { _, _ -> ExitTransition.None })
     }
 }

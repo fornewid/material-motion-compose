@@ -42,7 +42,6 @@ import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.materialSharedAxisX
 import soup.compose.material.motion.materialSharedAxisY
 import soup.compose.material.motion.materialSharedAxisZ
-import soup.compose.material.motion.rememberSlideDistance
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
@@ -72,8 +71,8 @@ fun MaterialSharedAxisScreen(upPress: () -> Unit) {
         MaterialMotion(
             targetState = forward,
             motionSpec = when (selectedAxis) {
-                Axis.X -> materialSharedAxisX(slideDistance = rememberSlideDistance())
-                Axis.Y -> materialSharedAxisY(slideDistance = rememberSlideDistance())
+                Axis.X -> materialSharedAxisX()
+                Axis.Y -> materialSharedAxisY()
                 Axis.Z -> materialSharedAxisZ()
             },
             modifier = Modifier.padding(innerPadding),
