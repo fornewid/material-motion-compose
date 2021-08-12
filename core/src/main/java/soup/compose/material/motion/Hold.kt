@@ -32,7 +32,7 @@ import androidx.compose.animation.fadeOut
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = {
+    transition = { _, _ ->
         fadeIn(
             initialAlpha = 1f,
             animationSpec = tween(
@@ -52,7 +52,7 @@ fun holdIn(
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = {
+    transition = { _, _ ->
         fadeOut(
             // TODO: Refer https://issuetracker.google.com/issues/192993290
             // targetAlpha = 1f,

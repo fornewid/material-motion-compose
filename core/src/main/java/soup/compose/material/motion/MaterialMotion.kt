@@ -27,6 +27,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 
 /**
  * [MaterialMotion] allows to switch between two layouts with a material motion animation.
@@ -75,10 +77,11 @@ fun <S> Transition<S>.MaterialMotion(
     content: @Composable (targetState: S) -> Unit,
 ) {
     val forward: Boolean = pop.not()
+    val density: Density = LocalDensity.current
     AnimatedContent(
         modifier = modifier,
         transitionSpec = {
-            (motionSpec.enter.transition(forward) with motionSpec.exit.transition(forward))
+            (motionSpec.enter.transition(forward, density) with motionSpec.exit.transition(forward, density))
                 .apply {
                     // Show forward contents over the backward contents.
                     targetContentZIndex = if (forward) 0.1f else 0f

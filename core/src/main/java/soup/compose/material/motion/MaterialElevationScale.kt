@@ -37,7 +37,7 @@ fun materialElevationScaleIn(
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = {
+    transition = { _, _ ->
         fadeIn(
             initialAlpha = initialAlpha,
             animationSpec = tween(
@@ -71,7 +71,7 @@ fun materialElevationScaleOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec {
     return ExitMotionSpec(
-        transition = {
+        transition = { _, _ ->
             fadeOut(
                 targetAlpha = targetAlpha,
                 animationSpec = tween(

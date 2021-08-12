@@ -33,8 +33,8 @@ MaterialMotionNavHost(navController, startDestination = "first") {
   }
   
   composable("second",
-    enterMotionSpec = { _, _ -> materialSharedAxisXIn(rememberSlideDistance()) },
-    exitMotionSpec = { _, _ -> materialSharedAxisXOut(rememberSlideDistance()) },
+    enterMotionSpec = { _, _ -> materialSharedAxisXIn() },
+    exitMotionSpec = { _, _ -> materialSharedAxisXOut() },
   ) {
     // second composable
   }
