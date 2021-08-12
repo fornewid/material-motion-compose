@@ -16,6 +16,7 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.runner.RunWith
 import soup.compose.material.motion.MotionConstants.motionDurationLong1
@@ -30,11 +31,11 @@ class MaterialSharedAxisXTest : MaterialMotionTest() {
     override fun motionSpec(durationMillis: Int?): MotionSpec {
         return if (durationMillis != null) {
             materialSharedAxisX(
-                slideDistance = 30,
+                slideDistance = 30.dp,
                 durationMillis = durationMillis
             )
         } else {
-            materialSharedAxisX(slideDistance = 30)
+            materialSharedAxisX(slideDistance = 30.dp)
         }
     }
 }
