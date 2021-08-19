@@ -23,6 +23,7 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -66,10 +67,7 @@ fun materialFadeThroughIn(
                 delayMillis = durationMillis.ForOutgoing,
                 easing = LinearOutSlowInEasing
             )
-        )
-    },
-    transitionExtra = {
-        scaleIn(
+        ) + scaleIn(
             initialScale = initialScale,
             animationSpec = tween(
                 durationMillis = durationMillis.ForIncoming,
