@@ -37,7 +37,6 @@ infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
 @Immutable
 data class EnterMotionSpec(
     val transition: (forward: Boolean, density: Density) -> EnterTransition,
-    val transitionExtra: (forward: Boolean) -> ScaleTransition = { ScaleTransition.None },
 ) {
     companion object {
         val None: EnterMotionSpec = EnterMotionSpec(transition = { _, _ -> EnterTransition.None })
@@ -48,7 +47,6 @@ data class EnterMotionSpec(
 @Immutable
 data class ExitMotionSpec(
     val transition: (forward: Boolean, density: Density) -> ExitTransition,
-    val transitionExtra: (forward: Boolean) -> ScaleTransition = { ScaleTransition.None },
 ) {
     companion object {
         val None: ExitMotionSpec = ExitMotionSpec(transition = { _, _ -> ExitTransition.None })

@@ -22,9 +22,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.with
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -89,33 +87,7 @@ fun <S> Transition<S>.MaterialMotion(
         },
         contentAlignment = contentAlignment,
     ) { currentState ->
-        val scaleModifier: Modifier
-        if (currentState == targetState) {
-            val scaleTransition = remember(motionSpec, forward) {
-                motionSpec.enter.transitionExtra(forward)
-            }
-            scaleModifier = if (scaleTransition == ScaleTransition.None) {
-                Modifier
-            } else {
-                with(scaleTransition) {
-                    Modifier.animateModifier(transition)
-                }
-            }
-        } else {
-            val scaleTransition = remember(motionSpec, forward) {
-                motionSpec.exit.transitionExtra(forward)
-            }
-            scaleModifier = if (scaleTransition == ScaleTransition.None) {
-                Modifier
-            } else {
-                with(scaleTransition) {
-                    Modifier.animateModifier(transition)
-                }
-            }
-        }
-        Box(modifier = Modifier.then(scaleModifier)) {
-            content(currentState)
-        }
+        content(currentState)
     }
 }
 
