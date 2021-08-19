@@ -2,9 +2,8 @@ package dependencies
 
 object Versions {
     const val minSdk = 21
-    const val targetSdk = 30
-    const val compileSdk = 30
-    const val buildTools = "30.0.3"
+    const val targetSdk = 31
+    const val compileSdk = 31
 }
 
 object Libs {
@@ -39,12 +38,10 @@ object Libs {
     }
 
     object AndroidX {
-        const val appcompat = "androidx.appcompat:appcompat:1.3.0"
-        const val core_ktx = "androidx.core:core-ktx:1.5.0"
-        const val lifecycle_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
 
         object Test {
-            private const val version = "1.3.0"
+            private const val version = "1.4.0"
+            const val core = "androidx.test:core:$version"
             const val rules = "androidx.test:rules:$version"
             const val runner = "androidx.test:runner:$version"
 
