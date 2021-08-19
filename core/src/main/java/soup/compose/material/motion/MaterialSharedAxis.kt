@@ -24,6 +24,8 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -244,17 +246,14 @@ fun materialSharedAxisZ(
 fun materialSharedAxisZIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = { _, _ ->
+    transition = { forward, _ ->
         fadeIn(
             animationSpec = tween(
                 durationMillis = durationMillis.ForIncoming,
                 delayMillis = durationMillis.ForOutgoing,
                 easing = LinearOutSlowInEasing
             )
-        )
-    },
-    transitionExtra = { forward ->
-        scaleIn(
+        ) + scaleIn(
             initialScale = if (forward) 0.8f else 1.1f,
             animationSpec = tween(
                 durationMillis = durationMillis,
@@ -273,17 +272,14 @@ fun materialSharedAxisZIn(
 fun materialSharedAxisZOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = { _, _ ->
+    transition = { forward, _ ->
         fadeOut(
             animationSpec = tween(
                 durationMillis = durationMillis.ForOutgoing,
                 delayMillis = 0,
                 easing = FastOutLinearInEasing
             )
-        )
-    },
-    transitionExtra = { forward ->
-        scaleOut(
+        ) + scaleOut(
             targetScale = if (forward) 1.1f else 0.8f,
             animationSpec = tween(
                 durationMillis = durationMillis,

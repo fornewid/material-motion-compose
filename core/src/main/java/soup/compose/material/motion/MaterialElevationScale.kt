@@ -23,6 +23,8 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 
 /**
  * [materialElevationScaleIn] allows to switch a layout with elevation scale enter transition.
@@ -44,10 +46,7 @@ fun materialElevationScaleIn(
                 durationMillis = durationMillis,
                 easing = LinearEasing
             )
-        )
-    },
-    transitionExtra = {
-        scaleIn(
+        ) + scaleIn(
             initialScale = initialScale,
             animationSpec = tween(
                 durationMillis = durationMillis,
@@ -78,10 +77,7 @@ fun materialElevationScaleOut(
                     durationMillis = durationMillis,
                     easing = LinearEasing
                 )
-            )
-        },
-        transitionExtra = {
-            scaleOut(
+            ) + scaleOut(
                 targetScale = targetScale,
                 animationSpec = tween(
                     durationMillis = durationMillis,
