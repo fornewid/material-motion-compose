@@ -58,11 +58,12 @@ dependencies {
     // Test dependencies
     // ======================
 
-    androidTestImplementation Libs.Compose.ui_test_junit4
-    androidTestImplementation Libs.Compose.ui_test_manifest
+    androidTestImplementation Libs.AndroidX.Test.core
     androidTestImplementation Libs.AndroidX.Test.rules
     androidTestImplementation Libs.AndroidX.Test.runner
     androidTestImplementation Libs.AndroidX.Test.truth
+    androidTestImplementation Libs.Compose.ui_test_junit4
+    debugImplementation Libs.Compose.ui_test_manifest
 }
 
 afterEvaluate {
