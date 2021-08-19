@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.Card
@@ -210,15 +211,21 @@ fun AlbumTrackItem(track: MusicData.Track) {
             .requiredHeight(56.dp)
             .padding(horizontal = 16.dp)
     ) {
-        Image(
-            painter = painterResource(R.drawable.ic_volume_up_black_24dp),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.CenterVertically),
-            contentScale = ContentScale.Crop,
-            colorFilter = ColorFilter.tint(
-                LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+        if (track.playing) {
+            Image(
+                painter = painterResource(R.drawable.ic_volume_up_black_24dp),
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.CenterVertically),
+                contentScale = ContentScale.Crop,
+                colorFilter = ColorFilter.tint(
+                    LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                )
             )
-        )
+        } else {
+            Spacer(
+                modifier = Modifier.requiredSize(24.dp),
+            )
+        }
         Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
             text = track.track.toString(),
