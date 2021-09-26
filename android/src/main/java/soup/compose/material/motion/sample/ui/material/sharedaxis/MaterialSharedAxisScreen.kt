@@ -56,8 +56,12 @@ private enum class Axis {
 fun MaterialSharedAxisScreen(upPress: () -> Unit) {
     val (selectedAxis, onAxisSelected) = remember { mutableStateOf(Axis.X) }
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    if (forward) {
-        BackHandler { onForwardChanged(false) }
+    BackHandler {
+        if (forward) {
+            onForwardChanged(false)
+        } else {
+            upPress()
+        }
     }
     DefaultScaffold(
         upPress = upPress,
