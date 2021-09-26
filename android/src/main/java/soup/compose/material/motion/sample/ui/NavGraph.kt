@@ -15,7 +15,6 @@
  */
 package soup.compose.material.motion.sample.ui
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -77,9 +76,6 @@ fun NavGraph(
         route = it.route
     }
     val destination = Destination.of(route)
-    if (destination.root.not()) {
-        BackHandler { upPress() }
-    }
     val saveableStateHolder = rememberSaveableStateHolder()
     MaterialSharedAxisZ(
         targetState = destination,
@@ -101,7 +97,7 @@ fun NavGraph(
                     }
                 }
                 Demo -> {
-                    DemoScreen()
+                    DemoScreen(upPress)
                 }
 
                 /* Material transition patterns */

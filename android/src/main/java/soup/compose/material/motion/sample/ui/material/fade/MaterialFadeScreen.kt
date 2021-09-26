@@ -16,6 +16,7 @@
 package soup.compose.material.motion.sample.ui.material.fade
 
 import android.content.res.Configuration
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,6 +41,9 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MaterialFadeScreen(upPress: () -> Unit) {
+    BackHandler {
+        upPress()
+    }
     DefaultScaffold(upPress = upPress) { innerPadding ->
         val (visible, onVisibleChanged) = remember { mutableStateOf(true) }
         Box(
