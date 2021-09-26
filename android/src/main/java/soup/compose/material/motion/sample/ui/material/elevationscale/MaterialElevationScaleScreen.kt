@@ -39,8 +39,12 @@ import soup.compose.material.motion.with
 @Composable
 fun MaterialElevationScaleScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    if (forward) {
-        BackHandler { onForwardChanged(false) }
+    BackHandler {
+        if (forward) {
+            onForwardChanged(false)
+        } else {
+            upPress()
+        }
     }
     DefaultScaffold(
         upPress = upPress,

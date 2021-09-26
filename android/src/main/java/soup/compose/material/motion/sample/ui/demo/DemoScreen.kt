@@ -33,7 +33,7 @@ import soup.compose.material.motion.translateYOut
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun DemoScreen() {
+fun DemoScreen(upPress: () -> Unit) {
     val navController = rememberMaterialMotionNavController()
     MaterialMotionNavHost(navController, startDestination = "library") {
         composable(
@@ -41,6 +41,9 @@ fun DemoScreen() {
             enterMotionSpec = { _, _ -> holdIn() },
             exitMotionSpec = { _, _ -> holdOut() },
         ) {
+            BackHandler {
+                upPress()
+            }
             LibraryScreen(
                 onItemClick = {
                     navController.navigate("album/${it.id}")
@@ -53,7 +56,6 @@ fun DemoScreen() {
             enterMotionSpec = { _, _ -> translateYIn({ it }) },
             exitMotionSpec = { _, _ -> translateYOut({ it }) },
         ) { backStackEntry ->
-            BackHandler { navController.popBackStack() }
             val currentId = backStackEntry.arguments?.getLong("albumId")
             val album = MusicData.albums.first { it.id == currentId }
             AlbumScreen(
@@ -71,6 +73,6 @@ fun DemoScreen() {
 @Composable
 private fun DefaultPreview() {
     SampleTheme {
-        DemoScreen()
+        DemoScreen(upPress = {})
     }
 }
