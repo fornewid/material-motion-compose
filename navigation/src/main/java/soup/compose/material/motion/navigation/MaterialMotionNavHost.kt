@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
@@ -74,6 +75,7 @@ fun MaterialMotionNavHost(
     navController: NavHostController,
     startDestination: String,
     modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
     enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
         materialSharedAxisZIn()
@@ -91,6 +93,7 @@ fun MaterialMotionNavHost(
             navController.createGraph(startDestination, route, builder)
         },
         modifier,
+        contentAlignment,
         enterMotionSpec,
         exitMotionSpec,
         popEnterMotionSpec,
@@ -118,6 +121,7 @@ public fun MaterialMotionNavHost(
     navController: NavHostController,
     graph: NavGraph,
     modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.Center,
     enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
         materialSharedAxisZIn()
     },
@@ -227,6 +231,7 @@ public fun MaterialMotionNavHost(
             motionSpec = finalEnter with finalExit,
             modifier = modifier,
             pop = composeNavigator.isPop.value,
+            contentAlignment = contentAlignment
         ) {
             val currentEntry = transitionsInProgress.lastOrNull { entry ->
                 it == entry.id
