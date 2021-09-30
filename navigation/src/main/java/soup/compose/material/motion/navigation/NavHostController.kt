@@ -18,17 +18,16 @@ package soup.compose.material.motion.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.Navigator
 import androidx.navigation.compose.rememberNavController
 
 @ExperimentalAnimationApi
 @Composable
-fun rememberMaterialMotionNavController(): NavHostController {
-    return rememberNavController().apply {
-        navigatorProvider.addNavigator(
-            remember(this) {
-                MaterialMotionComposeNavigator()
-            }
-        )
-    }
+fun rememberMaterialMotionNavController(
+    vararg navigators: Navigator<out NavDestination>,
+): NavHostController {
+    val navigator = remember { MaterialMotionComposeNavigator() }
+    return rememberNavController(navigator, *navigators)
 }
