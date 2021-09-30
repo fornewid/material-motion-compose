@@ -77,14 +77,14 @@ fun MaterialMotionNavHost(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
-    enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
+    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = { _, _ ->
         materialSharedAxisZIn()
     },
-    exitMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec = { _, _ ->
+    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = { _, _ ->
         materialSharedAxisZOut()
     },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
+    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = enterMotionSpec,
+    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     MaterialMotionNavHost(
@@ -122,14 +122,14 @@ public fun MaterialMotionNavHost(
     graph: NavGraph,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
-    enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
+    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = { _, _ ->
         materialSharedAxisZIn()
     },
-    exitMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec = { _, _ ->
+    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = { _, _ ->
         materialSharedAxisZOut()
     },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
+    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = enterMotionSpec,
+    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = exitMotionSpec,
 ) {
     enterMotionSpecs[graph.route] = enterMotionSpec
     exitMotionSpecs[graph.route] = exitMotionSpec
@@ -262,19 +262,19 @@ public fun MaterialMotionNavHost(
 
 @ExperimentalAnimationApi
 internal val enterMotionSpecs =
-    mutableMapOf<String?, (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec>()
+    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)?>()
 
 @ExperimentalAnimationApi
 internal val exitMotionSpecs =
-    mutableMapOf<String?, (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec>()
+    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)?>()
 
 @ExperimentalAnimationApi
 internal val popEnterMotionSpecs =
-    mutableMapOf<String?, (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec>()
+    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)?>()
 
 @ExperimentalAnimationApi
 internal val popExitMotionSpecs =
-    mutableMapOf<String?, (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec>()
+    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)?>()
 
 @Composable
 private fun MutableList<NavBackStackEntry>.PopulateVisibleList(
