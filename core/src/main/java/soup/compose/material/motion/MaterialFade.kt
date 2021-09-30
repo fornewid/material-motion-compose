@@ -48,11 +48,11 @@ private fun materialFadeIn(
         easing = LinearEasing
     )
 ) + scaleIn(
-    initialScale = 0.8f,
     animationSpec = tween(
         durationMillis = durationMillis,
         easing = FastOutSlowInEasing
-    )
+    ),
+    initialScale = 0.8f
 )
 
 /**

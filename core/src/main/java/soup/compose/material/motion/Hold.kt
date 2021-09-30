@@ -34,11 +34,11 @@ fun holdIn(
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         fadeIn(
-            initialAlpha = 1f,
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = LinearEasing
-            )
+            ),
+            initialAlpha = 1f,
         )
     }
 )
@@ -54,13 +54,13 @@ fun holdOut(
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         fadeOut(
-            // TODO: Refer https://issuetracker.google.com/issues/192993290
-            // targetAlpha = 1f,
-            targetAlpha = 0.999f,
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = LinearEasing
-            )
+            ),
+            // TODO: Refer https://issuetracker.google.com/issues/192993290
+            // targetAlpha = 1f
+            targetAlpha = 0.999f
         )
     }
 )
