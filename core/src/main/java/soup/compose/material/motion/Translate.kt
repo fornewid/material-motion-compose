@@ -34,8 +34,8 @@ fun translateXIn(
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         slideInHorizontally(
-            initialOffsetX = initialOffsetX,
-            animationSpec = tween(durationMillis)
+            animationSpec = tween(durationMillis),
+            initialOffsetX = initialOffsetX
         )
     }
 )
@@ -50,8 +50,8 @@ fun translateXOut(
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         slideOutHorizontally(
-            targetOffsetX = targetOffsetX,
-            animationSpec = tween(durationMillis)
+            animationSpec = tween(durationMillis),
+            targetOffsetX = targetOffsetX
         )
     }
 )
@@ -66,8 +66,8 @@ fun translateYIn(
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         slideInVertically(
-            initialOffsetY = initialOffsetY,
-            animationSpec = tween(durationMillis)
+            animationSpec = tween(durationMillis),
+            initialOffsetY = initialOffsetY
         )
     }
 )
@@ -82,8 +82,8 @@ fun translateYOut(
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         slideOutVertically(
-            targetOffsetY = targetOffsetY,
-            animationSpec = tween(durationMillis)
+            animationSpec = tween(durationMillis),
+            targetOffsetY = targetOffsetY
         )
     }
 )

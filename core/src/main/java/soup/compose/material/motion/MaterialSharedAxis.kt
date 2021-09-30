@@ -95,13 +95,13 @@ fun materialSharedAxisXIn(
     transition = { forward, density ->
         val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideInHorizontally(
-            initialOffsetX = {
-                if (forward) slideDistancePx else -slideDistancePx
-            },
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
-            )
+            ),
+            initialOffsetX = {
+                if (forward) slideDistancePx else -slideDistancePx
+            }
         ) + fadeIn(
             animationSpec = tween(
                 durationMillis = durationMillis.ForIncoming,
@@ -126,13 +126,13 @@ fun materialSharedAxisXOut(
     transition = { forward, density ->
         val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideOutHorizontally(
-            targetOffsetX = {
-                if (forward) -slideDistancePx else slideDistancePx
-            },
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
-            )
+            ),
+            targetOffsetX = {
+                if (forward) -slideDistancePx else slideDistancePx
+            }
         ) + fadeOut(
             animationSpec = tween(
                 durationMillis = durationMillis.ForOutgoing,
@@ -175,13 +175,13 @@ fun materialSharedAxisYIn(
     transition = { forward, density ->
         val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideInVertically(
-            initialOffsetY = {
-                if (forward) slideDistancePx else -slideDistancePx
-            },
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
-            )
+            ),
+            initialOffsetY = {
+                if (forward) slideDistancePx else -slideDistancePx
+            }
         ) + fadeIn(
             animationSpec = tween(
                 durationMillis = durationMillis.ForIncoming,
@@ -206,13 +206,13 @@ fun materialSharedAxisYOut(
     transition = { forward, density ->
         val slideDistancePx = with(density) { slideDistance.roundToPx() }
         slideOutVertically(
-            targetOffsetY = {
-                if (forward) -slideDistancePx else slideDistancePx
-            },
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
-            )
+            ),
+            targetOffsetY = {
+                if (forward) -slideDistancePx else slideDistancePx
+            }
         ) + fadeOut(
             animationSpec = tween(
                 durationMillis = durationMillis.ForOutgoing,
@@ -254,11 +254,11 @@ fun materialSharedAxisZIn(
                 easing = LinearOutSlowInEasing
             )
         ) + scaleIn(
-            initialScale = if (forward) 0.8f else 1.1f,
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
-            )
+            ),
+            initialScale = if (forward) 0.8f else 1.1f
         )
     }
 )
@@ -280,11 +280,11 @@ fun materialSharedAxisZOut(
                 easing = FastOutLinearInEasing
             )
         ) + scaleOut(
-            targetScale = if (forward) 1.1f else 0.8f,
             animationSpec = tween(
                 durationMillis = durationMillis,
                 easing = FastOutSlowInEasing
-            )
+            ),
+            targetScale = if (forward) 1.1f else 0.8f
         )
     }
 )

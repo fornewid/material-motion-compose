@@ -68,12 +68,12 @@ fun materialFadeThroughIn(
                 easing = LinearOutSlowInEasing
             )
         ) + scaleIn(
-            initialScale = initialScale,
             animationSpec = tween(
                 durationMillis = durationMillis.ForIncoming,
                 delayMillis = durationMillis.ForOutgoing,
                 easing = LinearOutSlowInEasing
-            )
+            ),
+            initialScale = initialScale
         )
     }
 )
