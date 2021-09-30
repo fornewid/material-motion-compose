@@ -21,7 +21,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
 import soup.compose.material.motion.holdIn
 import soup.compose.material.motion.holdOut
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
