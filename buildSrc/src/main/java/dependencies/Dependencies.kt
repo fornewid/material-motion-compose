@@ -11,13 +11,13 @@ object Libs {
     const val material = "com.google.android.material:material:1.4.0"
 
     object Kotlin {
-        private const val version = "1.5.30"
+        private const val version = "1.5.31"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
     object Compose {
-        const val version = "1.0.3"
+        const val version = "1.0.4"
         const val activity = "androidx.activity:activity-compose:1.3.1"
         const val constraintlayout =
             "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
