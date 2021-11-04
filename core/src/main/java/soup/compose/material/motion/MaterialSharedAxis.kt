@@ -32,7 +32,6 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -45,23 +44,6 @@ private val Int.ForOutgoing: Int
 
 private val Int.ForIncoming: Int
     get() = this - this.ForOutgoing
-
-/**
- * Returns the provided [Dp] as an [Int] value by the [LocalDensity].
- *
- * @param slideDistance Value to the slide distance dimension, 30dp by default.
- */
-@Deprecated(
-    message = "Replaced to Dp",
-    replaceWith = ReplaceWith(
-        "slideDistance",
-        "soup.compose.material.motion.DefaultSlideDistance"
-    ),
-)
-@Composable
-fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Dp {
-    return slideDistance
-}
 
 /**
  * [materialSharedAxisX] allows to switch a layout with shared X-axis transition.
