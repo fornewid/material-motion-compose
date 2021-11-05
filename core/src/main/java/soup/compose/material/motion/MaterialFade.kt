@@ -18,55 +18,12 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
-
-private const val DefaultFadeEndThresholdEnter = 0.3f
-
-private val Int.ForFade: Int
-    get() = (this * DefaultFadeEndThresholdEnter).toInt()
-
-/**
- * [materialFadeIn] allows to switch a layout with a fade-in animation.
- */
-@ExperimentalAnimationApi
-private fun materialFadeIn(
-    durationMillis: Int = MotionConstants.motionDurationShort2,
-): EnterTransition = fadeIn(
-    animationSpec = tween(
-        durationMillis = durationMillis.ForFade,
-        easing = LinearEasing
-    )
-) + scaleIn(
-    animationSpec = tween(
-        durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
-    ),
-    initialScale = 0.8f
-)
-
-/**
- * [materialFadeOut] allows to switch a layout with a fade-out animation.
- */
-@ExperimentalAnimationApi
-private fun materialFadeOut(
-    durationMillis: Int = MotionConstants.motionDurationShort1,
-): ExitTransition = fadeOut(
-    animationSpec = tween(
-        durationMillis = durationMillis,
-        easing = LinearEasing
-    )
-)
+import soup.compose.material.motion.animation.materialFadeIn
+import soup.compose.material.motion.animation.materialFadeOut
 
 /**
  * [MaterialFade] animates the appearance and disappearance of its content, as [visible] value changes.

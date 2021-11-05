@@ -15,9 +15,19 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.material.motion
+package soup.compose.material.motion.animation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import soup.compose.material.motion.MotionConstants
 
 /**
  * [materialElevationScaleIn] allows to switch a layout with elevation scale enter transition.
@@ -31,14 +41,18 @@ fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): EnterMotionSpec = EnterMotionSpec(
-    transition = { _, _ ->
-        soup.compose.material.motion.animation.materialElevationScaleIn(
-            initialAlpha = initialAlpha,
-            initialScale = initialScale,
-            durationMillis = durationMillis
-        )
-    }
+): EnterTransition = fadeIn(
+    animationSpec = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    ),
+    initialAlpha = initialAlpha
+) + scaleIn(
+    animationSpec = tween(
+        durationMillis = durationMillis,
+        easing = FastOutSlowInEasing
+    ),
+    initialScale = initialScale
 )
 
 /**
@@ -53,14 +67,16 @@ fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): ExitMotionSpec {
-    return ExitMotionSpec(
-        transition = { _, _ ->
-            soup.compose.material.motion.animation.materialElevationScaleOut(
-                targetAlpha = targetAlpha,
-                targetScale = targetScale,
-                durationMillis = durationMillis,
-            )
-        }
-    )
-}
+): ExitTransition = fadeOut(
+    animationSpec = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    ),
+    targetAlpha = targetAlpha
+) + scaleOut(
+    animationSpec = tween(
+        durationMillis = durationMillis,
+        easing = FastOutSlowInEasing
+    ),
+    targetScale = targetScale,
+)
