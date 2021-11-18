@@ -15,22 +15,29 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.material.motion
+package soup.compose.material.motion.animation
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import soup.compose.material.motion.MotionConstants
 
 /**
  * [holdIn] allows to switch a layout with no enter transition.
  *
  * @param durationMillis the duration of the enter transition.
  */
-@ExperimentalAnimationApi
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): EnterMotionSpec = EnterMotionSpec(
-    transition = { _, _ ->
-        soup.compose.material.motion.animation.holdIn(durationMillis)
-    }
+): EnterTransition = fadeIn(
+    animationSpec = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    ),
+    initialAlpha = 1f,
 )
 
 /**
@@ -38,11 +45,14 @@ fun holdIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
-@ExperimentalAnimationApi
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
-): ExitMotionSpec = ExitMotionSpec(
-    transition = { _, _ ->
-        soup.compose.material.motion.animation.holdOut(durationMillis)
-    }
+): ExitTransition = fadeOut(
+    animationSpec = tween(
+        durationMillis = durationMillis,
+        easing = LinearEasing
+    ),
+    // TODO: Refer https://issuetracker.google.com/issues/192993290
+    // targetAlpha = 1f
+    targetAlpha = 0.999f
 )
