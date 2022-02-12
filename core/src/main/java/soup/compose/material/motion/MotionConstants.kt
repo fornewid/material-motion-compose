@@ -17,6 +17,9 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+
 object MotionConstants {
     const val motionDurationShort1 = 75
     const val motionDurationShort2 = 150
@@ -24,4 +27,5 @@ object MotionConstants {
     const val motionDurationMedium2 = 250
     const val motionDurationLong1 = 300
     const val motionDurationLong2 = 350
+    val DefaultSlideDistance: Dp = 30.dp
 }

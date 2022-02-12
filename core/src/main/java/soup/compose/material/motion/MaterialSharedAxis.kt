@@ -18,22 +18,18 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+@Deprecated(
+    message = "Replaced with MotionConstants.DefaultSlideDistance",
+    replaceWith = ReplaceWith(
+        "MotionConstants.DefaultSlideDistance",
+        "soup.compose.material.motion.MotionConstants"
+    )
+)
 val DefaultSlideDistance: Dp = 30.dp
 
 private const val ProgressThreshold = 0.35f
@@ -45,23 +41,6 @@ private val Int.ForIncoming: Int
     get() = this - this.ForOutgoing
 
 /**
- * Returns the provided [Dp] as an [Int] value by the [LocalDensity].
- *
- * @param slideDistance Value to the slide distance dimension, 30dp by default.
- */
-@Deprecated(
-    message = "Replaced to Dp",
-    replaceWith = ReplaceWith(
-        "slideDistance",
-        "soup.compose.material.motion.DefaultSlideDistance"
-    ),
-)
-@Composable
-fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Dp {
-    return slideDistance
-}
-
-/**
  * [materialSharedAxisX] allows to switch a layout with shared X-axis transition.
  *
  * @param slideDistance the slide distance of transition.
@@ -69,7 +48,7 @@ fun rememberSlideDistance(slideDistance: Dp = DefaultSlideDistance): Dp {
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisX(
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisXIn(
     slideDistance = slideDistance,
@@ -87,25 +66,15 @@ fun materialSharedAxisX(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisXIn(
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { forward, density ->
-        val slideDistancePx = with(density) { slideDistance.roundToPx() }
-        slideInHorizontally(
-            initialOffsetX = {
-                if (forward) slideDistancePx else -slideDistancePx
-            },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
-        ) + fadeIn(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForIncoming,
-                delayMillis = durationMillis.ForOutgoing,
-                easing = LinearOutSlowInEasing
-            )
+        soup.compose.material.motion.animation.materialSharedAxisXIn(
+            forward = forward,
+            density = density,
+            slideDistance = slideDistance,
+            durationMillis = durationMillis
         )
     }
 )
@@ -118,25 +87,15 @@ fun materialSharedAxisXIn(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisXOut(
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { forward, density ->
-        val slideDistancePx = with(density) { slideDistance.roundToPx() }
-        slideOutHorizontally(
-            targetOffsetX = {
-                if (forward) -slideDistancePx else slideDistancePx
-            },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
-        ) + fadeOut(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForOutgoing,
-                delayMillis = 0,
-                easing = FastOutLinearInEasing
-            )
+        soup.compose.material.motion.animation.materialSharedAxisXOut(
+            forward = forward,
+            density = density,
+            slideDistance = slideDistance,
+            durationMillis = durationMillis
         )
     }
 )
@@ -149,7 +108,7 @@ fun materialSharedAxisXOut(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisY(
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisYIn(
     slideDistance = slideDistance,
@@ -167,25 +126,15 @@ fun materialSharedAxisY(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisYIn(
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { forward, density ->
-        val slideDistancePx = with(density) { slideDistance.roundToPx() }
-        slideInVertically(
-            initialOffsetY = {
-                if (forward) slideDistancePx else -slideDistancePx
-            },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
-        ) + fadeIn(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForIncoming,
-                delayMillis = durationMillis.ForOutgoing,
-                easing = LinearOutSlowInEasing
-            )
+        soup.compose.material.motion.animation.materialSharedAxisYIn(
+            forward = forward,
+            density = density,
+            slideDistance = slideDistance,
+            durationMillis = durationMillis
         )
     }
 )
@@ -198,25 +147,15 @@ fun materialSharedAxisYIn(
  */
 @ExperimentalAnimationApi
 fun materialSharedAxisYOut(
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { forward, density ->
-        val slideDistancePx = with(density) { slideDistance.roundToPx() }
-        slideOutVertically(
-            targetOffsetY = {
-                if (forward) -slideDistancePx else slideDistancePx
-            },
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
-        ) + fadeOut(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForOutgoing,
-                delayMillis = 0,
-                easing = FastOutLinearInEasing
-            )
+        soup.compose.material.motion.animation.materialSharedAxisYOut(
+            forward = forward,
+            density = density,
+            slideDistance = slideDistance,
+            durationMillis = durationMillis
         )
     }
 )
@@ -244,22 +183,10 @@ fun materialSharedAxisZ(
 fun materialSharedAxisZIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
-    transition = { _, _ ->
-        fadeIn(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForIncoming,
-                delayMillis = durationMillis.ForOutgoing,
-                easing = LinearOutSlowInEasing
-            )
-        )
-    },
-    transitionExtra = { forward ->
-        scaleIn(
-            initialScale = if (forward) 0.8f else 1.1f,
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
+    transition = { forward, _ ->
+        soup.compose.material.motion.animation.materialSharedAxisZIn(
+            forward = forward,
+            durationMillis = durationMillis
         )
     }
 )
@@ -273,22 +200,10 @@ fun materialSharedAxisZIn(
 fun materialSharedAxisZOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
-    transition = { _, _ ->
-        fadeOut(
-            animationSpec = tween(
-                durationMillis = durationMillis.ForOutgoing,
-                delayMillis = 0,
-                easing = FastOutLinearInEasing
-            )
-        )
-    },
-    transitionExtra = { forward ->
-        scaleOut(
-            targetScale = if (forward) 1.1f else 0.8f,
-            animationSpec = tween(
-                durationMillis = durationMillis,
-                easing = FastOutSlowInEasing
-            )
+    transition = { forward, _ ->
+        soup.compose.material.motion.animation.materialSharedAxisZOut(
+            forward = forward,
+            durationMillis = durationMillis
         )
     }
 )
@@ -311,7 +226,7 @@ fun <T> MaterialSharedAxisX(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(
@@ -341,7 +256,7 @@ fun <T> MaterialSharedAxisY(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,
-    slideDistance: Dp = DefaultSlideDistance,
+    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     content: @Composable (T) -> Unit,
 ) {
     MaterialMotion(

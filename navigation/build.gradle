@@ -49,7 +49,6 @@ dependencies {
     implementation project(':core')
 
     api Libs.Compose.navigation
-    implementation Libs.Compose.activity
     implementation Libs.Compose.animation
     implementation Libs.Compose.foundation
     implementation Libs.Compose.material
@@ -73,7 +72,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.fornewid.material-motion-compose'
                 artifactId = 'navigation'
-                version = '0.7.7'
+                version = '0.8.0-rc03'
             }
         }
     }
