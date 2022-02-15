@@ -17,7 +17,7 @@ object Libs {
     }
 
     object Compose {
-        const val version = "1.2.0-alpha02"
+        const val version = "1.2.0-alpha03"
         const val activity = "androidx.activity:activity-compose:1.4.0"
         const val constraintlayout =
             "androidx.constraintlayout:constraintlayout-compose:1.0.0"
