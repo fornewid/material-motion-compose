@@ -19,8 +19,6 @@ object Libs {
     object Compose {
         const val version = "1.2.0-alpha03"
         const val activity = "androidx.activity:activity-compose:1.4.0"
-        const val constraintlayout =
-            "androidx.constraintlayout:constraintlayout-compose:1.0.0"
         const val navigation = "androidx.navigation:navigation-compose:2.4.1"
         const val runtime = "androidx.compose.runtime:runtime:$version"
         const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$version"
