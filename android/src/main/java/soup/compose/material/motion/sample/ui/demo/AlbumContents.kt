@@ -59,8 +59,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import soup.compose.material.motion.MaterialFade
 import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.theme.Purple200
@@ -124,69 +122,48 @@ fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
     } else {
         false
     }
-    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-        val (image, info, fab) = createRefs()
-        Image(
-            painter = painterResource(album.cover),
-            contentDescription = null,
-            modifier = Modifier
-                .aspectRatio(1f)
-                .constrainAs(image) {
-                    width = Dimension.fillToConstraints
-                    linkTo(
-                        start = parent.start,
-                        end = parent.end,
-                        top = parent.top,
-                        bottom = info.top
-                    )
-                },
-            contentScale = ContentScale.Crop
-        )
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .requiredHeight(196.dp)
-                .constrainAs(info) {
-                    width = Dimension.fillToConstraints
-                    linkTo(
-                        start = parent.start,
-                        end = parent.end,
-                        top = image.bottom,
-                        bottom = parent.bottom
-                    )
-                },
-            shape = RectangleShape,
-            backgroundColor = MaterialTheme.colors.primarySurface
-        ) {
-            Column(
-                verticalArrangement = Arrangement.Center,
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Column {
+            Image(
+                painter = painterResource(album.cover),
+                contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 56.dp, end = 16.dp),
+                    .aspectRatio(1f)
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(196.dp),
+                shape = RectangleShape,
+                backgroundColor = MaterialTheme.colors.primarySurface
             ) {
-                Text(
-                    text = album.title,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.h3
-                )
-                Text(
-                    text = album.artist,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.subtitle1
-                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .padding(start = 56.dp, end = 16.dp),
+                ) {
+                    Text(
+                        text = album.title,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                        style = MaterialTheme.typography.h3
+                    )
+                    Text(
+                        text = album.artist,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                }
             }
         }
         MaterialFade(
             visible = showFab,
             modifier = Modifier
-                .constrainAs(fab) {
-                    end.linkTo(parent.end, margin = 16.dp)
-                    linkTo(
-                        top = info.top,
-                        bottom = info.top
-                    )
-                }
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp, bottom = 152.dp)
         ) {
             FloatingActionButton(
                 onClick = {},
