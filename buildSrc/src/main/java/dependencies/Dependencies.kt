@@ -7,7 +7,7 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.0"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.2"
     const val material = "com.google.android.material:material:1.4.0"
 
     object Kotlin {
@@ -17,7 +17,7 @@ object Libs {
     }
 
     object Compose {
-        const val version = "1.2.0-alpha03"
+        const val version = "1.2.0-alpha04"
         const val activity = "androidx.activity:activity-compose:1.4.0"
         const val navigation = "androidx.navigation:navigation-compose:2.4.1"
         const val runtime = "androidx.compose.runtime:runtime:$version"
