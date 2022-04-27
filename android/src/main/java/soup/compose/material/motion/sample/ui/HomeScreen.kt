@@ -42,6 +42,7 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
+import soup.compose.material.motion.sample.ui.Destination.Navigation
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @Composable
@@ -120,6 +121,7 @@ private val Destination.description: String
         MaterialFade -> "MaterialFadeScreen"
         MaterialElevationScale -> "MaterialElevationScaleScreen"
         Hold -> "HoldScreen"
+        Navigation -> "NavigationScreen"
     }
 
 @Preview(name = "Light", showBackground = true)
