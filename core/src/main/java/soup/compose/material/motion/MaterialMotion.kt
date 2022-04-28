@@ -23,6 +23,8 @@ import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -76,13 +78,19 @@ fun <S> Transition<S>.MaterialMotion(
 ) {
     val forward: Boolean = pop.not()
     val density: Density = LocalDensity.current
+    val contentZIndex = remember { mutableStateOf(0f) }
     AnimatedContent(
         modifier = modifier,
         transitionSpec = {
             (motionSpec.enter.transition(forward, density) with motionSpec.exit.transition(forward, density))
                 .apply {
                     // Show forward contents over the backward contents.
-                    targetContentZIndex = if (forward) 0.1f else 0f
+                    if (forward) {
+                        contentZIndex.value += 0.0001f
+                    } else {
+                        contentZIndex.value -= 0.0001f
+                    }
+                    targetContentZIndex = contentZIndex.value
                 }
         },
         contentAlignment = contentAlignment,

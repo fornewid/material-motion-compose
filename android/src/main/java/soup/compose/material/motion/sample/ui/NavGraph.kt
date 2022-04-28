@@ -32,12 +32,14 @@ import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
 import soup.compose.material.motion.sample.ui.Destination.MaterialFade
 import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
 import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
+import soup.compose.material.motion.sample.ui.Destination.Navigation
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
+import soup.compose.material.motion.sample.ui.navigation.NavigationScreen
 
 enum class Destination(val route: String, val root: Boolean = false) {
     Home("home", root = true),
@@ -46,7 +48,8 @@ enum class Destination(val route: String, val root: Boolean = false) {
     MaterialFadeThrough("material_fade_through"),
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
-    Hold("hold");
+    Hold("hold"),
+    Navigation("navigation");
 
     companion object {
         fun of(route: String): Destination {
@@ -58,7 +61,8 @@ enum class Destination(val route: String, val root: Boolean = false) {
             MaterialFadeThrough,
             MaterialFade,
             MaterialElevationScale,
-            Hold
+            Hold,
+            Navigation
         )
     }
 }
@@ -94,6 +98,7 @@ fun NavGraph(
                         MaterialFade -> navigate(MaterialFade)
                         MaterialElevationScale -> navigate(MaterialElevationScale)
                         Hold -> navigate(Hold)
+                        Navigation -> navigate(Navigation)
                     }
                 }
                 Demo -> {
@@ -115,6 +120,11 @@ fun NavGraph(
                 }
                 Hold -> {
                     HoldScreen(upPress)
+                }
+
+                /* Navigation */
+                Navigation -> {
+                    NavigationScreen(upPress)
                 }
             }
         }
