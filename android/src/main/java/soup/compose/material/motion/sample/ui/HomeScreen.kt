@@ -51,8 +51,11 @@ fun HomeScreen(onItemClick: (Destination) -> Unit) {
         topBar = {
             TopAppBar(title = { Text(text = "Transition for Jetpack Compose") })
         }
-    ) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+    ) { contentPadding ->
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = contentPadding
+        ) {
             item {
                 Column {
                     Text(
