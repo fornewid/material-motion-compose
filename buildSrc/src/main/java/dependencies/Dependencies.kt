@@ -17,7 +17,7 @@ object Libs {
     }
 
     object Compose {
-        const val version = "1.2.0-alpha05"
+        const val version = "1.2.0-alpha06"
         const val activity = "androidx.activity:activity-compose:1.4.0"
         const val navigation = "androidx.navigation:navigation-compose:2.4.1"
         const val runtime = "androidx.compose.runtime:runtime:$version"
