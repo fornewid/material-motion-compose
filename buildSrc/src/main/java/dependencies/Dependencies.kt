@@ -11,13 +11,13 @@ object Libs {
     const val material = "com.google.android.material:material:1.4.0"
 
     object Kotlin {
-        private const val version = "1.6.10"
+        private const val version = "1.6.20"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
     object Compose {
-        const val version = "1.2.0-alpha07"
+        const val version = "1.2.0-alpha08"
         const val activity = "androidx.activity:activity-compose:1.4.0"
         const val navigation = "androidx.navigation:navigation-compose:2.4.1"
         const val runtime = "androidx.compose.runtime:runtime:$version"
