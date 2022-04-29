@@ -25,8 +25,6 @@ import androidx.navigation.get
 import androidx.navigation.navigation
 import soup.compose.material.motion.EnterMotionSpec
 import soup.compose.material.motion.ExitMotionSpec
-import soup.compose.material.motion.materialSharedAxisZIn
-import soup.compose.material.motion.materialSharedAxisZOut
 
 /**
  * Add the [Composable] to the [NavGraphBuilder]
@@ -45,14 +43,10 @@ fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
-        materialSharedAxisZIn()
-    },
-    exitMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec = { _, _ ->
-        materialSharedAxisZOut()
-    },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
+    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = null,
+    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = null,
+    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = enterMotionSpec,
+    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = exitMotionSpec,
     content: @Composable (NavBackStackEntry) -> Unit,
 ) {
     addDestination(
@@ -93,14 +87,10 @@ fun NavGraphBuilder.composable(
 public fun NavGraphBuilder.navigation(
     startDestination: String,
     route: String,
-    enterMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec = { _, _ ->
-        materialSharedAxisZIn()
-    },
-    exitMotionSpec: (initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec = { _, _ ->
-        materialSharedAxisZOut()
-    },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
+    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = null,
+    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = null,
+    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = enterMotionSpec,
+    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     navigation(startDestination, route, builder).apply {

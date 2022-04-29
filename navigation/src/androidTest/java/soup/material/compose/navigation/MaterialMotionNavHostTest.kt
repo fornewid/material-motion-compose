@@ -38,6 +38,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
+import soup.compose.material.motion.navigation.navigation
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -135,6 +136,25 @@ class MaterialMotionNavHostTest {
                 .isEqualTo(Lifecycle.State.RESUMED)
             assertThat(secondEntry?.lifecycle?.currentState)
                 .isEqualTo(Lifecycle.State.DESTROYED)
+        }
+    }
+
+    @Test
+    fun testNestedAnimatedNavHostNullLambda() {
+        lateinit var navController: NavHostController
+
+        composeTestRule.setContent {
+            navController = rememberMaterialMotionNavController()
+            MaterialMotionNavHost(navController, startDestination = first) {
+                composable(first) { BasicText(first) }
+                navigation(second, "subGraph", enterMotionSpec = { _, _ -> null }) {
+                    composable(second) { BasicText(second) }
+                }
+            }
+        }
+
+        composeTestRule.runOnIdle {
+            navController.navigate(second)
         }
     }
 
