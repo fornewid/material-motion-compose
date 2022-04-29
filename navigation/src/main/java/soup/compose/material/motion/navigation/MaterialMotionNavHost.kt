@@ -77,14 +77,14 @@ fun MaterialMotionNavHost(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
-    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = { _, _ ->
+    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = { _, _ ->
         materialSharedAxisZIn()
     },
-    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = { _, _ ->
+    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = { _, _ ->
         materialSharedAxisZOut()
     },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = exitMotionSpec,
+    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
+    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     MaterialMotionNavHost(
@@ -122,19 +122,15 @@ public fun MaterialMotionNavHost(
     graph: NavGraph,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
-    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = { _, _ ->
+    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = { _, _ ->
         materialSharedAxisZIn()
     },
-    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = { _, _ ->
+    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = { _, _ ->
         materialSharedAxisZOut()
     },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)? = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)? = exitMotionSpec,
+    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
+    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
 ) {
-    enterMotionSpecs[graph.route] = enterMotionSpec
-    exitMotionSpecs[graph.route] = exitMotionSpec
-    popEnterMotionSpecs[graph.route] = popEnterMotionSpec
-    popExitMotionSpecs[graph.route] = popExitMotionSpec
 
     val lifecycleOwner = LocalLifecycleOwner.current
     val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
@@ -169,8 +165,6 @@ public fun MaterialMotionNavHost(
 
     val backStackEntry = visibleTransitionsInProgress.lastOrNull() ?: visibleBackStack.lastOrNull()
     if (backStackEntry != null) {
-        val destination = backStackEntry.destination as MaterialMotionComposeNavigator.Destination
-
         val leavingEntry = transitionsInProgress.lastOrNull { entry ->
             !entry.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
         }
@@ -178,50 +172,32 @@ public fun MaterialMotionNavHost(
         // When there is no leaving entry, that means this is the start destination so this
         // transition never happens.
         val finalEnter = if (leavingEntry != null) {
+            val targetDestination =
+                leavingEntry.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
-                destination.popEnterMotionSpec?.invoke(leavingEntry, backStackEntry)
-                    ?: popEnterMotionSpecs[
-                        (
-                            destination.hierarchy.first {
-                                popEnterMotionSpecs.containsKey(it.route)
-                            }
-                            ).route
-                    ]?.invoke(leavingEntry, backStackEntry) as EnterMotionSpec
+                targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
+                    popEnterMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
+                } ?: popEnterMotionSpec.invoke(leavingEntry, backStackEntry)
             } else {
-                destination.enterMotionSpec?.invoke(leavingEntry, backStackEntry)
-                    ?: enterMotionSpecs[
-                        (
-                            destination.hierarchy.first { enterMotionSpecs.containsKey(it.route) }
-                            ).route
-                    ]?.invoke(leavingEntry, backStackEntry) as EnterMotionSpec
+                targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
+                    enterMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
+                } ?: enterMotionSpec.invoke(leavingEntry, backStackEntry)
             }
         } else {
             EnterMotionSpec.None
         }
 
         val finalExit = if (leavingEntry != null) {
+            val initialDestination =
+                leavingEntry.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
-                (leavingEntry.destination as? MaterialMotionComposeNavigator.Destination)
-                    ?.popExitMotionSpec?.invoke(
-                        leavingEntry, backStackEntry
-                    ) ?: popExitMotionSpecs[
-                    (
-                        leavingEntry.destination.hierarchy.first {
-                            popExitMotionSpecs.containsKey(it.route)
-                        }
-                        ).route
-                ]?.invoke(leavingEntry, backStackEntry) as ExitMotionSpec
+                initialDestination.hierarchy.firstNotNullOfOrNull { destination ->
+                    popExitMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
+                } ?: popExitMotionSpec.invoke(leavingEntry, backStackEntry)
             } else {
-                (leavingEntry.destination as? MaterialMotionComposeNavigator.Destination)
-                    ?.exitMotionSpec?.invoke(
-                        leavingEntry, backStackEntry
-                    ) ?: exitMotionSpecs[
-                    (
-                        leavingEntry.destination.hierarchy.first {
-                            exitMotionSpecs.containsKey(it.route)
-                        }
-                        ).route
-                ]?.invoke(leavingEntry, backStackEntry) as ExitMotionSpec
+                initialDestination.hierarchy.firstNotNullOfOrNull { destination ->
+                    exitMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
+                } ?: exitMotionSpec.invoke(leavingEntry, backStackEntry)
             }
         } else {
             ExitMotionSpec.None
@@ -262,19 +238,23 @@ public fun MaterialMotionNavHost(
 
 @ExperimentalAnimationApi
 internal val enterMotionSpecs =
-    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)?>()
+    mutableMapOf<String?,
+        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)?>()
 
 @ExperimentalAnimationApi
 internal val exitMotionSpecs =
-    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)?>()
+    mutableMapOf<String?,
+        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)?>()
 
 @ExperimentalAnimationApi
 internal val popEnterMotionSpecs =
-    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec)?>()
+    mutableMapOf<String?,
+        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)?>()
 
 @ExperimentalAnimationApi
 internal val popExitMotionSpecs =
-    mutableMapOf<String?, ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec)?>()
+    mutableMapOf<String?,
+        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)?>()
 
 @Composable
 private fun MutableList<NavBackStackEntry>.PopulateVisibleList(
