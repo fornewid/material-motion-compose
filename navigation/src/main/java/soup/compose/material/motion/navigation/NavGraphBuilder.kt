@@ -25,8 +25,6 @@ import androidx.navigation.get
 import androidx.navigation.navigation
 import soup.compose.material.motion.EnterMotionSpec
 import soup.compose.material.motion.ExitMotionSpec
-import soup.compose.material.motion.materialSharedAxisZIn
-import soup.compose.material.motion.materialSharedAxisZOut
 
 /**
  * Add the [Composable] to the [NavGraphBuilder]
