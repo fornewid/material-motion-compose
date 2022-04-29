@@ -23,6 +23,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.Navigator
 import androidx.navigation.compose.rememberNavController
 
+/**
+ * Creates a NavHostController that handles the adding of the [ComposeNavigator], [DialogNavigator]
+ * and [MaterialMotionComposeNavigator]. Additional [androidx.navigation.Navigator] instances should
+ * be added in a [androidx.compose.runtime.SideEffect] block.
+ *
+ * @see MaterialMotionNavHost
+ */
 @ExperimentalAnimationApi
 @Composable
 fun rememberMaterialMotionNavController(
