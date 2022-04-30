@@ -58,7 +58,7 @@ fun <S> MaterialMotion(
         modifier,
         pop,
         contentAlignment,
-        content
+        content = content
     )
 }
 
@@ -76,6 +76,7 @@ fun <S> Transition<S>.MaterialMotion(
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
+    contentKey: (targetState: S) -> Any? = { it },
     content: @Composable AnimatedVisibilityScope.(targetState: S) -> Unit,
 ) {
     val forward: Boolean = pop.not()
@@ -97,6 +98,7 @@ fun <S> Transition<S>.MaterialMotion(
                 }
         },
         contentAlignment = contentAlignment,
+        contentKey = contentKey
     ) { currentState ->
         content(currentState)
     }
