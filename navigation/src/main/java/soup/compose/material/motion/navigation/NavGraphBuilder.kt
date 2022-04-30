@@ -16,6 +16,7 @@
 package soup.compose.material.motion.navigation
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
@@ -48,7 +49,7 @@ fun NavGraphBuilder.composable(
     exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)? = null,
     popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)? = enterMotionSpec,
     popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)? = exitMotionSpec,
-    content: @Composable (NavBackStackEntry) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
 ) {
     addDestination(
         MaterialMotionComposeNavigator.Destination(
