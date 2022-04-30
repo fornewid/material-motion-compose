@@ -18,6 +18,8 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.updateTransition
@@ -44,11 +46,11 @@ import androidx.compose.ui.unit.Density
 @Composable
 fun <S> MaterialMotion(
     targetState: S,
-    motionSpec: MotionSpec,
+    motionSpec: AnimatedContentScope<S>.() -> MotionSpec,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
-    content: @Composable (targetState: S) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(targetState: S) -> Unit,
 ) {
     val transition = updateTransition(targetState = targetState, label = "MaterialMotion")
     transition.MaterialMotion(
@@ -70,11 +72,11 @@ fun <S> MaterialMotion(
 @ExperimentalAnimationApi
 @Composable
 fun <S> Transition<S>.MaterialMotion(
-    motionSpec: MotionSpec,
+    motionSpec: AnimatedContentScope<S>.() -> MotionSpec,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
-    content: @Composable (targetState: S) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(targetState: S) -> Unit,
 ) {
     val forward: Boolean = pop.not()
     val density: Density = LocalDensity.current
@@ -82,7 +84,8 @@ fun <S> Transition<S>.MaterialMotion(
     AnimatedContent(
         modifier = modifier,
         transitionSpec = {
-            (motionSpec.enter.transition(forward, density) with motionSpec.exit.transition(forward, density))
+            val spec = motionSpec()
+            (spec.enter.transition(forward, density) with spec.exit.transition(forward, density))
                 .apply {
                     // Show forward contents over the backward contents.
                     if (forward) {

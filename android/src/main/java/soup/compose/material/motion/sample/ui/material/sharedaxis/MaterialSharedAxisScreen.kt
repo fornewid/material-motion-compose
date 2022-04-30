@@ -74,10 +74,12 @@ fun MaterialSharedAxisScreen(upPress: () -> Unit) {
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
-            motionSpec = when (selectedAxis) {
-                Axis.X -> materialSharedAxisX()
-                Axis.Y -> materialSharedAxisY()
-                Axis.Z -> materialSharedAxisZ()
+            motionSpec = {
+                when (selectedAxis) {
+                    Axis.X -> materialSharedAxisX()
+                    Axis.Y -> materialSharedAxisY()
+                    Axis.Z -> materialSharedAxisZ()
+                }
             },
             modifier = Modifier.padding(innerPadding),
             pop = forward.not(),
