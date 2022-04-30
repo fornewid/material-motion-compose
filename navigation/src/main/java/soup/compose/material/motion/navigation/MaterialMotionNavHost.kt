@@ -16,6 +16,7 @@
 package soup.compose.material.motion.navigation
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
@@ -77,14 +78,10 @@ fun MaterialMotionNavHost(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
-    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = { _, _ ->
-        materialSharedAxisZIn()
-    },
-    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = { _, _ ->
-        materialSharedAxisZOut()
-    },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
+    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = { materialSharedAxisZIn() },
+    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = { materialSharedAxisZOut() },
+    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = enterMotionSpec,
+    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     MaterialMotionNavHost(
@@ -122,14 +119,10 @@ public fun MaterialMotionNavHost(
     graph: NavGraph,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
-    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = { _, _ ->
-        materialSharedAxisZIn()
-    },
-    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = { _, _ ->
-        materialSharedAxisZOut()
-    },
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec) = exitMotionSpec,
+    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = { materialSharedAxisZIn() },
+    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = { materialSharedAxisZOut() },
+    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = enterMotionSpec,
+    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = exitMotionSpec,
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -165,55 +158,46 @@ public fun MaterialMotionNavHost(
 
     val backStackEntry = visibleTransitionsInProgress.lastOrNull() ?: visibleBackStack.lastOrNull()
     if (backStackEntry != null) {
-        val leavingEntry = transitionsInProgress.lastOrNull { entry ->
-            !entry.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
-        }
-
-        // When there is no leaving entry, that means this is the start destination so this
-        // transition never happens.
-        val finalEnter = if (leavingEntry != null) {
+        val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec = {
             val targetDestination =
-                backStackEntry.destination as MaterialMotionComposeNavigator.Destination
+                targetState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
                 targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    popEnterMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
-                } ?: popEnterMotionSpec.invoke(leavingEntry, backStackEntry)
+                    popEnterMotionSpecs[destination.route]?.invoke(this)
+                } ?: popEnterMotionSpec.invoke(this)
             } else {
                 targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    enterMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
-                } ?: enterMotionSpec.invoke(leavingEntry, backStackEntry)
+                    enterMotionSpecs[destination.route]?.invoke(this)
+                } ?: enterMotionSpec.invoke(this)
             }
-        } else {
-            EnterMotionSpec.None
         }
 
-        val finalExit = if (leavingEntry != null) {
+        val finalExit: AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec = {
             val initialDestination =
-                leavingEntry.destination as MaterialMotionComposeNavigator.Destination
+                initialState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
                 initialDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    popExitMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
-                } ?: popExitMotionSpec.invoke(leavingEntry, backStackEntry)
+                    popExitMotionSpecs[destination.route]?.invoke(this)
+                } ?: popExitMotionSpec.invoke(this)
             } else {
                 initialDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    exitMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
-                } ?: exitMotionSpec.invoke(leavingEntry, backStackEntry)
+                    exitMotionSpecs[destination.route]?.invoke(this)
+                } ?: exitMotionSpec.invoke(this)
             }
-        } else {
-            ExitMotionSpec.None
         }
 
-        val transition = updateTransition(backStackEntry.id, label = "entry")
+        val transition = updateTransition(backStackEntry, label = "entry")
         transition.MaterialMotion(
-            motionSpec = { finalEnter with finalExit },
+            motionSpec = { finalEnter(this) with finalExit(this) },
             modifier = modifier,
             pop = composeNavigator.isPop.value,
-            contentAlignment = contentAlignment
+            contentAlignment = contentAlignment,
+            contentKey = { it.id }
         ) {
             val currentEntry = transitionsInProgress.lastOrNull { entry ->
-                it == entry.id
+                it == entry
             } ?: backStack.lastOrNull { entry ->
-                it == entry.id
+                it == entry
             }
             // while in the scope of the composable, we provide the navBackStackEntry as the
             // ViewModelStoreOwner and LifecycleOwner
@@ -239,23 +223,19 @@ public fun MaterialMotionNavHost(
 
 @ExperimentalAnimationApi
 internal val enterMotionSpecs =
-    mutableMapOf<String?,
-        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
 
 @ExperimentalAnimationApi
 internal val exitMotionSpecs =
-    mutableMapOf<String?,
-        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
 
 @ExperimentalAnimationApi
 internal val popEnterMotionSpecs =
-    mutableMapOf<String?,
-        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
 
 @ExperimentalAnimationApi
 internal val popExitMotionSpecs =
-    mutableMapOf<String?,
-        ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
 
 @Composable
 private fun MutableList<NavBackStackEntry>.PopulateVisibleList(

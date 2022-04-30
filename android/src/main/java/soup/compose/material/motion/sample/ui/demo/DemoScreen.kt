@@ -38,8 +38,8 @@ fun DemoScreen(upPress: () -> Unit) {
     MaterialMotionNavHost(navController, startDestination = "library") {
         composable(
             "library",
-            enterMotionSpec = { _, _ -> holdIn() },
-            exitMotionSpec = { _, _ -> holdOut() },
+            enterMotionSpec = { holdIn() },
+            exitMotionSpec = { holdOut() },
         ) {
             BackHandler {
                 upPress()
@@ -53,8 +53,8 @@ fun DemoScreen(upPress: () -> Unit) {
         composable(
             "album/{albumId}",
             arguments = listOf(navArgument("albumId") { type = NavType.LongType }),
-            enterMotionSpec = { _, _ -> translateYIn({ it }) },
-            exitMotionSpec = { _, _ -> translateYOut({ it }) },
+            enterMotionSpec = { translateYIn({ it }) },
+            exitMotionSpec = { translateYOut({ it }) },
         ) { backStackEntry ->
             val currentId = backStackEntry.arguments?.getLong("albumId")
             val album = MusicData.albums.first { it.id == currentId }

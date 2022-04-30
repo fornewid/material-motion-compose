@@ -56,7 +56,7 @@ fun HoldScreen(upPress: () -> Unit) {
             targetState = forward,
             motionSpec = {
                 when {
-                    forward -> translateXIn({ it }) with holdOut()
+                    targetState -> translateXIn({ it }) with holdOut()
                     else -> holdIn() with translateXOut({ it })
                 }
             },

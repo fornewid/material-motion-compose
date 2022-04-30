@@ -38,9 +38,9 @@ MaterialSharedAxisX(
 
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialSharedAxisX(
-        slideDistance = 30.dp
-    ),
+    motionSpec = {
+        materialSharedAxisX(slideDistance = 30.dp)
+    },
     pop = forward.not()
 ) { newScreen ->
     // composable according to screen
@@ -65,7 +65,7 @@ MaterialFadeThrough(
 
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialFadeThrough()
+    motionSpec = { materialFadeThrough() }
 ) { newScreen ->
     // composable according to screen
 }
@@ -96,9 +96,9 @@ MaterialFade(
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    motionSpec = materialElevationScaleIn() with ...
+    motionSpec = { materialElevationScaleIn() with ... }
     // or
-    motionSpec = ... with materialElevationScaleOut()
+    motionSpec = { ... with materialElevationScaleOut() }
 ) { newScreen ->
     // composable according to screen
 }
@@ -114,9 +114,9 @@ MaterialMotion(
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    motionSpec = holdIn() with ...
+    motionSpec = { holdIn() with ... }
     // or
-    motionSpec = ... with holdOut()
+    motionSpec = { ... with holdOut() }
 ) { newScreen ->
     // composable according to screen
 }
@@ -137,7 +137,7 @@ val motionSpec = when (screen) {
 }
 MaterialMotion(
     targetState = screen,
-    motionSpec = motionSpec,
+    motionSpec = { motionSpec },
     pop = false // whether motion contents are rendered in reverse order.
 ) { newScreen ->
     // composable according to screen
