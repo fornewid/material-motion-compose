@@ -54,9 +54,11 @@ fun HoldScreen(upPress: () -> Unit) {
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
-            motionSpec = when {
-                forward -> translateXIn({ it }) with holdOut()
-                else -> holdIn() with translateXOut({ it })
+            motionSpec = {
+                when {
+                    forward -> translateXIn({ it }) with holdOut()
+                    else -> holdIn() with translateXOut({ it })
+                }
             },
             modifier = Modifier.padding(innerPadding),
             pop = forward.not()

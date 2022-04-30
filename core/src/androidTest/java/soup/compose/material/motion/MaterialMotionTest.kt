@@ -47,7 +47,11 @@ abstract class MaterialMotionTest {
 
         rule.setContent {
             val showFirst by remember { mutableStateOf(true) }
-            MaterialMotion(showFirst, motionSpec = motionSpec(), pop = showFirst.not()) {
+            MaterialMotion(
+                showFirst,
+                motionSpec = { motionSpec() },
+                pop = showFirst.not()
+            ) {
                 BasicText(if (it) First else Second)
             }
         }
@@ -63,7 +67,11 @@ abstract class MaterialMotionTest {
         var showFirst by mutableStateOf(true)
         var disposed = false
         rule.setContent {
-            MaterialMotion(showFirst, motionSpec = motionSpec(), pop = showFirst.not()) {
+            MaterialMotion(
+                showFirst,
+                motionSpec = { motionSpec() },
+                pop = showFirst.not()
+            ) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
                     onDispose {
@@ -95,7 +103,11 @@ abstract class MaterialMotionTest {
         var showFirst by mutableStateOf(true)
         var disposed = false
         rule.setContent {
-            MaterialMotion(showFirst, motionSpec = motionSpec(duration), pop = showFirst.not()) {
+            MaterialMotion(
+                showFirst,
+                motionSpec = { motionSpec(duration) },
+                pop = showFirst.not()
+            ) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
                     onDispose {
@@ -125,7 +137,11 @@ abstract class MaterialMotionTest {
         var current by mutableStateOf<String?>(null)
 
         rule.setContent {
-            MaterialMotion(current, motionSpec = motionSpec(), pop = current == null) { value ->
+            MaterialMotion(
+                current,
+                motionSpec = { motionSpec() },
+                pop = current == null
+            ) { value ->
                 BasicText(if (value == null) First else Second)
             }
         }
@@ -159,7 +175,11 @@ abstract class MaterialMotionTest {
         var counter2 = 0
         rule.setContent {
             val saveableStateHolder = rememberSaveableStateHolder()
-            MaterialMotion(showFirst, motionSpec = motionSpec(duration), pop = showFirst.not()) {
+            MaterialMotion(
+                showFirst,
+                motionSpec = { motionSpec(duration) },
+                pop = showFirst.not()
+            ) {
                 saveableStateHolder.SaveableStateProvider(it) {
                     if (it) {
                         counter1 = rememberSaveable { counter++ }
