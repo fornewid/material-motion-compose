@@ -17,7 +17,6 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
@@ -27,10 +26,9 @@ import androidx.compose.animation.slideOutVertically
 /**
  * [translateXIn] allows to switch a layout with a translate animation as x axis.
  */
-@ExperimentalAnimationApi
 fun translateXIn(
-    initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         slideInHorizontally(
@@ -43,10 +41,9 @@ fun translateXIn(
 /**
  * [translateXOut] allows to switch a layout with a translate animation as x axis.
  */
-@ExperimentalAnimationApi
 fun translateXOut(
-    targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         slideOutHorizontally(
@@ -59,10 +56,9 @@ fun translateXOut(
 /**
  * [translateYIn] allows to switch a layout with a translate animation as y axis.
  */
-@ExperimentalAnimationApi
 fun translateYIn(
-    initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         slideInVertically(
@@ -75,10 +71,9 @@ fun translateYIn(
 /**
  * [translateYOut] allows to switch a layout with a translate animation as y axis.
  */
-@ExperimentalAnimationApi
 fun translateYOut(
-    targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
     durationMillis: Int = MotionConstants.motionDurationLong1,
+    targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         slideOutVertically(

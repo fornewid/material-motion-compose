@@ -19,21 +19,17 @@ package soup.compose.material.motion
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Density
 
-@ExperimentalAnimationApi
 @Immutable
 data class MotionSpec(
     val enter: EnterMotionSpec,
     val exit: ExitMotionSpec,
 )
 
-@ExperimentalAnimationApi
 infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
 
-@ExperimentalAnimationApi
 @Immutable
 data class EnterMotionSpec(
     val transition: (forward: Boolean, density: Density) -> EnterTransition,
@@ -43,7 +39,6 @@ data class EnterMotionSpec(
     }
 }
 
-@ExperimentalAnimationApi
 @Immutable
 data class ExitMotionSpec(
     val transition: (forward: Boolean, density: Density) -> ExitTransition,

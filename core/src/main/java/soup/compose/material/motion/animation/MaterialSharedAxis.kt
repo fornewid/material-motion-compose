@@ -76,7 +76,6 @@ fun materialSharedAxisX(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisXIn(
     forward: Boolean,
     density: Density,
@@ -106,7 +105,6 @@ fun materialSharedAxisXIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisXOut(
     forward: Boolean,
     density: Density,
@@ -161,7 +159,6 @@ fun materialSharedAxisY(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisYIn(
     forward: Boolean,
     density: Density,
@@ -191,7 +188,6 @@ fun materialSharedAxisYIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisYOut(
     forward: Boolean,
     density: Density,

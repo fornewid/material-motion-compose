@@ -47,7 +47,6 @@ private val Int.ForIncoming: Int
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisX(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -65,7 +64,6 @@ fun materialSharedAxisX(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisXIn(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -86,7 +84,6 @@ fun materialSharedAxisXIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisXOut(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -107,7 +104,6 @@ fun materialSharedAxisXOut(
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisY(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -125,7 +121,6 @@ fun materialSharedAxisY(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisYIn(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -146,7 +141,6 @@ fun materialSharedAxisYIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-@ExperimentalAnimationApi
 fun materialSharedAxisYOut(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
