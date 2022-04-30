@@ -65,6 +65,10 @@ fun NavGraphBuilder.composable(
             deepLinks.forEach { deepLink ->
                 addDeepLink(deepLink)
             }
+            enterMotionSpec?.let { enterMotionSpecs[route] = enterMotionSpec }
+            exitMotionSpec?.let { exitMotionSpecs[route] = exitMotionSpec }
+            popEnterMotionSpec?.let { popEnterMotionSpecs[route] = popEnterMotionSpec }
+            popExitMotionSpec?.let { popExitMotionSpecs[route] = popExitMotionSpec }
         }
     )
 }
