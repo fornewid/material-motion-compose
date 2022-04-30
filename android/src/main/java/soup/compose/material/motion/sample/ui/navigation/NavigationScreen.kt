@@ -58,18 +58,10 @@ fun NavigationScreen(upPress: () -> Unit) {
             navController = navController,
             startDestination = Destination.First.route,
             modifier = Modifier.padding(innerPadding),
-            enterMotionSpec = { _, _ ->
-                translateXIn({ it })
-            },
-            exitMotionSpec = { _, _ ->
-                materialElevationScaleOut()
-            },
-            popEnterMotionSpec = { _, _ ->
-                materialElevationScaleIn()
-            },
-            popExitMotionSpec = { _, _ ->
-                translateXOut({ it })
-            }
+            enterMotionSpec = { translateXIn({ it }) },
+            exitMotionSpec = { materialElevationScaleOut() },
+            popEnterMotionSpec = { materialElevationScaleIn() },
+            popExitMotionSpec = { translateXOut({ it }) }
         ) {
             Destination.values().forEach { destination ->
                 composable(route = destination.route) {

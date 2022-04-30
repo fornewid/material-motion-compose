@@ -57,7 +57,7 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
             modifier = Modifier.padding(innerPadding),
             motionSpec = {
                 when {
-                    forward -> translateYIn({ it }) with materialElevationScaleOut()
+                    targetState -> translateYIn({ it }) with materialElevationScaleOut()
                     else -> materialElevationScaleIn() with translateYOut({ it })
                 }
             },
