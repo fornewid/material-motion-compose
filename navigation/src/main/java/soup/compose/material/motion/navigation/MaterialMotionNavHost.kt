@@ -173,7 +173,7 @@ public fun MaterialMotionNavHost(
         // transition never happens.
         val finalEnter = if (leavingEntry != null) {
             val targetDestination =
-                leavingEntry.destination as MaterialMotionComposeNavigator.Destination
+                backStackEntry.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
                 targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
                     popEnterMotionSpecs[destination.route]?.invoke(leavingEntry, backStackEntry)
@@ -202,9 +202,10 @@ public fun MaterialMotionNavHost(
         } else {
             ExitMotionSpec.None
         }
+
         val transition = updateTransition(backStackEntry.id, label = "entry")
         transition.MaterialMotion(
-            motionSpec = finalEnter with finalExit,
+            motionSpec = { finalEnter with finalExit },
             modifier = modifier,
             pop = composeNavigator.isPop.value,
             contentAlignment = contentAlignment

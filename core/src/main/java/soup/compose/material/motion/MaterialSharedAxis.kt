@@ -17,6 +17,7 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -227,11 +228,13 @@ fun <T> MaterialSharedAxisX(
     forward: Boolean,
     modifier: Modifier = Modifier,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    content: @Composable (T) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialSharedAxisX(slideDistance),
+        motionSpec = {
+            materialSharedAxisX(slideDistance)
+        },
         modifier = modifier,
         pop = forward.not(),
         content = content
@@ -257,11 +260,13 @@ fun <T> MaterialSharedAxisY(
     forward: Boolean,
     modifier: Modifier = Modifier,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    content: @Composable (T) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialSharedAxisY(slideDistance),
+        motionSpec = {
+            materialSharedAxisY(slideDistance)
+        },
         modifier = modifier,
         pop = forward.not(),
         content = content
@@ -285,11 +290,13 @@ fun <T> MaterialSharedAxisZ(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable (T) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialSharedAxisZ(),
+        motionSpec = {
+            materialSharedAxisZ()
+        },
         modifier = modifier,
         pop = forward.not(),
         content = content

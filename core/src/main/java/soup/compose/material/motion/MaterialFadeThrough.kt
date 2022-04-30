@@ -17,6 +17,7 @@
 
 package soup.compose.material.motion
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -85,11 +86,13 @@ fun materialFadeThroughOut(
 fun <T> MaterialFadeThrough(
     targetState: T,
     modifier: Modifier = Modifier,
-    content: @Composable (T) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = materialFadeThroughIn() with materialFadeThroughOut(),
+        motionSpec = {
+            materialFadeThroughIn() with materialFadeThroughOut()
+        },
         modifier = modifier,
         content = content
     )

@@ -125,7 +125,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         }
         MaterialMotion(
             targetState = state,
-            motionSpec = motionSpec,
+            motionSpec = { motionSpec },
             modifier = Modifier.padding(innerPadding),
             pop = false
         ) { currentDestination ->
