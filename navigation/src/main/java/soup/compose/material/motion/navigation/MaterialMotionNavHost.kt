@@ -33,6 +33,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavControllerVisibleEntries
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
@@ -112,6 +113,7 @@ fun MaterialMotionNavHost(
  * @param popEnterMotionSpec callback to define popEnter transitions for destination in this host
  * @param popExitMotionSpec callback to define popExit transitions for destination in this host
  */
+@OptIn(NavControllerVisibleEntries::class)
 @ExperimentalAnimationApi
 @Composable
 public fun MaterialMotionNavHost(
@@ -155,8 +157,13 @@ public fun MaterialMotionNavHost(
     val visibleBackStack = rememberVisibleList(backStack)
     visibleTransitionsInProgress.PopulateVisibleList(transitionsInProgress)
     visibleBackStack.PopulateVisibleList(backStack)
+    val visibleEntries by navController.visibleEntries.collectAsState()
 
-    val backStackEntry = visibleTransitionsInProgress.lastOrNull() ?: visibleBackStack.lastOrNull()
+    val backStackEntry = visibleTransitionsInProgress.lastOrNull()
+        ?: visibleBackStack.lastOrNull()
+        ?: visibleEntries.lastOrNull {
+            it.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)
+        }
     if (backStackEntry != null) {
         val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec = {
             val targetDestination =
