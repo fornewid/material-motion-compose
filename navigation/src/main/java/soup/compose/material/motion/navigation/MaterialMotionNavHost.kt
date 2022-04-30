@@ -203,7 +203,7 @@ public fun MaterialMotionNavHost(
             // ViewModelStoreOwner and LifecycleOwner
             currentEntry?.LocalOwnersProvider(saveableStateHolder) {
                 (currentEntry.destination as MaterialMotionComposeNavigator.Destination)
-                    .content(currentEntry)
+                    .content(this, currentEntry)
             }
         }
         if (transition.currentState == transition.targetState) {
