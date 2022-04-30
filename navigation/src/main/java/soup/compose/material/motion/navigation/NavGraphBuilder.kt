@@ -52,11 +52,7 @@ fun NavGraphBuilder.composable(
     addDestination(
         MaterialMotionComposeNavigator.Destination(
             provider[MaterialMotionComposeNavigator::class],
-            content,
-            enterMotionSpec,
-            exitMotionSpec,
-            popEnterMotionSpec,
-            popExitMotionSpec
+            content
         ).apply {
             this.route = route
             arguments.forEach { (argumentName, argument) ->
@@ -65,6 +61,10 @@ fun NavGraphBuilder.composable(
             deepLinks.forEach { deepLink ->
                 addDeepLink(deepLink)
             }
+            enterMotionSpec?.let { enterMotionSpecs[route] = enterMotionSpec }
+            exitMotionSpec?.let { exitMotionSpecs[route] = exitMotionSpec }
+            popEnterMotionSpec?.let { popEnterMotionSpecs[route] = popEnterMotionSpec }
+            popExitMotionSpec?.let { popExitMotionSpecs[route] = popExitMotionSpec }
         }
     )
 }
