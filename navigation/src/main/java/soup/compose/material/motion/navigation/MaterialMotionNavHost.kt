@@ -20,20 +20,15 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavControllerVisibleEntries
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
@@ -45,6 +40,7 @@ import androidx.navigation.compose.DialogNavigator
 import androidx.navigation.compose.LocalOwnersProvider
 import androidx.navigation.createGraph
 import androidx.navigation.get
+import kotlinx.coroutines.flow.map
 import soup.compose.material.motion.EnterMotionSpec
 import soup.compose.material.motion.ExitMotionSpec
 import soup.compose.material.motion.MaterialMotion
@@ -113,7 +109,6 @@ fun MaterialMotionNavHost(
  * @param popEnterMotionSpec callback to define popEnter transitions for destination in this host
  * @param popExitMotionSpec callback to define popExit transitions for destination in this host
  */
-@OptIn(NavControllerVisibleEntries::class)
 @ExperimentalAnimationApi
 @Composable
 public fun MaterialMotionNavHost(
@@ -151,19 +146,15 @@ public fun MaterialMotionNavHost(
     val composeNavigator = navController.navigatorProvider.get<Navigator<out NavDestination>>(
         MaterialMotionComposeNavigator.NAME
     ) as? MaterialMotionComposeNavigator ?: return
-    val backStack by composeNavigator.backStack.collectAsState()
-    val transitionsInProgress by composeNavigator.transitionsInProgress.collectAsState()
-    val visibleTransitionsInProgress = rememberVisibleList(transitionsInProgress)
-    val visibleBackStack = rememberVisibleList(backStack)
-    visibleTransitionsInProgress.PopulateVisibleList(transitionsInProgress)
-    visibleBackStack.PopulateVisibleList(backStack)
-    val visibleEntries by navController.visibleEntries.collectAsState()
-
-    val backStackEntry = visibleTransitionsInProgress.lastOrNull()
-        ?: visibleBackStack.lastOrNull()
-        ?: visibleEntries.lastOrNull {
-            it.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)
+    val visibleEntries by remember(navController.visibleEntries) {
+        navController.visibleEntries.map {
+            it.filter {
+                    entry -> entry.destination.navigatorName == MaterialMotionComposeNavigator.NAME
+            }
         }
+    }.collectAsState(emptyList())
+
+    val backStackEntry = visibleEntries.lastOrNull()
     if (backStackEntry != null) {
         val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec = {
             val targetDestination =
@@ -201,20 +192,18 @@ public fun MaterialMotionNavHost(
             contentAlignment = contentAlignment,
             contentKey = { it.id }
         ) {
-            val currentEntry = transitionsInProgress.lastOrNull { entry ->
-                it == entry
-            } ?: backStack.lastOrNull { entry ->
+            val currentEntry = visibleEntries.last { entry ->
                 it == entry
             }
             // while in the scope of the composable, we provide the navBackStackEntry as the
             // ViewModelStoreOwner and LifecycleOwner
-            currentEntry?.LocalOwnersProvider(saveableStateHolder) {
+            currentEntry.LocalOwnersProvider(saveableStateHolder) {
                 (currentEntry.destination as MaterialMotionComposeNavigator.Destination)
                     .content(this, currentEntry)
             }
         }
         if (transition.currentState == transition.targetState) {
-            transitionsInProgress.forEach { entry ->
+            visibleEntries.forEach { entry ->
                 composeNavigator.markTransitionComplete(entry)
             }
         }
@@ -243,43 +232,3 @@ internal val popEnterMotionSpecs =
 @ExperimentalAnimationApi
 internal val popExitMotionSpecs =
     mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
-
-@Composable
-private fun MutableList<NavBackStackEntry>.PopulateVisibleList(
-    transitionsInProgress: Collection<NavBackStackEntry>
-) {
-    transitionsInProgress.forEach { entry ->
-        DisposableEffect(entry.lifecycle) {
-            val observer = LifecycleEventObserver { _, event ->
-                // ON_START -> add to visibleBackStack, ON_STOP -> remove from visibleBackStack
-                if (event == Lifecycle.Event.ON_START) {
-                    // We want to treat the visible lists as Sets but we want to keep
-                    // the functionality of mutableStateListOf() so that we recompose in response
-                    // to adds and removes.
-                    if (!contains(entry)) {
-                        add(entry)
-                    }
-                }
-                if (event == Lifecycle.Event.ON_STOP) {
-                    remove(entry)
-                }
-            }
-            entry.lifecycle.addObserver(observer)
-            onDispose {
-                entry.lifecycle.removeObserver(observer)
-            }
-        }
-    }
-}
-
-@Composable
-private fun rememberVisibleList(transitionsInProgress: Collection<NavBackStackEntry>) =
-    remember(transitionsInProgress) {
-        mutableStateListOf<NavBackStackEntry>().also {
-            it.addAll(
-                transitionsInProgress.filter { entry ->
-                    entry.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
-                }
-            )
-        }
-    }
