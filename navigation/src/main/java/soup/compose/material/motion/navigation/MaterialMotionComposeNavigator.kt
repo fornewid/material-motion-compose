@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.navigation
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -69,7 +70,7 @@ public class MaterialMotionComposeNavigator : Navigator<Destination>() {
     @NavDestination.ClassType(Composable::class)
     class Destination(
         navigator: MaterialMotionComposeNavigator,
-        internal val content: @Composable (NavBackStackEntry) -> Unit
+        internal val content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
     ) : NavDestination(navigator)
 
     internal companion object {

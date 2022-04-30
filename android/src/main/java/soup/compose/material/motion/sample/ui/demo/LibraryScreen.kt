@@ -119,13 +119,14 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
             onListTypeChange(newType)
         },
     ) { innerPadding ->
-        val motionSpec = when (state.motionSpecType) {
-            MotionSpecType.SharedAxis -> materialSharedAxisY()
-            MotionSpecType.FadeThrough -> materialFadeThrough()
-        }
         MaterialMotion(
             targetState = state,
-            motionSpec = { motionSpec },
+            motionSpec = {
+                when (targetState.motionSpecType) {
+                    MotionSpecType.SharedAxis -> materialSharedAxisY()
+                    MotionSpecType.FadeThrough -> materialFadeThrough()
+                }
+            },
             modifier = Modifier.padding(innerPadding),
             pop = false
         ) { currentDestination ->

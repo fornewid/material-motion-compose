@@ -15,6 +15,8 @@
  */
 package soup.compose.material.motion.navigation
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
@@ -43,11 +45,11 @@ fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = null,
-    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = null,
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = exitMotionSpec,
-    content: @Composable (NavBackStackEntry) -> Unit,
+    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)? = null,
+    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)? = null,
+    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)? = enterMotionSpec,
+    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)? = exitMotionSpec,
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
 ) {
     addDestination(
         MaterialMotionComposeNavigator.Destination(
@@ -91,10 +93,10 @@ public fun NavGraphBuilder.navigation(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = null,
-    exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = null,
-    popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = enterMotionSpec,
-    popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = exitMotionSpec,
+    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)? = null,
+    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)? = null,
+    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)? = enterMotionSpec,
+    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)? = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     navigation(startDestination, route, arguments, deepLinks, builder).apply {
