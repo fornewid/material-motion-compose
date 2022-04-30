@@ -17,14 +17,11 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.animation.ExperimentalAnimationApi
-
 /**
  * [holdIn] allows to switch a layout with no enter transition.
  *
  * @param durationMillis the duration of the enter transition.
  */
-@ExperimentalAnimationApi
 fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
@@ -38,7 +35,6 @@ fun holdIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
-@ExperimentalAnimationApi
 fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
