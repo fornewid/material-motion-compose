@@ -52,11 +52,7 @@ fun NavGraphBuilder.composable(
     addDestination(
         MaterialMotionComposeNavigator.Destination(
             provider[MaterialMotionComposeNavigator::class],
-            content,
-            enterMotionSpec,
-            exitMotionSpec,
-            popEnterMotionSpec,
-            popExitMotionSpec
+            content
         ).apply {
             this.route = route
             arguments.forEach { (argumentName, argument) ->
