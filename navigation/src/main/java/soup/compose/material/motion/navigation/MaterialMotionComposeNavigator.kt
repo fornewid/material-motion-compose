@@ -22,8 +22,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
-import soup.compose.material.motion.EnterMotionSpec
-import soup.compose.material.motion.ExitMotionSpec
 import soup.compose.material.motion.navigation.MaterialMotionComposeNavigator.Destination
 
 /**
@@ -71,11 +69,7 @@ public class MaterialMotionComposeNavigator : Navigator<Destination>() {
     @NavDestination.ClassType(Composable::class)
     class Destination(
         navigator: MaterialMotionComposeNavigator,
-        internal val content: @Composable (NavBackStackEntry) -> Unit,
-        internal var enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = null,
-        internal var exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = null,
-        internal var popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = enterMotionSpec,
-        internal var popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = exitMotionSpec,
+        internal val content: @Composable (NavBackStackEntry) -> Unit
     ) : NavDestination(navigator)
 
     internal companion object {
