@@ -21,8 +21,8 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.navigation
 import androidx.navigation.get
-import androidx.navigation.navigation
 import soup.compose.material.motion.EnterMotionSpec
 import soup.compose.material.motion.ExitMotionSpec
 
@@ -74,6 +74,8 @@ fun NavGraphBuilder.composable(
  *
  * @param startDestination the starting destination's route for this NavGraph
  * @param route the destination's unique route
+ * @param arguments list of arguments to associate with destination
+ * @param deepLinks list of deep links to associate with the destinations
  * @param enterMotionSpec callback to define enter transitions for destination in this NavGraph
  * @param exitMotionSpec callback to define exit transitions for destination in this NavGraph
  * @param popEnterMotionSpec callback to define pop enter transitions for destination in this
@@ -87,13 +89,15 @@ fun NavGraphBuilder.composable(
 public fun NavGraphBuilder.navigation(
     startDestination: String,
     route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
     enterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = null,
     exitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = null,
     popEnterMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterMotionSpec?)? = enterMotionSpec,
     popExitMotionSpec: ((initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitMotionSpec?)? = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
-    navigation(startDestination, route, builder).apply {
+    navigation(startDestination, route, arguments, deepLinks, builder).apply {
         enterMotionSpec.let { enterMotionSpecs[route] = enterMotionSpec }
         exitMotionSpec.let { exitMotionSpecs[route] = exitMotionSpec }
         popEnterMotionSpec.let { popEnterMotionSpecs[route] = popEnterMotionSpec }
