@@ -148,8 +148,8 @@ public fun MaterialMotionNavHost(
     ) as? MaterialMotionComposeNavigator ?: return
     val visibleEntries by remember(navController.visibleEntries) {
         navController.visibleEntries.map {
-            it.filter {
-                    entry -> entry.destination.navigatorName == MaterialMotionComposeNavigator.NAME
+            it.filter { entry ->
+                entry.destination.navigatorName == MaterialMotionComposeNavigator.NAME
             }
         }
     }.collectAsState(emptyList())
