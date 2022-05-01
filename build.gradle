@@ -1,13 +1,16 @@
-import dependencies.Libs
-
 buildscript {
+    ext.buildConfig = [
+            'minSdk'    : 21,
+            'targetSdk' : 31,
+            'compileSdk': 31
+    ]
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath Libs.androidGradlePlugin
-        classpath Libs.Kotlin.plugin
+        classpath libs.android.pluginGradle
+        classpath libs.kotlin.pluginGradle
     }
 }
 

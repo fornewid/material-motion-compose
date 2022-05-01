@@ -1,17 +1,14 @@
-import dependencies.Versions
-import dependencies.Libs
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion Versions.compileSdk
+    compileSdkVersion buildConfig.compileSdk
     defaultConfig {
         applicationId "soup.material.compose.sample"
-        minSdkVersion Versions.minSdk
-        targetSdkVersion Versions.targetSdk
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -41,7 +38,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "${Libs.Compose.version}"
+        kotlinCompilerExtensionVersion "${libs.versions.compose.get()}"
     }
     packagingOptions {
         // Multiple dependencies bring these files in. Exclude them to enable
@@ -55,10 +52,10 @@ dependencies {
     implementation project(':core')
     implementation project(':navigation')
 
-    implementation Libs.material
-    implementation Libs.Compose.ui
-    implementation Libs.Compose.ui_tooling
-    implementation Libs.Compose.material
-    implementation Libs.Compose.activity
-    implementation Libs.Compose.constraintlayout
+    implementation libs.material
+    implementation libs.compose.ui.ui
+    implementation libs.compose.ui.tooling
+    implementation libs.compose.material
+    implementation libs.compose.activity
+    implementation libs.compose.constraintlayout
 }
