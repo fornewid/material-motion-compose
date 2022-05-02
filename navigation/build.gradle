@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'maven-publish'
 }
 
 android {
@@ -62,15 +61,4 @@ dependencies {
     debugImplementation libs.compose.ui.testManifest
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.github.fornewid.material-motion-compose'
-                artifactId = 'navigation'
-                version = '0.8.3'
-            }
-        }
-    }
-}
+apply plugin: "com.vanniktech.maven.publish"
