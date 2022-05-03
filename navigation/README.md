@@ -1,19 +1,19 @@
 # Material Motion Navigation
 
-<a href="https://jitpack.io/#fornewid/material-motion-compose"><img src="https://jitpack.io/v/fornewid/material-motion-compose.svg"/></a>
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-navigation)](https://search.maven.org/search?q=g:io.github.fornewid)
 
 ## Installation
 
 ```gradle
 repositories {
-    maven { url "https://jitpack.io" }
+    mavenCentral()
 }
 
 dependencies {
-    implementation "com.github.fornewid.material-motion-compose:navigation:<version>"
+    implementation "io.github.fornewid:material-motion-compose-navigation:<version>"
     
     // If you want to change motion, use with core library.
-    implementation "com.github.fornewid.material-motion-compose:core:<version>"
+    implementation "io.github.fornewid:material-motion-compose-core:<version>"
 }
 ```
 
@@ -26,15 +26,15 @@ val navController = rememberMaterialMotionNavController()
 
 MaterialMotionNavHost(navController, startDestination = "first") {
   composable("first",
-    enterMotionSpec = { _, _ -> holdIn() },
-    exitMotionSpec = { _, _ -> holdOut() },
+    enterMotionSpec = { holdIn() },
+    exitMotionSpec = { holdOut() },
   ) {
     // first composable
   }
   
   composable("second",
-    enterMotionSpec = { _, _ -> materialSharedAxisXIn() },
-    exitMotionSpec = { _, _ -> materialSharedAxisXOut() },
+    enterMotionSpec = { materialSharedAxisXIn() },
+    exitMotionSpec = { materialSharedAxisXOut() },
   ) {
     // second composable
   }

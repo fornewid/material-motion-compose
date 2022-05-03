@@ -1,6 +1,6 @@
 # Material Motion Core
 
-<a href="https://jitpack.io/#fornewid/material-motion-compose"><img src="https://jitpack.io/v/fornewid/material-motion-compose.svg"/></a>
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core)](https://search.maven.org/search?q=g:io.github.fornewid)
 
 Material Motion Core is a Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android.
 
@@ -8,11 +8,11 @@ Material Motion Core is a Jetpack Compose library for implementing [motion syste
 
 ```gradle
 repositories {
-    maven { url "https://jitpack.io" }
+    mavenCentral()
 }
 
 dependencies {
-    implementation "com.github.fornewid.material-motion-compose:core:<version>"
+    implementation "io.github.fornewid:material-motion-compose-core:<version>"
 }
 ```
 
@@ -130,14 +130,15 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
-val motionSpec = when (screen) {
-   ... -> materialSharedAxisY()
-   ... -> materialFadeThroughIn() with materialFadeThroughOut()
-   ...
-}
 MaterialMotion(
     targetState = screen,
-    motionSpec = { motionSpec },
+    motionSpec = {
+        when (targetState) {
+           ... -> materialSharedAxisY()
+           ... -> materialFadeThroughIn() with materialFadeThroughOut()
+           ...
+        }
+    },
     pop = false // whether motion contents are rendered in reverse order.
 ) { newScreen ->
     // composable according to screen
