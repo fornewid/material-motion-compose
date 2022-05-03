@@ -49,7 +49,7 @@ MaterialMotion(
 
 | Axis X                     | Axis Y                     | Axis Z                     |
 | -------------------------- | -------------------------- | -------------------------- |
-| <img width="200" src="docs/shared_axis_x.gif" /> | <img width="200" src="docs/shared_axis_y.gif" /> | <img width="200" src="docs/shared_axis_z.gif" /> |
+| <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/shared_axis_x.gif" /> | <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/shared_axis_y.gif" /> | <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/shared_axis_z.gif" /> |
 
 ### Fade through
 
@@ -73,7 +73,7 @@ MaterialMotion(
 
 | Fade Through               |
 | -------------------------- |
-| <img width="200" src="docs/fade_through.gif" /> |
+| <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/fade_through.gif" /> |
 
 ### Fade
 
@@ -88,7 +88,7 @@ MaterialFade(
 
 | Fade                       |
 | -------------------------- |
-| <img width="200" src="docs/fade.gif" /> |
+| <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/fade.gif" /> |
 
 ### Elevation scale
 
@@ -106,7 +106,7 @@ MaterialMotion(
 
 | ElevationScale             |
 | -------------------------- |
-| <img width="200" src="docs/elevation_scale.gif" /> |
+| <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/elevation_scale.gif" /> |
 
 ### Hold
 
@@ -124,7 +124,7 @@ MaterialMotion(
 
 | Hold                       |
 | -------------------------- |
-| <img width="200" src="docs/hold.gif" /> |
+| <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/hold.gif" /> |
 
 ### If you want to use different motions depending on the state:
 
@@ -147,7 +147,7 @@ MaterialMotion(
 
 | Demo                       |
 | -------------------------- |
-| <img width="200" src="docs/demo.gif" /> |
+| <img width="200" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/demo.gif" /> |
 
 ### If you want to change motion durations:
 
