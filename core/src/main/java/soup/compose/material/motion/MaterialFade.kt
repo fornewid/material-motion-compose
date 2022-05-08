@@ -37,7 +37,7 @@ import soup.compose.material.motion.animation.materialFadeOut
  */
 @ExperimentalAnimationApi
 @Composable
-fun MaterialFade(
+public fun MaterialFade(
     visible: Boolean,
     modifier: Modifier = Modifier,
     enterDurationMillis: Int = MotionConstants.motionDurationShort2,

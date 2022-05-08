@@ -37,7 +37,7 @@ private val Int.ForFade: Int
  * [materialFadeIn] allows to switch a layout with a fade-in animation.
  */
 @ExperimentalAnimationApi
-fun materialFadeIn(
+public fun materialFadeIn(
     durationMillis: Int = MotionConstants.motionDurationShort2,
 ): EnterTransition = fadeIn(
     animationSpec = tween(
@@ -56,7 +56,7 @@ fun materialFadeIn(
  * [materialFadeOut] allows to switch a layout with a fade-out animation.
  */
 @ExperimentalAnimationApi
-fun materialFadeOut(
+public fun materialFadeOut(
     durationMillis: Int = MotionConstants.motionDurationShort1,
 ): ExitTransition = fadeOut(
     animationSpec = tween(

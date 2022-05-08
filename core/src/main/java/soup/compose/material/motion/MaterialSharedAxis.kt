@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
         "soup.compose.material.motion.MotionConstants"
     )
 )
-val DefaultSlideDistance: Dp = 30.dp
+public val DefaultSlideDistance: Dp = 30.dp
 
 private const val ProgressThreshold = 0.35f
 
@@ -47,7 +47,7 @@ private val Int.ForIncoming: Int
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
-fun materialSharedAxisX(
+public fun materialSharedAxisX(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisXIn(
@@ -64,7 +64,7 @@ fun materialSharedAxisX(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-fun materialSharedAxisXIn(
+public fun materialSharedAxisXIn(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
@@ -84,7 +84,7 @@ fun materialSharedAxisXIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-fun materialSharedAxisXOut(
+public fun materialSharedAxisXOut(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
@@ -104,7 +104,7 @@ fun materialSharedAxisXOut(
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
-fun materialSharedAxisY(
+public fun materialSharedAxisY(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisYIn(
@@ -121,7 +121,7 @@ fun materialSharedAxisY(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-fun materialSharedAxisYIn(
+public fun materialSharedAxisYIn(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
@@ -141,7 +141,7 @@ fun materialSharedAxisYIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-fun materialSharedAxisYOut(
+public fun materialSharedAxisYOut(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
@@ -161,7 +161,7 @@ fun materialSharedAxisYOut(
  * @param durationMillis the duration of transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisZ(
+public fun materialSharedAxisZ(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialSharedAxisZIn(
     durationMillis = durationMillis
@@ -175,7 +175,7 @@ fun materialSharedAxisZ(
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisZIn(
+public fun materialSharedAxisZIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { forward, _ ->
@@ -192,7 +192,7 @@ fun materialSharedAxisZIn(
  * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisZOut(
+public fun materialSharedAxisZOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { forward, _ ->
@@ -217,7 +217,7 @@ fun materialSharedAxisZOut(
  */
 @ExperimentalAnimationApi
 @Composable
-fun <T> MaterialSharedAxisX(
+public fun <T> MaterialSharedAxisX(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,
@@ -249,7 +249,7 @@ fun <T> MaterialSharedAxisX(
  */
 @ExperimentalAnimationApi
 @Composable
-fun <T> MaterialSharedAxisY(
+public fun <T> MaterialSharedAxisY(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,
@@ -280,7 +280,7 @@ fun <T> MaterialSharedAxisY(
  */
 @ExperimentalAnimationApi
 @Composable
-fun <T> MaterialSharedAxisZ(
+public fun <T> MaterialSharedAxisZ(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,

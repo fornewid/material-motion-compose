@@ -41,7 +41,7 @@ import soup.compose.material.motion.ExitMotionSpec
  * @param content composable for the destination
  */
 @ExperimentalAnimationApi
-fun NavGraphBuilder.composable(
+public fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
