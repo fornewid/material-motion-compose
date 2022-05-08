@@ -43,7 +43,13 @@ jobs:
           key: gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Build, lint and spotless
-        run: ./gradlew spotlessCheck assemble assembleAndroidTest lintDebug --scan
+        run: |
+          ./gradlew --scan --stacktrace \
+              spotlessCheck \
+              assemble \
+              assembleAndroidTest \
+              metalavaCheckCompatibility \
+              lintDebug
 
       - name: Clean secrets
         if: always()
