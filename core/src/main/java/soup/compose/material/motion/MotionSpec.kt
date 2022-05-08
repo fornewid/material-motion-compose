@@ -23,27 +23,29 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Density
 
 @Immutable
-data class MotionSpec(
+public data class MotionSpec(
     val enter: EnterMotionSpec,
     val exit: ExitMotionSpec,
 )
 
-infix fun EnterMotionSpec.with(exit: ExitMotionSpec) = MotionSpec(this, exit)
+public infix fun EnterMotionSpec.with(exit: ExitMotionSpec): MotionSpec = MotionSpec(this, exit)
 
 @Immutable
-data class EnterMotionSpec(
+public data class EnterMotionSpec(
     val transition: (forward: Boolean, density: Density) -> EnterTransition,
 ) {
-    companion object {
-        val None: EnterMotionSpec = EnterMotionSpec(transition = { _, _ -> EnterTransition.None })
+    public companion object {
+        public val None: EnterMotionSpec =
+            EnterMotionSpec(transition = { _, _ -> EnterTransition.None })
     }
 }
 
 @Immutable
-data class ExitMotionSpec(
+public data class ExitMotionSpec(
     val transition: (forward: Boolean, density: Density) -> ExitTransition,
 ) {
-    companion object {
-        val None: ExitMotionSpec = ExitMotionSpec(transition = { _, _ -> ExitTransition.None })
+    public companion object {
+        public val None: ExitMotionSpec =
+            ExitMotionSpec(transition = { _, _ -> ExitTransition.None })
     }
 }

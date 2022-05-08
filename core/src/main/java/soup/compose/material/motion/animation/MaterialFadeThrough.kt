@@ -44,7 +44,7 @@ private val Int.ForIncoming: Int
  * @param durationMillis the duration of transition.
  */
 @ExperimentalAnimationApi
-fun materialFadeThrough(
+public fun materialFadeThrough(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ContentTransform = materialFadeThroughIn(
     durationMillis = durationMillis
@@ -59,7 +59,7 @@ fun materialFadeThrough(
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
-fun materialFadeThroughIn(
+public fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterTransition = fadeIn(
@@ -83,7 +83,7 @@ fun materialFadeThroughIn(
  * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
-fun materialFadeThroughOut(
+public fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitTransition = fadeOut(
     animationSpec = tween(

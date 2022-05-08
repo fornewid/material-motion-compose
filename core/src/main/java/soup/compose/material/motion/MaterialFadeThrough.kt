@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
  * @param durationMillis the duration of transition.
  */
 @ExperimentalAnimationApi
-fun materialFadeThrough(
+public fun materialFadeThrough(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): MotionSpec = materialFadeThroughIn(
     durationMillis = durationMillis
@@ -43,7 +43,7 @@ fun materialFadeThrough(
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
-fun materialFadeThroughIn(
+public fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
@@ -61,7 +61,7 @@ fun materialFadeThroughIn(
  * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
-fun materialFadeThroughOut(
+public fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
@@ -83,7 +83,7 @@ fun materialFadeThroughOut(
  */
 @ExperimentalAnimationApi
 @Composable
-fun <T> MaterialFadeThrough(
+public fun <T> MaterialFadeThrough(
     targetState: T,
     modifier: Modifier = Modifier,
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,

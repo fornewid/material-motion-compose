@@ -68,7 +68,7 @@ public class MaterialMotionComposeNavigator : Navigator<Destination>() {
      */
     @ExperimentalAnimationApi
     @NavDestination.ClassType(Composable::class)
-    class Destination(
+    public class Destination(
         navigator: MaterialMotionComposeNavigator,
         internal val content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
     ) : NavDestination(navigator)

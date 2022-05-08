@@ -32,7 +32,7 @@ import androidx.navigation.compose.rememberNavController
  */
 @ExperimentalAnimationApi
 @Composable
-fun rememberMaterialMotionNavController(
+public fun rememberMaterialMotionNavController(
     vararg navigators: Navigator<out NavDestination>,
 ): NavHostController {
     val navigator = remember { MaterialMotionComposeNavigator() }

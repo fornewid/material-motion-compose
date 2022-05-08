@@ -52,7 +52,7 @@ private val Int.ForIncoming: Int
  * @param durationMillis the duration of transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisX(
+public fun materialSharedAxisX(
     forward: Boolean,
     density: Density,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
@@ -76,7 +76,7 @@ fun materialSharedAxisX(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-fun materialSharedAxisXIn(
+public fun materialSharedAxisXIn(
     forward: Boolean,
     density: Density,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
@@ -105,7 +105,7 @@ fun materialSharedAxisXIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-fun materialSharedAxisXOut(
+public fun materialSharedAxisXOut(
     forward: Boolean,
     density: Density,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
@@ -135,7 +135,7 @@ fun materialSharedAxisXOut(
  * @param durationMillis the duration of transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisY(
+public fun materialSharedAxisY(
     forward: Boolean,
     density: Density,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
@@ -159,7 +159,7 @@ fun materialSharedAxisY(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-fun materialSharedAxisYIn(
+public fun materialSharedAxisYIn(
     forward: Boolean,
     density: Density,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
@@ -188,7 +188,7 @@ fun materialSharedAxisYIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-fun materialSharedAxisYOut(
+public fun materialSharedAxisYOut(
     forward: Boolean,
     density: Density,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
@@ -217,7 +217,7 @@ fun materialSharedAxisYOut(
  * @param durationMillis the duration of transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisZ(
+public fun materialSharedAxisZ(
     forward: Boolean,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ContentTransform = materialSharedAxisZIn(
@@ -235,7 +235,7 @@ fun materialSharedAxisZ(
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisZIn(
+public fun materialSharedAxisZIn(
     forward: Boolean,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterTransition = fadeIn(
@@ -259,7 +259,7 @@ fun materialSharedAxisZIn(
  * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
-fun materialSharedAxisZOut(
+public fun materialSharedAxisZOut(
     forward: Boolean,
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitTransition = fadeOut(

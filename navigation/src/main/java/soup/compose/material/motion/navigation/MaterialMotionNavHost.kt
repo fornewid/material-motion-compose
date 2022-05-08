@@ -69,7 +69,7 @@ import soup.compose.material.motion.with
  */
 @Composable
 @ExperimentalAnimationApi
-fun MaterialMotionNavHost(
+public fun MaterialMotionNavHost(
     navController: NavHostController,
     startDestination: String,
     modifier: Modifier = Modifier,

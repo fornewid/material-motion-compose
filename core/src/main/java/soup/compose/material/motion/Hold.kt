@@ -22,7 +22,7 @@ package soup.compose.material.motion
  *
  * @param durationMillis the duration of the enter transition.
  */
-fun holdIn(
+public fun holdIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
@@ -35,7 +35,7 @@ fun holdIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
-fun holdOut(
+public fun holdOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
