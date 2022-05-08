@@ -33,10 +33,15 @@ import soup.compose.material.motion.navigation.MaterialMotionComposeNavigator.De
 @ExperimentalAnimationApi
 @Navigator.Name("materialMotionComposable")
 public class MaterialMotionComposeNavigator : Navigator<Destination>() {
-    internal val transitionsInProgress get() = state.transitionsInProgress
+    @get:JvmSynthetic
+    internal val transitionsInProgress
+        get() = state.transitionsInProgress
 
-    internal val backStack get() = state.backStack
+    @get:JvmSynthetic
+    internal val backStack
+        get() = state.backStack
 
+    @get:JvmSynthetic
     internal val isPop = mutableStateOf(false)
 
     override fun navigate(
@@ -59,6 +64,7 @@ public class MaterialMotionComposeNavigator : Navigator<Destination>() {
         isPop.value = true
     }
 
+    @JvmSynthetic
     internal fun markTransitionComplete(entry: NavBackStackEntry) {
         state.markTransitionComplete(entry)
     }
@@ -70,7 +76,7 @@ public class MaterialMotionComposeNavigator : Navigator<Destination>() {
     @NavDestination.ClassType(Composable::class)
     public class Destination(
         navigator: MaterialMotionComposeNavigator,
-        internal val content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
+        internal val content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
     ) : NavDestination(navigator)
 
     internal companion object {

@@ -217,18 +217,22 @@ public fun MaterialMotionNavHost(
     DialogHost(dialogNavigator)
 }
 
+@get:JvmSynthetic
 @ExperimentalAnimationApi
 internal val enterMotionSpecs =
     mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
 
+@get:JvmSynthetic
 @ExperimentalAnimationApi
 internal val exitMotionSpecs =
     mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
 
+@get:JvmSynthetic
 @ExperimentalAnimationApi
 internal val popEnterMotionSpecs =
     mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
 
+@get:JvmSynthetic
 @ExperimentalAnimationApi
 internal val popExitMotionSpecs =
     mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
