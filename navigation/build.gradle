@@ -46,8 +46,8 @@ dependencies {
 
     api libs.compose.navigation
     implementation libs.compose.animation
-    implementation libs.compose.foundation
-    implementation libs.compose.material
+    implementation libs.compose.runtime
+    implementation libs.compose.ui.ui
 
     // ======================
     // Test dependencies
@@ -57,6 +57,8 @@ dependencies {
     androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.androidx.test.runner
     androidTestImplementation libs.androidx.test.truth
+    androidTestImplementation libs.compose.foundation
+    androidTestImplementation libs.compose.material
     androidTestImplementation libs.compose.ui.testJunit4
     debugImplementation libs.compose.ui.testManifest
 }
