@@ -12,6 +12,7 @@ buildscript {
         classpath libs.android.pluginGradle
         classpath libs.kotlin.pluginGradle
         classpath libs.mavenPublish.pluginGradle
+        classpath libs.metalava.pluginGradle
     }
 }
 
@@ -66,6 +67,16 @@ subprojects {
             } else {
                 project.ext.set(prop.key, prop.value)
             }
+        }
+    }
+
+    // If we have a POM Artifact ID, we should generate API files
+    if (project.hasProperty('POM_ARTIFACT_ID')) {
+        apply plugin: 'me.tylerbwong.gradle.metalava'
+
+        metalava {
+            filename = "api/current.api"
+            reportLintsAsErrors = true
         }
     }
 }
