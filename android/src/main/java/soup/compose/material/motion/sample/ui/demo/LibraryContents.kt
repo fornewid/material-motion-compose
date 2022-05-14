@@ -15,7 +15,6 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +48,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LibraryGridContents(
     items: List<MusicData.Album>,
@@ -61,7 +59,7 @@ fun LibraryGridContents(
         modifier = modifier,
         contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
     ) {
-        items(items) {
+        items(items, key = { it.id }) {
             LibraryGridItem(it, onItemClick = onItemClick)
         }
     }
@@ -119,7 +117,7 @@ fun LibraryLinearContents(
         modifier = modifier,
         contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
     ) {
-        items(items) {
+        items(items, key = { it.id }) {
             LibraryLinearItem(it, onItemClick = onItemClick)
             Divider()
         }

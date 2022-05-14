@@ -137,7 +137,7 @@ object MusicData {
 
     /** A data class to hold information about a track on an album.  */
     data class Track(
-        val track: Int,
+        val trackNo: Int,
         val title: String,
         val duration: String,
         var playing: Boolean,
