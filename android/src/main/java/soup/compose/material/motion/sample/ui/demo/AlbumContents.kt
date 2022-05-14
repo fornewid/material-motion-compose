@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Colors
 import androidx.compose.material.ContentAlpha
@@ -50,6 +49,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -115,13 +115,7 @@ fun AlbumScaffold(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun AlbumHeader(album: MusicData.Album, listState: LazyListState) {
-    val header = listState.layoutInfo.visibleItemsInfo.getOrNull(0)
-    val showFab = if (header != null) {
-        (listState.firstVisibleItemScrollOffset / header.size.toFloat()) <= 0.2f
-    } else {
-        false
-    }
+fun AlbumHeader(album: MusicData.Album, showFab: Boolean) {
     Box(modifier = Modifier.fillMaxWidth()) {
         Column {
             Image(
@@ -205,7 +199,7 @@ fun AlbumTrackItem(track: MusicData.Track) {
         }
         Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
-            text = track.track.toString(),
+            text = track.trackNo.toString(),
             modifier = Modifier.align(Alignment.CenterVertically),
             style = MaterialTheme.typography.body2
         )

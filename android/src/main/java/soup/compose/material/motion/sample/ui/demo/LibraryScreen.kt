@@ -27,6 +27,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -171,9 +172,12 @@ private fun LibraryContents(
     onItemClick: (MusicData.Album) -> Unit,
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
-        val items = when (state.sortType) {
-            SortType.A_TO_Z -> MusicData.albums
-            SortType.Z_TO_A -> MusicData.albums.asReversed()
+        val sortType = state.sortType
+        val items = remember(sortType) {
+            when (sortType) {
+                SortType.A_TO_Z -> MusicData.albums
+                SortType.Z_TO_A -> MusicData.albums.asReversed()
+            }
         }
         when (state.listType) {
             ListType.Grid -> LibraryGridContents(items, onItemClick)

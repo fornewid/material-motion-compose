@@ -22,7 +22,10 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -31,7 +34,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
-    val collapsedHeaderSize = LocalDensity.current.run { 56.dp.toPx().toInt() }
+    val density = LocalDensity.current
+    val collapsedHeaderSize = remember(density) {
+        density.run { 56.dp.toPx().toInt() }
+    }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     OnHeaderCollapse(listState, collapsedHeaderSize) { scrollOffset ->
@@ -39,18 +45,33 @@ fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
             listState.animateScrollToItem(0, scrollOffset = scrollOffset)
         }
     }
+    val collapse: Boolean by remember {
+        derivedStateOf {
+            listState.isHeaderCollapsed(collapsedHeaderSize)
+        }
+    }
+    val showFab: Boolean by remember {
+        derivedStateOf {
+            val header = listState.layoutInfo.visibleItemsInfo.getOrNull(0)
+            if (header != null) {
+                (listState.firstVisibleItemScrollOffset / header.size.toFloat()) <= 0.2f
+            } else {
+                false
+            }
+        }
+    }
     AlbumScaffold(
         upPress = upPress,
-        collapse = listState.isHeaderCollapsed(collapsedHeaderSize)
+        collapse = collapse
     ) {
         LazyColumn(state = listState) {
             item {
-                AlbumHeader(album, listState)
+                AlbumHeader(album, showFab)
             }
             item {
                 Spacer(modifier = Modifier.requiredHeight(8.dp))
             }
-            items(album.tracks) { track ->
+            items(album.tracks, key = { it.trackNo }) { track ->
                 AlbumTrackItem(track = track)
             }
         }
@@ -63,23 +84,30 @@ private fun OnHeaderCollapse(
     collapsedHeaderSize: Int,
     scrollToOffset: (Int) -> Unit,
 ) {
-    fun LazyListState.needsCollapse(): Boolean {
-        val header = layoutInfo.visibleItemsInfo.getOrNull(0)
-        if (header != null) {
-            return header.size / 2 < firstVisibleItemScrollOffset
-        }
-        return false
-    }
     if (!listState.isScrollInProgress.not() || listState.firstVisibleItemIndex != 0) return
     val header = listState.layoutInfo.visibleItemsInfo.getOrNull(0) ?: return
-    LaunchedEffect(Unit) {
-        val scrollOffset = if (listState.needsCollapse()) {
-            header.size - collapsedHeaderSize
-        } else {
-            0
+    val scrollOffset: Int by remember {
+        derivedStateOf {
+            if (listState.needsCollapse()) {
+                header.size - collapsedHeaderSize
+            } else {
+                0
+            }
         }
-        scrollToOffset(scrollOffset)
     }
+    SideEffect {
+        if (scrollOffset != listState.firstVisibleItemScrollOffset) {
+            scrollToOffset(scrollOffset)
+        }
+    }
+}
+
+private fun LazyListState.needsCollapse(): Boolean {
+    val header = layoutInfo.visibleItemsInfo.getOrNull(0)
+    if (header != null) {
+        return header.size / 2 < firstVisibleItemScrollOffset
+    }
+    return false
 }
 
 private fun LazyListState.isHeaderCollapsed(collapsedHeaderSize: Int): Boolean {
