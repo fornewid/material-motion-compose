@@ -21,6 +21,8 @@ material = "com.google.android.material:material:1.4.0"
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 
+dokka-pluginGradle = "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
+
 # Compose
 
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
