@@ -1,0 +1,8 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:core
+soup.compose.material.motion
+soup.compose.material.motion.animation
+module:navigation
+soup.compose.material.motion.navigation
