@@ -1,4 +1,4 @@
-<img width="550" alt="logo" src="docs/header.png" />
+<img width="550" alt="logo" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/header.png" />
 
 # Material Motion for Jetpack Compose
 

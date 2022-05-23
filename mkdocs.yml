@@ -1,0 +1,35 @@
+site_name: "Material Motion for Jetpack Compose"
+site_description: "A library that provides components supporting material motion patterns for Jetpack Compose."
+site_author: "fornewid"
+remote_branch: gh-pages
+
+# Repository
+repo_name: fornewid/material-motion-compose
+repo_url: https://github.com/fornewid/material-motion-compose
+
+# Navigation
+nav:
+  - "Overview": index.md
+  - "API Docs": api/index.html
+
+# Configuration
+theme:
+  name: material
+  language: "en"
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.betterem
+  - pymdownx.superfences
