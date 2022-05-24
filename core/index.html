@@ -17,7 +17,7 @@
     
     
       
-        <title>Migrating from `0.5.x` to `0.6.x` - Material Motion for Jetpack Compose</title>
+        <title>Guide - Material Motion for Jetpack Compose</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#migrating-from-05x-to-06x" class="md-skip">
+        <a href="#material-motion-core" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Migrating from `0.5.x` to `0.6.x`
+              Guide
             
           </span>
         </div>
@@ -223,12 +223,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -249,11 +251,114 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../core/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Guide
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-axis" class="md-nav__link">
+    Shared axis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fade-through" class="md-nav__link">
+    Fade through
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fade" class="md-nav__link">
+    Fade
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elevation-scale" class="md-nav__link">
+    Elevation scale
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hold" class="md-nav__link">
+    Hold
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-want-to-use-different-motions-depending-on-the-state" class="md-nav__link">
+    If you want to use different motions depending on the state:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-want-to-change-motion-durations" class="md-nav__link">
+    If you want to change motion durations:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download" class="md-nav__link">
+    Download
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -368,63 +473,58 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#shared-axis" class="md-nav__link">
     Shared axis
   </a>
   
-    <nav class="md-nav" aria-label="Shared axis">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#with-materialmotion" class="md-nav__link">
-    With MaterialMotion
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#fade-through" class="md-nav__link">
     Fade through
   </a>
   
-    <nav class="md-nav" aria-label="Fade through">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#with-materialmotion_1" class="md-nav__link">
-    With MaterialMotion
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#fade" class="md-nav__link">
     Fade
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#elevation-scale" class="md-nav__link">
     Elevation scale
   </a>
   
-    <nav class="md-nav" aria-label="Elevation scale">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#with-other-materialmotion" class="md-nav__link">
-    With other MaterialMotion
+  <a href="#hold" class="md-nav__link">
+    Hold
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-want-to-use-different-motions-depending-on-the-state" class="md-nav__link">
+    If you want to use different motions depending on the state:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-want-to-change-motion-durations" class="md-nav__link">
+    If you want to change motion durations:
   </a>
   
 </li>
@@ -435,22 +535,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hold" class="md-nav__link">
-    Hold
+  <a href="#download" class="md-nav__link">
+    Download
   </a>
-  
-    <nav class="md-nav" aria-label="Hold">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-other-materialmotion_1" class="md-nav__link">
-    With other MaterialMotion
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -466,331 +553,193 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/fornewid/material-motion-compose/edit/master/docs/migrating-from-0.5-to-0.6.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/fornewid/material-motion-compose/edit/master/docs/core.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="migrating-from-05x-to-06x">Migrating from <code>0.5.x</code> to <code>0.6.x</code><a class="headerlink" href="#migrating-from-05x-to-06x" title="Permanent link">&para;</a></h1>
-<p>In <code>0.6.0</code>, <code>MaterialMotion</code> has been completely rewritten based on <a href="https://developer.android.com/jetpack/compose/animation#animatedcontent"><code>AnimatedContent</code></a>.</p>
-<p>So, if you were already using this library, you should migrate your codes.</p>
-<p>Please check the before and after in the following codes.</p>
-<h2 id="shared-axis"><a href="https://material.io/design/motion/the-motion-system.html#shared-axis">Shared axis</a><a class="headerlink" href="#shared-axis" title="Permanent link">&para;</a></h2>
-<p>In <code>0.6.1</code>, both <code>Axis</code> and <code>MaterialSharedAxis</code> composable were deprecated.</p>
-<p>Use <code>MaterialSharedAxis*</code> composables or <code>materialSharedAxis*</code> motion specs for each axis instead.</p>
-<ul>
-<li><code>MaterialSharedAxis*</code> composables:</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Axis</th>
-<th>Composable</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>X</td>
-<td><code>MaterialSharedAxisX()</code></td>
-</tr>
-<tr>
-<td>Y</td>
-<td><code>MaterialSharedAxisY()</code></td>
-</tr>
-<tr>
-<td>Z</td>
-<td><code>MaterialSharedAxisZ()</code></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><code>materialSharedAxis*</code> motion specs:</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Axis</th>
-<th>MotionSpec</th>
-<th>EnterMotionSpec</th>
-<th>ExitMotionSpec</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>X</td>
-<td><code>materialSharedAxisX()</code></td>
-<td><code>materialSharedAxisXIn()</code></td>
-<td><code>materialSharedAxisXOut()</code></td>
-</tr>
-<tr>
-<td>Y</td>
-<td><code>materialSharedAxisY()</code></td>
-<td><code>materialSharedAxisYIn()</code></td>
-<td><code>materialSharedAxisYOut()</code></td>
-</tr>
-<tr>
-<td>Z</td>
-<td><code>materialSharedAxisZ()</code></td>
-<td><code>materialSharedAxisZIn()</code></td>
-<td><code>materialSharedAxisZOut()</code></td>
-</tr>
-</tbody>
-</table>
-<p>You need to set the slide distance on the X/Y axis.</p>
-<p>If wants, you can set the slide distance as <code>Dp</code> value using <code>rememberSlideDistance()</code>.</p>
-<div class="highlight"><pre><span></span><code>val motionSpec: MotionSpec = materialSharedAxisX(
-    forward = true or false,
-    slideDistance = rememberSlideDistance(30.dp)
-)
-</code></pre></div>
-<hr />
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialSharedAxis(
+<h1 id="material-motion-core">Material Motion Core<a class="headerlink" href="#material-motion-core" title="Permanent link">&para;</a></h1>
+<p><a href="https://search.maven.org/search?q=g:io.github.fornewid"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core" /></a></p>
+<p>Material Motion Core is a Jetpack Compose library for implementing <a href="https://material.io/develop/android/theming/motion/">motion system</a> in Material Components for Android.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>This library provides support for <a href="https://material.io/design/motion/the-motion-system.html">motion patterns</a> defined in the Material spec.</p>
+<h3 id="shared-axis">Shared axis<a class="headerlink" href="#shared-axis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+MaterialSharedAxisX(
     targetState = screen,
-    axis = Axis.X,
     forward = true,
     slideDistance = 30.dp // (optional)
 ) { newScreen -&gt;
     // composable according to screen
 }
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialSharedAxisX(
+
+// or
+
+MaterialMotion(
     targetState = screen,
-    forward = true,
-    slideDistance = rememberSlideDistance(30.dp)
+    motionSpec = {
+        materialSharedAxisX(slideDistance = 30.dp)
+    },
+    pop = forward.not()
 ) { newScreen -&gt;
     // composable according to screen
 }
-</code></pre></div></p>
-<h3 id="with-materialmotion">With <code>MaterialMotion</code><a class="headerlink" href="#with-materialmotion" title="Permanent link">&para;</a></h3>
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = materialSharedAxis(
-        axis = Axis.X,
-        forward = true,
-        slideDistance = 30.dp // (optional)
-    )
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = materialSharedAxisX(
-        forward = true,
-        slideDistance = rememberSlideDistance(30.dp)
-    )
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<h2 id="fade-through"><a href="https://material.io/design/motion/the-motion-system.html#fade-through">Fade through</a><a class="headerlink" href="#fade-through" title="Permanent link">&para;</a></h2>
-<p>Usage has not changed between <code>0.5.x</code> and <code>0.6.x</code>.</p>
+</code></pre></div>
 <table>
 <thead>
 <tr>
-<th>MotionSpec</th>
-<th>EnterMotionSpec</th>
-<th>ExitMotionSpec</th>
+<th>Axis X</th>
+<th>Axis Y</th>
+<th>Axis Z</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>materialFadeThrough()</code></td>
-<td><code>materialFadeThroughIn()</code></td>
-<td><code>materialFadeThroughOut()</code></td>
+<td><img width="200" src="shared_axis_x.gif" /></td>
+<td><img width="200" src="shared_axis_y.gif" /></td>
+<td><img width="200" src="shared_axis_z.gif" /></td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialFadeThrough(
+<h3 id="fade-through">Fade through<a class="headerlink" href="#fade-through" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+MaterialFadeThrough(
     targetState = screen
 ) { newScreen -&gt;
     // composable according to screen
 }
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialFadeThrough(
-    targetState = screen
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<h3 id="with-materialmotion_1">With <code>MaterialMotion</code><a class="headerlink" href="#with-materialmotion_1" title="Permanent link">&para;</a></h3>
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
+
+// or
+
+MaterialMotion(
     targetState = screen,
-    motionSpec = materialFadeThrough()
+    motionSpec = { materialFadeThrough() }
 ) { newScreen -&gt;
     // composable according to screen
 }
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = materialFadeThrough()
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<h2 id="fade"><a href="https://material.io/design/motion/the-motion-system.html#fade">Fade</a><a class="headerlink" href="#fade" title="Permanent link">&para;</a></h2>
-<p>Unlike <code>0.5.x</code>, <code>0.6.x</code> does NOT support <code>MotionSpec</code>.
-Use <code>MaterialFade</code> composable instead.</p>
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialFade(
-    targetState = visible
-) { visible -&gt;
-    if (visible) {
-        // composable
-    }
-}
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialFade(
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Fade Through</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img width="200" src="fade_through.gif" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fade">Fade<a class="headerlink" href="#fade" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>val (visible, onVisibleChanged) = remember { mutableStateOf(...) }
+MaterialFade(
     visible = visible
 ) {
-    // composable
+    // composable to show
 }
-</code></pre></div></p>
-<h2 id="elevation-scale">Elevation scale<a class="headerlink" href="#elevation-scale" title="Permanent link">&para;</a></h2>
+</code></pre></div>
 <table>
 <thead>
 <tr>
-<th>MotionSpec</th>
-<th>EnterMotionSpec</th>
-<th>ExitMotionSpec</th>
+<th>Fade</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-</td>
-<td><code>materialElevationScaleIn()</code></td>
-<td><code>materialElevationScaleOut()</code></td>
+<td><img width="200" src="fade.gif" /></td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = materialElevationScale(growing = false)
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = materialElevationScaleIn() with materialElevationScaleOut()
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<h3 id="with-other-materialmotion">With other <code>MaterialMotion</code><a class="headerlink" href="#with-other-materialmotion" title="Permanent link">&para;</a></h3>
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    enterMotionSpec = materialElevationScale(growing = false)
-    exitMotionSpec = ...
-) { newScreen -&gt;
-    // composable according to screen
-}
-// or
+<h3 id="elevation-scale">Elevation scale<a class="headerlink" href="#elevation-scale" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    enterMotionSpec = ...
-    exitMotionSpec = materialElevationScale(growing = true)
+    motionSpec = { materialElevationScaleIn() with ... }
+    // or
+    motionSpec = { ... with materialElevationScaleOut() }
 ) { newScreen -&gt;
     // composable according to screen
 }
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = materialElevationScaleIn() with ...
-) { newScreen -&gt;
-    // composable according to screen
-}
-// or
-MaterialMotion(
-    targetState = screen,
-    motionSpec = ... with materialElevationScaleOut()
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<h2 id="hold">Hold<a class="headerlink" href="#hold" title="Permanent link">&para;</a></h2>
+</code></pre></div>
 <table>
 <thead>
 <tr>
-<th>MotionSpec</th>
-<th>EnterMotionSpec</th>
-<th>ExitMotionSpec</th>
+<th>ElevationScale</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-</td>
-<td><code>holdIn()</code></td>
-<td><code>holdOut()</code></td>
+<td><img width="200" src="elevation_scale.gif" /></td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = hold()
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = holdIn() with holdOut()
-) { newScreen -&gt;
-    // composable according to screen
-}
-</code></pre></div></p>
-<h3 id="with-other-materialmotion_1">With other <code>MaterialMotion</code><a class="headerlink" href="#with-other-materialmotion_1" title="Permanent link">&para;</a></h3>
-<p>In <code>0.5.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    enterMotionSpec = hold()
-    exitMotionSpec = ...
-) { newScreen -&gt;
-    // composable according to screen
-}
-// or
+<h3 id="hold">Hold<a class="headerlink" href="#hold" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    enterMotionSpec = ...
-    exitMotionSpec = hold()
+    motionSpec = { holdIn() with ... }
+    // or
+    motionSpec = { ... with holdOut() }
 ) { newScreen -&gt;
     // composable according to screen
 }
-</code></pre></div></p>
-<p>In <code>0.6.x</code>:
-<div class="highlight"><pre><span></span><code>MaterialMotion(
-    targetState = screen,
-    motionSpec = holdIn() with ...
-) { newScreen -&gt;
-    // composable according to screen
-}
-// or
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img width="200" src="hold.gif" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="if-you-want-to-use-different-motions-depending-on-the-state">If you want to use different motions depending on the state:<a class="headerlink" href="#if-you-want-to-use-different-motions-depending-on-the-state" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>val (screen, onScreenChanged) = remember { mutableStateOf(...) }
 MaterialMotion(
     targetState = screen,
-    motionSpec = ... with holdOut()
+    motionSpec = {
+        when (targetState) {
+           ... -&gt; materialSharedAxisY()
+           ... -&gt; materialFadeThroughIn() with materialFadeThroughOut()
+           ...
+        }
+    },
+    pop = false // whether motion contents are rendered in reverse order.
 ) { newScreen -&gt;
     // composable according to screen
 }
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img width="200" src="demo.gif" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="if-you-want-to-change-motion-durations">If you want to change motion durations:<a class="headerlink" href="#if-you-want-to-change-motion-durations" title="Permanent link">&para;</a></h3>
+<p>Just pass a duration(=ms) directly when creating material motion.</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code>val motionSpec = materialFadeThrough(durationMillis = 300)
 </code></pre></div></p>
+<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
+<p><a href="https://search.maven.org/search?q=g:io.github.fornewid"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core" /></a></p>
+<div class="highlight"><pre><span></span><code>repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation &quot;io.github.fornewid:material-motion-compose-core:&lt;version&gt;&quot;
+}
+</code></pre></div>
 
               
             </article>
@@ -800,6 +749,26 @@ MaterialMotion(
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+      
+        
+        <a href="../navigation/" class="md-footer__link md-footer__link--next" aria-label="Next: Guide" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Guide
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
