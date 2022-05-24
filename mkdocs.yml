@@ -10,7 +10,12 @@ repo_url: https://github.com/fornewid/material-motion-compose
 # Navigation
 nav:
   - "Overview": index.md
-  - "API Docs": api/index.html
+  - "Core":
+      - 'Guide': core.md
+      - 'API': api/core/
+  - "Navigation":
+      - 'Guide': navigation.md
+      - 'API': api/navigation/
 
 # Configuration
 theme:

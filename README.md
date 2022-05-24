@@ -1,4 +1,4 @@
-<img width="550" alt="logo" src="https://github.com/fornewid/material-motion-compose/blob/main/docs/header.png" />
+<img width="550" alt="logo" src="docs/header.png" />
 
 # Material Motion for Jetpack Compose
 
@@ -23,15 +23,15 @@ Jetpack Compose library for implementing [motion system](https://material.io/dev
 </table>
 
 
-### 🌈 [Core](https://github.com/fornewid/material-motion-compose/tree/main/core)
+### 🌈 [Core](./core/)
 
 A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Compose.
 
-### 🧭 [Navigation](https://github.com/fornewid/material-motion-compose/tree/main/navigation)
+### 🧭 [Navigation](./navigation/)
 
 A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Navigation Compose.
 
 
 ## License
 
-Licensed under the Apache 2.0 license. See [LICENSE](https://github.com/fornewid/material-motion-compose/blob/main/LICENSE) for details.
+Licensed under the Apache 2.0 license. See [LICENSE](LICENSE) for details.
