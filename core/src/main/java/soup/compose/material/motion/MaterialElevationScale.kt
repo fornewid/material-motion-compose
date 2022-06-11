@@ -27,7 +27,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
  * @param durationMillis the duration of the enter transition.
  */
 @ExperimentalAnimationApi
-fun materialElevationScaleIn(
+public fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,
@@ -49,7 +49,7 @@ fun materialElevationScaleIn(
  * @param durationMillis the duration of the exit transition.
  */
 @ExperimentalAnimationApi
-fun materialElevationScaleOut(
+public fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
     durationMillis: Int = MotionConstants.motionDurationLong1,

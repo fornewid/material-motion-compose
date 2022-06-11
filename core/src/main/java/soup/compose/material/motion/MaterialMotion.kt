@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.Density
  */
 @ExperimentalAnimationApi
 @Composable
-fun <S> MaterialMotion(
+public fun <S> MaterialMotion(
     targetState: S,
     motionSpec: AnimatedContentScope<S>.() -> MotionSpec,
     modifier: Modifier = Modifier,
@@ -71,7 +71,7 @@ fun <S> MaterialMotion(
  */
 @ExperimentalAnimationApi
 @Composable
-fun <S> Transition<S>.MaterialMotion(
+public fun <S> Transition<S>.MaterialMotion(
     motionSpec: AnimatedContentScope<S>.() -> MotionSpec,
     modifier: Modifier = Modifier,
     pop: Boolean = false,

@@ -26,7 +26,7 @@ import androidx.compose.animation.slideOutVertically
 /**
  * [translateXIn] allows to switch a layout with a translate animation as x axis.
  */
-fun translateXIn(
+public fun translateXIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
     initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterMotionSpec = EnterMotionSpec(
@@ -41,7 +41,7 @@ fun translateXIn(
 /**
  * [translateXOut] allows to switch a layout with a translate animation as x axis.
  */
-fun translateXOut(
+public fun translateXOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
     targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitMotionSpec = ExitMotionSpec(
@@ -56,7 +56,7 @@ fun translateXOut(
 /**
  * [translateYIn] allows to switch a layout with a translate animation as y axis.
  */
-fun translateYIn(
+public fun translateYIn(
     durationMillis: Int = MotionConstants.motionDurationLong1,
     initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterMotionSpec = EnterMotionSpec(
@@ -71,7 +71,7 @@ fun translateYIn(
 /**
  * [translateYOut] allows to switch a layout with a translate animation as y axis.
  */
-fun translateYOut(
+public fun translateYOut(
     durationMillis: Int = MotionConstants.motionDurationLong1,
     targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitMotionSpec = ExitMotionSpec(
