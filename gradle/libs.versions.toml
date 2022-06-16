@@ -5,8 +5,8 @@ kotlin = "1.6.21"
 
 # Compose
 activity = "1.4.0"
-navigation = "2.5.0-rc01"
-compose = "1.2.0-beta03"
+navigation = "2.5.0-rc02"
+compose = "1.2.0-rc01"
 
 
 [libraries]
