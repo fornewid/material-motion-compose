@@ -1,12 +1,13 @@
 [versions]
 
 # Kotlin
-kotlin = "1.6.21"
+kotlin = "1.7.0"
 
 # Compose
 activity = "1.4.0"
-navigation = "2.5.0-rc02"
-compose = "1.2.0-rc02"
+navigation = "2.5.0"
+compose = "1.2.0-rc03"
+composeCompiler = "1.2.0"
 
 
 [libraries]
@@ -21,7 +22,7 @@ material = "com.google.android.material:material:1.4.0"
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 
-dokka-pluginGradle = "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
+dokka-pluginGradle = "org.jetbrains.dokka:dokka-gradle-plugin:1.7.0"
 
 # Compose
 
