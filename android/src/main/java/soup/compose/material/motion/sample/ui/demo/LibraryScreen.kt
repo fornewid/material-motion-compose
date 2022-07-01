@@ -25,17 +25,18 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SortByAlpha
+import androidx.compose.material.icons.filled.ViewList
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import soup.compose.material.motion.MaterialMotion
 import soup.compose.material.motion.materialFadeThrough
 import soup.compose.material.motion.materialSharedAxisY
-import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.demo.LibraryState.Companion.Saver
 
 private enum class SortType {
@@ -149,13 +150,13 @@ fun LibraryScaffold(
                 actions = {
                     IconButton(onClick = onSortTypeToggle) {
                         Icon(
-                            painterResource(R.drawable.ic_sort_by_alpha_black_24dp),
+                            Icons.Default.SortByAlpha,
                             contentDescription = null
                         )
                     }
                     IconButton(onClick = onListTypeToggle) {
                         Icon(
-                            painterResource(R.drawable.ic_view_list_black_24dp),
+                            Icons.Default.ViewList,
                             contentDescription = null
                         )
                     }

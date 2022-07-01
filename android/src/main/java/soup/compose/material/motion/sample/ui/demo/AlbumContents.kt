@@ -47,9 +47,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,7 +60,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import soup.compose.material.motion.MaterialFade
-import soup.compose.material.motion.sample.R
 import soup.compose.material.motion.sample.ui.theme.Purple200
 
 @Composable
@@ -184,7 +183,7 @@ fun AlbumTrackItem(track: MusicData.Track) {
     ) {
         if (track.playing) {
             Image(
-                painter = painterResource(R.drawable.ic_volume_up_black_24dp),
+                Icons.Default.VolumeUp,
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.CenterVertically),
                 contentScale = ContentScale.Crop,

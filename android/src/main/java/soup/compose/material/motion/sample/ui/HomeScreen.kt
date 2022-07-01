@@ -35,15 +35,63 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.sample.ui.Destination.Demo
-import soup.compose.material.motion.sample.ui.Destination.Hold
-import soup.compose.material.motion.sample.ui.Destination.Home
-import soup.compose.material.motion.sample.ui.Destination.MaterialElevationScale
-import soup.compose.material.motion.sample.ui.Destination.MaterialFade
-import soup.compose.material.motion.sample.ui.Destination.MaterialFadeThrough
-import soup.compose.material.motion.sample.ui.Destination.MaterialSharedAxis
-import soup.compose.material.motion.sample.ui.Destination.Navigation
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
+
+private data class Demo(
+    val title: String,
+    val description: String,
+    val destination: Destination,
+)
+
+private data class Category(
+    val title: String,
+    val items: List<Demo>,
+) {
+    companion object {
+        val items: List<Category> = listOf(
+            Category(
+                title = "Additional Examples (Core)",
+                items = listOf(
+                    Demo(
+                        title = "MaterialSharedAxis",
+                        description = "MaterialSharedAxisScreen",
+                        destination = Destination.MaterialSharedAxis
+                    ),
+                    Demo(
+                        title = "MaterialFadeThrough",
+                        description = "MaterialFadeThroughScreen",
+                        destination = Destination.MaterialFadeThrough
+                    ),
+                    Demo(
+                        title = "MaterialFade",
+                        description = "MaterialFadeScreen",
+                        destination = Destination.MaterialFade
+                    ),
+                    Demo(
+                        title = "MaterialElevationScale",
+                        description = "MaterialElevationScaleScreen",
+                        destination = Destination.MaterialElevationScale
+                    ),
+                    Demo(
+                        title = "Hold",
+                        description = "HoldScreen",
+                        destination = Destination.Hold
+                    ),
+                )
+            ),
+            Category(
+                title = "Additional Examples (Navigation)",
+                items = listOf(
+                    Demo(
+                        title = "Navigation",
+                        description = "NavigationScreen",
+                        destination = Destination.Navigation
+                    ),
+                )
+            ),
+        )
+    }
+}
 
 @Composable
 fun HomeScreen(onItemClick: (Destination) -> Unit) {
@@ -69,63 +117,75 @@ fun HomeScreen(onItemClick: (Destination) -> Unit) {
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                         style = MaterialTheme.typography.body2
                     )
-                    HomeMenuItem(Demo, onItemClick = onItemClick)
-                    Divider()
-                    Text(
-                        text = "Additional Examples",
-                        modifier = Modifier.padding(start = 16.dp, top = 16.dp),
-                        style = MaterialTheme.typography.subtitle1
+                    HomeDemoItem(
+                        Demo(
+                            title = "Demo",
+                            description = "DemoScreen",
+                            destination = Destination.Demo
+                        ),
+                        onItemClick = onItemClick
                     )
                 }
             }
-            items(Destination.additionalExampleList()) {
-                HomeMenuItem(it, onItemClick = onItemClick)
+            Category.items.forEachIndexed { index, category ->
+                item(
+                    key = index,
+                    contentType = { "Category" }
+                ) {
+                    Divider()
+                    HomeCategoryItem(title = category.title)
+                }
+                items(
+                    items = category.items,
+                    key = { it.destination.route },
+                    contentType = { "Demo" }
+                ) { demo ->
+                    HomeDemoItem(demo, onItemClick = onItemClick)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun HomeMenuItem(
-    menu: Destination,
+private fun HomeCategoryItem(
+    title: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = title,
+        modifier = modifier.padding(start = 16.dp, top = 16.dp),
+        style = MaterialTheme.typography.subtitle1
+    )
+}
+
+@Composable
+private fun HomeDemoItem(
+    demo: Demo,
     onItemClick: (Destination) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .requiredHeight(64.dp)
-            .clickable { onItemClick(menu) }
+            .clickable { onItemClick(demo.destination) }
             .padding(horizontal = 16.dp)
     ) {
         Text(
-            text = menu.title,
+            text = demo.title,
             modifier = Modifier.fillMaxWidth(),
             fontWeight = FontWeight.SemiBold,
             style = MaterialTheme.typography.body2
         )
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = menu.description,
+            text = demo.description,
             style = MaterialTheme.typography.caption
         )
     }
 }
-
-private val Destination.title: String
-    get() = name
-
-private val Destination.description: String
-    get() = when (this) {
-        Home -> "HomeScreen"
-        Demo -> "DemoScreen"
-        MaterialSharedAxis -> "MaterialSharedAxisScreen"
-        MaterialFadeThrough -> "MaterialFadeThroughScreen"
-        MaterialFade -> "MaterialFadeScreen"
-        MaterialElevationScale -> "MaterialElevationScaleScreen"
-        Hold -> "HoldScreen"
-        Navigation -> "NavigationScreen"
-    }
 
 @Preview(name = "Light", showBackground = true)
 @Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)

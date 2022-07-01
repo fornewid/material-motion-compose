@@ -30,15 +30,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Collections
+import androidx.compose.material.icons.filled.Photo
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import soup.compose.material.motion.sample.R
 
 enum class BottomTabs {
     Albums, Photos, Search
@@ -52,7 +51,7 @@ fun BottomTabsControls(
     BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
         BottomTabs.values().forEach { tab ->
             BottomNavigationItem(
-                icon = { Icon(tab.icon(), contentDescription = null) },
+                icon = { Icon(tab.icon, contentDescription = null) },
                 label = { Text(tab.name) },
                 selected = tab == selectedTab,
                 onClick = { setSelectedTab(tab) },
@@ -109,16 +108,16 @@ private fun BottomTabsContentsItem(
             .padding(4.dp)
     ) {
         Image(
-            painter = selectedTab.icon(),
+            selectedTab.icon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(contentColor)
         )
     }
 }
 
-@Composable
-private fun BottomTabs.icon(): Painter = when (this) {
-    BottomTabs.Albums -> painterResource(R.drawable.ic_collections)
-    BottomTabs.Photos -> painterResource(R.drawable.ic_photo)
-    BottomTabs.Search -> rememberVectorPainter(Icons.Default.Search)
-}
+private val BottomTabs.icon: ImageVector
+    get() = when (this) {
+        BottomTabs.Albums -> Icons.Default.Collections
+        BottomTabs.Photos -> Icons.Default.Photo
+        BottomTabs.Search -> Icons.Default.Search
+    }
