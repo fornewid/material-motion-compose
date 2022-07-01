@@ -77,6 +77,11 @@ private data class Category(
                         description = "HoldScreen",
                         destination = Destination.Hold
                     ),
+                    Demo(
+                        title = "CircularReveal",
+                        description = "CircularRevealScreen",
+                        destination = Destination.CircularReveal
+                    ),
                 )
             ),
             Category(
