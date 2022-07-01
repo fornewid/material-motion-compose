@@ -15,7 +15,6 @@ composeCompiler = "1.2.0"
 android-pluginGradle = "com.android.tools.build:gradle:7.2.1"
 mavenPublish-pluginGradle = "com.vanniktech:gradle-maven-publish-plugin:0.17.0"
 metalava-pluginGradle = "me.tylerbwong.gradle:metalava-gradle:0.1.9"
-material = "com.google.android.material:material:1.4.0"
 
 # Kotlin
 
@@ -35,6 +34,7 @@ compose-ui-testJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version
 compose-ui-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 
 # Test

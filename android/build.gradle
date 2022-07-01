@@ -53,9 +53,9 @@ dependencies {
     implementation project(':core')
     implementation project(':navigation')
 
-    implementation libs.material
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.tooling
     implementation libs.compose.material
+    implementation libs.compose.materialIconsExtended
     implementation libs.compose.activity
 }
