@@ -37,7 +37,7 @@ import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 
-private enum class Destination(
+private enum class MaterialMotionNavDestination(
     val route: String,
     val color: Color,
     val nextRoute: String? = null,
@@ -51,26 +51,26 @@ private enum class Destination(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun NavigationScreen(upPress: () -> Unit) {
+fun MaterialMotionNavHostScreen(upPress: () -> Unit) {
     DefaultScaffold(upPress = upPress) { innerPadding ->
         val navController = rememberMaterialMotionNavController()
         MaterialMotionNavHost(
             navController = navController,
-            startDestination = Destination.First.route,
+            startDestination = MaterialMotionNavDestination.First.route,
             modifier = Modifier.padding(innerPadding),
             enterTransition = { translateXIn { it } },
             exitTransition = { materialElevationScaleOut() },
             popEnterTransition = { materialElevationScaleIn() },
             popExitTransition = { translateXOut { it } }
         ) {
-            Destination.values().forEach { destination ->
+            MaterialMotionNavDestination.values().forEach { destination ->
                 composable(route = destination.route) {
                     if (destination.root) {
                         BackHandler {
                             upPress()
                         }
                     }
-                    DestinationScreen(
+                    MaterialMotionNavDestinationScreen(
                         destination = destination,
                         onNavigateClick = { route ->
                             navController.navigate(route)
@@ -83,8 +83,8 @@ fun NavigationScreen(upPress: () -> Unit) {
 }
 
 @Composable
-private fun DestinationScreen(
-    destination: Destination,
+private fun MaterialMotionNavDestinationScreen(
+    destination: MaterialMotionNavDestination,
     onNavigateClick: (route: String) -> Unit = {},
 ) {
     Column(

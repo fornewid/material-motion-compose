@@ -88,9 +88,14 @@ private data class Category(
                 title = "Additional Examples (Navigation)",
                 items = listOf(
                     Demo(
-                        title = "Navigation",
-                        description = "NavigationScreen",
-                        destination = Destination.Navigation
+                        title = "MaterialMotionNavHost",
+                        description = "MaterialMotionNavHostScreen",
+                        destination = Destination.MaterialMotionNavHost
+                    ),
+                    Demo(
+                        title = "AnimatedNavHost",
+                        description = "AnimatedNavHostScreen",
+                        destination = Destination.AnimatedNavHost
                     ),
                 )
             ),

@@ -29,18 +29,20 @@ import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
 import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeThroughScreen
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
-import soup.compose.material.motion.sample.ui.navigation.NavigationScreen
+import soup.compose.material.motion.sample.ui.navigation.AnimatedNavHostScreen
+import soup.compose.material.motion.sample.ui.navigation.MaterialMotionNavHostScreen
 
 enum class Destination(val route: String) {
-    Home("home"),
-    Demo("demo"),
-    MaterialSharedAxis("material_shared_axis"),
-    MaterialFadeThrough("material_fade_through"),
-    MaterialFade("material_fade"),
-    MaterialElevationScale("material_elevation_scale"),
-    Hold("hold"),
-    CircularReveal("circular_reveal"),
-    Navigation("navigation"),
+    Home("Home"),
+    Demo("Demo"),
+    MaterialSharedAxis("MaterialSharedAxis"),
+    MaterialFadeThrough("MaterialFadeThrough"),
+    MaterialFade("MaterialFade"),
+    MaterialElevationScale("MaterialElevationScale"),
+    Hold("Hold"),
+    CircularReveal("CircularReveal"),
+    MaterialMotionNavHost("MaterialMotionNavHost"),
+    AnimatedNavHost("AnimatedNavHost"),
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -89,8 +91,11 @@ fun NavGraph(
         }
 
         /* Navigation */
-        composable(Destination.Navigation.route) {
-            NavigationScreen(upPress = upPress)
+        composable(Destination.MaterialMotionNavHost.route) {
+            MaterialMotionNavHostScreen(upPress = upPress)
+        }
+        composable(Destination.AnimatedNavHost.route) {
+            AnimatedNavHostScreen(upPress = upPress)
         }
     }
 }

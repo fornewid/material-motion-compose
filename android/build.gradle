@@ -58,4 +58,5 @@ dependencies {
     implementation libs.compose.material
     implementation libs.compose.materialIconsExtended
     implementation libs.compose.activity
+    implementation libs.accompanist.navigation.animation
 }
