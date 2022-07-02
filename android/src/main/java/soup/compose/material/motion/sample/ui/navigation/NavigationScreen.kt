@@ -28,14 +28,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import soup.compose.material.motion.materialElevationScaleIn
-import soup.compose.material.motion.materialElevationScaleOut
+import soup.compose.material.motion.animation.materialElevationScaleIn
+import soup.compose.material.motion.animation.materialElevationScaleOut
+import soup.compose.material.motion.animation.translateXIn
+import soup.compose.material.motion.animation.translateXOut
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
-import soup.compose.material.motion.translateXIn
-import soup.compose.material.motion.translateXOut
 
 private enum class Destination(
     val route: String,
@@ -58,10 +58,10 @@ fun NavigationScreen(upPress: () -> Unit) {
             navController = navController,
             startDestination = Destination.First.route,
             modifier = Modifier.padding(innerPadding),
-            enterMotionSpec = { translateXIn { it } },
-            exitMotionSpec = { materialElevationScaleOut() },
-            popEnterMotionSpec = { materialElevationScaleIn() },
-            popExitMotionSpec = { translateXOut { it } }
+            enterTransition = { translateXIn { it } },
+            exitTransition = { materialElevationScaleOut() },
+            popEnterTransition = { materialElevationScaleIn() },
+            popExitTransition = { translateXOut { it } }
         ) {
             Destination.values().forEach { destination ->
                 composable(route = destination.route) {

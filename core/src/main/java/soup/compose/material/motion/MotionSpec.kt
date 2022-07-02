@@ -22,14 +22,25 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Density
 
+@Deprecated(
+    message = "Use ContentTransform.",
+    replaceWith = ReplaceWith(""),
+)
 @Immutable
 public data class MotionSpec(
     val enter: EnterMotionSpec,
     val exit: ExitMotionSpec,
 )
 
+@Deprecated(
+    message = "Use ContentTransform.",
+    replaceWith = ReplaceWith("", "androidx.compose.animation.with")
+)
 public infix fun EnterMotionSpec.with(exit: ExitMotionSpec): MotionSpec = MotionSpec(this, exit)
 
+@Deprecated(
+    message = "Use EnterTransition.",
+)
 @Immutable
 public data class EnterMotionSpec(
     val transition: (forward: Boolean, density: Density) -> EnterTransition,
@@ -40,6 +51,7 @@ public data class EnterMotionSpec(
     }
 }
 
+@Deprecated(message = "Use ExitTransition.")
 @Immutable
 public data class ExitMotionSpec(
     val transition: (forward: Boolean, density: Density) -> ExitTransition,

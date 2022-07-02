@@ -15,23 +15,21 @@
  */
 package soup.compose.material.motion
 
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.runner.RunWith
-import soup.compose.material.motion.MotionConstants.motionDurationLong1
+import soup.compose.material.motion.animation.materialSharedAxisZ
 
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalAnimationApi::class)
 class MaterialSharedAxisZTest : MaterialMotionTest() {
 
-    override val defaultDurationMillis: Int
-        get() = motionDurationLong1
-
-    override fun motionSpec(durationMillis: Int?): MotionSpec {
+    override fun transitionSpec(forward: Boolean, durationMillis: Int?): ContentTransform {
         return if (durationMillis != null) {
-            materialSharedAxisZ(durationMillis = durationMillis)
+            materialSharedAxisZ(forward = forward, durationMillis = durationMillis)
         } else {
-            materialSharedAxisZ()
+            materialSharedAxisZ(forward = forward)
         }
     }
 }

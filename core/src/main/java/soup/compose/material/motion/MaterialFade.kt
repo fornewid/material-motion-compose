@@ -40,8 +40,8 @@ import soup.compose.material.motion.animation.materialFadeOut
 public fun MaterialFade(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    enterDurationMillis: Int = MotionConstants.motionDurationShort2,
-    exitDurationMillis: Int = MotionConstants.motionDurationShort1,
+    enterDurationMillis: Int = MotionConstants.DefaultFadeInDuration,
+    exitDurationMillis: Int = MotionConstants.DefaultFadeOutDuration,
     content: @Composable () -> Unit,
 ) {
     AnimatedVisibility(

@@ -31,7 +31,7 @@ import soup.compose.material.motion.MotionConstants
  * @param durationMillis the duration of the enter transition.
  */
 public fun holdIn(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis,
@@ -46,7 +46,7 @@ public fun holdIn(
  * @param durationMillis the duration of the exit transition.
  */
 public fun holdOut(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis,

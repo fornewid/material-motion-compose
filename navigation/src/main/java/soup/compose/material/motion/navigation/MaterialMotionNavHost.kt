@@ -17,8 +17,14 @@ package soup.compose.material.motion.navigation
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,12 +47,8 @@ import androidx.navigation.compose.LocalOwnersProvider
 import androidx.navigation.createGraph
 import androidx.navigation.get
 import kotlinx.coroutines.flow.map
-import soup.compose.material.motion.EnterMotionSpec
-import soup.compose.material.motion.ExitMotionSpec
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialSharedAxisZIn
-import soup.compose.material.motion.materialSharedAxisZOut
-import soup.compose.material.motion.with
+import soup.compose.material.motion.MotionConstants.DefaultMotionDuration
 
 /**
  * Provides in place in the Compose hierarchy for self contained navigation to occur.
@@ -61,10 +63,10 @@ import soup.compose.material.motion.with
  * @param startDestination the route for the start destination
  * @param modifier The modifier to be applied to the layout.
  * @param route the route for the graph
- * @param enterMotionSpec callback to define enter transitions for destination in this host
- * @param exitMotionSpec callback to define exit transitions for destination in this host
- * @param popEnterMotionSpec callback to define popEnter transitions for destination in this host
- * @param popExitMotionSpec callback to define popExit transitions for destination in this host
+ * @param enterTransition callback to define enter transitions for destination in this host
+ * @param exitTransition callback to define exit transitions for destination in this host
+ * @param popEnterTransition callback to define popEnter transitions for destination in this host
+ * @param popExitTransition callback to define popExit transitions for destination in this host
  * @param builder the builder used to construct the graph
  */
 @Composable
@@ -75,10 +77,14 @@ public fun MaterialMotionNavHost(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
-    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = { materialSharedAxisZIn() },
-    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = { materialSharedAxisZOut() },
-    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = exitMotionSpec,
+    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = {
+        fadeIn(animationSpec = tween(DefaultMotionDuration))
+    },
+    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = {
+        fadeOut(animationSpec = tween(DefaultMotionDuration))
+    },
+    popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
+    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     MaterialMotionNavHost(
@@ -88,10 +94,10 @@ public fun MaterialMotionNavHost(
         },
         modifier,
         contentAlignment,
-        enterMotionSpec,
-        exitMotionSpec,
-        popEnterMotionSpec,
-        popExitMotionSpec
+        enterTransition,
+        exitTransition,
+        popEnterTransition,
+        popExitTransition
     )
 }
 
@@ -104,10 +110,10 @@ public fun MaterialMotionNavHost(
  * @param navController the navController for this host
  * @param graph the graph for this host
  * @param modifier The modifier to be applied to the layout.
- * @param enterMotionSpec callback to define enter transitions for destination in this host
- * @param exitMotionSpec callback to define exit transitions for destination in this host
- * @param popEnterMotionSpec callback to define popEnter transitions for destination in this host
- * @param popExitMotionSpec callback to define popExit transitions for destination in this host
+ * @param enterTransition callback to define enter transitions for destination in this host
+ * @param exitTransition callback to define exit transitions for destination in this host
+ * @param popEnterTransition callback to define popEnter transitions for destination in this host
+ * @param popExitTransition callback to define popExit transitions for destination in this host
  */
 @ExperimentalAnimationApi
 @Composable
@@ -116,10 +122,14 @@ public fun MaterialMotionNavHost(
     graph: NavGraph,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
-    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = { materialSharedAxisZIn() },
-    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = { materialSharedAxisZOut() },
-    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = exitMotionSpec,
+    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = {
+        fadeIn(animationSpec = tween(DefaultMotionDuration))
+    },
+    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = {
+        fadeOut(animationSpec = tween(DefaultMotionDuration))
+    },
+    popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
+    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -156,37 +166,37 @@ public fun MaterialMotionNavHost(
 
     val backStackEntry = visibleEntries.lastOrNull()
     if (backStackEntry != null) {
-        val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec = {
+        val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition = {
             val targetDestination =
                 targetState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
                 targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    popEnterMotionSpecs[destination.route]?.invoke(this)
-                } ?: popEnterMotionSpec.invoke(this)
+                    popEnterTransitions[destination.route]?.invoke(this)
+                } ?: popEnterTransition.invoke(this)
             } else {
                 targetDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    enterMotionSpecs[destination.route]?.invoke(this)
-                } ?: enterMotionSpec.invoke(this)
+                    enterTransitions[destination.route]?.invoke(this)
+                } ?: enterTransition.invoke(this)
             }
         }
 
-        val finalExit: AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec = {
+        val finalExit: AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition = {
             val initialDestination =
                 initialState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
                 initialDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    popExitMotionSpecs[destination.route]?.invoke(this)
-                } ?: popExitMotionSpec.invoke(this)
+                    popExitTransitions[destination.route]?.invoke(this)
+                } ?: popExitTransition.invoke(this)
             } else {
                 initialDestination.hierarchy.firstNotNullOfOrNull { destination ->
-                    exitMotionSpecs[destination.route]?.invoke(this)
-                } ?: exitMotionSpec.invoke(this)
+                    exitTransitions[destination.route]?.invoke(this)
+                } ?: exitTransition.invoke(this)
             }
         }
 
         val transition = updateTransition(backStackEntry, label = "entry")
         transition.MaterialMotion(
-            motionSpec = { finalEnter(this) with finalExit(this) },
+            transitionSpec = { finalEnter(this) with finalExit(this) },
             modifier = modifier,
             pop = composeNavigator.isPop.value,
             contentAlignment = contentAlignment,
@@ -218,17 +228,17 @@ public fun MaterialMotionNavHost(
 }
 
 @ExperimentalAnimationApi
-internal val enterMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
+internal val enterTransitions =
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?>()
 
 @ExperimentalAnimationApi
-internal val exitMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
+internal val exitTransitions =
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)?>()
 
 @ExperimentalAnimationApi
-internal val popEnterMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
+internal val popEnterTransitions =
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?>()
 
 @ExperimentalAnimationApi
-internal val popExitMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
+internal val popExitTransitions =
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)?>()
