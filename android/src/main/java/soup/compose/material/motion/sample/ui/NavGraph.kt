@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
+import soup.compose.material.motion.sample.ui.circularreveal.CircularRevealScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
 import soup.compose.material.motion.sample.ui.material.fade.MaterialFadeScreen
@@ -38,6 +39,7 @@ enum class Destination(val route: String) {
     MaterialFade("material_fade"),
     MaterialElevationScale("material_elevation_scale"),
     Hold("hold"),
+    CircularReveal("circular_reveal"),
     Navigation("navigation"),
 }
 
@@ -84,6 +86,9 @@ fun NavGraph(
         }
         composable(Destination.Hold.route) {
             HoldScreen(upPress = upPress)
+        }
+        composable(Destination.CircularReveal.route) {
+            CircularRevealScreen(upPress = upPress)
         }
 
         /* Navigation */
