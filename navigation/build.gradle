@@ -47,8 +47,7 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-
+    api project(':core')
     api libs.compose.navigation
     implementation libs.compose.animation
     implementation libs.compose.runtime
