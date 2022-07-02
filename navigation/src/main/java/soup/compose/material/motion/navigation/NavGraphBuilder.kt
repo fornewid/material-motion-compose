@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import androidx.navigation.get
@@ -34,10 +35,10 @@ import androidx.navigation.get
  * @param route route for the destination
  * @param arguments list of arguments to associate with destination
  * @param deepLinks list of deep links to associate with the destinations
- * @param enterMotionSpec callback to determine the destination's enter transition
- * @param exitMotionSpec callback to determine the destination's exit transition
- * @param popEnterMotionSpec callback to determine the destination's popEnter transition
- * @param popExitMotionSpec callback to determine the destination's popExit transition
+ * @param enterTransition callback to determine the destination's enter transition
+ * @param exitTransition callback to determine the destination's exit transition
+ * @param popEnterTransition callback to determine the destination's popEnter transition
+ * @param popExitTransition callback to determine the destination's popExit transition
  * @param content composable for the destination
  */
 @ExperimentalAnimationApi
@@ -45,10 +46,10 @@ public fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
-    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
-    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = enterMotionSpec,
-    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = exitMotionSpec,
+    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
+    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+    popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
+    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
     content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
 ) {
     addDestination(
@@ -63,10 +64,10 @@ public fun NavGraphBuilder.composable(
             deepLinks.forEach { deepLink ->
                 addDeepLink(deepLink)
             }
-            enterMotionSpec?.let { enterMotionSpecs[route] = enterMotionSpec }
-            exitMotionSpec?.let { exitMotionSpecs[route] = exitMotionSpec }
-            popEnterMotionSpec?.let { popEnterMotionSpecs[route] = popEnterMotionSpec }
-            popExitMotionSpec?.let { popExitMotionSpecs[route] = popExitMotionSpec }
+            enterTransition?.let { enterTransitions[route] = enterTransition }
+            exitTransition?.let { exitTransitions[route] = exitTransition }
+            popEnterTransition?.let { popEnterTransitions[route] = popEnterTransition }
+            popExitTransition?.let { popExitTransitions[route] = popExitTransition }
         }
     )
 }
@@ -78,11 +79,10 @@ public fun NavGraphBuilder.composable(
  * @param route the destination's unique route
  * @param arguments list of arguments to associate with destination
  * @param deepLinks list of deep links to associate with the destinations
- * @param enterMotionSpec callback to define enter transitions for destination in this NavGraph
- * @param exitMotionSpec callback to define exit transitions for destination in this NavGraph
- * @param popEnterMotionSpec callback to define pop enter transitions for destination in this
- * NavGraph
- * @param popExitMotionSpec callback to define pop exit transitions for destination in this NavGraph
+ * @param enterTransition callback to define enter transitions for destination in this NavGraph
+ * @param exitTransition callback to define exit transitions for destination in this NavGraph
+ * @param popEnterTransition callback to define pop enter transitions for destination in this NavGraph
+ * @param popExitTransition callback to define pop exit transitions for destination in this NavGraph
  * @param builder the builder used to construct the graph
  *
  * @return the newly constructed nested NavGraph
@@ -93,16 +93,16 @@ public fun NavGraphBuilder.navigation(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
-    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
-    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = enterMotionSpec,
-    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = exitMotionSpec,
+    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
+    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+    popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
+    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     navigation(startDestination, route, arguments, deepLinks, builder).apply {
-        enterMotionSpec.let { enterMotionSpecs[route] = enterMotionSpec }
-        exitMotionSpec.let { exitMotionSpecs[route] = exitMotionSpec }
-        popEnterMotionSpec.let { popEnterMotionSpecs[route] = popEnterMotionSpec }
-        popExitMotionSpec.let { popExitMotionSpecs[route] = popExitMotionSpec }
+        enterTransition.let { enterTransitions[route] = enterTransition }
+        exitTransition.let { exitTransitions[route] = exitTransition }
+        popEnterTransition.let { popEnterTransitions[route] = popEnterTransition }
+        popExitTransition.let { popExitTransitions[route] = popExitTransition }
     }
 }

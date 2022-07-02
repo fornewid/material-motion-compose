@@ -147,7 +147,7 @@ class MaterialMotionNavHostTest {
             navController = rememberMaterialMotionNavController()
             MaterialMotionNavHost(navController, startDestination = first) {
                 composable(first) { BasicText(first) }
-                navigation(second, "subGraph", enterMotionSpec = { null }) {
+                navigation(second, "subGraph", enterTransition = { null }) {
                     composable(second) { BasicText(second) }
                 }
             }
