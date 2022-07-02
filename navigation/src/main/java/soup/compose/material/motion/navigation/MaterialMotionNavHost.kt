@@ -17,8 +17,11 @@ package soup.compose.material.motion.navigation
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,12 +44,9 @@ import androidx.navigation.compose.LocalOwnersProvider
 import androidx.navigation.createGraph
 import androidx.navigation.get
 import kotlinx.coroutines.flow.map
-import soup.compose.material.motion.EnterMotionSpec
-import soup.compose.material.motion.ExitMotionSpec
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialSharedAxisZIn
-import soup.compose.material.motion.materialSharedAxisZOut
-import soup.compose.material.motion.with
+import soup.compose.material.motion.animation.materialSharedAxisZIn
+import soup.compose.material.motion.animation.materialSharedAxisZOut
 
 /**
  * Provides in place in the Compose hierarchy for self contained navigation to occur.
@@ -75,10 +75,11 @@ public fun MaterialMotionNavHost(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
-    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = { materialSharedAxisZIn() },
-    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = { materialSharedAxisZOut() },
-    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = exitMotionSpec,
+    // TODO: forward = true 확인
+    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = { materialSharedAxisZIn(forward = true) },
+    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = { materialSharedAxisZOut(forward = true) },
+    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = enterMotionSpec,
+    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = exitMotionSpec,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     MaterialMotionNavHost(
@@ -116,10 +117,11 @@ public fun MaterialMotionNavHost(
     graph: NavGraph,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
-    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = { materialSharedAxisZIn() },
-    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = { materialSharedAxisZOut() },
-    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec) = enterMotionSpec,
-    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec) = exitMotionSpec,
+    // TODO: forward = true 확인
+    enterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = { materialSharedAxisZIn(forward = true) },
+    exitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = { materialSharedAxisZOut(forward = true) },
+    popEnterMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = enterMotionSpec,
+    popExitMotionSpec: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = exitMotionSpec,
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -156,7 +158,7 @@ public fun MaterialMotionNavHost(
 
     val backStackEntry = visibleEntries.lastOrNull()
     if (backStackEntry != null) {
-        val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec = {
+        val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition = {
             val targetDestination =
                 targetState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
@@ -170,7 +172,7 @@ public fun MaterialMotionNavHost(
             }
         }
 
-        val finalExit: AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec = {
+        val finalExit: AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition = {
             val initialDestination =
                 initialState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
@@ -186,7 +188,7 @@ public fun MaterialMotionNavHost(
 
         val transition = updateTransition(backStackEntry, label = "entry")
         transition.MaterialMotion(
-            motionSpec = { finalEnter(this) with finalExit(this) },
+            transitionSpec = { finalEnter(this) with finalExit(this) },
             modifier = modifier,
             pop = composeNavigator.isPop.value,
             contentAlignment = contentAlignment,
@@ -219,16 +221,16 @@ public fun MaterialMotionNavHost(
 
 @ExperimentalAnimationApi
 internal val enterMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?>()
 
 @ExperimentalAnimationApi
 internal val exitMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)?>()
 
 @ExperimentalAnimationApi
 internal val popEnterMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?>()
 
 @ExperimentalAnimationApi
 internal val popExitMotionSpecs =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitMotionSpec?)?>()
+    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)?>()

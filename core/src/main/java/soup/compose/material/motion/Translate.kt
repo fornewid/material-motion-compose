@@ -17,22 +17,24 @@
 
 package soup.compose.material.motion
 
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
-
 /**
  * [translateXIn] allows to switch a layout with a translate animation as x axis.
  */
+@Deprecated(
+    message = "Use translateXIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "translateXIn()",
+        "soup.compose.material.motion.animation.translateXIn",
+    )
+)
 public fun translateXIn(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
     initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
-        slideInHorizontally(
-            animationSpec = tween(durationMillis),
+        soup.compose.material.motion.animation.translateXIn(
+            durationMillis = durationMillis,
             initialOffsetX = initialOffsetX
         )
     }
@@ -41,13 +43,21 @@ public fun translateXIn(
 /**
  * [translateXOut] allows to switch a layout with a translate animation as x axis.
  */
+@Deprecated(
+    message = "Use translateXOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "translateXOut()",
+        "soup.compose.material.motion.animation.translateXOut",
+    )
+)
 public fun translateXOut(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
     targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
-        slideOutHorizontally(
-            animationSpec = tween(durationMillis),
+        soup.compose.material.motion.animation.translateXOut(
+            durationMillis = durationMillis,
             targetOffsetX = targetOffsetX
         )
     }
@@ -56,13 +66,21 @@ public fun translateXOut(
 /**
  * [translateYIn] allows to switch a layout with a translate animation as y axis.
  */
+@Deprecated(
+    message = "Use translateYIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "translateYIn()",
+        "soup.compose.material.motion.animation.translateYIn",
+    )
+)
 public fun translateYIn(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
     initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
-        slideInVertically(
-            animationSpec = tween(durationMillis),
+        soup.compose.material.motion.animation.translateYIn(
+            durationMillis = durationMillis,
             initialOffsetY = initialOffsetY
         )
     }
@@ -71,13 +89,21 @@ public fun translateYIn(
 /**
  * [translateYOut] allows to switch a layout with a translate animation as y axis.
  */
+@Deprecated(
+    message = "Use translateYOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "translateYOut()",
+        "soup.compose.material.motion.animation.translateYOut",
+    )
+)
 public fun translateYOut(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
     targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
-        slideOutVertically(
-            animationSpec = tween(durationMillis),
+        soup.compose.material.motion.animation.translateYOut(
+            durationMillis = durationMillis,
             targetOffsetY = targetOffsetY
         )
     }

@@ -22,16 +22,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-
-@Deprecated(
-    message = "Replaced with MotionConstants.DefaultSlideDistance",
-    replaceWith = ReplaceWith(
-        "MotionConstants.DefaultSlideDistance",
-        "soup.compose.material.motion.MotionConstants"
-    )
-)
-public val DefaultSlideDistance: Dp = 30.dp
+import soup.compose.material.motion.animation.rememberSlideDistance
 
 private const val ProgressThreshold = 0.35f
 
@@ -47,16 +38,14 @@ private val Int.ForIncoming: Int
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisX() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+)
 public fun materialSharedAxisX(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-): MotionSpec = materialSharedAxisXIn(
-    slideDistance = slideDistance,
-    durationMillis = durationMillis
-) with materialSharedAxisXOut(
-    slideDistance = slideDistance,
-    durationMillis = durationMillis
-)
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+): MotionSpec = TODO()
 
 /**
  * [materialSharedAxisXIn] allows to switch a layout with shared X-axis enter transition.
@@ -64,9 +53,13 @@ public fun materialSharedAxisX(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisXIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+)
 public fun materialSharedAxisXIn(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { forward, density ->
         soup.compose.material.motion.animation.materialSharedAxisXIn(
@@ -84,9 +77,13 @@ public fun materialSharedAxisXIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisXOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+)
 public fun materialSharedAxisXOut(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { forward, density ->
         soup.compose.material.motion.animation.materialSharedAxisXOut(
@@ -104,16 +101,14 @@ public fun materialSharedAxisXOut(
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisY() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+)
 public fun materialSharedAxisY(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-): MotionSpec = materialSharedAxisYIn(
-    slideDistance = slideDistance,
-    durationMillis = durationMillis
-) with materialSharedAxisYOut(
-    slideDistance = slideDistance,
-    durationMillis = durationMillis
-)
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+): MotionSpec = TODO()
 
 /**
  * [materialSharedAxisYIn] allows to switch a layout with shared Y-axis enter transition.
@@ -121,9 +116,13 @@ public fun materialSharedAxisY(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisYIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+)
 public fun materialSharedAxisYIn(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { forward, density ->
         soup.compose.material.motion.animation.materialSharedAxisYIn(
@@ -141,9 +140,17 @@ public fun materialSharedAxisYIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisYOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialSharedAxisZOut()",
+        "soup.compose.material.motion.animation.materialSharedAxisZOut",
+    )
+)
 public fun materialSharedAxisYOut(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { forward, density ->
         soup.compose.material.motion.animation.materialSharedAxisYOut(
@@ -160,23 +167,35 @@ public fun materialSharedAxisYOut(
  *
  * @param durationMillis the duration of transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisZ() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialSharedAxisZ()",
+        "soup.compose.material.motion.animation.materialSharedAxisZ",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialSharedAxisZ(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-): MotionSpec = materialSharedAxisZIn(
-    durationMillis = durationMillis
-) with materialSharedAxisZOut(
-    durationMillis = durationMillis
-)
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+): MotionSpec = TODO()
 
 /**
  * [materialSharedAxisZIn] allows to switch a layout with shared Z-axis enter transition.
  *
  * @param durationMillis the duration of the enter transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisZIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialSharedAxisZIn()",
+        "soup.compose.material.motion.animation.materialSharedAxisZIn",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialSharedAxisZIn(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { forward, _ ->
         soup.compose.material.motion.animation.materialSharedAxisZIn(
@@ -191,9 +210,17 @@ public fun materialSharedAxisZIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
+@Deprecated(
+    message = "Use materialSharedAxisZOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialSharedAxisZOut()",
+        "soup.compose.material.motion.animation.materialSharedAxisZOut",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialSharedAxisZOut(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { forward, _ ->
         soup.compose.material.motion.animation.materialSharedAxisZOut(
@@ -224,10 +251,14 @@ public fun <T> MaterialSharedAxisX(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
+    val distance = rememberSlideDistance(slideDistance)
     MaterialMotion(
         targetState = targetState,
-        motionSpec = {
-            materialSharedAxisX(slideDistance)
+        transitionSpec = {
+            soup.compose.material.motion.animation.materialSharedAxisX(
+                forward = forward,
+                slideDistance = distance,
+            )
         },
         modifier = modifier,
         pop = forward.not(),
@@ -256,10 +287,14 @@ public fun <T> MaterialSharedAxisY(
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
+    val distance = rememberSlideDistance(slideDistance)
     MaterialMotion(
         targetState = targetState,
-        motionSpec = {
-            materialSharedAxisY(slideDistance)
+        transitionSpec = {
+            soup.compose.material.motion.animation.materialSharedAxisY(
+                forward = forward,
+                slideDistance = distance,
+            )
         },
         modifier = modifier,
         pop = forward.not(),
@@ -288,8 +323,10 @@ public fun <T> MaterialSharedAxisZ(
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = {
-            materialSharedAxisZ()
+        transitionSpec = {
+            soup.compose.material.motion.animation.materialSharedAxisZ(
+                forward = forward,
+            )
         },
         modifier = modifier,
         pop = forward.not(),

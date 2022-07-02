@@ -22,8 +22,16 @@ package soup.compose.material.motion
  *
  * @param durationMillis the duration of the enter transition.
  */
+@Deprecated(
+    message = "Use holdIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "holdIn()",
+        "soup.compose.material.motion.animation.holdIn",
+    )
+)
 public fun holdIn(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         soup.compose.material.motion.animation.holdIn(durationMillis)
@@ -35,8 +43,16 @@ public fun holdIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
+@Deprecated(
+    message = "Use holdOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "holdOut()",
+        "soup.compose.material.motion.animation.holdOut",
+    )
+)
 public fun holdOut(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         soup.compose.material.motion.animation.holdOut(durationMillis)

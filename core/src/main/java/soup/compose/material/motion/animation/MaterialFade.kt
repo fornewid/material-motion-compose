@@ -38,7 +38,7 @@ private val Int.ForFade: Int
  */
 @ExperimentalAnimationApi
 public fun materialFadeIn(
-    durationMillis: Int = MotionConstants.motionDurationShort2,
+    durationMillis: Int = MotionConstants.DefaultFadeInDuration,
 ): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForFade,
@@ -57,7 +57,7 @@ public fun materialFadeIn(
  */
 @ExperimentalAnimationApi
 public fun materialFadeOut(
-    durationMillis: Int = MotionConstants.motionDurationShort1,
+    durationMillis: Int = MotionConstants.DefaultFadeOutDuration,
 ): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis,

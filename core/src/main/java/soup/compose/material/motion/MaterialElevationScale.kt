@@ -26,11 +26,19 @@ import androidx.compose.animation.ExperimentalAnimationApi
  * @param initialScale the starting scale of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
+@Deprecated(
+    message = "Use materialElevationScaleIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialElevationScaleIn()",
+        "soup.compose.material.motion.animation.materialElevationScaleIn",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         soup.compose.material.motion.animation.materialElevationScaleIn(
@@ -48,11 +56,19 @@ public fun materialElevationScaleIn(
  * @param targetScale the target scale of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
+@Deprecated(
+    message = "Use materialElevationScaleOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialElevationScaleOut()",
+        "soup.compose.material.motion.animation.materialElevationScaleOut",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitMotionSpec {
     return ExitMotionSpec(
         transition = { _, _ ->

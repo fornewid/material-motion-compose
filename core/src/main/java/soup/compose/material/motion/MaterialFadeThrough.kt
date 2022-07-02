@@ -27,14 +27,18 @@ import androidx.compose.ui.Modifier
  *
  * @param durationMillis the duration of transition.
  */
+@Deprecated(
+    message = "Use materialFadeThrough() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialFadeThrough()",
+        "soup.compose.material.motion.animation.materialFadeThrough",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialFadeThrough(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
-): MotionSpec = materialFadeThroughIn(
-    durationMillis = durationMillis
-) with materialFadeThroughOut(
-    durationMillis = durationMillis
-)
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+): MotionSpec = TODO()
 
 /**
  * [materialFadeThroughIn] allows to switch a layout with fade through enter transition.
@@ -42,10 +46,18 @@ public fun materialFadeThrough(
  * @param initialScale the starting scale of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
+@Deprecated(
+    message = "Use materialFadeThroughIn() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialFadeThroughIn()",
+        "soup.compose.material.motion.animation.materialFadeThroughIn",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterMotionSpec = EnterMotionSpec(
     transition = { _, _ ->
         soup.compose.material.motion.animation.materialFadeThroughIn(
@@ -60,9 +72,17 @@ public fun materialFadeThroughIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
+@Deprecated(
+    message = "Use materialFadeThroughOut() of animation package instead.",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "materialFadeThroughOut()",
+        "soup.compose.material.motion.animation.materialFadeThroughOut",
+    )
+)
 @ExperimentalAnimationApi
 public fun materialFadeThroughOut(
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitMotionSpec = ExitMotionSpec(
     transition = { _, _ ->
         soup.compose.material.motion.animation.materialFadeThroughOut(
@@ -90,8 +110,8 @@ public fun <T> MaterialFadeThrough(
 ) {
     MaterialMotion(
         targetState = targetState,
-        motionSpec = {
-            materialFadeThroughIn() with materialFadeThroughOut()
+        transitionSpec = {
+            soup.compose.material.motion.animation.materialFadeThrough()
         },
         modifier = modifier,
         content = content

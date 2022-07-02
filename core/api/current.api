@@ -5,42 +5,42 @@ package soup.compose.material.motion {
     method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.ui.Modifier circularReveal(androidx.compose.ui.Modifier, boolean visible, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.geometry.Size,androidx.compose.ui.geometry.Offset> center, optional kotlin.jvm.functions.Function1<? super androidx.compose.animation.core.Transition.Segment<java.lang.Boolean>,? extends androidx.compose.animation.core.FiniteAnimationSpec<java.lang.Float>> transitionSpec);
   }
 
-  @androidx.compose.runtime.Immutable public final class EnterMotionSpec {
-    ctor public EnterMotionSpec(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.EnterTransition> transition);
-    method public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.EnterTransition> component1();
-    method public soup.compose.material.motion.EnterMotionSpec copy(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.EnterTransition> transition);
-    method public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.EnterTransition> getTransition();
+  @Deprecated @androidx.compose.runtime.Immutable public final class EnterMotionSpec {
+    ctor @Deprecated public EnterMotionSpec(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.EnterTransition> transition);
+    method @Deprecated public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.EnterTransition> component1();
+    method @Deprecated public soup.compose.material.motion.EnterMotionSpec copy(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.EnterTransition> transition);
+    method @Deprecated public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.EnterTransition> getTransition();
     property public final kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.EnterTransition> transition;
-    field public static final soup.compose.material.motion.EnterMotionSpec.Companion Companion;
+    field @Deprecated public static final soup.compose.material.motion.EnterMotionSpec.Companion Companion;
   }
 
-  public static final class EnterMotionSpec.Companion {
-    method public soup.compose.material.motion.EnterMotionSpec getNone();
+  @Deprecated public static final class EnterMotionSpec.Companion {
+    method @Deprecated public soup.compose.material.motion.EnterMotionSpec getNone();
     property public final soup.compose.material.motion.EnterMotionSpec None;
   }
 
-  @androidx.compose.runtime.Immutable public final class ExitMotionSpec {
-    ctor public ExitMotionSpec(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.ExitTransition> transition);
-    method public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.ExitTransition> component1();
-    method public soup.compose.material.motion.ExitMotionSpec copy(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.ExitTransition> transition);
-    method public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.ExitTransition> getTransition();
+  @Deprecated @androidx.compose.runtime.Immutable public final class ExitMotionSpec {
+    ctor @Deprecated public ExitMotionSpec(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.ExitTransition> transition);
+    method @Deprecated public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.ExitTransition> component1();
+    method @Deprecated public soup.compose.material.motion.ExitMotionSpec copy(kotlin.jvm.functions.Function2<? super java.lang.Boolean,? super androidx.compose.ui.unit.Density,? extends androidx.compose.animation.ExitTransition> transition);
+    method @Deprecated public kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.ExitTransition> getTransition();
     property public final kotlin.jvm.functions.Function2<java.lang.Boolean,androidx.compose.ui.unit.Density,androidx.compose.animation.ExitTransition> transition;
-    field public static final soup.compose.material.motion.ExitMotionSpec.Companion Companion;
+    field @Deprecated public static final soup.compose.material.motion.ExitMotionSpec.Companion Companion;
   }
 
-  public static final class ExitMotionSpec.Companion {
-    method public soup.compose.material.motion.ExitMotionSpec getNone();
+  @Deprecated public static final class ExitMotionSpec.Companion {
+    method @Deprecated public soup.compose.material.motion.ExitMotionSpec getNone();
     property public final soup.compose.material.motion.ExitMotionSpec None;
   }
 
   public final class HoldKt {
-    method public static soup.compose.material.motion.EnterMotionSpec holdIn(optional int durationMillis);
-    method public static soup.compose.material.motion.ExitMotionSpec holdOut(optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.EnterMotionSpec holdIn(optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.ExitMotionSpec holdOut(optional int durationMillis);
   }
 
   public final class MaterialElevationScaleKt {
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.EnterMotionSpec materialElevationScaleIn(optional float initialAlpha, optional float initialScale, optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.ExitMotionSpec materialElevationScaleOut(optional float targetAlpha, optional float targetScale, optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.EnterMotionSpec materialElevationScaleIn(optional float initialAlpha, optional float initialScale, optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.ExitMotionSpec materialElevationScaleOut(optional float targetAlpha, optional float targetScale, optional int durationMillis);
   }
 
   public final class MaterialFadeKt {
@@ -49,35 +49,37 @@ package soup.compose.material.motion {
 
   public final class MaterialFadeThroughKt {
     method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <T> void MaterialFadeThrough(T? targetState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.MotionSpec materialFadeThrough(optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.EnterMotionSpec materialFadeThroughIn(optional float initialScale, optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.ExitMotionSpec materialFadeThroughOut(optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.MotionSpec materialFadeThrough(optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.EnterMotionSpec materialFadeThroughIn(optional float initialScale, optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.ExitMotionSpec materialFadeThroughOut(optional int durationMillis);
   }
 
   public final class MaterialMotionKt {
-    method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <S> void MaterialMotion(S? targetState, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentScope<S>,soup.compose.material.motion.MotionSpec> motionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
-    method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <S> void MaterialMotion(androidx.compose.animation.core.Transition<S>, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentScope<S>,soup.compose.material.motion.MotionSpec> motionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, optional kotlin.jvm.functions.Function1<? super S,?> contentKey, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
+    method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <S> void MaterialMotion(S? targetState, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentScope<S>,androidx.compose.animation.ContentTransform> transitionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
+    method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <S> void MaterialMotion(androidx.compose.animation.core.Transition<S>, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentScope<S>,androidx.compose.animation.ContentTransform> transitionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, optional kotlin.jvm.functions.Function1<? super S,?> contentKey, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
   }
 
   public final class MaterialSharedAxisKt {
     method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisX(T? targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional float slideDistance, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
     method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisY(T? targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional float slideDistance, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
     method @androidx.compose.animation.ExperimentalAnimationApi @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisZ(T? targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
-    method @Deprecated public static float getDefaultSlideDistance();
-    method public static soup.compose.material.motion.MotionSpec materialSharedAxisX(optional float slideDistance, optional int durationMillis);
-    method public static soup.compose.material.motion.EnterMotionSpec materialSharedAxisXIn(optional float slideDistance, optional int durationMillis);
-    method public static soup.compose.material.motion.ExitMotionSpec materialSharedAxisXOut(optional float slideDistance, optional int durationMillis);
-    method public static soup.compose.material.motion.MotionSpec materialSharedAxisY(optional float slideDistance, optional int durationMillis);
-    method public static soup.compose.material.motion.EnterMotionSpec materialSharedAxisYIn(optional float slideDistance, optional int durationMillis);
-    method public static soup.compose.material.motion.ExitMotionSpec materialSharedAxisYOut(optional float slideDistance, optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.MotionSpec materialSharedAxisZ(optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.EnterMotionSpec materialSharedAxisZIn(optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.ExitMotionSpec materialSharedAxisZOut(optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.MotionSpec materialSharedAxisX(optional float slideDistance, optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.EnterMotionSpec materialSharedAxisXIn(optional float slideDistance, optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.ExitMotionSpec materialSharedAxisXOut(optional float slideDistance, optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.MotionSpec materialSharedAxisY(optional float slideDistance, optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.EnterMotionSpec materialSharedAxisYIn(optional float slideDistance, optional int durationMillis);
+    method @Deprecated public static soup.compose.material.motion.ExitMotionSpec materialSharedAxisYOut(optional float slideDistance, optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.MotionSpec materialSharedAxisZ(optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.EnterMotionSpec materialSharedAxisZIn(optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static soup.compose.material.motion.ExitMotionSpec materialSharedAxisZOut(optional int durationMillis);
   }
 
   public final class MotionConstants {
     method public float getDefaultSlideDistance();
     property public final float DefaultSlideDistance;
+    field public static final int DefaultFadeInDuration = 150; // 0x96
+    field public static final int DefaultFadeOutDuration = 75; // 0x4b
+    field public static final int DefaultMotionDuration = 300; // 0x12c
     field public static final soup.compose.material.motion.MotionConstants INSTANCE;
     field public static final int motionDurationLong1 = 300; // 0x12c
     field public static final int motionDurationLong2 = 350; // 0x15e
@@ -87,26 +89,26 @@ package soup.compose.material.motion {
     field public static final int motionDurationShort2 = 150; // 0x96
   }
 
-  @androidx.compose.runtime.Immutable public final class MotionSpec {
-    ctor public MotionSpec(soup.compose.material.motion.EnterMotionSpec enter, soup.compose.material.motion.ExitMotionSpec exit);
-    method public soup.compose.material.motion.EnterMotionSpec component1();
-    method public soup.compose.material.motion.ExitMotionSpec component2();
-    method public soup.compose.material.motion.MotionSpec copy(soup.compose.material.motion.EnterMotionSpec enter, soup.compose.material.motion.ExitMotionSpec exit);
-    method public soup.compose.material.motion.EnterMotionSpec getEnter();
-    method public soup.compose.material.motion.ExitMotionSpec getExit();
+  @Deprecated @androidx.compose.runtime.Immutable public final class MotionSpec {
+    ctor @Deprecated public MotionSpec(soup.compose.material.motion.EnterMotionSpec enter, soup.compose.material.motion.ExitMotionSpec exit);
+    method @Deprecated public soup.compose.material.motion.EnterMotionSpec component1();
+    method @Deprecated public soup.compose.material.motion.ExitMotionSpec component2();
+    method @Deprecated public soup.compose.material.motion.MotionSpec copy(soup.compose.material.motion.EnterMotionSpec enter, soup.compose.material.motion.ExitMotionSpec exit);
+    method @Deprecated public soup.compose.material.motion.EnterMotionSpec getEnter();
+    method @Deprecated public soup.compose.material.motion.ExitMotionSpec getExit();
     property public final soup.compose.material.motion.EnterMotionSpec enter;
     property public final soup.compose.material.motion.ExitMotionSpec exit;
   }
 
   public final class MotionSpecKt {
-    method public static infix soup.compose.material.motion.MotionSpec with(soup.compose.material.motion.EnterMotionSpec, soup.compose.material.motion.ExitMotionSpec exit);
+    method @Deprecated public static infix soup.compose.material.motion.MotionSpec with(soup.compose.material.motion.EnterMotionSpec, soup.compose.material.motion.ExitMotionSpec exit);
   }
 
   public final class TranslateKt {
-    method public static soup.compose.material.motion.EnterMotionSpec translateXIn(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> initialOffsetX);
-    method public static soup.compose.material.motion.ExitMotionSpec translateXOut(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> targetOffsetX);
-    method public static soup.compose.material.motion.EnterMotionSpec translateYIn(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> initialOffsetY);
-    method public static soup.compose.material.motion.ExitMotionSpec translateYOut(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> targetOffsetY);
+    method @Deprecated public static soup.compose.material.motion.EnterMotionSpec translateXIn(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> initialOffsetX);
+    method @Deprecated public static soup.compose.material.motion.ExitMotionSpec translateXOut(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> targetOffsetX);
+    method @Deprecated public static soup.compose.material.motion.EnterMotionSpec translateYIn(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> initialOffsetY);
+    method @Deprecated public static soup.compose.material.motion.ExitMotionSpec translateYOut(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> targetOffsetY);
   }
 
 }
@@ -135,15 +137,29 @@ package soup.compose.material.motion.animation {
   }
 
   public final class MaterialSharedAxisKt {
-    method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ContentTransform materialSharedAxisX(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
-    method public static androidx.compose.animation.EnterTransition materialSharedAxisXIn(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
-    method public static androidx.compose.animation.ExitTransition materialSharedAxisXOut(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
-    method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ContentTransform materialSharedAxisY(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
-    method public static androidx.compose.animation.EnterTransition materialSharedAxisYIn(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
-    method public static androidx.compose.animation.ExitTransition materialSharedAxisYOut(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ContentTransform materialSharedAxisX(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method public static androidx.compose.animation.ContentTransform materialSharedAxisX(boolean forward, int slideDistance, optional int durationMillis);
+    method @Deprecated public static androidx.compose.animation.EnterTransition materialSharedAxisXIn(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method public static androidx.compose.animation.EnterTransition materialSharedAxisXIn(boolean forward, int slideDistance, optional int durationMillis);
+    method @Deprecated public static androidx.compose.animation.ExitTransition materialSharedAxisXOut(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method public static androidx.compose.animation.ExitTransition materialSharedAxisXOut(boolean forward, int slideDistance, optional int durationMillis);
+    method @Deprecated @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ContentTransform materialSharedAxisY(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ContentTransform materialSharedAxisY(boolean forward, int slideDistance, optional int durationMillis);
+    method @Deprecated public static androidx.compose.animation.EnterTransition materialSharedAxisYIn(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method public static androidx.compose.animation.EnterTransition materialSharedAxisYIn(boolean forward, int slideDistance, optional int durationMillis);
+    method @Deprecated public static androidx.compose.animation.ExitTransition materialSharedAxisYOut(boolean forward, androidx.compose.ui.unit.Density density, optional float slideDistance, optional int durationMillis);
+    method public static androidx.compose.animation.ExitTransition materialSharedAxisYOut(boolean forward, int slideDistance, optional int durationMillis);
     method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ContentTransform materialSharedAxisZ(boolean forward, optional int durationMillis);
     method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.EnterTransition materialSharedAxisZIn(boolean forward, optional int durationMillis);
     method @androidx.compose.animation.ExperimentalAnimationApi public static androidx.compose.animation.ExitTransition materialSharedAxisZOut(boolean forward, optional int durationMillis);
+    method @androidx.compose.runtime.Composable public static int rememberSlideDistance(optional float slideDistance);
+  }
+
+  public final class TranslateKt {
+    method public static androidx.compose.animation.EnterTransition translateXIn(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> initialOffsetX);
+    method public static androidx.compose.animation.ExitTransition translateXOut(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> targetOffsetX);
+    method public static androidx.compose.animation.EnterTransition translateYIn(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> initialOffsetY);
+    method public static androidx.compose.animation.ExitTransition translateYOut(optional int durationMillis, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Integer> targetOffsetY);
   }
 
 }

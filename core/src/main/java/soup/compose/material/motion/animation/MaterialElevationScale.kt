@@ -40,7 +40,7 @@ import soup.compose.material.motion.MotionConstants
 public fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis,
@@ -66,7 +66,7 @@ public fun materialElevationScaleIn(
 public fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,
-    durationMillis: Int = MotionConstants.motionDurationLong1,
+    durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis,

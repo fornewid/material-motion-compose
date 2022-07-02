@@ -18,6 +18,7 @@ package soup.compose.material.motion.sample.ui.material.hold
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -25,15 +26,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.holdIn
-import soup.compose.material.motion.holdOut
+import soup.compose.material.motion.animation.holdIn
+import soup.compose.material.motion.animation.holdOut
+import soup.compose.material.motion.animation.translateXIn
+import soup.compose.material.motion.animation.translateXOut
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.translateXIn
-import soup.compose.material.motion.translateXOut
-import soup.compose.material.motion.with
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -54,7 +54,7 @@ fun HoldScreen(upPress: () -> Unit) {
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
-            motionSpec = {
+            transitionSpec = {
                 when {
                     targetState -> translateXIn { it } with holdOut()
                     else -> holdIn() with translateXOut { it }

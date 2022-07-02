@@ -18,6 +18,7 @@ package soup.compose.material.motion.sample.ui.material.elevationscale
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -25,15 +26,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialElevationScaleIn
-import soup.compose.material.motion.materialElevationScaleOut
+import soup.compose.material.motion.animation.materialElevationScaleIn
+import soup.compose.material.motion.animation.materialElevationScaleOut
+import soup.compose.material.motion.animation.translateYIn
+import soup.compose.material.motion.animation.translateYOut
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardContents
 import soup.compose.material.motion.sample.ui.common.ForwardBackwardControls
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
-import soup.compose.material.motion.translateYIn
-import soup.compose.material.motion.translateYOut
-import soup.compose.material.motion.with
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -55,7 +55,7 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
         MaterialMotion(
             targetState = forward,
             modifier = Modifier.padding(innerPadding),
-            motionSpec = {
+            transitionSpec = {
                 when {
                     targetState -> translateYIn { it } with materialElevationScaleOut()
                     else -> materialElevationScaleIn() with translateYOut { it }

@@ -35,8 +35,9 @@ import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import soup.compose.material.motion.MaterialMotion
-import soup.compose.material.motion.materialFadeThrough
-import soup.compose.material.motion.materialSharedAxisY
+import soup.compose.material.motion.animation.materialFadeThrough
+import soup.compose.material.motion.animation.materialSharedAxisY
+import soup.compose.material.motion.animation.rememberSlideDistance
 import soup.compose.material.motion.sample.ui.demo.LibraryState.Companion.Saver
 
 private enum class SortType {
@@ -121,11 +122,12 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
             onListTypeChange(newType)
         },
     ) { innerPadding ->
+        val slideDistance = rememberSlideDistance()
         MaterialMotion(
             targetState = state,
-            motionSpec = {
+            transitionSpec = {
                 when (targetState.motionSpecType) {
-                    MotionSpecType.SharedAxis -> materialSharedAxisY()
+                    MotionSpecType.SharedAxis -> materialSharedAxisY(forward = true, slideDistance)
                     MotionSpecType.FadeThrough -> materialFadeThrough()
                 }
             },
