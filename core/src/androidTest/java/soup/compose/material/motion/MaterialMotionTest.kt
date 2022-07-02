@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion
 
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.DisposableEffect
@@ -35,8 +36,10 @@ import org.junit.Test
 @OptIn(ExperimentalAnimationApi::class)
 abstract class MaterialMotionTest {
 
-    protected abstract val defaultDurationMillis: Int
-    protected abstract fun motionSpec(durationMillis: Int? = null): MotionSpec
+    protected abstract fun transitionSpec(
+        forward: Boolean,
+        durationMillis: Int? = null,
+    ): ContentTransform
 
     @get:Rule
     val rule: ComposeContentTestRule = createComposeRule()
@@ -49,7 +52,7 @@ abstract class MaterialMotionTest {
             val showFirst by remember { mutableStateOf(true) }
             MaterialMotion(
                 showFirst,
-                motionSpec = { motionSpec() },
+                transitionSpec = { transitionSpec(forward = showFirst) },
                 pop = showFirst.not()
             ) {
                 BasicText(if (it) First else Second)
@@ -69,7 +72,7 @@ abstract class MaterialMotionTest {
         rule.setContent {
             MaterialMotion(
                 showFirst,
-                motionSpec = { motionSpec() },
+                transitionSpec = { transitionSpec(forward = showFirst) },
                 pop = showFirst.not()
             ) {
                 BasicText(if (it) First else Second)
@@ -105,7 +108,7 @@ abstract class MaterialMotionTest {
         rule.setContent {
             MaterialMotion(
                 showFirst,
-                motionSpec = { motionSpec(duration) },
+                transitionSpec = { transitionSpec(forward = showFirst, durationMillis = duration) },
                 pop = showFirst.not()
             ) {
                 BasicText(if (it) First else Second)
@@ -139,7 +142,7 @@ abstract class MaterialMotionTest {
         rule.setContent {
             MaterialMotion(
                 current,
-                motionSpec = { motionSpec() },
+                transitionSpec = { transitionSpec(forward = current != null) },
                 pop = current == null
             ) { value ->
                 BasicText(if (value == null) First else Second)
@@ -177,7 +180,7 @@ abstract class MaterialMotionTest {
             val saveableStateHolder = rememberSaveableStateHolder()
             MaterialMotion(
                 showFirst,
-                motionSpec = { motionSpec(duration) },
+                transitionSpec = { transitionSpec(forward = showFirst, durationMillis = duration) },
                 pop = showFirst.not()
             ) {
                 saveableStateHolder.SaveableStateProvider(it) {
@@ -218,5 +221,6 @@ abstract class MaterialMotionTest {
     companion object {
         private const val First = "first"
         private const val Second = "second"
+        private const val defaultDurationMillis: Int = MotionConstants.DefaultMotionDuration
     }
 }
