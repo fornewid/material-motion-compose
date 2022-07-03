@@ -13,8 +13,5 @@ repositories {
 
 dependencies {
     implementation "io.github.fornewid:material-motion-compose-navigation:<version>"
-    
-    // If you want to change motion, use with core library.
-    implementation "io.github.fornewid:material-motion-compose-core:<version>"
 }
 ```
