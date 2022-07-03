@@ -447,6 +447,68 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Migration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Migration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Migration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating-from-0.5-to-0.6/" class="md-nav__link">
+        0.5 to 0.6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating-from-0.9-to-0.10/" class="md-nav__link">
+        0.9 to 0.10
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -577,10 +639,11 @@ MaterialSharedAxisX(
 
 // or
 
+val slideDistance = rememberSlideDistance(slideDistance = 30.dp)
 MaterialMotion(
     targetState = screen,
     motionSpec = {
-        materialSharedAxisX(slideDistance = 30.dp)
+        materialSharedAxisX(forward = forward, slideDistance = slideDistance)
     },
     pop = forward.not()
 ) { newScreen -&gt;
@@ -700,11 +763,12 @@ MaterialMotion(
 </table>
 <h3 id="if-you-want-to-use-different-motions-depending-on-the-state">If you want to use different motions depending on the state:<a class="headerlink" href="#if-you-want-to-use-different-motions-depending-on-the-state" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+val slideDistance = rememberSlideDistance(slideDistance = 30.dp)
 MaterialMotion(
     targetState = screen,
     motionSpec = {
         when (targetState) {
-           ... -&gt; materialSharedAxisY()
+           ... -&gt; materialSharedAxisY(forward = true, slideDistance = slideDistance)
            ... -&gt; materialFadeThroughIn() with materialFadeThroughOut()
            ...
         }
