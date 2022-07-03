@@ -18,7 +18,10 @@ Jetpack Compose library for implementing [motion system](https://material.io/dev
   <td>Compose 1.1 (1.1.x)</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core?versionPrefix=0.8"></td>
  </tr>
  <tr>
-  <td>Compose 1.2 (1.2.x)</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core"></td>
+  <td>Compose 1.2 (1.2.x)</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core?versionPrefix=0.9"></td>
+ </tr>
+ <tr>
+  <td>Compose 1.3 (1.3.x)</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core"></td>
  </tr>
 </table>
 

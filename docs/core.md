@@ -22,10 +22,11 @@ MaterialSharedAxisX(
 
 // or
 
+val slideDistance = rememberSlideDistance(slideDistance = 30.dp)
 MaterialMotion(
     targetState = screen,
     motionSpec = {
-        materialSharedAxisX(slideDistance = 30.dp)
+        materialSharedAxisX(forward = forward, slideDistance = slideDistance)
     },
     pop = forward.not()
 ) { newScreen ->
@@ -116,11 +117,12 @@ MaterialMotion(
 
 ```kt
 val (screen, onScreenChanged) = remember { mutableStateOf(...) }
+val slideDistance = rememberSlideDistance(slideDistance = 30.dp)
 MaterialMotion(
     targetState = screen,
     motionSpec = {
         when (targetState) {
-           ... -> materialSharedAxisY()
+           ... -> materialSharedAxisY(forward = true, slideDistance = slideDistance)
            ... -> materialFadeThroughIn() with materialFadeThroughOut()
            ...
         }
