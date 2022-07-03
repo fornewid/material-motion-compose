@@ -495,11 +495,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-core-library_1" class="md-nav__link">
-    Migrating 'core' library
+  <a href="#migrating-navigation-library" class="md-nav__link">
+    Migrating 'navigation' library
   </a>
   
-    <nav class="md-nav" aria-label="Migrating 'core' library">
+    <nav class="md-nav" aria-label="Migrating 'navigation' library">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -525,7 +525,7 @@
         
           <li class="md-nav__item">
   <a href="#if-you-are-using-default-motionspecs" class="md-nav__link">
-    If you are using default motionSpecs:
+    If you are using default motionSpecs
   </a>
   
 </li>
@@ -646,11 +646,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-core-library_1" class="md-nav__link">
-    Migrating 'core' library
+  <a href="#migrating-navigation-library" class="md-nav__link">
+    Migrating 'navigation' library
   </a>
   
-    <nav class="md-nav" aria-label="Migrating 'core' library">
+    <nav class="md-nav" aria-label="Migrating 'navigation' library">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -676,7 +676,7 @@
         
           <li class="md-nav__item">
   <a href="#if-you-are-using-default-motionspecs" class="md-nav__link">
-    If you are using default motionSpecs:
+    If you are using default motionSpecs
   </a>
   
 </li>
@@ -712,10 +712,18 @@
 <h2 id="migrating-core-library">Migrating 'core' library<a class="headerlink" href="#migrating-core-library" title="Permanent link">&para;</a></h2>
 <p>If you are using 'core' library, migration is not difficult except for MaterialSharedAxisX/Y.</p>
 <h3 id="materialmotion">MaterialMotion<a class="headerlink" href="#materialmotion" title="Permanent link">&para;</a></h3>
-<p><strong>Migration steps:</strong>
-1. Renames <code>motionSpec</code> parameter to <code>transitionSpec</code>.
-2. Change packages from <code>soup.compose.material.motion.*</code> to<code>soup.compose.material.motion.animation.*</code>.
-3. Change import from <code>soup.compose.material.motion.with</code> to <code>androidx.compose.animation.with</code>.</p>
+<p><strong>Migration steps:</strong></p>
+<ol>
+<li>
+<p>Renames <code>motionSpec</code> parameter to <code>transitionSpec</code>.</p>
+</li>
+<li>
+<p>Change packages from <code>soup.compose.material.motion.*</code> to<code>soup.compose.material.motion.animation.*</code>.</p>
+</li>
+<li>
+<p>Change import from <code>soup.compose.material.motion.with</code> to <code>androidx.compose.animation.with</code>.</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="gd">- import soup.compose.material.motion.*</span><span class="w"></span>
 <span class="gi">+ import soup.compose.material.motion.animation.*</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.with</span><span class="w"></span>
@@ -727,10 +735,15 @@
 <span class="w"> </span> ) { ... }<span class="w"></span>
 </code></pre></div>
 <h3 id="materialsharedaxisx">MaterialSharedAxisX<a class="headerlink" href="#materialsharedaxisx" title="Permanent link">&para;</a></h3>
-<ul>
-<li>(1) SharedAxis(X,Y)에서 SlideDistance 변경 필요함</li>
-</ul>
+<p><strong>Migration steps:</strong></p>
+<ol>
+<li>
 <p>Change packages from <code>soup.compose.material.motion.*</code> to<code>soup.compose.material.motion.animation.*</code>.</p>
+</li>
+<li>
+<p>Add <code>forward</code> and <code>slideDistance</code> slots using <code>rememberSlideDistance()</code>.</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="gd">- import soup.compose.material.motion.materialSharedAxisX</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.materialSharedAxisXIn</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.materialSharedAxisXOut</span><span class="w"></span>
@@ -751,7 +764,15 @@
 <span class="gi">+ materialSharedAxisXOut(forward = forward, slideDistance = slideDistance)</span><span class="w"></span>
 </code></pre></div>
 <h3 id="materialsharedaxisy">MaterialSharedAxisY<a class="headerlink" href="#materialsharedaxisy" title="Permanent link">&para;</a></h3>
+<p><strong>Migration steps:</strong></p>
+<ol>
+<li>
 <p>Change packages from <code>soup.compose.material.motion.*</code> to<code>soup.compose.material.motion.animation.*</code>.</p>
+</li>
+<li>
+<p>Add <code>forward</code> and <code>slideDistance</code> slots using <code>rememberSlideDistance()</code>.</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="gd">- import soup.compose.material.motion.materialSharedAxisY</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.materialSharedAxisYIn</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.materialSharedAxisYOut</span><span class="w"></span>
@@ -772,13 +793,30 @@
 <span class="gi">+ materialSharedAxisYOut(forward = forward, slideDistance = slideDistance)</span><span class="w"></span>
 </code></pre></div>
 <h3 id="materialsharedaxisz">MaterialSharedAxisZ<a class="headerlink" href="#materialsharedaxisz" title="Permanent link">&para;</a></h3>
+<p><strong>Migration steps:</strong></p>
+<ol>
+<li>
 <p>Change packages from <code>soup.compose.material.motion.*</code> to<code>soup.compose.material.motion.animation.*</code>.</p>
+</li>
+<li>
+<p>Add <code>forward</code> slot.</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="gd">- import soup.compose.material.motion.materialSharedAxisZ</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.materialSharedAxisZIn</span><span class="w"></span>
 <span class="gd">- import soup.compose.material.motion.materialSharedAxisZOut</span><span class="w"></span>
 <span class="gi">+ import soup.compose.material.motion.animation.materialSharedAxisZ</span><span class="w"></span>
 <span class="gi">+ import soup.compose.material.motion.animation.materialSharedAxisZIn</span><span class="w"></span>
 <span class="gi">+ import soup.compose.material.motion.animation.materialSharedAxisZOut</span><span class="w"></span>
+
+<span class="gd">- materialSharedAxisZ()</span><span class="w"></span>
+<span class="gi">+ materialSharedAxisZ(forward = forward)</span><span class="w"></span>
+
+<span class="gd">- materialSharedAxisZIn()</span><span class="w"></span>
+<span class="gi">+ materialSharedAxisZIn(forward = forward)</span><span class="w"></span>
+
+<span class="gd">- materialSharedAxisZOut()</span><span class="w"></span>
+<span class="gi">+ materialSharedAxisZOut(forward = forward)</span><span class="w"></span>
 </code></pre></div>
 <h3 id="materialfadethrough">MaterialFadeThrough<a class="headerlink" href="#materialfadethrough" title="Permanent link">&para;</a></h3>
 <p>Change packages from <code>soup.compose.material.motion.*</code> to<code>soup.compose.material.motion.animation.*</code>.</p>
@@ -814,12 +852,18 @@
 <span class="gi">+ import soup.compose.material.motion.animation.translateYIn</span><span class="w"></span>
 <span class="gi">+ import soup.compose.material.motion.animation.translateYOut</span><span class="w"></span>
 </code></pre></div>
-<h2 id="migrating-core-library_1">Migrating 'core' library<a class="headerlink" href="#migrating-core-library_1" title="Permanent link">&para;</a></h2>
+<h2 id="migrating-navigation-library">Migrating 'navigation' library<a class="headerlink" href="#migrating-navigation-library" title="Permanent link">&para;</a></h2>
 <p>If you are using 'navigation' library, migration is simple.</p>
-<p><strong>Migration steps:</strong>
-1. Rename all <code>*MotionSpec</code> parameters to <code>*Transition</code>.
-2. Change all material motion references from <code>soup.compose.material.motion.*</code> package to<code>soup.compose.material.motion.animation.*</code> package.
+<p><strong>Migration steps:</strong></p>
+<ol>
+<li>
+<p>Rename all <code>*MotionSpec</code> parameters to <code>*Transition</code>.</p>
+</li>
+<li>
+<p>Change all material motion references from <code>soup.compose.material.motion.*</code> package to <code>soup.compose.material.motion.animation.*</code> package.
    For more information, see <strong>Migrating 'core' library</strong> section.</p>
+</li>
+</ol>
 <p>With this changes, you can easily migrate to this library from <a href="https://github.com/google/accompanist/tree/main/navigation-animation">accompanist-navigation-animation</a>.</p>
 <h3 id="materialmotionnavhost">MaterialMotionNavHost<a class="headerlink" href="#materialmotionnavhost" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="gd">- import soup.compose.material.motion.*</span><span class="w"></span>
@@ -875,11 +919,25 @@
 <span class="w"> </span>     }<span class="w"></span>
 <span class="w"> </span> }<span class="w"></span>
 </code></pre></div>
-<h3 id="if-you-are-using-default-motionspecs">If you are using default motionSpecs:<a class="headerlink" href="#if-you-are-using-default-motionspecs" title="Permanent link">&para;</a></h3>
-<p>In <code>0.10.0</code>, default transitions are changed:</p>
+<h3 id="if-you-are-using-default-motionspecs">If you are using default motionSpecs<a class="headerlink" href="#if-you-are-using-default-motionspecs" title="Permanent link">&para;</a></h3>
+<p>In <code>0.10.0</code>, default transitions are changed.</p>
+<p><strong>Enter Transition</strong></p>
 <ul>
-<li>Enter: <code>materialSharedAxisZIn()</code> -&gt; <code>fadeIn(animationSpec = tween(DefaultMotionDuration))</code></li>
-<li>Exit: <code>materialSharedAxisZOut()</code> -&gt; <code>fadeOut(animationSpec = tween(DefaultMotionDuration))</code></li>
+<li>
+<p>Before: <code>materialSharedAxisZIn()</code></p>
+</li>
+<li>
+<p>After: <code>fadeIn(animationSpec = tween(DefaultMotionDuration))</code></p>
+</li>
+</ul>
+<p><strong>Exit Transition:</strong></p>
+<ul>
+<li>
+<p>Before: <code>materialSharedAxisZOut()</code></p>
+</li>
+<li>
+<p>After: <code>fadeOut(animationSpec = tween(DefaultMotionDuration))</code></p>
+</li>
 </ul>
 <p>So if you want to keep the previous transitions, you need to define <code>*Transition</code> parameters.</p>
 <p>Please add <code>*Transition</code> parameters like the following codes:</p>

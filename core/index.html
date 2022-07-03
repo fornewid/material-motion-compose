@@ -331,6 +331,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#circularreveal" class="md-nav__link">
+    CircularReveal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#if-you-want-to-use-different-motions-depending-on-the-state" class="md-nav__link">
     If you want to use different motions depending on the state:
   </a>
@@ -579,6 +586,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#circularreveal" class="md-nav__link">
+    CircularReveal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#if-you-want-to-use-different-motions-depending-on-the-state" class="md-nav__link">
     If you want to use different motions depending on the state:
   </a>
@@ -758,6 +772,29 @@ MaterialMotion(
 <tbody>
 <tr>
 <td><img width="200" src="hold.gif" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="circularreveal">CircularReveal<a class="headerlink" href="#circularreveal" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>var visible: Boolean by remember { mutableStateOf(false) }
+Box(
+    modifier = Modifier.circularReveal(
+        visible = visible,
+        center = { fullSize -&gt;
+            Offset(x = 1f * fullSize.width, y = 0f * fullSize.height) // TopRight
+        },
+    )
+) { ... }
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>CircularReveal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img width="200" src="circular_reveal.gif" /></td>
 </tr>
 </tbody>
 </table>
