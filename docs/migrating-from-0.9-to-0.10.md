@@ -17,8 +17,11 @@ If you are using 'core' library, migration is not difficult except for MaterialS
 ### MaterialMotion
 
 **Migration steps:**
+
 1. Renames `motionSpec` parameter to `transitionSpec`.
+ 
 2. Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+
 3. Change import from `soup.compose.material.motion.with` to `androidx.compose.animation.with`.
 
 ```diff
@@ -35,9 +38,11 @@ If you are using 'core' library, migration is not difficult except for MaterialS
 
 ### MaterialSharedAxisX
 
-- (1) SharedAxis(X,Y)에서 SlideDistance 변경 필요함
+**Migration steps:**
 
-Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+1. Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+
+2. Add `forward` and `slideDistance` slots using `rememberSlideDistance()`.
 
 ```diff
 - import soup.compose.material.motion.materialSharedAxisX
@@ -62,7 +67,11 @@ Change packages from `soup.compose.material.motion.*` to`soup.compose.material.m
 
 ### MaterialSharedAxisY
 
-Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+**Migration steps:**
+
+1. Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+
+2. Add `forward` and `slideDistance` slots using `rememberSlideDistance()`.
 
 ```diff
 - import soup.compose.material.motion.materialSharedAxisY
@@ -87,7 +96,11 @@ Change packages from `soup.compose.material.motion.*` to`soup.compose.material.m
 
 ### MaterialSharedAxisZ
 
-Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+**Migration steps:**
+
+1. Change packages from `soup.compose.material.motion.*` to`soup.compose.material.motion.animation.*`.
+
+2. Add `forward` slot.
 
 ```diff
 - import soup.compose.material.motion.materialSharedAxisZ
@@ -96,6 +109,15 @@ Change packages from `soup.compose.material.motion.*` to`soup.compose.material.m
 + import soup.compose.material.motion.animation.materialSharedAxisZ
 + import soup.compose.material.motion.animation.materialSharedAxisZIn
 + import soup.compose.material.motion.animation.materialSharedAxisZOut
+
+- materialSharedAxisZ()
++ materialSharedAxisZ(forward = forward)
+
+- materialSharedAxisZIn()
++ materialSharedAxisZIn(forward = forward)
+
+- materialSharedAxisZOut()
++ materialSharedAxisZOut(forward = forward)
 ```
 
 ### MaterialFadeThrough
@@ -149,14 +171,15 @@ Change packages from `soup.compose.material.motion.*` to`soup.compose.material.m
 ```
 
 
-
 ## Migrating 'core' library
 
 If you are using 'navigation' library, migration is simple.
 
 **Migration steps:**
+
 1. Rename all `*MotionSpec` parameters to `*Transition`.
-2. Change all material motion references from `soup.compose.material.motion.*` package to`soup.compose.material.motion.animation.*` package.
+
+2. Change all material motion references from `soup.compose.material.motion.*` package to `soup.compose.material.motion.animation.*` package.
    For more information, see **Migrating 'core' library** section.
 
 With this changes, you can easily migrate to this library from [accompanist-navigation-animation](https://github.com/google/accompanist/tree/main/navigation-animation).
@@ -225,12 +248,21 @@ With this changes, you can easily migrate to this library from [accompanist-navi
   }
 ```
 
-### If you are using default motionSpecs:
+### If you are using default motionSpecs
 
-In `0.10.0`, default transitions are changed:
+In `0.10.0`, default transitions are changed.
 
-- Enter: `materialSharedAxisZIn()` -> `fadeIn(animationSpec = tween(DefaultMotionDuration))`
-- Exit: `materialSharedAxisZOut()` -> `fadeOut(animationSpec = tween(DefaultMotionDuration))`
+**Enter Transition**
+
+- Before: `materialSharedAxisZIn()`
+
+- After: `fadeIn(animationSpec = tween(DefaultMotionDuration))`
+
+**Exit Transition:**
+
+- Before: `materialSharedAxisZOut()`
+
+- After: `fadeOut(animationSpec = tween(DefaultMotionDuration))`
 
 So if you want to keep the previous transitions, you need to define `*Transition` parameters.
 
