@@ -113,6 +113,24 @@ MaterialMotion(
 | -------------------------- |
 | <img width="200" src="hold.gif" /> |
 
+### CircularReveal
+
+```kt
+var visible: Boolean by remember { mutableStateOf(false) }
+Box(
+    modifier = Modifier.circularReveal(
+        visible = visible,
+        center = { fullSize ->
+            Offset(x = 1f * fullSize.width, y = 0f * fullSize.height) // TopRight
+        },
+    )
+) { ... }
+```
+
+| CircularReveal             |
+| -------------------------- |
+| <img width="200" src="circular_reveal.gif" /> |
+
 ### If you want to use different motions depending on the state:
 
 ```kt

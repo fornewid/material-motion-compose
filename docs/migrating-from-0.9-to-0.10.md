@@ -171,7 +171,7 @@ Change packages from `soup.compose.material.motion.*` to`soup.compose.material.m
 ```
 
 
-## Migrating 'core' library
+## Migrating 'navigation' library
 
 If you are using 'navigation' library, migration is simple.
 
