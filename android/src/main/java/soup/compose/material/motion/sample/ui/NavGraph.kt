@@ -52,9 +52,6 @@ fun NavGraph(
     val upPress: () -> Unit = {
         navController.navigateUp()
     }
-    val navigate: (Destination) -> Unit = {
-        navController.navigate(route = it.route)
-    }
     MaterialMotionNavHost(
         navController = navController,
         startDestination = startDestination,
