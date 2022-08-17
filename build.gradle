@@ -1,8 +1,8 @@
 buildscript {
     ext.buildConfig = [
             'minSdk'    : 21,
-            'targetSdk' : 32,
-            'compileSdk': 32
+            'targetSdk' : 33,
+            'compileSdk': 33
     ]
     repositories {
         google()
