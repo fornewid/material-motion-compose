@@ -357,6 +357,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#migration" class="md-nav__link">
+    Migration
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-accompanist-navigation-animation-library" class="md-nav__link">
+    From 'accompanist-navigation-animation' library
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#download" class="md-nav__link">
     Download
   </a>
@@ -380,6 +400,68 @@
     <li class="md-nav__item">
       <a href="../api/navigation/" class="md-nav__link">
         API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Migration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Migration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Migration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating-from-0.5-to-0.6/" class="md-nav__link">
+        0.5 to 0.6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating-from-0.9-to-0.10/" class="md-nav__link">
+        0.9 to 0.10
       </a>
     </li>
   
@@ -422,6 +504,26 @@
   <a href="#usage" class="md-nav__link">
     Usage
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration" class="md-nav__link">
+    Migration
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-accompanist-navigation-animation-library" class="md-nav__link">
+    From 'accompanist-navigation-animation' library
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -471,6 +573,31 @@
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
+<h2 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">&para;</a></h2>
+<h3 id="from-accompanist-navigation-animation-library">From 'accompanist-navigation-animation' library<a class="headerlink" href="#from-accompanist-navigation-animation-library" title="Permanent link">&para;</a></h3>
+<p>The migration is simple.</p>
+<p>Please check differences in the following codes.</p>
+<div class="highlight"><pre><span></span><code><span class="gd">- import com.google.accompanist.navigation.animation.AnimatedNavHost</span><span class="w"></span>
+<span class="gd">- import com.google.accompanist.navigation.animation.composable</span><span class="w"></span>
+<span class="gd">- import com.google.accompanist.navigation.animation.navigation</span><span class="w"></span>
+<span class="gd">- import com.google.accompanist.navigation.animation.rememberAnimatedNavController</span><span class="w"></span>
+<span class="gi">+ import soup.compose.material.motion.navigation.MaterialMotionNavHost</span><span class="w"></span>
+<span class="gi">+ import soup.compose.material.motion.navigation.composable</span><span class="w"></span>
+<span class="gi">+ import soup.compose.material.motion.navigation.navigation</span><span class="w"></span>
+<span class="gi">+ import soup.compose.material.motion.navigation.rememberMaterialMotionNavController</span><span class="w"></span>
+
+<span class="gd">- val navController = rememberAnimatedNavController()</span><span class="w"></span>
+<span class="gi">+ val navController = rememberMaterialMotionNavController()</span><span class="w"></span>
+<span class="gd">- AnimatedNavHost(</span><span class="w"></span>
+<span class="gi">+ MaterialMotionNavHost(</span><span class="w"></span>
+<span class="w"> </span>     ...,<span class="w"></span>
+<span class="w"> </span> ) {<span class="w"></span>
+<span class="w"> </span>     composable(...) { ... }<span class="w"></span>
+<span class="w"> </span>     navigation(...) {<span class="w"></span>
+<span class="w"> </span>         composable(...) { ... }<span class="w"></span>
+<span class="w"> </span>     }<span class="w"></span>
+<span class="w"> </span> }<span class="w"></span>
+</code></pre></div>
 <h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
 <p><a href="https://search.maven.org/search?q=g:io.github.fornewid"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-navigation" /></a></p>
 <div class="highlight"><pre><span></span><code>repositories {
@@ -516,6 +643,21 @@ dependencies {
           </div>
         </a>
       
+      
+        
+        <a href="../migrating-from-0.5-to-0.6/" class="md-footer__link md-footer__link--next" aria-label="Next: 0.5 to 0.6" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              0.5 to 0.6
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
