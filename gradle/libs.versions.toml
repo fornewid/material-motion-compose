@@ -6,7 +6,7 @@ kotlin = "1.7.10"
 # Compose
 activity = "1.5.1"
 navigation = "2.5.1"
-compose = "1.3.0-alpha03"
+compose = "1.3.0-beta01"
 composeCompiler = "1.3.0"
 accompanist = "0.26.1-alpha"
 
