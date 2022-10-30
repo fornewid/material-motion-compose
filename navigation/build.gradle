@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace 'soup.compose.material.motion.navigation'
     compileSdkVersion buildConfig.compileSdk
     defaultConfig {
         minSdkVersion buildConfig.minSdk
@@ -28,9 +29,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion "${libs.versions.composeCompiler.get()}"
     }
-    lintOptions {
+    lint {
         textReport true
-        textOutput 'stdout'
+        textOutput file('stdout')
         checkReleaseBuilds false
     }
     testOptions {
@@ -39,10 +40,9 @@ android {
         }
     }
     packagingOptions {
-        // Multiple dependencies bring these files in. Exclude them to enable
-        // our test APK to build (has no effect on our AARs)
-        excludes += "/META-INF/AL2.0"
-        excludes += "/META-INF/LGPL2.1"
+        resources {
+            excludes += ['/META-INF/AL2.0', '/META-INF/LGPL2.1']
+        }
     }
 }
 
