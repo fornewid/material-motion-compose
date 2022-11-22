@@ -35,7 +35,6 @@ import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import soup.compose.material.motion.MotionConstants
 
@@ -69,28 +68,6 @@ private val Int.ForIncoming: Int
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
-@Deprecated(
-    message = "Use materialSharedAxisX() without density using rememberSlideDistance().",
-)
-@ExperimentalAnimationApi
-public fun materialSharedAxisX(
-    forward: Boolean,
-    density: Density,
-    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
-): ContentTransform = materialSharedAxisX(
-    forward = forward,
-    slideDistance = with(density) { slideDistance.roundToPx() },
-    durationMillis = durationMillis,
-)
-
-/**
- * [materialSharedAxisX] allows to switch a layout with shared X-axis transition.
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance the slide distance of transition.
- * @param durationMillis the duration of transition.
- */
 @OptIn(ExperimentalAnimationApi::class)
 public fun materialSharedAxisX(
     forward: Boolean,
@@ -104,27 +81,6 @@ public fun materialSharedAxisX(
     forward = forward,
     slideDistance = slideDistance,
     durationMillis = durationMillis
-)
-
-/**
- * [materialSharedAxisXIn] allows to switch a layout with shared X-axis enter transition.
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance the slide distance of the enter transition.
- * @param durationMillis the duration of the enter transition.
- */
-@Deprecated(
-    message = "Use materialSharedAxisXIn() without density using rememberSlideDistance().",
-)
-public fun materialSharedAxisXIn(
-    forward: Boolean,
-    density: Density,
-    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
-): EnterTransition = materialSharedAxisXIn(
-    forward = forward,
-    slideDistance = with(density) { slideDistance.roundToPx() },
-    durationMillis = durationMillis,
 )
 
 /**
@@ -161,27 +117,6 @@ public fun materialSharedAxisXIn(
  * @param slideDistance the slide distance of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
-@Deprecated(
-    message = "Use materialSharedAxisXOut() without density using rememberSlideDistance().",
-)
-public fun materialSharedAxisXOut(
-    forward: Boolean,
-    density: Density,
-    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
-): ExitTransition = materialSharedAxisXOut(
-    forward = forward,
-    slideDistance = with(density) { slideDistance.roundToPx() },
-    durationMillis = durationMillis,
-)
-
-/**
- * [materialSharedAxisXOut] allows to switch a layout with shared X-axis exit transition.
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance the slide distance of the exit transition.
- * @param durationMillis the duration of the exit transition.
- */
 public fun materialSharedAxisXOut(
     forward: Boolean,
     slideDistance: Int,
@@ -200,28 +135,6 @@ public fun materialSharedAxisXOut(
         delayMillis = 0,
         easing = FastOutLinearInEasing
     )
-)
-
-/**
- * [materialSharedAxisY] allows to switch a layout with shared Y-axis transition.
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance the slide distance of transition.
- * @param durationMillis the duration of transition.
- */
-@Deprecated(
-    message = "Use materialSharedAxisY() without density using rememberSlideDistance().",
-)
-@ExperimentalAnimationApi
-public fun materialSharedAxisY(
-    forward: Boolean,
-    density: Density,
-    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
-): ContentTransform = materialSharedAxisY(
-    forward = forward,
-    slideDistance = with(density) { slideDistance.roundToPx() },
-    durationMillis = durationMillis,
 )
 
 /**
@@ -253,27 +166,6 @@ public fun materialSharedAxisY(
  * @param slideDistance the slide distance of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
-@Deprecated(
-    message = "Use materialSharedAxisYIn() without density using rememberSlideDistance().",
-)
-public fun materialSharedAxisYIn(
-    forward: Boolean,
-    density: Density,
-    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
-): EnterTransition = materialSharedAxisYIn(
-    forward = forward,
-    slideDistance = with(density) { slideDistance.roundToPx() },
-    durationMillis = durationMillis,
-)
-
-/**
- * [materialSharedAxisYIn] allows to switch a layout with shared Y-axis enter transition.
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance the slide distance of the enter transition.
- * @param durationMillis the duration of the enter transition.
- */
 public fun materialSharedAxisYIn(
     forward: Boolean,
     slideDistance: Int,
@@ -292,27 +184,6 @@ public fun materialSharedAxisYIn(
         delayMillis = durationMillis.ForOutgoing,
         easing = LinearOutSlowInEasing
     )
-)
-
-/**
- * [materialSharedAxisYOut] allows to switch a layout with shared Y-axis exit transition.
- *
- * @param forward whether the direction of the animation is forward.
- * @param slideDistance the slide distance of the exit transition.
- * @param durationMillis the duration of the exit transition.
- */
-@Deprecated(
-    message = "Use materialSharedAxisYOut() without density using rememberSlideDistance().",
-)
-public fun materialSharedAxisYOut(
-    forward: Boolean,
-    density: Density,
-    slideDistance: Dp = MotionConstants.DefaultSlideDistance,
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
-): ExitTransition = materialSharedAxisYOut(
-    forward = forward,
-    slideDistance = with(density) { slideDistance.roundToPx() },
-    durationMillis = durationMillis,
 )
 
 /**
