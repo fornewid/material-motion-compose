@@ -53,6 +53,7 @@ dependencies {
     implementation project(':core')
     implementation project(':navigation')
 
+    implementation(platform(libs.compose.bom))
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.tooling
     implementation libs.compose.material
