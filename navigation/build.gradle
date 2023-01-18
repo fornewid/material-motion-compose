@@ -49,6 +49,7 @@ android {
 dependencies {
     api project(':core')
     api libs.compose.navigation
+    implementation(platform(libs.compose.bom))
     implementation libs.compose.animation
     implementation libs.compose.runtime
     implementation libs.compose.ui.ui
