@@ -15,7 +15,6 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -112,7 +111,6 @@ fun AlbumScaffold(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AlbumHeader(album: MusicData.Album, showFab: Boolean) {
     Box(modifier = Modifier.fillMaxWidth()) {

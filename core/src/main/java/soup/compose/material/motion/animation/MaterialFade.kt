@@ -19,7 +19,6 @@ package soup.compose.material.motion.animation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -36,7 +35,6 @@ private val Int.ForFade: Int
 /**
  * [materialFadeIn] allows to switch a layout with a fade-in animation.
  */
-@ExperimentalAnimationApi
 public fun materialFadeIn(
     durationMillis: Int = MotionConstants.DefaultFadeInDuration,
 ): EnterTransition = fadeIn(
@@ -55,7 +53,6 @@ public fun materialFadeIn(
 /**
  * [materialFadeOut] allows to switch a layout with a fade-out animation.
  */
-@ExperimentalAnimationApi
 public fun materialFadeOut(
     durationMillis: Int = MotionConstants.DefaultFadeOutDuration,
 ): ExitTransition = fadeOut(

@@ -17,7 +17,6 @@ package soup.compose.material.motion.sample.ui.circularreveal
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -98,7 +97,6 @@ private data class State(
     val center: Offset,
 )
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CircularRevealScreen(upPress: () -> Unit) {
     val (state, onStateChanged) = remember {

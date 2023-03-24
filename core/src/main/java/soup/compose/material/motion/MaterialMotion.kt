@@ -21,7 +21,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.with
@@ -41,7 +40,6 @@ import androidx.compose.ui.Modifier
  * @param modifier Modifier to be applied to the animation container.
  * @param pop whether motion contents are rendered in reverse order.
  */
-@ExperimentalAnimationApi
 @Composable
 public fun <S> MaterialMotion(
     targetState: S,
@@ -68,7 +66,6 @@ public fun <S> MaterialMotion(
  * @param modifier Modifier to be applied to the animation container.
  * @param pop whether motion contents are rendered in reverse order.
  */
-@ExperimentalAnimationApi
 @Composable
 public fun <S> Transition<S>.MaterialMotion(
     transitionSpec: AnimatedContentTransitionScope<S>.() -> ContentTransform,
