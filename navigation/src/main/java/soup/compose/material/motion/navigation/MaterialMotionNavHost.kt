@@ -16,7 +16,7 @@
 package soup.compose.material.motion.navigation
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -77,14 +77,14 @@ public fun MaterialMotionNavHost(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
     route: String? = null,
-    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = {
+    enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = {
         fadeIn(animationSpec = tween(DefaultMotionDuration))
     },
-    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = {
+    exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) = {
         fadeOut(animationSpec = tween(DefaultMotionDuration))
     },
-    popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
-    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
+    popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
+    popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     MaterialMotionNavHost(
@@ -122,14 +122,14 @@ public fun MaterialMotionNavHost(
     graph: NavGraph,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
-    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = {
+    enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = {
         fadeIn(animationSpec = tween(DefaultMotionDuration))
     },
-    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = {
+    exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) = {
         fadeOut(animationSpec = tween(DefaultMotionDuration))
     },
-    popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
-    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
+    popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = enterTransition,
+    popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition) = exitTransition,
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -166,7 +166,7 @@ public fun MaterialMotionNavHost(
 
     val backStackEntry = visibleEntries.lastOrNull()
     if (backStackEntry != null) {
-        val finalEnter: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition = {
+        val finalEnter: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
             val targetDestination =
                 targetState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
@@ -180,7 +180,7 @@ public fun MaterialMotionNavHost(
             }
         }
 
-        val finalExit: AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition = {
+        val finalExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
             val initialDestination =
                 initialState.destination as MaterialMotionComposeNavigator.Destination
             if (composeNavigator.isPop.value) {
@@ -244,16 +244,16 @@ public fun MaterialMotionNavHost(
 
 @ExperimentalAnimationApi
 internal val enterTransitions =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?>()
+    mutableMapOf<String?, (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)?>()
 
 @ExperimentalAnimationApi
 internal val exitTransitions =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)?>()
+    mutableMapOf<String?, (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)?>()
 
 @ExperimentalAnimationApi
 internal val popEnterTransitions =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?>()
+    mutableMapOf<String?, (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)?>()
 
 @ExperimentalAnimationApi
 internal val popExitTransitions =
-    mutableMapOf<String?, (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)?>()
+    mutableMapOf<String?, (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)?>()

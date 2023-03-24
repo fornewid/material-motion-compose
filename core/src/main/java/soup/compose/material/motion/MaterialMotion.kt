@@ -18,7 +18,7 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -45,7 +45,7 @@ import androidx.compose.ui.Modifier
 @Composable
 public fun <S> MaterialMotion(
     targetState: S,
-    transitionSpec: AnimatedContentScope<S>.() -> ContentTransform,
+    transitionSpec: AnimatedContentTransitionScope<S>.() -> ContentTransform,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
@@ -71,7 +71,7 @@ public fun <S> MaterialMotion(
 @ExperimentalAnimationApi
 @Composable
 public fun <S> Transition<S>.MaterialMotion(
-    transitionSpec: AnimatedContentScope<S>.() -> ContentTransform,
+    transitionSpec: AnimatedContentTransitionScope<S>.() -> ContentTransform,
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
