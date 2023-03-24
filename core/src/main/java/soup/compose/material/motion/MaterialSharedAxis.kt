@@ -18,7 +18,6 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -36,7 +35,6 @@ import soup.compose.material.motion.animation.rememberSlideDistance
  * @param modifier Modifier to be applied to the animation container.
  * @param slideDistance slide distance of the animation.
  */
-@ExperimentalAnimationApi
 @Composable
 public fun <T> MaterialSharedAxisX(
     targetState: T,
@@ -72,7 +70,6 @@ public fun <T> MaterialSharedAxisX(
  * @param modifier Modifier to be applied to the animation container.
  * @param slideDistance slide distance of the animation.
  */
-@ExperimentalAnimationApi
 @Composable
 public fun <T> MaterialSharedAxisY(
     targetState: T,
@@ -107,7 +104,6 @@ public fun <T> MaterialSharedAxisY(
  * @param forward whether the direction of the animation is forward.
  * @param modifier Modifier to be applied to the animation container.
  */
-@ExperimentalAnimationApi
 @Composable
 public fun <T> MaterialSharedAxisZ(
     targetState: T,

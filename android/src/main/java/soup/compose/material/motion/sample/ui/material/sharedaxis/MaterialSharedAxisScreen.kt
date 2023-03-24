@@ -17,7 +17,6 @@ package soup.compose.material.motion.sample.ui.material.sharedaxis
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,7 +51,6 @@ private enum class Axis {
     X, Y, Z
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MaterialSharedAxisScreen(upPress: () -> Unit) {
     val (selectedAxis, onAxisSelected) = remember { mutableStateOf(Axis.X) }

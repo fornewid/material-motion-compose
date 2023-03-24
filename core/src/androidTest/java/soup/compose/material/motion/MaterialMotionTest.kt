@@ -16,7 +16,6 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -33,7 +32,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalAnimationApi::class)
 abstract class MaterialMotionTest {
 
     protected abstract fun transitionSpec(

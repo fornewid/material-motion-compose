@@ -18,7 +18,6 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -32,7 +31,6 @@ import androidx.compose.ui.Modifier
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
  */
-@ExperimentalAnimationApi
 @Composable
 public fun <T> MaterialFadeThrough(
     targetState: T,

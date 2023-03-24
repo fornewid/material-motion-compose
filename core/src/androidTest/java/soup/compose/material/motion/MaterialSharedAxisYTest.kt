@@ -16,13 +16,11 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.runner.RunWith
 import soup.compose.material.motion.animation.materialSharedAxisY
 
 @RunWith(AndroidJUnit4::class)
-@OptIn(ExperimentalAnimationApi::class)
 class MaterialSharedAxisYTest : MaterialMotionTest() {
 
     override fun transitionSpec(forward: Boolean, durationMillis: Int?): ContentTransform {
