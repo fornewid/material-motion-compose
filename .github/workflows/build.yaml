@@ -18,29 +18,22 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Set up JDK
-        uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
+          distribution: 'zulu'
           java-version: 11
 
       - name: Decrypt secrets
         run: release/signing-setup.sh ${{ secrets.ENCRYPT_KEY }}
 
-      - name: Generate cache key
-        run: ./checksum.sh checksum.txt
-
-      - uses: actions/cache@v2
+      - uses: gradle/gradle-build-action@v2
         with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: gradle-${{ hashFiles('checksum.txt') }}
+          gradle-home-cache-cleanup: true
 
       - name: Build, lint and spotless
         run: |
@@ -67,29 +60,22 @@ jobs:
         api-level: [ 24, 26, 29 ]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Set up JDK
-        uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
+          distribution: 'zulu'
           java-version: 11
 
       - name: Decrypt secrets
         run: release/signing-setup.sh ${{ secrets.ENCRYPT_KEY }}
 
-      - name: Generate cache key
-        run: ./checksum.sh checksum.txt
-
-      - uses: actions/cache@v2
+      - uses: gradle/gradle-build-action@v2
         with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: gradle-${{ hashFiles('checksum.txt') }}
+          gradle-home-cache-cleanup: true
 
       - name: Build tests
         run: ./gradlew assembleDebugAndroidTest --scan
@@ -109,14 +95,14 @@ jobs:
 
       - name: Upload logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: logs-${{ matrix.api-level }}
           path: logcat.txt
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-results-${{ matrix.api-level }}
           path: "**/build/outputs/*/connected/*.xml"
@@ -131,29 +117,22 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: set up JDK
-        uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
+          distribution: 'zulu'
           java-version: 11
 
       - name: Decrypt secrets
         run: release/signing-setup.sh ${{ secrets.ENCRYPT_KEY }}
 
-      - name: Generate cache key
-        run: ./checksum.sh checksum.txt
-
-      - uses: actions/cache@v2
+      - uses: gradle/gradle-build-action@v2
         with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: gradle-${{ hashFiles('checksum.txt') }}
+          gradle-home-cache-cleanup: true
 
       - name: Deploy to Sonatype
         run: ./gradlew publish --no-parallel --stacktrace

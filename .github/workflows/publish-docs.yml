@@ -12,26 +12,7 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Generate cache key
-        run: ./checksum.sh checksum.txt
-
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: gradle-${{ hashFiles('checksum.txt') }}
+      - uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v2
