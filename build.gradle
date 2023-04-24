@@ -7,6 +7,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.pkg.jetbrains.space/public/p/compose/dev' }
     }
     dependencies {
         classpath libs.android.pluginGradle
@@ -14,6 +15,7 @@ buildscript {
         classpath libs.mavenPublish.pluginGradle
         classpath libs.metalava.pluginGradle
         classpath libs.dokka.pluginGradle
+        classpath libs.jetbrains.compose.pluginGradle
     }
 }
 
@@ -32,6 +34,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.pkg.jetbrains.space/public/p/compose/dev' }
     }
 
     plugins.withId("com.vanniktech.maven.publish") {
