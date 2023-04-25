@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.shared.ui.platform
+package soup.compose.material.motion.shared
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.window.ComposeUIViewController
+import soup.compose.material.motion.shared.ui.NavGraph
 
-@Composable
-expect fun painterResource(res: String): Painter
+fun MainViewController() = ComposeUIViewController {
+    NavGraph()
+}

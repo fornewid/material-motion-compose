@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.material.motion.shared.ui.platform
+package soup.compose.material.motion.sample
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
+import soup.compose.material.motion.shared.ui.NavGraph
+import soup.compose.material.motion.shared.ui.theme.SampleTheme
 
-@Composable
-expect fun painterResource(res: String): Painter
+fun main() = application {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "Sample",
+    ) {
+        SampleTheme {
+            NavGraph()
+        }
+    }
+}
