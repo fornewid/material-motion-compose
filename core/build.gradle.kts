@@ -71,11 +71,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-//    lint {
-//        textReport = true
-//        textOutput("stdout")
-//        isCheckReleaseBuilds = false
-//    }
+    lint {
+        textReport = true
+        textOutput = File("stdout")
+        checkReleaseBuilds = false
+    }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true

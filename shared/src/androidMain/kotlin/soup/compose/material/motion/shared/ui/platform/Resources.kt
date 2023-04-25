@@ -30,6 +30,5 @@ private fun drawableId(res: String): Int {
     val imageName = res.substringAfterLast("/").substringBeforeLast(".")
     val drawableClass = R.drawable::class.java
     val field = drawableClass.getDeclaredField(imageName)
-    val idValue = field.get(drawableClass) as Integer
-    return idValue.toInt()
+    return field.get(drawableClass) as Int
 }
