@@ -1,5 +1,7 @@
 [versions]
 
+metalava = "0.3.3"
+
 # Kotlin
 kotlin = "1.8.10"
 jetbrains-compose = "1.4.0"
@@ -16,7 +18,7 @@ accompanist = "0.30.0"
 
 android-pluginGradle = "com.android.tools.build:gradle:7.4.1"
 mavenPublish-pluginGradle = "com.vanniktech:gradle-maven-publish-plugin:0.17.0"
-metalava-pluginGradle = "me.tylerbwong.gradle:metalava-gradle:0.1.9"
+metalava-pluginGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 
 # Kotlin
 

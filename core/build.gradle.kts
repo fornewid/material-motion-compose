@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.vanniktech.maven.publish")
     id("org.jetbrains.dokka")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 kotlin {
@@ -85,6 +86,12 @@ android {
         resources.excludes += "/META-INF/AL2.0"
         resources.excludes += "/META-INF/LGPL2.1"
     }
+}
+
+metalava {
+    sourcePaths.setFrom("src/commonMain")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {
