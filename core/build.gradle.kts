@@ -17,7 +17,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlin.stdlib)
-//                implementation(platform(libs.compose.bom))
                 implementation(compose.animation)
                 implementation(compose.foundation)
                 implementation(compose.runtime)
