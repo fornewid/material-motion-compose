@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - compose-1.4
+      - compose-multiplatform
     paths-ignore:
       - '**.md'
       - 'docs/**'
