@@ -7,6 +7,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.pkg.jetbrains.space/public/p/compose/dev' }
+        gradlePluginPortal()
     }
     dependencies {
         classpath libs.android.pluginGradle
@@ -14,6 +16,7 @@ buildscript {
         classpath libs.mavenPublish.pluginGradle
         classpath libs.metalava.pluginGradle
         classpath libs.dokka.pluginGradle
+        classpath libs.jetbrains.compose.pluginGradle
     }
 }
 
@@ -22,6 +25,7 @@ plugins {
 }
 
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.diffplug.spotless'
 
 tasks.withType(org.jetbrains.dokka.gradle.DokkaMultiModuleTask).configureEach {
     outputDirectory = rootProject.file('docs/api')
@@ -32,12 +36,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-    }
-
-    plugins.withId("com.vanniktech.maven.publish") {
-        mavenPublish {
-            sonatypeHost = "S01"
-        }
+        maven { url 'https://maven.pkg.jetbrains.space/public/p/compose/dev' }
     }
 }
 
@@ -75,16 +74,6 @@ subprojects {
             } else {
                 project.ext.set(prop.key, prop.value)
             }
-        }
-    }
-
-    // If we have a POM Artifact ID, we should generate API files
-    if (project.hasProperty('POM_ARTIFACT_ID')) {
-        apply plugin: 'me.tylerbwong.gradle.metalava'
-
-        metalava {
-            filename = "api/current.api"
-            reportLintsAsErrors = true
         }
     }
 

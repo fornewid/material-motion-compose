@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - compose-1.4
+      - compose-multiplatform
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -46,7 +47,7 @@ jobs:
       - name: Build, lint and spotless
         run: |
           ./gradlew --scan --stacktrace \
-              metalavaCheckCompatibility \
+              metalavaCheckCompatibilityRelease \
               spotlessCheck \
               assemble \
               assembleAndroidTest

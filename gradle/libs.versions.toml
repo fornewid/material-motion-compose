@@ -1,7 +1,13 @@
 [versions]
 
+androidGradle = "7.4.1"
+mavenPublish = "0.25.1"
+metalava = "0.3.3"
+
 # Kotlin
 kotlin = "1.8.10"
+dokka = "1.7.20"
+jetbrains-compose = "1.4.0"
 
 # Compose
 activity = "1.6.1"
@@ -13,16 +19,18 @@ accompanist = "0.30.0"
 
 [libraries]
 
-android-pluginGradle = "com.android.tools.build:gradle:7.4.1"
-mavenPublish-pluginGradle = "com.vanniktech:gradle-maven-publish-plugin:0.17.0"
-metalava-pluginGradle = "me.tylerbwong.gradle:metalava-gradle:0.1.9"
+android-pluginGradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradle" }
+mavenPublish-pluginGradle = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
+metalava-pluginGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 
 # Kotlin
 
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 
-dokka-pluginGradle = "org.jetbrains.dokka:dokka-gradle-plugin:1.7.20"
+dokka-pluginGradle = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+
+jetbrains-compose-pluginGradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrains-compose" }
 
 # Compose
 

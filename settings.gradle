@@ -1,3 +1,6 @@
 include ':core'
-include ':android'
 include ':navigation'
+include ':shared'
+include ':shared-ios'
+include ':android'
+include ':desktop'
