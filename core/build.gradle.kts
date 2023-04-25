@@ -23,16 +23,8 @@ kotlin {
                 implementation(compose.ui)
             }
         }
-//        val androidTest by getting {
-//            dependencies {
-//                androidTestImplementation(libs.androidx.test.core)
-//                androidTestImplementation(libs.androidx.test.rules)
-//                androidTestImplementation(libs.androidx.test.runner)
-//                androidTestImplementation(libs.compose.foundation)
-//                androidTestImplementation(libs.compose.ui.testJunit4)
-//                debugImplementation(libs.compose.ui.testManifest)
-//            }
-//        }
+        val androidMain by getting
+        val androidInstrumentedTest by getting
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.common)
@@ -97,3 +89,16 @@ android {
 //tasks.withType<KotlinCompile>().configureEach {
 //    kotlinOptions.freeCompilerArgs += "-Xexplicit-api=warning"
 //}
+
+dependencies {
+    // ======================
+    // Test dependencies
+    // ======================
+
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.compose.foundation)
+    androidTestImplementation(libs.compose.ui.testJunit4)
+    debugImplementation(libs.compose.ui.testManifest)
+}
