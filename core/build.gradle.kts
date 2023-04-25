@@ -37,6 +37,7 @@ kotlin {
             dependsOn(iosMain)
         }
     }
+    explicitApiWarning()
 }
 
 android {
@@ -85,10 +86,6 @@ android {
         resources.excludes += "/META-INF/LGPL2.1"
     }
 }
-
-//tasks.withType<KotlinCompile>().configureEach {
-//    kotlinOptions.freeCompilerArgs += "-Xexplicit-api=warning"
-//}
 
 dependencies {
     // ======================
