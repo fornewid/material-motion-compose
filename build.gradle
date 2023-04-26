@@ -109,9 +109,9 @@ subprojects {
                 }
 
                 sourceLink {
-                    localDirectory.set(project.file("src/main/java"))
+                    localDirectory.set(project.file("src"))
                     // URL showing where the source code can be accessed through the web browser
-                    remoteUrl.set(new URL("https://github.com/fornewid/material-motion-compose/blob/main/${project.name}/src/main/java"))
+                    remoteUrl.set(new URL("https://github.com/fornewid/material-motion-compose/blob/main/${project.name}/src"))
                     // Suffix which is used to append the line number to the URL. Use #L for GitHub
                     remoteLineSuffix.set("#L")
                 }

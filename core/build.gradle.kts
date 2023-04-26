@@ -10,7 +10,8 @@ plugins {
 kotlin {
     android()
     jvm("desktop")
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
@@ -22,19 +23,6 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.ui)
             }
-        }
-        val androidMain by getting
-        val androidInstrumentedTest by getting
-        val desktopMain by getting {
-            dependencies {
-                implementation(compose.desktop.common)
-            }
-        }
-        val iosMain by getting {
-            dependsOn(commonMain)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
         }
     }
     explicitApiWarning()
