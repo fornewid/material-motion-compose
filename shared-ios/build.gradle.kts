@@ -5,7 +5,8 @@ plugins {
 }
 
 kotlin {
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     cocoapods {
@@ -26,12 +27,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(project(":shared"))
             }
-        }
-        val iosMain by getting {
-            dependsOn(commonMain)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
         }
     }
 }

@@ -7,7 +7,8 @@ plugins {
 kotlin {
     android()
     jvm("desktop")
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
@@ -26,12 +27,6 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.common)
             }
-        }
-        val iosMain by getting {
-            dependsOn(commonMain)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
         }
     }
 }
