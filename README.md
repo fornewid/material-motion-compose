@@ -4,9 +4,11 @@
 
 <a href="https://github.com/fornewid/material-motion-compose/actions/workflows/build.yaml"><img src="https://github.com/fornewid/material-motion-compose/actions/workflows/build.yaml/badge.svg"/></a>
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
-<a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
 
-Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android.
+<a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
+<a href='https://github.com/JetBrains/compose-multiplatform-desktop-template/#readme'><img src='http://img.shields.io/badge/platform-jvm-DB413D.svg'/></a>
+
+Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android and Compose Multiplatform.
 
 ## Compose versions
 
@@ -30,14 +32,14 @@ Jetpack Compose library for implementing [motion system](https://material.io/dev
   <td>Compose 1.5 (1.5.x)</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core"></td>
  </tr>
  <tr>
-  <td>Compose Multiplatform</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core?versionPrefix=0.12"></td>
+  <td>Compose Multiplatform ✨</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core?versionPrefix=0.12"></td>
  </tr>
 </table>
 
 
 ### 🌈 [Core](./core/)
 
-A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Compose.
+A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Compose andr Compose Multiplatform.
 
 ### 🧭 [Navigation](./navigation/)
 
