@@ -14,8 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -37,10 +36,10 @@ jobs:
 
       - name: Build, lint and spotless
         run: |
-          ./gradlew --scan --stacktrace \
+          ./gradlew \
               metalavaCheckCompatibilityRelease \
               spotlessCheck \
-              assemble \
+              build \
               assembleAndroidTest
 
       - name: Clean secrets
@@ -110,7 +109,7 @@ jobs:
   deploy:
     if: github.event_name == 'push' && github.repository == 'fornewid/material-motion-compose'
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: [ build, test ]
     timeout-minutes: 30
     env:
