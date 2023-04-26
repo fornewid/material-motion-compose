@@ -17,7 +17,6 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v3
@@ -39,10 +38,10 @@ jobs:
 
       - name: Build, lint and spotless
         run: |
-          ./gradlew --scan --stacktrace \
+          ./gradlew \
               metalavaCheckCompatibilityRelease \
               spotlessCheck \
-              assemble \
+              build \
               assembleAndroidTest
 
       - name: Clean secrets
