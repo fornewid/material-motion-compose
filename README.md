@@ -6,7 +6,8 @@
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 
 <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
-<a href='https://github.com/JetBrains/compose-multiplatform-desktop-template/#readme'><img src='http://img.shields.io/badge/platform-jvm-DB413D.svg'/></a>
+<a href='https://github.com/JetBrains/compose-multiplatform-ios-android-template/#readme'><img src='http://img.shields.io/badge/platform-iOS-white.svg'/></a>
+<a href='https://github.com/JetBrains/compose-multiplatform-desktop-template/#readme'><img src='http://img.shields.io/badge/platform-jvm-red.svg'/></a>
 
 Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android and Compose Multiplatform.
 
