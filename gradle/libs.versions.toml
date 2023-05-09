@@ -3,6 +3,7 @@
 androidGradle = "7.4.1"
 mavenPublish = "0.25.1"
 metalava = "0.3.3"
+dependencyGuard = "0.4.3"
 
 # Kotlin
 kotlin = "1.8.10"
@@ -22,6 +23,7 @@ accompanist = "0.30.0"
 android-pluginGradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradle" }
 mavenPublish-pluginGradle = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
 metalava-pluginGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
+dependencyGuard-pluginGradle = { module = "com.dropbox.dependency-guard:dependency-guard", version.ref = "dependencyGuard" }
 
 # Kotlin
 
@@ -56,3 +58,7 @@ androidx-test-core = "androidx.test:core:1.4.0"
 androidx-test-rules = "androidx.test:rules:1.4.0"
 androidx-test-runner = "androidx.test:runner:1.4.0"
 androidx-test-truth = "com.google.truth:truth:1.1.2"
+
+[plugins]
+
+dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }

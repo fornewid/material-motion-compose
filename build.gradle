@@ -17,10 +17,12 @@ buildscript {
         classpath libs.metalava.pluginGradle
         classpath libs.dokka.pluginGradle
         classpath libs.jetbrains.compose.pluginGradle
+        classpath libs.dependencyGuard.pluginGradle
     }
 }
 
 plugins {
+    alias(libs.plugins.dependencyGuard)
     id 'com.diffplug.spotless' version '5.12.4'
 }
 
