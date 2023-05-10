@@ -22,7 +22,6 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.dependencyGuard)
     id 'com.diffplug.spotless' version '5.12.4'
 }
 
