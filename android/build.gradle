@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.dropbox.dependency-guard'
 }
 
 android {
@@ -60,4 +61,16 @@ dependencies {
     implementation libs.compose.materialIconsExtended
     implementation libs.compose.activity
     implementation libs.accompanist.navigation.animation
+}
+
+dependencyGuard {
+    configuration("releaseRuntimeClasspath")
+}
+
+task checkDependencies() {
+    dependsOn "dependencyGuard"
+}
+
+task applyDependencies() {
+    dependsOn "dependencyGuardBaseline"
 }

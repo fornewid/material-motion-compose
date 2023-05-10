@@ -41,6 +41,7 @@ jobs:
           ./gradlew \
               metalavaCheckCompatibilityRelease \
               spotlessCheck \
+              android:dependencyGuard \
               build \
               assembleAndroidTest
 
