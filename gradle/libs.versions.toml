@@ -13,7 +13,7 @@ jetbrains-compose = "1.4.0"
 # Compose
 activity = "1.6.1"
 navigation = "2.6.0-alpha07"
-composeBom = "2023.04.01"
+composeBom = "2023.05.00"
 composeCompiler = "1.4.4"
 accompanist = "0.30.0"
 
