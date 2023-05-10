@@ -84,6 +84,11 @@ metalava {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.animation)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.ui.ui)
+
     // ======================
     // Test dependencies
     // ======================
