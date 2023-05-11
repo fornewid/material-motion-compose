@@ -19,6 +19,7 @@ package soup.compose.material.motion.animation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -35,6 +36,7 @@ import soup.compose.material.motion.MotionConstants
  * @param initialScale the starting scale of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
+@ExperimentalAnimationApi
 public fun materialElevationScaleIn(
     initialAlpha: Float = 0.85f,
     initialScale: Float = 0.85f,
@@ -60,6 +62,7 @@ public fun materialElevationScaleIn(
  * @param targetScale the target scale of the exit transition.
  * @param durationMillis the duration of the exit transition.
  */
+@ExperimentalAnimationApi
 public fun materialElevationScaleOut(
     targetAlpha: Float = 0.85f,
     targetScale: Float = 0.85f,

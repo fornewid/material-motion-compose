@@ -20,6 +20,7 @@ package soup.compose.material.motion.animation
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -42,6 +43,7 @@ private val Int.ForIncoming: Int
  *
  * @param durationMillis the duration of transition.
  */
+@ExperimentalAnimationApi
 public fun materialFadeThrough(
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ContentTransform = materialFadeThroughIn(
@@ -56,6 +58,7 @@ public fun materialFadeThrough(
  * @param initialScale the starting scale of the enter transition.
  * @param durationMillis the duration of the enter transition.
  */
+@ExperimentalAnimationApi
 public fun materialFadeThroughIn(
     initialScale: Float = 0.92f,
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
@@ -79,6 +82,7 @@ public fun materialFadeThroughIn(
  *
  * @param durationMillis the duration of the exit transition.
  */
+@ExperimentalAnimationApi
 public fun materialFadeThroughOut(
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ExitTransition = fadeOut(

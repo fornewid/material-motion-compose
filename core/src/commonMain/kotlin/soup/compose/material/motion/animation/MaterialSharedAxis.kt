@@ -18,6 +18,7 @@ package soup.compose.material.motion.animation
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -67,6 +68,7 @@ private val Int.ForIncoming: Int
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
+@OptIn(ExperimentalAnimationApi::class)
 public fun materialSharedAxisX(
     forward: Boolean,
     slideDistance: Int,
@@ -142,6 +144,7 @@ public fun materialSharedAxisXOut(
  * @param slideDistance the slide distance of transition.
  * @param durationMillis the duration of transition.
  */
+@ExperimentalAnimationApi
 public fun materialSharedAxisY(
     forward: Boolean,
     slideDistance: Int,
@@ -216,6 +219,7 @@ public fun materialSharedAxisYOut(
  * @param forward whether the direction of the animation is forward.
  * @param durationMillis the duration of transition.
  */
+@ExperimentalAnimationApi
 public fun materialSharedAxisZ(
     forward: Boolean,
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
@@ -233,6 +237,7 @@ public fun materialSharedAxisZ(
  * @param forward whether the direction of the animation is forward.
  * @param durationMillis the duration of the enter transition.
  */
+@ExperimentalAnimationApi
 public fun materialSharedAxisZIn(
     forward: Boolean,
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
@@ -256,6 +261,7 @@ public fun materialSharedAxisZIn(
  * @param forward whether the direction of the animation is forward.
  * @param durationMillis the duration of the exit transition.
  */
+@ExperimentalAnimationApi
 public fun materialSharedAxisZOut(
     forward: Boolean,
     durationMillis: Int = MotionConstants.DefaultMotionDuration,

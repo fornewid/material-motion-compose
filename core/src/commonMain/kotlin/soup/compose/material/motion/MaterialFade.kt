@@ -18,6 +18,7 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
@@ -34,6 +35,7 @@ import soup.compose.material.motion.animation.materialFadeOut
  * @param enterDurationMillis enter duration
  * @param exitDurationMillis exit duration
  */
+@ExperimentalAnimationApi
 @Composable
 public fun MaterialFade(
     visible: Boolean,

@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
@@ -47,6 +48,7 @@ import kotlin.math.hypot
  * @param transitionSpec The transition spec to use when clipping the screen.
  * The boolean parameter defined for the transition is [visible].
  */
+@ExperimentalAnimationApi
 public fun Modifier.circularReveal(
     visible: Boolean,
     center: (fullSize: Size) -> Offset = { Offset.Unspecified },
