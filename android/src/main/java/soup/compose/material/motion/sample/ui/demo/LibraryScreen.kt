@@ -15,6 +15,7 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -82,6 +83,7 @@ private data class LibraryState(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
     val (state, onStateChanged) = rememberSaveable(stateSaver = Saver) {
