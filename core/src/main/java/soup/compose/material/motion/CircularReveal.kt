@@ -15,7 +15,6 @@
  */
 package soup.compose.material.motion
 
-import android.graphics.Path
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Transition
@@ -27,12 +26,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.center
 import androidx.compose.ui.geometry.takeOrElse
 import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.Density
@@ -87,10 +87,10 @@ private class CircularRevealShape(
     ): Outline {
         val center: Offset = center(size).takeOrElse { size.center }
         val radius: Float = size.getLongestRadiusFrom(center) * progress
-        val path: Path = Path().also {
-            it.addCircle(center.x, center.y, radius, Path.Direction.CW)
+        val path = Path().also {
+            it.addOval(oval = Rect(center = center, radius = radius))
         }
-        return Outline.Generic(path = path.asComposePath())
+        return Outline.Generic(path = path)
     }
 
     private fun Size.getLongestRadiusFrom(center: Offset): Float {
