@@ -5,10 +5,10 @@ kotlin = "1.8.10"
 
 # Compose
 activity = "1.7.0"
-navigation = "2.6.0-alpha09"
-compose = "1.5.0-alpha02"
+navigation = "2.6.0-rc01"
+compose = "1.5.0-alpha04"
 composeCompiler = "1.4.4"
-accompanist = "0.31.0-alpha"
+accompanist = "0.31.2-alpha"
 
 
 [libraries]

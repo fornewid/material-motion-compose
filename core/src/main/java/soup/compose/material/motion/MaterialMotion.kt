@@ -23,7 +23,7 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -81,7 +81,7 @@ public fun <S> Transition<S>.MaterialMotion(
         modifier = modifier,
         transitionSpec = {
             val spec = transitionSpec()
-            (spec.targetContentEnter with spec.initialContentExit)
+            (spec.targetContentEnter togetherWith spec.initialContentExit)
                 .apply {
                     // Show forward contents over the backward contents.
                     if (forward) {

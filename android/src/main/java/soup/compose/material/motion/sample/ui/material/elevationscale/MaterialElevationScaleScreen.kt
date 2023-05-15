@@ -17,7 +17,7 @@ package soup.compose.material.motion.sample.ui.material.elevationscale
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -55,8 +55,8 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
             modifier = Modifier.padding(innerPadding),
             transitionSpec = {
                 when {
-                    targetState -> translateYIn { it } with materialElevationScaleOut()
-                    else -> materialElevationScaleIn() with translateYOut { it }
+                    targetState -> translateYIn { it } togetherWith materialElevationScaleOut()
+                    else -> materialElevationScaleIn() togetherWith translateYOut { it }
                 }
             },
             pop = forward.not()
