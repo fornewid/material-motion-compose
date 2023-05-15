@@ -24,7 +24,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -201,9 +201,9 @@ public fun MaterialMotionNavHost(
                 // a case where visible has cleared the old state for some reason, so instead of
                 // attempting to animate away from the initialState, we skip the animation.
                 if (initialState in visibleEntries) {
-                    finalEnter(this) with finalExit(this)
+                    finalEnter(this) togetherWith finalExit(this)
                 } else {
-                    EnterTransition.None with ExitTransition.None
+                    EnterTransition.None togetherWith ExitTransition.None
                 }
             },
             modifier = modifier,

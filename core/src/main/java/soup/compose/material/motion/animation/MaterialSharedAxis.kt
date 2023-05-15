@@ -30,7 +30,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalDensity
@@ -75,7 +75,7 @@ public fun materialSharedAxisX(
     forward = forward,
     slideDistance = slideDistance,
     durationMillis = durationMillis
-) with materialSharedAxisXOut(
+) togetherWith materialSharedAxisXOut(
     forward = forward,
     slideDistance = slideDistance,
     durationMillis = durationMillis
@@ -150,7 +150,7 @@ public fun materialSharedAxisY(
     forward = forward,
     slideDistance = slideDistance,
     durationMillis = durationMillis
-) with materialSharedAxisYOut(
+) togetherWith materialSharedAxisYOut(
     forward = forward,
     slideDistance = slideDistance,
     durationMillis = durationMillis
@@ -222,7 +222,7 @@ public fun materialSharedAxisZ(
 ): ContentTransform = materialSharedAxisZIn(
     forward = forward,
     durationMillis = durationMillis
-) with materialSharedAxisZOut(
+) togetherWith materialSharedAxisZOut(
     forward = forward,
     durationMillis = durationMillis
 )

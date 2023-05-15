@@ -16,7 +16,7 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.runner.RunWith
 import soup.compose.material.motion.animation.holdIn
@@ -27,10 +27,10 @@ class HoldTest : MaterialMotionTest() {
 
     override fun transitionSpec(forward: Boolean, durationMillis: Int?): ContentTransform {
         return if (durationMillis != null) {
-            holdIn(durationMillis = durationMillis) with
+            holdIn(durationMillis = durationMillis) togetherWith
                 holdOut(durationMillis = durationMillis)
         } else {
-            holdIn() with holdOut()
+            holdIn() togetherWith holdOut()
         }
     }
 }

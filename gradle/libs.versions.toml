@@ -5,11 +5,14 @@ kotlin = "1.8.10"
 
 # Compose
 activity = "1.7.0"
-navigation = "2.6.0-alpha09"
-compose = "1.5.0-alpha02"
+navigation = "2.6.0-rc01"
+compose = "1.5.0-alpha04"
 composeCompiler = "1.4.4"
-accompanist = "0.31.0-alpha"
+accompanist = "0.31.2-alpha"
 
+# AndroidX
+
+tracing = "1.1.0"
 
 [libraries]
 
@@ -38,7 +41,11 @@ compose-material = { module = "androidx.compose.material:material", version.ref 
 compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 
-accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref ="accompanist" }
+accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+
+# AndroidX
+
+androidx-tracing = { module = "androidx.tracing:tracing", version.ref = "tracing" }
 
 # Test
 

@@ -26,7 +26,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import soup.compose.material.motion.MotionConstants
 
 private const val ProgressThreshold = 0.35f
@@ -46,7 +46,7 @@ public fun materialFadeThrough(
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ContentTransform = materialFadeThroughIn(
     durationMillis = durationMillis
-) with materialFadeThroughOut(
+) togetherWith materialFadeThroughOut(
     durationMillis = durationMillis
 )
 

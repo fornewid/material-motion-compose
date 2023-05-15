@@ -16,7 +16,7 @@
 package soup.compose.material.motion
 
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.runner.RunWith
 import soup.compose.material.motion.animation.materialElevationScaleIn
@@ -27,10 +27,10 @@ class MaterialElevationScaleTest : MaterialMotionTest() {
 
     override fun transitionSpec(forward: Boolean, durationMillis: Int?): ContentTransform {
         return if (durationMillis != null) {
-            materialElevationScaleIn(durationMillis = durationMillis) with
+            materialElevationScaleIn(durationMillis = durationMillis) togetherWith
                 materialElevationScaleOut(durationMillis = durationMillis)
         } else {
-            materialElevationScaleIn() with materialElevationScaleOut()
+            materialElevationScaleIn() togetherWith materialElevationScaleOut()
         }
     }
 }

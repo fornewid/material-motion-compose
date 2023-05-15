@@ -17,7 +17,7 @@ package soup.compose.material.motion.sample.ui.material.hold
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -54,8 +54,8 @@ fun HoldScreen(upPress: () -> Unit) {
             targetState = forward,
             transitionSpec = {
                 when {
-                    targetState -> translateXIn { it } with holdOut()
-                    else -> holdIn() with translateXOut { it }
+                    targetState -> translateXIn { it } togetherWith holdOut()
+                    else -> holdIn() togetherWith translateXOut { it }
                 }
             },
             modifier = Modifier.padding(innerPadding),

@@ -62,4 +62,5 @@ dependencies {
     androidTestImplementation libs.compose.foundation
     androidTestImplementation libs.compose.ui.testJunit4
     debugImplementation libs.compose.ui.testManifest
+    debugImplementation libs.androidx.tracing
 }
