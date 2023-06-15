@@ -1,14 +1,14 @@
 [versions]
 
 # Kotlin
-kotlin = "1.8.10"
+kotlin = "1.8.21"
 
 # Compose
 activity = "1.7.0"
-navigation = "2.6.0-rc01"
-compose = "1.5.0-alpha04"
-composeCompiler = "1.4.4"
-accompanist = "0.31.2-alpha"
+navigation = "2.6.0"
+compose = "1.5.0-beta02"
+composeCompiler = "1.4.7"
+accompanist = "0.31.3-beta"
 
 # AndroidX
 
