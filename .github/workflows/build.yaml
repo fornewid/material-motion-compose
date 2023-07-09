@@ -38,7 +38,7 @@ jobs:
       - name: Build, lint and spotless
         run: |
           ./gradlew --scan --stacktrace \
-              metalavaCheckCompatibility \
+              metalavaCheckCompatibilityRelease \
               spotlessCheck \
               assemble \
               assembleAndroidTest
