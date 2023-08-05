@@ -16,7 +16,6 @@
 package soup.compose.material.motion.sample.ui.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -48,7 +47,6 @@ private enum class AnimatedNavDestination(
     First("first", Color.Cyan, nextRoute = Second.route, root = true);
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedNavHostScreen(upPress: () -> Unit) {
     DefaultScaffold(upPress = upPress) { innerPadding ->
