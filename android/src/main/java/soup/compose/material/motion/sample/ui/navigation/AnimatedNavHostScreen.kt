@@ -16,7 +16,6 @@
 package soup.compose.material.motion.sample.ui.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,9 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.animation.materialSharedAxisXIn
 import soup.compose.material.motion.animation.materialSharedAxisXOut
 import soup.compose.material.motion.animation.rememberSlideDistance
@@ -48,13 +47,12 @@ private enum class AnimatedNavDestination(
     First("first", Color.Cyan, nextRoute = Second.route, root = true);
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedNavHostScreen(upPress: () -> Unit) {
     DefaultScaffold(upPress = upPress) { innerPadding ->
         val slideDistance = rememberSlideDistance()
-        val navController = rememberAnimatedNavController()
-        AnimatedNavHost(
+        val navController = rememberNavController()
+        NavHost(
             navController = navController,
             startDestination = AnimatedNavDestination.First.route,
             modifier = Modifier.padding(innerPadding),
