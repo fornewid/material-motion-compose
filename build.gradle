@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
+        classpath libs.android.pluginGradle
         classpath libs.kotlin.pluginGradle
         classpath libs.mavenPublish.pluginGradle
         classpath libs.metalava.pluginGradle
