@@ -99,7 +99,13 @@ public fun NavGraphBuilder.navigation(
     popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
     builder: NavGraphBuilder.() -> Unit,
 ) {
-    navigation(startDestination, route, arguments, deepLinks, builder).apply {
+    navigation(
+        startDestination = startDestination,
+        route = route,
+        arguments = arguments,
+        deepLinks = deepLinks,
+        builder = builder,
+    ).apply {
         enterTransition.let { enterTransitions[route] = enterTransition }
         exitTransition.let { exitTransitions[route] = exitTransition }
         popEnterTransition.let { popEnterTransitions[route] = popEnterTransition }
