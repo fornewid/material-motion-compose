@@ -4,7 +4,7 @@
 kotlin = "1.8.22"
 
 # Compose
-activity = "1.7.0"
+activity = "1.7.2"
 navigation = "2.6.0"
 compose = "1.5.0-rc01"
 composeCompiler = "1.4.8"
