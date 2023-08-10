@@ -46,7 +46,7 @@ androidx-tracing = { module = "androidx.tracing:tracing", version.ref = "tracing
 
 # Test
 
-androidx-test-core = "androidx.test:core:1.4.0"
-androidx-test-rules = "androidx.test:rules:1.4.0"
-androidx-test-runner = "androidx.test:runner:1.4.0"
+androidx-test-core = "androidx.test:core:1.5.0"
+androidx-test-rules = "androidx.test:rules:1.5.0"
+androidx-test-runner = "androidx.test:runner:1.5.2"
 androidx-test-truth = "com.google.truth:truth:1.1.2"
