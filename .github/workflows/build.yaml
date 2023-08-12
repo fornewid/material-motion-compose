@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - compose-1.5
     paths-ignore:
       - '**.md'
       - 'docs/**'
