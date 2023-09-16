@@ -30,6 +30,15 @@ import soup.compose.material.motion.navigation.MaterialMotionComposeNavigator.De
  * set a valid [Composable] by setting it directly on an instantiated [Destination] or calling
  * [composable].
  */
+@Deprecated(
+    message = "Replace with ComposeNavigator from Androidx Navigation and change import " +
+        "from soup.compose.material.motion.navigation.MaterialMotionComposeNavigator to " +
+        "androidx.navigation.compose.ComposeNavigator.",
+    replaceWith = ReplaceWith(
+        "ComposeNavigator",
+        "androidx.navigation.compose.ComposeNavigator"
+    )
+)
 @ExperimentalAnimationApi
 @Navigator.Name("materialMotionComposable")
 public class MaterialMotionComposeNavigator : Navigator<Destination>() {
@@ -66,6 +75,14 @@ public class MaterialMotionComposeNavigator : Navigator<Destination>() {
     /**
      * NavDestination specific to [MaterialMotionComposeNavigator]
      */
+    @Deprecated(
+        message = "Replace with Androidx ComposeNavigator.Destination and change import to " +
+            "androidx.navigation.compose.ComposeNavigator.",
+        replaceWith = ReplaceWith(
+            "ComposeNavigator.Destination",
+            "androidx.navigation.compose.ComposeNavigator"
+        )
+    )
     @ExperimentalAnimationApi
     @NavDestination.ClassType(Composable::class)
     public class Destination(

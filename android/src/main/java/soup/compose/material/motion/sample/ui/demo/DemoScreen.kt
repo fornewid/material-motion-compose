@@ -21,21 +21,21 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import soup.compose.material.motion.animation.holdIn
 import soup.compose.material.motion.animation.holdOut
 import soup.compose.material.motion.animation.translateYIn
 import soup.compose.material.motion.animation.translateYOut
-import soup.compose.material.motion.navigation.MaterialMotionNavHost
-import soup.compose.material.motion.navigation.composable
-import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DemoScreen(upPress: () -> Unit) {
-    val navController = rememberMaterialMotionNavController()
-    MaterialMotionNavHost(navController, startDestination = "library") {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "library") {
         composable(
             "library",
             enterTransition = { holdIn() },

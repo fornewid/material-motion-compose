@@ -26,8 +26,8 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import androidx.navigation.get
 
 /**
  * Add the [Composable] to the [NavGraphBuilder]
@@ -41,6 +41,12 @@ import androidx.navigation.get
  * @param popExitTransition callback to determine the destination's popExit transition
  * @param content composable for the destination
  */
+@Deprecated(
+    "Migrate to Androidx navigation-compose NavGraphBuilder.composable with the " +
+        "same parameters. To migrate, change import from " +
+        "soup.compose.material.motion.navigation.composable to " +
+        "androidx.navigation.compose.composable."
+)
 @ExperimentalAnimationApi
 public fun NavGraphBuilder.composable(
     route: String,
@@ -51,26 +57,16 @@ public fun NavGraphBuilder.composable(
     popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
     popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
     content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
-) {
-    addDestination(
-        MaterialMotionComposeNavigator.Destination(
-            provider[MaterialMotionComposeNavigator::class],
-            content
-        ).apply {
-            this.route = route
-            arguments.forEach { (argumentName, argument) ->
-                addArgument(argumentName, argument)
-            }
-            deepLinks.forEach { deepLink ->
-                addDeepLink(deepLink)
-            }
-            enterTransition?.let { enterTransitions[route] = enterTransition }
-            exitTransition?.let { exitTransitions[route] = exitTransition }
-            popEnterTransition?.let { popEnterTransitions[route] = popEnterTransition }
-            popExitTransition?.let { popExitTransitions[route] = popExitTransition }
-        }
-    )
-}
+): Unit = composable(
+    route,
+    arguments,
+    deepLinks,
+    enterTransition,
+    exitTransition,
+    popEnterTransition,
+    popExitTransition,
+    content
+)
 
 /**
  * Construct a nested [NavGraph]
@@ -87,22 +83,37 @@ public fun NavGraphBuilder.composable(
  *
  * @return the newly constructed nested NavGraph
  */
+@Deprecated(
+    "Migrate to Androidx navigation-compose NavGraphBuilder.navigation with the " +
+        "same parameters. To migrate, change import from " +
+        "soup.compose.material.motion.navigation.navigation to " +
+        "androidx.navigation.compose.navigation."
+)
 @ExperimentalAnimationApi
 public fun NavGraphBuilder.navigation(
     startDestination: String,
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
-    exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
-    popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
-    popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
-    builder: NavGraphBuilder.() -> Unit,
-) {
-    navigation(startDestination, route, arguments, deepLinks, builder).apply {
-        enterTransition.let { enterTransitions[route] = enterTransition }
-        exitTransition.let { exitTransitions[route] = exitTransition }
-        popEnterTransition.let { popEnterTransitions[route] = popEnterTransition }
-        popExitTransition.let { popExitTransitions[route] = popExitTransition }
-    }
-}
+    enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? =
+        null,
+    exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? =
+        null,
+    popEnterTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
+    )? = enterTransition,
+    popExitTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
+    )? = exitTransition,
+    builder: NavGraphBuilder.() -> Unit
+): Unit = navigation(
+    startDestination,
+    route,
+    arguments,
+    deepLinks,
+    enterTransition,
+    exitTransition,
+    popEnterTransition,
+    popExitTransition,
+    builder
+)

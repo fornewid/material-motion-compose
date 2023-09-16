@@ -33,6 +33,7 @@ import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalAnimationApi::class)
 @RunWith(AndroidJUnit4::class)
 class NavHostControllerTest {
