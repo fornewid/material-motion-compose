@@ -33,6 +33,7 @@ import soup.compose.material.motion.animation.materialFadeOut
  * @param modifier modifier for the [Layout] created to contain the [content]
  * @param enterDurationMillis enter duration
  * @param exitDurationMillis exit duration
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 @Composable
 public fun MaterialFade(
@@ -40,13 +41,15 @@ public fun MaterialFade(
     modifier: Modifier = Modifier,
     enterDurationMillis: Int = MotionConstants.DefaultFadeInDuration,
     exitDurationMillis: Int = MotionConstants.DefaultFadeOutDuration,
+    label: String = "MaterialFade",
     content: @Composable () -> Unit,
 ) {
     AnimatedVisibility(
         visible = visible,
         modifier = modifier,
         enter = materialFadeIn(enterDurationMillis),
-        exit = materialFadeOut(exitDurationMillis)
+        exit = materialFadeOut(exitDurationMillis),
+        label = label,
     ) {
         content()
     }

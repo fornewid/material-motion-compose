@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
  * @param transitionSpec the [ContentTransform] to configure the enter/exit animation.
  * @param modifier Modifier to be applied to the animation container.
  * @param pop whether motion contents are rendered in reverse order.
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 @Composable
 public fun <S> MaterialMotion(
@@ -47,14 +48,17 @@ public fun <S> MaterialMotion(
     modifier: Modifier = Modifier,
     pop: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
+    label: String = "MaterialMotion",
+    contentKey: (targetState: S) -> Any? = { it },
     content: @Composable AnimatedVisibilityScope.(targetState: S) -> Unit,
 ) {
-    val transition = updateTransition(targetState = targetState, label = "MaterialMotion")
+    val transition = updateTransition(targetState = targetState, label = label)
     transition.MaterialMotion(
         transitionSpec,
         modifier,
         pop,
         contentAlignment,
+        contentKey,
         content = content
     )
 }
