@@ -15,15 +15,14 @@
  */
 package soup.compose.material.motion.sample.ui
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import soup.compose.material.motion.animation.materialSharedAxisZIn
 import soup.compose.material.motion.animation.materialSharedAxisZOut
-import soup.compose.material.motion.navigation.MaterialMotionNavHost
-import soup.compose.material.motion.navigation.composable
-import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.compose.material.motion.sample.ui.circularreveal.CircularRevealScreen
 import soup.compose.material.motion.sample.ui.demo.DemoScreen
 import soup.compose.material.motion.sample.ui.material.elevationscale.MaterialElevationScaleScreen
@@ -47,16 +46,15 @@ enum class Destination(val route: String) {
     AnimatedNavHost("AnimatedNavHost"),
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     startDestination: String = Destination.Home.route,
 ) {
-    val navController = rememberMaterialMotionNavController()
+    val navController = rememberNavController()
     val upPress: () -> Unit = {
         navController.navigateUp()
     }
-    MaterialMotionNavHost(
+    NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = Modifier.fillMaxSize(),

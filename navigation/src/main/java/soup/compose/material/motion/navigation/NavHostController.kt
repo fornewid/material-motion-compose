@@ -18,7 +18,6 @@ package soup.compose.material.motion.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.Navigator
@@ -33,11 +32,16 @@ import androidx.navigation.compose.rememberNavController
  *
  * @see MaterialMotionNavHost
  */
+@Deprecated(
+    message = "Replace with Androidx rememberNavController. Change import to " +
+        "androidx.navigation.compose.rememberNavController",
+    replaceWith = ReplaceWith(
+        "rememberNavController(*navigators)",
+        "androidx.navigation.compose.rememberNavController"
+    )
+)
 @ExperimentalAnimationApi
 @Composable
 public fun rememberMaterialMotionNavController(
     vararg navigators: Navigator<out NavDestination>,
-): NavHostController {
-    val navigator = remember { MaterialMotionComposeNavigator() }
-    return rememberNavController(navigator, *navigators)
-}
+): NavHostController = rememberNavController(*navigators)

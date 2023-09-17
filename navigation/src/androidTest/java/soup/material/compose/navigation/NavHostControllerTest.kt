@@ -25,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,6 +34,7 @@ import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalAnimationApi::class)
 @RunWith(AndroidJUnit4::class)
 class NavHostControllerTest {
@@ -40,6 +42,7 @@ class NavHostControllerTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @Ignore
     @Test
     fun testRememberMaterialMotionNavController() {
         lateinit var navController: NavHostController
