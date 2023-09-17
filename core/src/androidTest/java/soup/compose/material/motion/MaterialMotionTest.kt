@@ -20,7 +20,6 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
@@ -28,7 +27,6 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
@@ -47,7 +45,7 @@ abstract class MaterialMotionTest {
         rule.mainClock.autoAdvance = false
 
         rule.setContent {
-            val showFirst by remember { mutableStateOf(true) }
+            val showFirst by mutableStateOf(true)
             MaterialMotion(
                 showFirst,
                 transitionSpec = { transitionSpec(forward = showFirst) },
@@ -121,15 +119,18 @@ abstract class MaterialMotionTest {
         rule.mainClock.advanceTimeByFrame() // Kick off the animation
         rule.mainClock.advanceTimeBy(duration.toLong())
 
+        rule.onNodeWithText(First).assertExists()
+        rule.onNodeWithText(Second).assertDoesNotExist()
+
         rule.runOnUiThread {
             showFirst = false
         }
 
-        rule.mainClock.advanceTimeBy(duration.toLong())
-        rule.mainClock.advanceTimeByFrame()
-        rule.mainClock.advanceTimeByFrame() // Wait for changes to propagate
+        // Wait for content to be disposed
+        rule.mainClock.advanceTimeUntil { disposed }
 
-        assertTrue(disposed)
+        rule.onNodeWithText(First).assertDoesNotExist()
+        rule.onNodeWithText(Second).assertExists()
     }
 
     @Test

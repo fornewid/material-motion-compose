@@ -1,13 +1,18 @@
 [versions]
 
+gradlePlugin = "8.0.2"
+mavenPublish = "0.25.1"
+metalava = "0.3.3"
+
 # Kotlin
-kotlin = "1.8.22"
+kotlin = "1.9.0"
+dokka = "1.8.10"
 
 # Compose
-activity = "1.7.0"
+activity = "1.7.2"
 navigation = "2.7.2"
-compose = "1.5.0"
-composeCompiler = "1.4.8"
+compose = "1.6.0-alpha05"
+composeCompiler = "1.5.2"
 
 # AndroidX
 
@@ -15,16 +20,16 @@ tracing = "1.1.0"
 
 [libraries]
 
-android-pluginGradle = "com.android.tools.build:gradle:8.0.2"
-mavenPublish-pluginGradle = "com.vanniktech:gradle-maven-publish-plugin:0.25.1"
-metalava-pluginGradle = "me.tylerbwong.gradle.metalava:plugin:0.3.3"
+android-pluginGradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
+mavenPublish-pluginGradle = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
+metalava-pluginGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 
 # Kotlin
 
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 
-dokka-pluginGradle = "org.jetbrains.dokka:dokka-gradle-plugin:1.8.10"
+dokka-pluginGradle = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 
 # Compose
 
@@ -46,7 +51,7 @@ androidx-tracing = { module = "androidx.tracing:tracing", version.ref = "tracing
 
 # Test
 
-androidx-test-core = "androidx.test:core:1.4.0"
-androidx-test-rules = "androidx.test:rules:1.4.0"
-androidx-test-runner = "androidx.test:runner:1.4.0"
+androidx-test-core = "androidx.test:core:1.5.0"
+androidx-test-rules = "androidx.test:rules:1.5.0"
+androidx-test-runner = "androidx.test:runner:1.5.2"
 androidx-test-truth = "com.google.truth:truth:1.1.2"
