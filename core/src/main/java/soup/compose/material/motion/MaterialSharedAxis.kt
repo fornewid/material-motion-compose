@@ -34,6 +34,7 @@ import soup.compose.material.motion.animation.rememberSlideDistance
  * @param forward whether the direction of the animation is forward.
  * @param modifier Modifier to be applied to the animation container.
  * @param slideDistance slide distance of the animation.
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 @Composable
 public fun <T> MaterialSharedAxisX(
@@ -41,6 +42,7 @@ public fun <T> MaterialSharedAxisX(
     forward: Boolean,
     modifier: Modifier = Modifier,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
+    label: String = "MaterialSharedAxisX",
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     val distance = rememberSlideDistance(slideDistance)
@@ -54,6 +56,7 @@ public fun <T> MaterialSharedAxisX(
         },
         modifier = modifier,
         pop = forward.not(),
+        label = label,
         content = content
     )
 }
@@ -69,6 +72,7 @@ public fun <T> MaterialSharedAxisX(
  * @param forward whether the direction of the animation is forward.
  * @param modifier Modifier to be applied to the animation container.
  * @param slideDistance slide distance of the animation.
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 @Composable
 public fun <T> MaterialSharedAxisY(
@@ -76,6 +80,7 @@ public fun <T> MaterialSharedAxisY(
     forward: Boolean,
     modifier: Modifier = Modifier,
     slideDistance: Dp = MotionConstants.DefaultSlideDistance,
+    label: String = "MaterialSharedAxisY",
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     val distance = rememberSlideDistance(slideDistance)
@@ -89,6 +94,7 @@ public fun <T> MaterialSharedAxisY(
         },
         modifier = modifier,
         pop = forward.not(),
+        label = label,
         content = content
     )
 }
@@ -103,12 +109,14 @@ public fun <T> MaterialSharedAxisY(
  * the [content] called with the new key will be faded in.
  * @param forward whether the direction of the animation is forward.
  * @param modifier Modifier to be applied to the animation container.
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 @Composable
 public fun <T> MaterialSharedAxisZ(
     targetState: T,
     forward: Boolean,
     modifier: Modifier = Modifier,
+    label: String = "MaterialSharedAxisZ",
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     MaterialMotion(
@@ -120,6 +128,7 @@ public fun <T> MaterialSharedAxisZ(
         },
         modifier = modifier,
         pop = forward.not(),
+        label = label,
         content = content
     )
 }

@@ -30,11 +30,13 @@ import androidx.compose.ui.Modifier
  * the animation will be triggered. The [content] called with the old key will be faded out while
  * the [content] called with the new key will be faded in.
  * @param modifier Modifier to be applied to the animation container.
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 @Composable
 public fun <T> MaterialFadeThrough(
     targetState: T,
     modifier: Modifier = Modifier,
+    label: String = "MaterialFadeThrough",
     content: @Composable AnimatedVisibilityScope.(T) -> Unit,
 ) {
     MaterialMotion(
@@ -43,6 +45,7 @@ public fun <T> MaterialFadeThrough(
             soup.compose.material.motion.animation.materialFadeThrough()
         },
         modifier = modifier,
+        label = label,
         content = content
     )
 }

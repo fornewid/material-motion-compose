@@ -47,11 +47,13 @@ import kotlin.math.hypot
  * If undefined or [Offset.Unspecified], the x,y coordinates will be the center of [Size].
  * @param transitionSpec The transition spec to use when clipping the screen.
  * The boolean parameter defined for the transition is [visible].
+ * @param label An optional label to differentiate from other animations in Android Studio.
  */
 public fun Modifier.circularReveal(
     visible: Boolean,
     center: (fullSize: Size) -> Offset = { Offset.Unspecified },
     transitionSpec: @Composable Transition.Segment<Boolean>.() -> FiniteAnimationSpec<Float> = { spring() },
+    label: String = "CircularReveal",
 ): Modifier = composed(
     inspectorInfo = debugInspectorInfo {
         name = "circularReveal"
@@ -59,7 +61,7 @@ public fun Modifier.circularReveal(
         properties["center"] = center
     }
 ) {
-    val transition = updateTransition(targetState = visible, label = "circularReveal")
+    val transition = updateTransition(targetState = visible, label = label)
     val progress: Float by transition.animateFloat(
         transitionSpec = transitionSpec,
         label = "progress",
