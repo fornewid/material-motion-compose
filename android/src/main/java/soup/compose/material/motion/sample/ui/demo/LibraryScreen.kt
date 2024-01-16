@@ -25,8 +25,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.SortByAlpha
-import androidx.compose.material.icons.filled.ViewList
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -156,7 +156,7 @@ fun LibraryScaffold(
                     }
                     IconButton(onClick = onListTypeToggle) {
                         Icon(
-                            Icons.Default.ViewList,
+                            Icons.AutoMirrored.Filled.ViewList,
                             contentDescription = null
                         )
                     }

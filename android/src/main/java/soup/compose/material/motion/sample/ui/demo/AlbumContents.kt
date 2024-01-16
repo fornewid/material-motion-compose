@@ -42,11 +42,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -84,7 +84,7 @@ fun AlbumScaffold(
             navigationIcon = {
                 IconButton(onClick = upPress) {
                     Icon(
-                        Icons.Default.ArrowBack,
+                        Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null
                     )
                 }
@@ -181,7 +181,7 @@ fun AlbumTrackItem(track: MusicData.Track) {
     ) {
         if (track.playing) {
             Image(
-                Icons.Default.VolumeUp,
+                Icons.AutoMirrored.Filled.VolumeUp,
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.CenterVertically),
                 contentScale = ContentScale.Crop,
