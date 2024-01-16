@@ -63,7 +63,7 @@ fun MaterialMotionNavHostScreen(upPress: () -> Unit) {
             popEnterTransition = { materialElevationScaleIn() },
             popExitTransition = { translateXOut { it } }
         ) {
-            MaterialMotionNavDestination.values().forEach { destination ->
+            MaterialMotionNavDestination.entries.forEach { destination ->
                 composable(route = destination.route) {
                     if (destination.root) {
                         BackHandler {

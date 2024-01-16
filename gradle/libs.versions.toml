@@ -11,7 +11,7 @@ dokka = "1.8.10"
 # Compose
 activity = "1.7.2"
 navigation = "2.7.2"
-compose = "1.6.0-alpha05"
+compose = "1.6.0-rc01"
 composeCompiler = "1.5.2"
 
 # AndroidX
