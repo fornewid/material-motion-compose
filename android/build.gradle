@@ -51,12 +51,11 @@ android {
 
 dependencies {
     implementation project(':core')
-    implementation project(':navigation')
 
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.tooling
     implementation libs.compose.material
     implementation libs.compose.materialIconsExtended
     implementation libs.compose.activity
-    implementation "androidx.navigation:navigation-compose:2.7.0-alpha01"
+    implementation libs.compose.navigation
 }

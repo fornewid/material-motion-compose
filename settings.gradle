@@ -1,3 +1,2 @@
 include ':core'
 include ':android'
-include ':navigation'
