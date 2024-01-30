@@ -1,6 +1,6 @@
 [versions]
 
-gradlePlugin = "8.0.2"
+gradlePlugin = "8.1.1"
 mavenPublish = "0.25.1"
 metalava = "0.3.3"
 
@@ -11,7 +11,7 @@ dokka = "1.8.10"
 # Compose
 activity = "1.7.2"
 navigation = "2.7.2"
-compose = "1.6.0"
+compose = "1.7.0-alpha01"
 composeCompiler = "1.5.2"
 
 # AndroidX
