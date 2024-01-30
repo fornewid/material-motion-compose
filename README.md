@@ -41,13 +41,24 @@ Jetpack Compose library for implementing [motion system](https://material.io/dev
 </table>
 
 
-### 🌈 [Core](./core/)
+## 🌈 Core
 
-A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Compose andr Compose Multiplatform.
+A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Compose and Compose Multiplatform.
 
-### 🧭 [Navigation](./navigation/)
+For more information, visit the documentation: https://fornewid.github.io/material-motion-compose/core
 
-A library which provides [motion patterns](https://material.io/design/motion/the-motion-system.html) support for Jetpack Navigation Compose.
+### Download
+
+```gradle
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "io.github.fornewid:material-motion-compose-core:<version>"
+}
+```
+
 
 
 ## License

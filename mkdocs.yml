@@ -15,7 +15,6 @@ nav:
       - 'API': api/core/
   - "Navigation":
       - 'Guide': navigation.md
-      - 'API': api/navigation/
   - "Migration":
       - '0.5 to 0.6': migrating-from-0.5-to-0.6.md
       - '0.9 to 0.10': migrating-from-0.9-to-0.10.md

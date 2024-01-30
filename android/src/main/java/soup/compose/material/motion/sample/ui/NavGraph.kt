@@ -31,7 +31,6 @@ import soup.compose.material.motion.sample.ui.material.fadethrough.MaterialFadeT
 import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
 import soup.compose.material.motion.sample.ui.navigation.AnimatedNavHostScreen
-import soup.compose.material.motion.sample.ui.navigation.MaterialMotionNavHostScreen
 
 enum class Destination(val route: String) {
     Home("Home"),
@@ -42,7 +41,6 @@ enum class Destination(val route: String) {
     MaterialElevationScale("MaterialElevationScale"),
     Hold("Hold"),
     CircularReveal("CircularReveal"),
-    MaterialMotionNavHost("MaterialMotionNavHost"),
     AnimatedNavHost("AnimatedNavHost"),
 }
 
@@ -95,9 +93,6 @@ fun NavGraph(
         }
 
         /* Navigation */
-        composable(Destination.MaterialMotionNavHost.route) {
-            MaterialMotionNavHostScreen(upPress = upPress)
-        }
         composable(Destination.AnimatedNavHost.route) {
             AnimatedNavHostScreen(upPress = upPress)
         }
