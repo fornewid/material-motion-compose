@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - preview
+      - compose-1.6
 
 jobs:
   update_draft_release:
