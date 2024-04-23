@@ -52,6 +52,7 @@ android {
 dependencies {
     implementation project(':core')
 
+    implementation libs.compose.animation
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.tooling
     implementation libs.compose.material

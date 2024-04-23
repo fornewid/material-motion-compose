@@ -15,7 +15,11 @@
  */
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -32,6 +36,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
     val density = LocalDensity.current
@@ -62,9 +68,17 @@ fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
     }
     AlbumScaffold(
         upPress = upPress,
-        collapse = collapse
+        collapse = collapse,
+        modifier = Modifier
+            .fillMaxSize()
+            .containerTransform(
+                rememberSharedContentState(key = "album-${album.id}"),
+                this@AnimatedVisibilityScope,
+            ),
     ) {
-        LazyColumn(state = listState) {
+        LazyColumn(
+            state = listState,
+        ) {
             item {
                 AlbumHeader(album, showFab)
             }

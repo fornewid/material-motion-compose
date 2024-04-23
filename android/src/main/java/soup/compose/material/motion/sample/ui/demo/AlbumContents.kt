@@ -65,6 +65,7 @@ import soup.compose.material.motion.sample.ui.theme.Purple200
 fun AlbumScaffold(
     upPress: () -> Unit,
     collapse: Boolean,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
     val backgroundColor = if (collapse) {
@@ -75,7 +76,7 @@ fun AlbumScaffold(
     } else {
         Color.Transparent
     }
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
         Surface(modifier = Modifier.fillMaxSize(), content = content)
         TopAppBar(
             modifier = Modifier
