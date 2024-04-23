@@ -13,8 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -82,6 +87,7 @@ private data class LibraryState(
     }
 }
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
 @Composable
 fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
     val (state, onStateChanged) = rememberSaveable(stateSaver = Saver) {
@@ -120,20 +126,22 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
             onListTypeChange(newType)
         },
     ) { innerPadding ->
-        val slideDistance = rememberSlideDistance()
-        MaterialMotion(
-            targetState = state,
-            transitionSpec = {
-                when (targetState.motionSpecType) {
-                    MotionSpecType.SharedAxis -> materialSharedAxisY(forward = true, slideDistance)
-                    MotionSpecType.FadeThrough -> materialFadeThrough()
-                }
-            },
-            modifier = Modifier.padding(innerPadding),
-            pop = false
-        ) { currentDestination ->
-            LibraryContents(currentDestination, onItemClick)
-        }
+        //FIXME: not working
+//        val slideDistance = rememberSlideDistance()
+//        MaterialMotion(
+//            targetState = state,
+//            transitionSpec = {
+//                when (targetState.motionSpecType) {
+//                    MotionSpecType.SharedAxis -> materialSharedAxisY(forward = true, slideDistance)
+//                    MotionSpecType.FadeThrough -> materialFadeThrough()
+//                }
+//            },
+//            modifier = Modifier.padding(innerPadding),
+//            pop = false
+//        ) { currentDestination ->
+//            LibraryContents(currentDestination, onItemClick)
+//        }
+        LibraryContents(state, onItemClick)
     }
 }
 
@@ -167,6 +175,7 @@ fun LibraryScaffold(
     )
 }
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
 @Composable
 private fun LibraryContents(
     state: LibraryState,

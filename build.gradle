@@ -54,6 +54,7 @@ subprojects {
             jvmTarget = "1.8"
             // Allow use of @OptIn
             freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+            freeCompilerArgs += "-Xcontext-receivers"
         }
     }
 

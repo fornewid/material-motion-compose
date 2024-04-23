@@ -17,7 +17,8 @@ package soup.compose.material.motion.sample.ui.demo
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
@@ -25,45 +26,39 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import soup.compose.material.motion.animation.holdIn
-import soup.compose.material.motion.animation.holdOut
-import soup.compose.material.motion.animation.translateYIn
-import soup.compose.material.motion.animation.translateYOut
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun DemoScreen(upPress: () -> Unit) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "library") {
-        composable(
-            "library",
-            enterTransition = { holdIn() },
-            exitTransition = { holdOut() },
-        ) {
-            BackHandler {
-                upPress()
+    SharedTransitionLayout {
+        NavHost(navController, startDestination = "library") {
+            composable(
+                "library",
+            ) {
+                BackHandler {
+                    upPress()
+                }
+                LibraryScreen(
+                    onItemClick = {
+                        navController.navigate("album/${it.id}")
+                    }
+                )
             }
-            LibraryScreen(
-                onItemClick = {
-                    navController.navigate("album/${it.id}")
-                }
-            )
-        }
-        composable(
-            "album/{albumId}",
-            arguments = listOf(navArgument("albumId") { type = NavType.LongType }),
-            enterTransition = { translateYIn { it } },
-            exitTransition = { translateYOut { it } },
-        ) { backStackEntry ->
-            val currentId = backStackEntry.arguments?.getLong("albumId")
-            val album = MusicData.albums.first { it.id == currentId }
-            AlbumScreen(
-                album,
-                upPress = {
-                    navController.popBackStack()
-                }
-            )
+            composable(
+                "album/{albumId}",
+                arguments = listOf(navArgument("albumId") { type = NavType.LongType }),
+            ) { backStackEntry ->
+                val currentId = backStackEntry.arguments?.getLong("albumId")
+                val album = MusicData.albums.first { it.id == currentId }
+                AlbumScreen(
+                    album,
+                    upPress = {
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
     }
 }

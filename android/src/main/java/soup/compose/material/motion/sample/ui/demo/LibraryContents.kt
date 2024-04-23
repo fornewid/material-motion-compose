@@ -13,8 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package soup.compose.material.motion.sample.ui.demo
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -48,6 +53,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
 @Composable
 fun LibraryGridContents(
     items: List<MusicData.Album>,
@@ -65,6 +71,7 @@ fun LibraryGridContents(
     }
 }
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun LibraryGridItem(
@@ -76,6 +83,10 @@ private fun LibraryGridItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
+            .containerTransform(
+                rememberSharedContentState(key = "album-${album.id}"),
+                this@AnimatedVisibilityScope,
+            ),
     ) {
         Column {
             Image(
@@ -107,6 +118,7 @@ private fun LibraryGridItem(
     }
 }
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
 @Composable
 fun LibraryLinearContents(
     items: List<MusicData.Album>,
@@ -124,6 +136,7 @@ fun LibraryLinearContents(
     }
 }
 
+context(SharedTransitionScope, AnimatedVisibilityScope)
 @Composable
 private fun LibraryLinearItem(
     album: MusicData.Album,
@@ -134,7 +147,11 @@ private fun LibraryLinearItem(
             .fillMaxWidth()
             .requiredHeight(88.dp)
             .clickable { onItemClick(album) }
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .containerTransform(
+                rememberSharedContentState(key = "album-${album.id}"),
+                this@AnimatedVisibilityScope,
+            ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
