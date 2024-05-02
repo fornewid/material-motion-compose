@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -58,4 +59,6 @@ dependencies {
     implementation libs.compose.materialIconsExtended
     implementation libs.compose.activity
     implementation libs.compose.navigation
+
+    implementation libs.kotlinx.serialization.json
 }

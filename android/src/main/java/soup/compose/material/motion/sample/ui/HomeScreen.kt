@@ -142,7 +142,6 @@ fun HomeScreen(onItemClick: (Destination) -> Unit) {
                 }
                 items(
                     items = category.items,
-                    key = { it.destination.route },
                     contentType = { "Demo" }
                 ) { demo ->
                     HomeDemoItem(demo, onItemClick = onItemClick)
