@@ -14,6 +14,7 @@ buildscript {
         classpath libs.mavenPublish.pluginGradle
         classpath libs.metalava.pluginGradle
         classpath libs.dokka.pluginGradle
+        classpath libs.kotlinx.serialization.pluginGradle
     }
 }
 

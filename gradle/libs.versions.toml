@@ -6,11 +6,12 @@ metalava = "0.3.3"
 
 # Kotlin
 kotlin = "1.9.0"
+serialization = "1.0.1"
 dokka = "1.8.10"
 
 # Compose
 activity = "1.7.2"
-navigation = "2.7.2"
+navigation = "2.8.0-alpha08"
 compose = "1.7.0-alpha07"
 composeCompiler = "1.5.2"
 
@@ -28,6 +29,9 @@ metalava-pluginGradle = { module = "me.tylerbwong.gradle.metalava:plugin", versi
 
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+
+kotlinx-serialization-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 dokka-pluginGradle = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 
