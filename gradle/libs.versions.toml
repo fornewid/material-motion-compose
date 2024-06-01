@@ -6,7 +6,7 @@ metalava = "0.3.3"
 
 # Kotlin
 kotlin = "1.9.0"
-serialization = "1.0.1"
+serialization = "1.6.3"
 dokka = "1.8.10"
 
 # Compose
