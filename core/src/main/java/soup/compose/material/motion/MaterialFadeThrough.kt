@@ -46,6 +46,6 @@ public fun <T> MaterialFadeThrough(
         },
         modifier = modifier,
         label = label,
-        content = content
+        content = content,
     )
 }

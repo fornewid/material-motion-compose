@@ -45,9 +45,9 @@ private val Int.ForIncoming: Int
 public fun materialFadeThrough(
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ContentTransform = materialFadeThroughIn(
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 ) togetherWith materialFadeThroughOut(
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 )
 
 /**
@@ -63,15 +63,15 @@ public fun materialFadeThroughIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
-        easing = LinearOutSlowInEasing
-    )
+        easing = LinearOutSlowInEasing,
+    ),
 ) + scaleIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
-        easing = LinearOutSlowInEasing
+        easing = LinearOutSlowInEasing,
     ),
-    initialScale = initialScale
+    initialScale = initialScale,
 )
 
 /**
@@ -85,6 +85,6 @@ public fun materialFadeThroughOut(
     animationSpec = tween(
         durationMillis = durationMillis.ForOutgoing,
         delayMillis = 0,
-        easing = FastOutLinearInEasing
-    )
+        easing = FastOutLinearInEasing,
+    ),
 )

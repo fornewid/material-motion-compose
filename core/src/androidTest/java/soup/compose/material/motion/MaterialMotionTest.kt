@@ -49,7 +49,7 @@ abstract class MaterialMotionTest {
             MaterialMotion(
                 showFirst,
                 transitionSpec = { transitionSpec(forward = showFirst) },
-                pop = showFirst.not()
+                pop = showFirst.not(),
             ) {
                 BasicText(if (it) First else Second)
             }
@@ -69,7 +69,7 @@ abstract class MaterialMotionTest {
             MaterialMotion(
                 showFirst,
                 transitionSpec = { transitionSpec(forward = showFirst) },
-                pop = showFirst.not()
+                pop = showFirst.not(),
             ) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
@@ -105,7 +105,7 @@ abstract class MaterialMotionTest {
             MaterialMotion(
                 showFirst,
                 transitionSpec = { transitionSpec(forward = showFirst, durationMillis = duration) },
-                pop = showFirst.not()
+                pop = showFirst.not(),
             ) {
                 BasicText(if (it) First else Second)
                 DisposableEffect(Unit) {
@@ -142,7 +142,7 @@ abstract class MaterialMotionTest {
             MaterialMotion(
                 current,
                 transitionSpec = { transitionSpec(forward = current != null) },
-                pop = current == null
+                pop = current == null,
             ) { value ->
                 BasicText(if (value == null) First else Second)
             }
@@ -180,7 +180,7 @@ abstract class MaterialMotionTest {
             MaterialMotion(
                 showFirst,
                 transitionSpec = { transitionSpec(forward = showFirst, durationMillis = duration) },
-                pop = showFirst.not()
+                pop = showFirst.not(),
             ) {
                 saveableStateHolder.SaveableStateProvider(it) {
                     if (it) {

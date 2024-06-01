@@ -1,9 +1,9 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-    id 'com.vanniktech.maven.publish'
-    id 'org.jetbrains.dokka'
-    id 'me.tylerbwong.gradle.metalava'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.maven.publish)
+    alias(libs.plugins.jetbrains.dokka)
+    alias(libs.plugins.metalava)
 }
 
 android {

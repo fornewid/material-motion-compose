@@ -84,14 +84,14 @@ fun NavGraph(
             HomeScreen(
                 onItemClick = {
                     navController.navigate(route = it)
-                }
+                },
             )
         }
         composable<Destination.Demo> {
             DemoScreen(upPress = upPress)
         }
 
-        /* Core */
+        // Core
         composable<Destination.MaterialSharedAxis> {
             MaterialSharedAxisScreen(upPress = upPress)
         }
@@ -111,7 +111,7 @@ fun NavGraph(
             CircularRevealScreen(upPress = upPress)
         }
 
-        /* Navigation */
+        // Navigation
         composable<Destination.AnimatedNavHost> {
             AnimatedNavHostScreen(upPress = upPress)
         }

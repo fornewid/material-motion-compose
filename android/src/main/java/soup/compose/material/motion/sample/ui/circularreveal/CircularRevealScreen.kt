@@ -115,7 +115,7 @@ fun CircularRevealScreen(upPress: () -> Unit) {
                 POSITIONS.forEach {
                     TextButton(
                         onClick = { onStateChanged(State(visible = true, center = it.center)) },
-                        modifier = Modifier.align(it.alignment)
+                        modifier = Modifier.align(it.alignment),
                     ) {
                         Text(text = it.label)
                     }
@@ -133,11 +133,11 @@ fun CircularRevealScreen(upPress: () -> Unit) {
                         },
                     )
                     .fillMaxSize()
-                    .background(color = MaterialTheme.colors.secondary)
+                    .background(color = MaterialTheme.colors.secondary),
             ) {
                 Button(
                     onClick = { onStateChanged(state.copy(visible = false)) },
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
                 ) {
                     Text("Close")
                 }

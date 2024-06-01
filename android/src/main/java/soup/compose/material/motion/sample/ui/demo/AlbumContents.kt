@@ -85,7 +85,7 @@ fun AlbumScaffold(
                 IconButton(onClick = upPress) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             },
@@ -94,19 +94,19 @@ fun AlbumScaffold(
                 IconButton(onClick = {}) {
                     Icon(
                         Icons.Default.Favorite,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
                 IconButton(onClick = {}) {
                     Icon(
                         Icons.Default.MoreVert,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             },
             backgroundColor = backgroundColor,
             contentColor = Color.White,
-            elevation = 0.dp
+            elevation = 0.dp,
         )
     }
 }
@@ -121,14 +121,14 @@ fun AlbumHeader(album: MusicData.Album, showFab: Boolean) {
                 modifier = Modifier
                     .aspectRatio(1f)
                     .fillMaxSize(),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .requiredHeight(196.dp),
                 shape = RectangleShape,
-                backgroundColor = MaterialTheme.colors.primarySurface
+                backgroundColor = MaterialTheme.colors.primarySurface,
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -139,13 +139,13 @@ fun AlbumHeader(album: MusicData.Album, showFab: Boolean) {
                         text = album.title,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
-                        style = MaterialTheme.typography.h3
+                        style = MaterialTheme.typography.h3,
                     )
                     Text(
                         text = album.artist,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
-                        style = MaterialTheme.typography.subtitle1
+                        style = MaterialTheme.typography.subtitle1,
                     )
                 }
             }
@@ -154,13 +154,13 @@ fun AlbumHeader(album: MusicData.Album, showFab: Boolean) {
             visible = showFab,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 152.dp)
+                .padding(end = 16.dp, bottom = 152.dp),
         ) {
             FloatingActionButton(
                 onClick = {},
                 backgroundColor = MaterialTheme.colors.fabBackground,
                 contentColor = MaterialTheme.colors.surface,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
             ) {
                 Icon(Icons.Default.PlayArrow, contentDescription = null)
             }
@@ -177,7 +177,7 @@ fun AlbumTrackItem(track: MusicData.Track) {
         modifier = Modifier
             .fillMaxWidth()
             .requiredHeight(56.dp)
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
     ) {
         if (track.playing) {
             Image(
@@ -186,8 +186,8 @@ fun AlbumTrackItem(track: MusicData.Track) {
                 modifier = Modifier.align(Alignment.CenterVertically),
                 contentScale = ContentScale.Crop,
                 colorFilter = ColorFilter.tint(
-                    LocalContentColor.current.copy(alpha = ContentAlpha.medium)
-                )
+                    LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                ),
             )
         } else {
             Spacer(
@@ -198,7 +198,7 @@ fun AlbumTrackItem(track: MusicData.Track) {
         Text(
             text = track.trackNo.toString(),
             modifier = Modifier.align(Alignment.CenterVertically),
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
         Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
@@ -208,13 +208,13 @@ fun AlbumTrackItem(track: MusicData.Track) {
                 .weight(1f),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.subtitle2
+            style = MaterialTheme.typography.subtitle2,
         )
         Spacer(modifier = Modifier.requiredWidth(16.dp))
         Text(
             text = track.duration,
             modifier = Modifier.align(Alignment.CenterVertically),
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
     }
 }

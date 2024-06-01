@@ -55,34 +55,34 @@ private data class Category(
                     Demo(
                         title = "MaterialSharedAxis",
                         description = "MaterialSharedAxisScreen",
-                        destination = Destination.MaterialSharedAxis
+                        destination = Destination.MaterialSharedAxis,
                     ),
                     Demo(
                         title = "MaterialFadeThrough",
                         description = "MaterialFadeThroughScreen",
-                        destination = Destination.MaterialFadeThrough
+                        destination = Destination.MaterialFadeThrough,
                     ),
                     Demo(
                         title = "MaterialFade",
                         description = "MaterialFadeScreen",
-                        destination = Destination.MaterialFade
+                        destination = Destination.MaterialFade,
                     ),
                     Demo(
                         title = "MaterialElevationScale",
                         description = "MaterialElevationScaleScreen",
-                        destination = Destination.MaterialElevationScale
+                        destination = Destination.MaterialElevationScale,
                     ),
                     Demo(
                         title = "Hold",
                         description = "HoldScreen",
-                        destination = Destination.Hold
+                        destination = Destination.Hold,
                     ),
                     Demo(
                         title = "CircularReveal",
                         description = "CircularRevealScreen",
-                        destination = Destination.CircularReveal
+                        destination = Destination.CircularReveal,
                     ),
-                )
+                ),
             ),
             Category(
                 title = "Additional Examples (Navigation)",
@@ -90,9 +90,9 @@ private data class Category(
                     Demo(
                         title = "AnimatedNavHost",
                         description = "AnimatedNavHostScreen",
-                        destination = Destination.AnimatedNavHost
+                        destination = Destination.AnimatedNavHost,
                     ),
-                )
+                ),
             ),
         )
     }
@@ -103,46 +103,46 @@ fun HomeScreen(onItemClick: (Destination) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(text = "Transition for Jetpack Compose") })
-        }
+        },
     ) { contentPadding ->
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = contentPadding
+            contentPadding = contentPadding,
         ) {
             item {
                 Column {
                     Text(
                         text = "Description",
                         modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 16.dp),
-                        style = MaterialTheme.typography.subtitle1
+                        style = MaterialTheme.typography.subtitle1,
                     )
                     Text(
                         text = "Transition choreography is a coordinated sequence of motion" +
                             " that maintains user focus as the interface adapts.",
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-                        style = MaterialTheme.typography.body2
+                        style = MaterialTheme.typography.body2,
                     )
                     HomeDemoItem(
                         Demo(
                             title = "Demo",
                             description = "DemoScreen",
-                            destination = Destination.Demo
+                            destination = Destination.Demo,
                         ),
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
                     )
                 }
             }
             Category.items.forEachIndexed { index, category ->
                 item(
                     key = index,
-                    contentType = { "Category" }
+                    contentType = { "Category" },
                 ) {
                     Divider()
                     HomeCategoryItem(title = category.title)
                 }
                 items(
                     items = category.items,
-                    contentType = { "Demo" }
+                    contentType = { "Demo" },
                 ) { demo ->
                     HomeDemoItem(demo, onItemClick = onItemClick)
                 }
@@ -159,7 +159,7 @@ private fun HomeCategoryItem(
     Text(
         text = title,
         modifier = modifier.padding(start = 16.dp, top = 16.dp),
-        style = MaterialTheme.typography.subtitle1
+        style = MaterialTheme.typography.subtitle1,
     )
 }
 
@@ -175,18 +175,18 @@ private fun HomeDemoItem(
             .fillMaxWidth()
             .requiredHeight(64.dp)
             .clickable { onItemClick(demo.destination) }
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
     ) {
         Text(
             text = demo.title,
             modifier = Modifier.fillMaxWidth(),
             fontWeight = FontWeight.SemiBold,
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = demo.description,
-            style = MaterialTheme.typography.caption
+            style = MaterialTheme.typography.caption,
         )
     }
 }

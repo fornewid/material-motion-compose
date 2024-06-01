@@ -74,11 +74,11 @@ public fun materialSharedAxisX(
 ): ContentTransform = materialSharedAxisXIn(
     forward = forward,
     slideDistance = slideDistance,
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 ) togetherWith materialSharedAxisXOut(
     forward = forward,
     slideDistance = slideDistance,
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 )
 
 /**
@@ -95,17 +95,17 @@ public fun materialSharedAxisXIn(
 ): EnterTransition = slideInHorizontally(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
     initialOffsetX = {
         if (forward) slideDistance else -slideDistance
-    }
+    },
 ) + fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
-        easing = LinearOutSlowInEasing
-    )
+        easing = LinearOutSlowInEasing,
+    ),
 )
 
 /**
@@ -122,17 +122,17 @@ public fun materialSharedAxisXOut(
 ): ExitTransition = slideOutHorizontally(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
     targetOffsetX = {
         if (forward) -slideDistance else slideDistance
-    }
+    },
 ) + fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis.ForOutgoing,
         delayMillis = 0,
-        easing = FastOutLinearInEasing
-    )
+        easing = FastOutLinearInEasing,
+    ),
 )
 
 /**
@@ -149,11 +149,11 @@ public fun materialSharedAxisY(
 ): ContentTransform = materialSharedAxisYIn(
     forward = forward,
     slideDistance = slideDistance,
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 ) togetherWith materialSharedAxisYOut(
     forward = forward,
     slideDistance = slideDistance,
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 )
 
 /**
@@ -170,17 +170,17 @@ public fun materialSharedAxisYIn(
 ): EnterTransition = slideInVertically(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
     initialOffsetY = {
         if (forward) slideDistance else -slideDistance
-    }
+    },
 ) + fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
-        easing = LinearOutSlowInEasing
-    )
+        easing = LinearOutSlowInEasing,
+    ),
 )
 
 /**
@@ -197,17 +197,17 @@ public fun materialSharedAxisYOut(
 ): ExitTransition = slideOutVertically(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
     targetOffsetY = {
         if (forward) -slideDistance else slideDistance
-    }
+    },
 ) + fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis.ForOutgoing,
         delayMillis = 0,
-        easing = FastOutLinearInEasing
-    )
+        easing = FastOutLinearInEasing,
+    ),
 )
 
 /**
@@ -221,10 +221,10 @@ public fun materialSharedAxisZ(
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ContentTransform = materialSharedAxisZIn(
     forward = forward,
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 ) togetherWith materialSharedAxisZOut(
     forward = forward,
-    durationMillis = durationMillis
+    durationMillis = durationMillis,
 )
 
 /**
@@ -240,14 +240,14 @@ public fun materialSharedAxisZIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForIncoming,
         delayMillis = durationMillis.ForOutgoing,
-        easing = LinearOutSlowInEasing
-    )
+        easing = LinearOutSlowInEasing,
+    ),
 ) + scaleIn(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
-    initialScale = if (forward) 0.8f else 1.1f
+    initialScale = if (forward) 0.8f else 1.1f,
 )
 
 /**
@@ -263,12 +263,12 @@ public fun materialSharedAxisZOut(
     animationSpec = tween(
         durationMillis = durationMillis.ForOutgoing,
         delayMillis = 0,
-        easing = FastOutLinearInEasing
-    )
+        easing = FastOutLinearInEasing,
+    ),
 ) + scaleOut(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
-    targetScale = if (forward) 1.1f else 0.8f
+    targetScale = if (forward) 1.1f else 0.8f,
 )

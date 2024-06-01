@@ -62,7 +62,7 @@ fun AlbumScreen(album: MusicData.Album, upPress: () -> Unit) {
     }
     AlbumScaffold(
         upPress = upPress,
-        collapse = collapse
+        collapse = collapse,
     ) {
         LazyColumn(state = listState) {
             item {

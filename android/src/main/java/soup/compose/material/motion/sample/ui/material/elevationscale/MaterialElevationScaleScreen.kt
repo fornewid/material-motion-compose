@@ -48,7 +48,7 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
         upPress = upPress,
         bottomBar = {
             ForwardBackwardControls(forward, onForwardChanged)
-        }
+        },
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
@@ -59,7 +59,7 @@ fun MaterialElevationScaleScreen(upPress: () -> Unit) {
                     else -> materialElevationScaleIn() togetherWith translateYOut { it }
                 }
             },
-            pop = forward.not()
+            pop = forward.not(),
         ) { forward ->
             ForwardBackwardContents(forward)
         }

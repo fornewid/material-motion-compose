@@ -29,6 +29,6 @@ fun DefaultScaffold(
     Scaffold(
         topBar = { DefaultTopAppBar(upPress) },
         bottomBar = bottomBar,
-        content = content
+        content = content,
     )
 }

@@ -69,7 +69,7 @@ fun MaterialSharedAxisScreen(upPress: () -> Unit) {
                 ForwardBackwardControls(forward, onForwardChanged)
                 MaterialSharedAxisControls(selectedAxis, onAxisSelected)
             }
-        }
+        },
     ) { innerPadding ->
         val slideDistance = rememberSlideDistance()
         MaterialMotion(
@@ -82,7 +82,7 @@ fun MaterialSharedAxisScreen(upPress: () -> Unit) {
                 }
             },
             modifier = Modifier.padding(innerPadding),
-            pop = forward.not()
+            pop = forward.not(),
         ) { forward ->
             ForwardBackwardContents(forward)
         }
@@ -98,7 +98,7 @@ private fun MaterialSharedAxisControls(
         modifier = Modifier
             .fillMaxWidth()
             .selectableGroup(),
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         Axis.values().forEach { axis ->
             Row(
@@ -107,14 +107,14 @@ private fun MaterialSharedAxisControls(
                     .selectable(
                         selected = axis == selectedAxis,
                         onClick = { onAxisSelected(axis) },
-                        role = Role.RadioButton
+                        role = Role.RadioButton,
                     )
                     .padding(horizontal = 8.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 RadioButton(
                     selected = axis == selectedAxis,
-                    onClick = null
+                    onClick = null,
                 )
                 Spacer(modifier = Modifier.requiredWidth(4.dp))
                 Text(text = axis.name)

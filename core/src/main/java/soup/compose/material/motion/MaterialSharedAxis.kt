@@ -57,7 +57,7 @@ public fun <T> MaterialSharedAxisX(
         modifier = modifier,
         pop = forward.not(),
         label = label,
-        content = content
+        content = content,
     )
 }
 
@@ -95,7 +95,7 @@ public fun <T> MaterialSharedAxisY(
         modifier = modifier,
         pop = forward.not(),
         label = label,
-        content = content
+        content = content,
     )
 }
 
@@ -129,6 +129,6 @@ public fun <T> MaterialSharedAxisZ(
         modifier = modifier,
         pop = forward.not(),
         label = label,
-        content = content
+        content = content,
     )
 }

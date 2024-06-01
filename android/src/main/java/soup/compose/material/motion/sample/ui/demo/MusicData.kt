@@ -35,7 +35,7 @@ object MusicData {
         Track(11, "Eleventh", "5:14", false),
         Track(12, "Twelfth", "4:46", false),
         Track(13, "Thirteenth", "7:13", false),
-        Track(14, "Fourteenth", "2:43", false)
+        Track(14, "Fourteenth", "2:43", false),
     )
 
     val albums: List<Album> = listOf(
@@ -45,7 +45,7 @@ object MusicData {
             "Sandra Adams",
             R.drawable.album_efe_kurnaz_unsplash,
             tracks,
-            "52 mins"
+            "52 mins",
         ),
         Album(
             1L,
@@ -53,7 +53,7 @@ object MusicData {
             "Ali Connors",
             R.drawable.album_pawel_czerwinski_unsplash,
             tracks,
-            "92 mins"
+            "92 mins",
         ),
         Album(
             2L,
@@ -61,7 +61,7 @@ object MusicData {
             "David Park",
             R.drawable.album_jean_philippe_delberghe_unsplash,
             tracks,
-            "45 mins"
+            "45 mins",
         ),
         Album(
             3L,
@@ -69,7 +69,7 @@ object MusicData {
             "Charlie z.",
             R.drawable.album_karina_vorozheeva_unsplash,
             tracks,
-            "65 mins"
+            "65 mins",
         ),
         Album(
             4L,
@@ -77,7 +77,7 @@ object MusicData {
             "Trevor Hansen",
             R.drawable.album_amy_shamblen_unsplash,
             tracks,
-            "73 mins"
+            "73 mins",
         ),
         Album(
             5L,
@@ -85,7 +85,7 @@ object MusicData {
             "Jonas Eckhart",
             R.drawable.album_pawel_czerwinski_unsplash_2,
             tracks,
-            "4 mins"
+            "4 mins",
         ),
         Album(
             6L,
@@ -93,7 +93,7 @@ object MusicData {
             "Elizabeth Park",
             R.drawable.album_kristopher_roller_unsplash,
             tracks,
-            "40 mins"
+            "40 mins",
         ),
         Album(
             7L,
@@ -101,7 +101,7 @@ object MusicData {
             "Britta Holt",
             R.drawable.album_emile_seguin_unsplash,
             tracks,
-            "39 mins"
+            "39 mins",
         ),
         Album(
             8L,
@@ -109,7 +109,7 @@ object MusicData {
             "Annie Chiu",
             R.drawable.album_ellen_qin_unsplash,
             tracks,
-            "46 mins"
+            "46 mins",
         ),
         Album(
             9L,
@@ -117,8 +117,8 @@ object MusicData {
             "Alfonso Gonzalez",
             R.drawable.album_david_clode_unsplash,
             tracks,
-            "55 mins"
-        )
+            "55 mins",
+        ),
     )
 
     fun getAlbumById(albumId: Long): Album? {

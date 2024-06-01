@@ -52,7 +52,7 @@ fun DemoScreen(upPress: () -> Unit) {
             LibraryScreen(
                 onItemClick = {
                     navController.navigate(DemoDestination.Album(albumId = it.id))
-                }
+                },
             )
         }
         composable<DemoDestination.Album>(
@@ -65,7 +65,7 @@ fun DemoScreen(upPress: () -> Unit) {
                 album,
                 upPress = {
                     navController.popBackStack()
-                }
+                },
             )
         }
     }

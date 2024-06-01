@@ -67,16 +67,16 @@ private data class LibraryState(
                     mapOf(
                         sortTypeKey to it.sortType,
                         listTypeKey to it.listType,
-                        motionSpecTypeKey to it.motionSpecType
+                        motionSpecTypeKey to it.motionSpecType,
                     )
                 },
                 restore = {
                     LibraryState(
                         it[sortTypeKey] as SortType,
                         it[listTypeKey] as ListType,
-                        it[motionSpecTypeKey] as MotionSpecType
+                        it[motionSpecTypeKey] as MotionSpecType,
                     )
-                }
+                },
             )
         }
     }
@@ -91,8 +91,8 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         onStateChanged(
             state.copy(
                 sortType = sortType,
-                motionSpecType = MotionSpecType.SharedAxis
-            )
+                motionSpecType = MotionSpecType.SharedAxis,
+            ),
         )
     }
 
@@ -100,8 +100,8 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         onStateChanged(
             state.copy(
                 listType = listType,
-                motionSpecType = MotionSpecType.FadeThrough
-            )
+                motionSpecType = MotionSpecType.FadeThrough,
+            ),
         )
     }
     LibraryScaffold(
@@ -130,7 +130,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
                 }
             },
             modifier = Modifier.padding(innerPadding),
-            pop = false
+            pop = false,
         ) { currentDestination ->
             LibraryContents(currentDestination, onItemClick)
         }
@@ -151,19 +151,19 @@ fun LibraryScaffold(
                     IconButton(onClick = onSortTypeToggle) {
                         Icon(
                             Icons.Default.SortByAlpha,
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
                     IconButton(onClick = onListTypeToggle) {
                         Icon(
                             Icons.AutoMirrored.Filled.ViewList,
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
-                }
+                },
             )
         },
-        content = content
+        content = content,
     )
 }
 

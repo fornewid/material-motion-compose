@@ -28,7 +28,7 @@ class MaterialSharedAxisXTest : MaterialMotionTest() {
             materialSharedAxisX(
                 forward = forward,
                 slideDistance = 30,
-                durationMillis = durationMillis
+                durationMillis = durationMillis,
             )
         } else {
             materialSharedAxisX(forward = forward, slideDistance = 30)

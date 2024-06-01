@@ -47,21 +47,21 @@ fun MaterialFadeScreen(upPress: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             Button(
                 onClick = { onVisibleChanged(visible.not()) },
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             ) {
                 Text(text = if (visible) "HIDE FAB" else "SHOW FAB")
             }
             MaterialFade(
                 visible = visible,
-                modifier = Modifier.align(Alignment.BottomEnd)
+                modifier = Modifier.align(Alignment.BottomEnd),
             ) {
                 FloatingActionButton(
                     onClick = {},
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null)
                 }
