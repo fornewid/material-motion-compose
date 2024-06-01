@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    id("mmc.android.library")
+    id("mmc.android.compose")
     alias(libs.plugins.maven.publish)
     alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.metalava)
@@ -8,27 +8,8 @@ plugins {
 
 android {
     namespace 'soup.compose.material.motion'
-    compileSdkVersion buildConfig.compileSdk
-    defaultConfig {
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
         freeCompilerArgs += '-Xexplicit-api=warning'
-    }
-    buildFeatures {
-        buildConfig false
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion "${libs.versions.composeCompiler.get()}"
     }
     lint {
         textReport true
