@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
+    implementation projects.core
 
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.tooling
