@@ -11,7 +11,7 @@ dokka = "1.8.10"
 
 # Compose
 activity = "1.9.0"
-navigation = "2.8.0-alpha08"
+navigation = "2.8.0-beta02"
 compose = "1.7.0-alpha07"
 composeCompiler = "1.5.2"
 
