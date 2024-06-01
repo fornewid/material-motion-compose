@@ -31,9 +31,9 @@ fun DefaultTopAppBar(upPress: () -> Unit) {
             IconButton(onClick = upPress) {
                 Icon(
                     Icons.Default.Close,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
-        }
+        },
     )
 }

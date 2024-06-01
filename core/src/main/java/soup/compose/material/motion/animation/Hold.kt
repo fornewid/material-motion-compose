@@ -35,7 +35,7 @@ public fun holdIn(
 ): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = LinearEasing
+        easing = LinearEasing,
     ),
     initialAlpha = 1f,
 )
@@ -50,9 +50,9 @@ public fun holdOut(
 ): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = LinearEasing
+        easing = LinearEasing,
     ),
     // TODO: Refer https://issuetracker.google.com/issues/192993290
     // targetAlpha = 1f
-    targetAlpha = 0.999f
+    targetAlpha = 0.999f,
 )

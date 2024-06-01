@@ -38,11 +38,11 @@ fun MaterialFadeThroughScreen(upPress: () -> Unit) {
     }
     DefaultScaffold(
         upPress = upPress,
-        bottomBar = { BottomTabsControls(selectedTab, setSelectedTab) }
+        bottomBar = { BottomTabsControls(selectedTab, setSelectedTab) },
     ) { innerPadding ->
         MaterialFadeThrough(
             targetState = selectedTab,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         ) { currentTab ->
             BottomTabsContents(currentTab)
         }

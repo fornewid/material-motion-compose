@@ -56,7 +56,7 @@ fun BottomTabsControls(
                 selected = tab == selectedTab,
                 onClick = { setSelectedTab(tab) },
                 selectedContentColor = MaterialTheme.colors.primary,
-                unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+                unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
             )
         }
     }
@@ -67,7 +67,7 @@ fun BottomTabsContents(selectedTab: BottomTabs, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier
             .fillMaxSize()
-            .padding(4.dp)
+            .padding(4.dp),
     ) {
         Column {
             Row(modifier = Modifier.weight(1f)) {
@@ -105,12 +105,12 @@ private fun BottomTabsContentsItem(
         backgroundColor = backgroundColor,
         modifier = modifier
             .fillMaxSize()
-            .padding(4.dp)
+            .padding(4.dp),
     ) {
         Image(
             selectedTab.icon,
             contentDescription = null,
-            colorFilter = ColorFilter.tint(contentColor)
+            colorFilter = ColorFilter.tint(contentColor),
         )
     }
 }

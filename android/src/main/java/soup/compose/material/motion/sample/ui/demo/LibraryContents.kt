@@ -57,7 +57,7 @@ fun LibraryGridContents(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier,
-        contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
+        contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp),
     ) {
         items(items, key = { it.id }) {
             LibraryGridItem(it, onItemClick = onItemClick)
@@ -75,7 +75,7 @@ private fun LibraryGridItem(
         onClick = { onItemClick(album) },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(4.dp),
     ) {
         Column {
             Image(
@@ -84,7 +84,7 @@ private fun LibraryGridItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(1f),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
             Text(
                 text = album.title,
@@ -92,7 +92,7 @@ private fun LibraryGridItem(
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 16.dp),
                 maxLines = 1,
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.h6,
             )
             Text(
                 text = album.artist,
@@ -100,7 +100,7 @@ private fun LibraryGridItem(
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 2.dp),
                 maxLines = 1,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
             Spacer(modifier = Modifier.requiredHeight(16.dp))
         }
@@ -115,7 +115,7 @@ fun LibraryLinearContents(
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
+        contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp),
     ) {
         items(items, key = { it.id }) {
             LibraryLinearItem(it, onItemClick = onItemClick)
@@ -135,7 +135,7 @@ private fun LibraryLinearItem(
             .requiredHeight(88.dp)
             .clickable { onItemClick(album) }
             .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painter = painterResource(album.cover),
@@ -144,30 +144,30 @@ private fun LibraryLinearItem(
                 .requiredHeight(64.dp)
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(4.dp)),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         Column(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .weight(1f),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = album.title,
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.h6,
             )
             Text(
                 text = album.artist,
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         Text(
             text = album.duration,
             modifier = Modifier.wrapContentWidth(),
             color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
     }
 }

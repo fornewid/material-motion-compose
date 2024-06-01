@@ -59,7 +59,7 @@ public fun <S> MaterialMotion(
         pop,
         contentAlignment,
         contentKey,
-        content = content
+        content = content,
     )
 }
 
@@ -97,7 +97,7 @@ public fun <S> Transition<S>.MaterialMotion(
                 }
         },
         contentAlignment = contentAlignment,
-        contentKey = contentKey
+        contentKey = contentKey,
     ) { currentState ->
         content(currentState)
     }

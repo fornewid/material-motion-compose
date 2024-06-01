@@ -55,19 +55,19 @@ fun ForwardBackwardControls(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = 16.dp)
+            .padding(all = 16.dp),
     ) {
         TextButton(
             onClick = { onForwardChanged(false) },
             modifier = Modifier.align(Alignment.BottomStart),
-            enabled = forward
+            enabled = forward,
         ) {
             Text(text = "Back".uppercase())
         }
         Button(
             onClick = { onForwardChanged(true) },
             modifier = Modifier.align(Alignment.BottomEnd),
-            enabled = forward.not()
+            enabled = forward.not(),
         ) {
             Text(text = "Next".uppercase())
         }
@@ -95,20 +95,20 @@ private fun BackwardContents() {
             modifier = Modifier
                 .requiredSize(72.dp)
                 .align(Alignment.CenterHorizontally),
-            tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium)
+            tint = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
         )
         Spacer(modifier = Modifier.requiredHeight(8.dp))
         Text(
             "Hi David Park",
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.h5
+            style = MaterialTheme.typography.h5,
         )
         Spacer(modifier = Modifier.requiredHeight(8.dp))
         Text(
             "Sign in with your account",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-            style = MaterialTheme.typography.caption
+            style = MaterialTheme.typography.caption,
         )
         Spacer(modifier = Modifier.requiredHeight(24.dp))
 
@@ -121,7 +121,7 @@ private fun BackwardContents() {
                 .align(Alignment.CenterHorizontally),
             label = {
                 Text(text = "Email or phone number")
-            }
+            },
         )
         Spacer(modifier = Modifier.requiredHeight(12.dp))
         TextButton(onClick = {}) {
@@ -140,7 +140,7 @@ private fun ForwardContents() {
         Text(
             "Streamline your courses",
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.h6,
         )
         Spacer(modifier = Modifier.requiredHeight(8.dp))
         Text(
@@ -148,7 +148,7 @@ private fun ForwardContents() {
                 " You can always change this later.",
             textAlign = TextAlign.Center,
             color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-            style = MaterialTheme.typography.caption
+            style = MaterialTheme.typography.caption,
         )
         Spacer(modifier = Modifier.requiredHeight(48.dp))
         SwitchableItem(text = "Arts & Crafts")
@@ -172,7 +172,7 @@ private fun SwitchableItem(text: String) {
             Text(
                 text = if (checked) "Bundled" else "Shown individually",
                 color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.caption,
             )
         }
         val color = MaterialTheme.colors.surface
@@ -185,7 +185,7 @@ private fun SwitchableItem(text: String) {
             modifier = Modifier
                 .size(48.dp)
                 .align(Alignment.CenterEnd),
-            colors = SwitchDefaults.colors(uncheckedThumbColor = uncheckedThumbColor)
+            colors = SwitchDefaults.colors(uncheckedThumbColor = uncheckedThumbColor),
         )
     }
 }

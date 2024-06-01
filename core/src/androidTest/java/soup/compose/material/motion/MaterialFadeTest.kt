@@ -60,13 +60,13 @@ class MaterialFadeTest {
             MaterialFade(
                 visible = visible,
                 enterDurationMillis = 500,
-                exitDurationMillis = 300
+                exitDurationMillis = 300,
             ) {
                 Box(
                     modifier = Modifier
                         .size(size = 20.dp)
                         .background(Color.White)
-                        .testTag(contentTag)
+                        .testTag(contentTag),
                 )
             }
         }

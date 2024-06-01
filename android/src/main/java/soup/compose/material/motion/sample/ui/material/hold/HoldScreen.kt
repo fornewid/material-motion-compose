@@ -48,7 +48,7 @@ fun HoldScreen(upPress: () -> Unit) {
         upPress = upPress,
         bottomBar = {
             ForwardBackwardControls(forward, onForwardChanged)
-        }
+        },
     ) { innerPadding ->
         MaterialMotion(
             targetState = forward,
@@ -59,7 +59,7 @@ fun HoldScreen(upPress: () -> Unit) {
                 }
             },
             modifier = Modifier.padding(innerPadding),
-            pop = forward.not()
+            pop = forward.not(),
         ) { forward ->
             ForwardBackwardContents(forward)
         }

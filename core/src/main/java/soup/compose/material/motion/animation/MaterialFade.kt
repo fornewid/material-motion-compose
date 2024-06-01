@@ -40,14 +40,14 @@ public fun materialFadeIn(
 ): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis.ForFade,
-        easing = LinearEasing
-    )
+        easing = LinearEasing,
+    ),
 ) + scaleIn(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
-    initialScale = 0.8f
+    initialScale = 0.8f,
 )
 
 /**
@@ -58,6 +58,6 @@ public fun materialFadeOut(
 ): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = LinearEasing
-    )
+        easing = LinearEasing,
+    ),
 )

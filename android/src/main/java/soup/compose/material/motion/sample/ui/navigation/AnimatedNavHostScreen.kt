@@ -71,7 +71,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
             },
             popExitTransition = {
                 materialSharedAxisXOut(forward = false, slideDistance = slideDistance)
-            }
+            },
         ) {
             composable<AnimatedNavDestination.First> {
                 BackHandler {
@@ -83,7 +83,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                     nextRoute = AnimatedNavDestination.Second,
                     onNavigateClick = { route ->
                         navController.navigate(route)
-                    }
+                    },
                 )
             }
             composable<AnimatedNavDestination.Second> {
@@ -93,7 +93,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                     nextRoute = AnimatedNavDestination.Third,
                     onNavigateClick = { route ->
                         navController.navigate(route)
-                    }
+                    },
                 )
             }
             composable<AnimatedNavDestination.Third> {
@@ -103,7 +103,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                     nextRoute = AnimatedNavDestination.Fourth,
                     onNavigateClick = { route ->
                         navController.navigate(route)
-                    }
+                    },
                 )
             }
             composable<AnimatedNavDestination.Fourth> {
@@ -113,7 +113,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                     nextRoute = null,
                     onNavigateClick = { route ->
                         navController.navigate(route)
-                    }
+                    },
                 )
             }
         }
@@ -136,7 +136,7 @@ private fun AnimatedNavDestinationScreen(
     ) {
         Text(
             text = name,
-            color = Color.Black
+            color = Color.Black,
         )
         if (nextRoute != null) {
             Button(onClick = { onNavigateClick(nextRoute) }) {

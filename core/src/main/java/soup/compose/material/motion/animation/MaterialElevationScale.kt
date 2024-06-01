@@ -42,15 +42,15 @@ public fun materialElevationScaleIn(
 ): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = LinearEasing
+        easing = LinearEasing,
     ),
-    initialAlpha = initialAlpha
+    initialAlpha = initialAlpha,
 ) + scaleIn(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
-    initialScale = initialScale
+    initialScale = initialScale,
 )
 
 /**
@@ -67,13 +67,13 @@ public fun materialElevationScaleOut(
 ): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = LinearEasing
+        easing = LinearEasing,
     ),
-    targetAlpha = targetAlpha
+    targetAlpha = targetAlpha,
 ) + scaleOut(
     animationSpec = tween(
         durationMillis = durationMillis,
-        easing = FastOutSlowInEasing
+        easing = FastOutSlowInEasing,
     ),
     targetScale = targetScale,
 )

@@ -59,13 +59,13 @@ public fun Modifier.circularReveal(
         name = "circularReveal"
         properties["visible"] = visible
         properties["center"] = center
-    }
+    },
 ) {
     val transition = updateTransition(targetState = visible, label = label)
     val progress: Float by transition.animateFloat(
         transitionSpec = transitionSpec,
         label = "progress",
-        targetValueByState = { circularRevealVisible -> if (circularRevealVisible) 1f else 0f }
+        targetValueByState = { circularRevealVisible -> if (circularRevealVisible) 1f else 0f },
     )
     graphicsLayer {
         clip = progress < 1f

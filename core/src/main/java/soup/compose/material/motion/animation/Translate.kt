@@ -34,7 +34,7 @@ public fun translateXIn(
     initialOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterTransition = slideInHorizontally(
     animationSpec = tween(durationMillis),
-    initialOffsetX = initialOffsetX
+    initialOffsetX = initialOffsetX,
 )
 
 /**
@@ -45,7 +45,7 @@ public fun translateXOut(
     targetOffsetX: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitTransition = slideOutHorizontally(
     animationSpec = tween(durationMillis),
-    targetOffsetX = targetOffsetX
+    targetOffsetX = targetOffsetX,
 )
 
 /**
@@ -56,7 +56,7 @@ public fun translateYIn(
     initialOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): EnterTransition = slideInVertically(
     animationSpec = tween(durationMillis),
-    initialOffsetY = initialOffsetY
+    initialOffsetY = initialOffsetY,
 )
 
 /**
@@ -67,5 +67,5 @@ public fun translateYOut(
     targetOffsetY: (fullHeight: Int) -> Int = { -it / 2 },
 ): ExitTransition = slideOutVertically(
     animationSpec = tween(durationMillis),
-    targetOffsetY = targetOffsetY
+    targetOffsetY = targetOffsetY,
 )
