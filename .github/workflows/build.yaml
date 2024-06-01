@@ -19,31 +19,36 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Setup java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'zulu'
           java-version: 17
 
       - name: Decrypt secrets
         run: release/signing-setup.sh ${{ secrets.ENCRYPT_KEY }}
 
-      - uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
           gradle-home-cache-cleanup: true
 
-      - name: Build, lint and spotless
-        run: |
-          ./gradlew --scan --stacktrace \
-              metalavaCheckCompatibilityRelease \
-              spotlessCheck \
-              assemble \
-              assembleAndroidTest
+      - name: Check spotless
+        run: ./gradlew spotlessCheck --stacktrace
+
+      - name: Check metalava
+        run: ./gradlew metalavaCheckCompatibilityRelease --stacktrace
+
+      - name: Check lint
+        run: ./gradlew lintDebug --stacktrace
+
+      - name: Build all build type and flavor permutations
+        run: ./gradlew assemble --stacktrace
 
       - name: Clean secrets
         if: always()
@@ -51,32 +56,49 @@ jobs:
 
   test:
     needs: build
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 30
 
     strategy:
-      # Allow tests to continue on other devices if they fail on one device.
-      fail-fast: false
       matrix:
         # Disable 21-23 for now as the devices seem to be flakey on CI
         api-level: [ 24, 26, 29 ]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Delete unnecessary tools 🔧
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          android: false # Don't remove Android tools
+          tool-cache: true # Remove image tool cache - rm -rf "$AGENT_TOOLSDIRECTORY"
+          dotnet: true # rm -rf /usr/share/dotnet
+          haskell: true # rm -rf /opt/ghc...
+          swap-storage: true # rm -f /mnt/swapfile (4GiB)
+          docker-images: false # Takes 16s, enable if needed in the future
+          large-packages: false # includes google-cloud-sdk and it's slow
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          ls /dev/kvm
+
+      - uses: actions/checkout@v4
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Setup java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'zulu'
           java-version: 17
 
       - name: Decrypt secrets
         run: release/signing-setup.sh ${{ secrets.ENCRYPT_KEY }}
 
-      - uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
           gradle-home-cache-cleanup: true
 
@@ -87,10 +109,11 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          profile: Nexus 5X
-          script: |
-            adb logcat > logcat.txt &
-            ./gradlew --scan connectedCheck
+          arch: x86_64
+          disable-animations: true
+          disk-size: 6000M
+          heap-size: 600M
+          script: ./gradlew connectedDebugAndroidTest --daemon
 
       - name: Clean secrets
         if: always()
@@ -98,17 +121,19 @@ jobs:
 
       - name: Upload logs
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logs-${{ matrix.api-level }}
           path: logcat.txt
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.api-level }}
-          path: "**/build/outputs/*/connected/*.xml"
+          path: |
+            **/build/reports/*
+            **/build/outputs/*/connected/*
 
   deploy:
     if: github.event_name == 'push' && github.repository == 'fornewid/material-motion-compose'
@@ -120,21 +145,22 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Setup java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'zulu'
           java-version: 17
 
       - name: Decrypt secrets
         run: release/signing-setup.sh ${{ secrets.ENCRYPT_KEY }}
 
-      - uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
           gradle-home-cache-cleanup: true
 
