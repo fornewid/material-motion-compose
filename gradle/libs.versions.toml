@@ -13,7 +13,7 @@ dokka = "1.8.10"
 activity = "1.9.0"
 navigation = "2.8.0-beta02"
 compose = "1.7.0-beta02"
-composeCompiler = "1.5.2"
+compose-compiler = "1.5.2"
 
 # AndroidX
 
@@ -49,6 +49,10 @@ androidx-tracing = { module = "androidx.tracing:tracing", version.ref = "tracing
 androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-rules = "androidx.test:rules:1.5.0"
 androidx-test-runner = "androidx.test:runner:1.5.2"
+
+# Dependencies of the included build-logic
+android-pluginGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

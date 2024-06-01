@@ -1,17 +1,13 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("mmc.android.application")
+    id("mmc.android.compose")
     alias(libs.plugins.kotlin.serialization)
-
 }
 
 android {
     namespace 'soup.compose.material.motion.sample'
-    compileSdkVersion buildConfig.compileSdk
     defaultConfig {
         applicationId "soup.material.compose.sample"
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -33,16 +29,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion "${libs.versions.composeCompiler.get()}"
     }
     packagingOptions {
         resources {

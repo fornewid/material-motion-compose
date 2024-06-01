@@ -1,11 +1,3 @@
-buildscript {
-    ext.buildConfig = [
-            'minSdk'    : 21,
-            'targetSdk' : 33,
-            'compileSdk': 34
-    ]
-}
-
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
@@ -22,15 +14,6 @@ tasks.withType(org.jetbrains.dokka.gradle.DokkaMultiModuleTask).configureEach {
 }
 
 subprojects {
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { compile ->
-        kotlinOptions {
-            // Set JVM target to 1.8
-            jvmTarget = "1.8"
-            // Allow use of @OptIn
-            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-        }
-    }
-
     // Read in the signing.properties file if it is exists
     def signingPropsFile = rootProject.file('release/signing.properties')
     if (signingPropsFile.exists()) {
