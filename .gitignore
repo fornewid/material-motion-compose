@@ -50,6 +50,7 @@ captures/
 .idea/navEditor.xml
 
 # User-specific configurations
+.idea/artifacts/
 .idea/caches/
 .idea/libraries/
 .idea/shelf/
@@ -104,3 +105,5 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+.kotlin/sessions/

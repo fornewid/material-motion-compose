@@ -46,8 +46,11 @@ jobs:
       - name: Check lint
         run: ./gradlew lintDebug --stacktrace
 
-      - name: Build all build type and flavor permutations
-        run: ./gradlew assemble --stacktrace
+      - name: Build samples
+        run: |
+          ./gradlew :sample:android:assemble \
+            :sample:desktop:assemble \
+            :sample:shared:assemble \
 
       - name: Clean secrets
         if: always()
