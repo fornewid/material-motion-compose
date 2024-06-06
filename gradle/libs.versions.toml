@@ -6,7 +6,6 @@ metalava = "0.3.3"
 
 # Kotlin
 kotlin = "1.9.0"
-serialization = "1.6.3"
 dokka = "1.8.10"
 
 # Compose
@@ -24,7 +23,6 @@ tracing = "1.1.0"
 # Kotlin
 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 # Compose
 
@@ -58,7 +56,6 @@ kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 metalava = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

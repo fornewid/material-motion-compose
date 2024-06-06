@@ -1,7 +1,6 @@
 plugins {
     id("mmc.android.application")
     id("mmc.android.compose")
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -46,6 +45,4 @@ dependencies {
     implementation libs.compose.materialIconsExtended
     implementation libs.compose.activity
     implementation libs.compose.navigation
-
-    implementation libs.kotlinx.serialization.json
 }
