@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kotlinx.serialization.Serializable
 import soup.compose.material.motion.animation.materialSharedAxisZIn
 import soup.compose.material.motion.animation.materialSharedAxisZOut
 import soup.compose.material.motion.sample.ui.circularreveal.CircularRevealScreen
@@ -33,39 +32,21 @@ import soup.compose.material.motion.sample.ui.material.hold.HoldScreen
 import soup.compose.material.motion.sample.ui.material.sharedaxis.MaterialSharedAxisScreen
 import soup.compose.material.motion.sample.ui.navigation.AnimatedNavHostScreen
 
-sealed interface Destination {
-
-    @Serializable
-    data object Home : Destination
-
-    @Serializable
-    data object Demo : Destination
-
-    @Serializable
-    data object MaterialSharedAxis : Destination
-
-    @Serializable
-    data object MaterialFadeThrough : Destination
-
-    @Serializable
-    data object MaterialFade : Destination
-
-    @Serializable
-    data object MaterialElevationScale : Destination
-
-    @Serializable
-    data object Hold : Destination
-
-    @Serializable
-    data object CircularReveal : Destination
-
-    @Serializable
-    data object AnimatedNavHost : Destination
+enum class Destination(val route: String) {
+    Home("Home"),
+    Demo("Demo"),
+    MaterialSharedAxis("MaterialSharedAxis"),
+    MaterialFadeThrough("MaterialFadeThrough"),
+    MaterialFade("MaterialFade"),
+    MaterialElevationScale("MaterialElevationScale"),
+    Hold("Hold"),
+    CircularReveal("CircularReveal"),
+    AnimatedNavHost("AnimatedNavHost"),
 }
 
 @Composable
 fun NavGraph(
-    startDestination: Destination = Destination.Home,
+    startDestination: String = Destination.Home.route,
 ) {
     val navController = rememberNavController()
     val upPress: () -> Unit = {
@@ -80,39 +61,39 @@ fun NavGraph(
         popEnterTransition = { materialSharedAxisZIn(forward = false) },
         popExitTransition = { materialSharedAxisZOut(forward = false) },
     ) {
-        composable<Destination.Home> {
+        composable(Destination.Home.route) {
             HomeScreen(
                 onItemClick = {
-                    navController.navigate(route = it)
+                    navController.navigate(route = it.route)
                 },
             )
         }
-        composable<Destination.Demo> {
+        composable(Destination.Demo.route) {
             DemoScreen(upPress = upPress)
         }
 
         // Core
-        composable<Destination.MaterialSharedAxis> {
+        composable(Destination.MaterialSharedAxis.route) {
             MaterialSharedAxisScreen(upPress = upPress)
         }
-        composable<Destination.MaterialFadeThrough> {
+        composable(Destination.MaterialFadeThrough.route) {
             MaterialFadeThroughScreen(upPress = upPress)
         }
-        composable<Destination.MaterialFade> {
+        composable(Destination.MaterialFade.route) {
             MaterialFadeScreen(upPress = upPress)
         }
-        composable<Destination.MaterialElevationScale> {
+        composable(Destination.MaterialElevationScale.route) {
             MaterialElevationScaleScreen(upPress = upPress)
         }
-        composable<Destination.Hold> {
+        composable(Destination.Hold.route) {
             HoldScreen(upPress = upPress)
         }
-        composable<Destination.CircularReveal> {
+        composable(Destination.CircularReveal.route) {
             CircularRevealScreen(upPress = upPress)
         }
 
         // Navigation
-        composable<Destination.AnimatedNavHost> {
+        composable(Destination.AnimatedNavHost.route) {
             AnimatedNavHostScreen(upPress = upPress)
         }
     }

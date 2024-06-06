@@ -30,25 +30,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kotlinx.serialization.Serializable
 import soup.compose.material.motion.animation.materialSharedAxisXIn
 import soup.compose.material.motion.animation.materialSharedAxisXOut
 import soup.compose.material.motion.animation.rememberSlideDistance
 import soup.compose.material.motion.sample.ui.common.DefaultScaffold
 
-private sealed interface AnimatedNavDestination {
-
-    @Serializable
-    data object Fourth : AnimatedNavDestination
-
-    @Serializable
-    data object Third : AnimatedNavDestination
-
-    @Serializable
-    data object Second : AnimatedNavDestination
-
-    @Serializable
-    data object First : AnimatedNavDestination
+private enum class AnimatedNavDestination(
+    val route: String,
+    val color: Color,
+    val nextRoute: String? = null,
+    val root: Boolean = false,
+) {
+    Fourth("fourth", Color.Yellow),
+    Third("third", Color.Green, nextRoute = Fourth.route),
+    Second("second", Color.Red, nextRoute = Third.route),
+    First("first", Color.Cyan, nextRoute = Second.route, root = true),
 }
 
 @Composable
@@ -58,7 +54,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = AnimatedNavDestination.First,
+            startDestination = AnimatedNavDestination.First.route,
             modifier = Modifier.padding(innerPadding),
             enterTransition = {
                 materialSharedAxisXIn(forward = true, slideDistance = slideDistance)
@@ -73,48 +69,20 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                 materialSharedAxisXOut(forward = false, slideDistance = slideDistance)
             },
         ) {
-            composable<AnimatedNavDestination.First> {
-                BackHandler {
-                    upPress()
+            AnimatedNavDestination.values().forEach { destination ->
+                composable(route = destination.route) {
+                    if (destination.root) {
+                        BackHandler {
+                            upPress()
+                        }
+                    }
+                    AnimatedNavDestinationScreen(
+                        destination = destination,
+                        onNavigateClick = { route ->
+                            navController.navigate(route)
+                        },
+                    )
                 }
-                AnimatedNavDestinationScreen(
-                    name = "First",
-                    backgroundColor = Color.Cyan,
-                    nextRoute = AnimatedNavDestination.Second,
-                    onNavigateClick = { route ->
-                        navController.navigate(route)
-                    },
-                )
-            }
-            composable<AnimatedNavDestination.Second> {
-                AnimatedNavDestinationScreen(
-                    name = "Second",
-                    backgroundColor = Color.Red,
-                    nextRoute = AnimatedNavDestination.Third,
-                    onNavigateClick = { route ->
-                        navController.navigate(route)
-                    },
-                )
-            }
-            composable<AnimatedNavDestination.Third> {
-                AnimatedNavDestinationScreen(
-                    name = "Third",
-                    backgroundColor = Color.Green,
-                    nextRoute = AnimatedNavDestination.Fourth,
-                    onNavigateClick = { route ->
-                        navController.navigate(route)
-                    },
-                )
-            }
-            composable<AnimatedNavDestination.Fourth> {
-                AnimatedNavDestinationScreen(
-                    name = "Fourth",
-                    backgroundColor = Color.Yellow,
-                    nextRoute = null,
-                    onNavigateClick = { route ->
-                        navController.navigate(route)
-                    },
-                )
             }
         }
     }
@@ -122,25 +90,23 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
 
 @Composable
 private fun AnimatedNavDestinationScreen(
-    name: String,
-    backgroundColor: Color,
-    nextRoute: AnimatedNavDestination?,
-    onNavigateClick: (destination: AnimatedNavDestination) -> Unit = {},
+    destination: AnimatedNavDestination,
+    onNavigateClick: (route: String) -> Unit = {},
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = backgroundColor),
+            .background(color = destination.color),
     ) {
         Text(
-            text = name,
+            text = destination.name,
             color = Color.Black,
         )
-        if (nextRoute != null) {
-            Button(onClick = { onNavigateClick(nextRoute) }) {
-                Text(text = "go to $nextRoute")
+        if (destination.nextRoute != null) {
+            Button(onClick = { onNavigateClick(destination.nextRoute) }) {
+                Text(text = "go to ${destination.nextRoute}")
             }
         }
     }

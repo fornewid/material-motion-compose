@@ -19,30 +19,23 @@ import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import kotlinx.serialization.Serializable
+import androidx.navigation.navArgument
 import soup.compose.material.motion.animation.holdIn
 import soup.compose.material.motion.animation.holdOut
 import soup.compose.material.motion.animation.translateYIn
 import soup.compose.material.motion.animation.translateYOut
 import soup.compose.material.motion.sample.ui.theme.SampleTheme
 
-private sealed interface DemoDestination {
-    @Serializable
-    data object Library : DemoDestination
-
-    @Serializable
-    data class Album(val albumId: Long) : DemoDestination
-}
-
 @Composable
 fun DemoScreen(upPress: () -> Unit) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = DemoDestination.Library) {
-        composable<DemoDestination.Library>(
+    NavHost(navController, startDestination = "library") {
+        composable(
+            "library",
             enterTransition = { holdIn() },
             exitTransition = { holdOut() },
         ) {
@@ -51,15 +44,17 @@ fun DemoScreen(upPress: () -> Unit) {
             }
             LibraryScreen(
                 onItemClick = {
-                    navController.navigate(DemoDestination.Album(albumId = it.id))
+                    navController.navigate("album/${it.id}")
                 },
             )
         }
-        composable<DemoDestination.Album>(
+        composable(
+            "album/{albumId}",
+            arguments = listOf(navArgument("albumId") { type = NavType.LongType }),
             enterTransition = { translateYIn { it } },
             exitTransition = { translateYOut { it } },
         ) { backStackEntry ->
-            val currentId = backStackEntry.toRoute<DemoDestination.Album>().albumId
+            val currentId = backStackEntry.arguments?.getLong("albumId")
             val album = MusicData.albums.first { it.id == currentId }
             AlbumScreen(
                 album,
