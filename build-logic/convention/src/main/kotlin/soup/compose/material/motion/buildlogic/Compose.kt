@@ -4,17 +4,20 @@ import com.android.build.gradle.BaseExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 
 fun Project.configureCompose() {
+    pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
+
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
     android {
         buildFeatures.compose = true
+    }
 
-        composeOptions {
-            kotlinCompilerExtensionVersion =
-                libs.findVersion("compose-compiler").get().toString()
-        }
+    extensions.configure<ComposeCompilerGradlePluginExtension> {
+        enableStrongSkippingMode = false
     }
 }
 
