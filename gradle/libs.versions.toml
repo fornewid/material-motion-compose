@@ -20,21 +20,11 @@ androidx-tracing = "1.1.0"
 
 [libraries]
 
-# Kotlin
-
-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-
 # Compose
 
-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-testJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 
 jetbrains-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 
