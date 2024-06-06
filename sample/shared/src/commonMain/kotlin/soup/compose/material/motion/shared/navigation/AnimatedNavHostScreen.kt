@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,7 +70,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                 materialSharedAxisXOut(forward = false, slideDistance = slideDistance)
             },
         ) {
-            AnimatedNavDestination.values().forEach { destination ->
+            AnimatedNavDestination.entries.forEach { destination ->
                 composable(route = destination.route) {
                     if (destination.root) {
                         BackHandler {
@@ -78,6 +79,15 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
                     }
                     AnimatedNavDestinationScreen(
                         destination = destination,
+                        onBackClick = {
+                            val isRoot: Boolean =
+                                navController.currentDestination?.route == AnimatedNavDestination.First.route
+                            if (isRoot) {
+                                upPress()
+                            } else {
+                                navController.navigateUp()
+                            }
+                        },
                         onNavigateClick = { route ->
                             navController.navigate(route)
                         },
@@ -91,6 +101,7 @@ fun AnimatedNavHostScreen(upPress: () -> Unit) {
 @Composable
 private fun AnimatedNavDestinationScreen(
     destination: AnimatedNavDestination,
+    onBackClick: () -> Unit,
     onNavigateClick: (route: String) -> Unit = {},
 ) {
     Column(
@@ -108,6 +119,16 @@ private fun AnimatedNavDestinationScreen(
             Button(onClick = { onNavigateClick(destination.nextRoute) }) {
                 Text(text = "go to ${destination.nextRoute}")
             }
+        } else {
+            Button(onClick = {}, enabled = false) {
+                Text(text = "end")
+            }
+        }
+        TextButton(
+            onClick = { onBackClick() },
+            enabled = destination.root.not(),
+        ) {
+            Text(text = "go back!")
         }
     }
 }

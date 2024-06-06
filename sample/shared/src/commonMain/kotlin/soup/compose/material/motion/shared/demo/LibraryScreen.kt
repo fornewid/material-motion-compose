@@ -26,6 +26,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.SortByAlpha
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -83,7 +84,10 @@ private data class LibraryState(
 }
 
 @Composable
-fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
+fun LibraryScreen(
+    upPress: () -> Unit,
+    onItemClick: (MusicData.Album) -> Unit,
+) {
     val (state, onStateChanged) = rememberSaveable(stateSaver = Saver) {
         mutableStateOf(LibraryState(SortType.A_TO_Z, ListType.Grid))
     }
@@ -105,6 +109,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
         )
     }
     LibraryScaffold(
+        upPress = upPress,
         onSortTypeToggle = {
             val newType = when (state.sortType) {
                 SortType.A_TO_Z -> SortType.Z_TO_A
@@ -139,6 +144,7 @@ fun LibraryScreen(onItemClick: (MusicData.Album) -> Unit) {
 
 @Composable
 fun LibraryScaffold(
+    upPress: () -> Unit,
     onSortTypeToggle: () -> Unit,
     onListTypeToggle: () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
@@ -147,6 +153,14 @@ fun LibraryScaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Library") },
+                navigationIcon = {
+                    IconButton(onClick = upPress) {
+                        Icon(
+                            Icons.Default.Close,
+                            contentDescription = null,
+                        )
+                    }
+                },
                 actions = {
                     IconButton(onClick = onSortTypeToggle) {
                         Icon(

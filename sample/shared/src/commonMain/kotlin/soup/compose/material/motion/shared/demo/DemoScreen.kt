@@ -42,6 +42,7 @@ fun DemoScreen(upPress: () -> Unit) {
                 upPress()
             }
             LibraryScreen(
+                upPress = upPress,
                 onItemClick = {
                     navController.navigate("album/${it.id}")
                 },
