@@ -44,7 +44,7 @@ private enum class AnimatedNavDestination(
     Fourth("fourth", Color.Yellow),
     Third("third", Color.Green, nextRoute = Fourth.route),
     Second("second", Color.Red, nextRoute = Third.route),
-    First("first", Color.Cyan, nextRoute = Second.route, root = true);
+    First("first", Color.Cyan, nextRoute = Second.route, root = true),
 }
 
 @Composable
