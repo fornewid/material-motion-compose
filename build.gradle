@@ -50,7 +50,7 @@ subprojects {
                 noAndroidSdkLink.set(false)
 
                 // Add samples from :sample module
-                samples.from(rootProject.file("app/src/main/java/"))
+                samples.from(rootProject.file("sample/shared/src/commonMain/kotlin/"))
 
                 // AndroidX + Compose docs
                 externalDocumentationLink {
@@ -63,9 +63,9 @@ subprojects {
                 }
 
                 sourceLink {
-                    localDirectory.set(project.file("src/main/java"))
+                    localDirectory.set(project.file("src/commonMain/kotlin"))
                     // URL showing where the source code can be accessed through the web browser
-                    remoteUrl.set(new URL("https://github.com/fornewid/material-motion-compose/blob/main/${project.name}/src/main/java"))
+                    remoteUrl.set(new URL("https://github.com/fornewid/material-motion-compose/blob/main/${project.name}/src/commonMain/kotlin"))
                     // Suffix which is used to append the line number to the URL. Use #L for GitHub
                     remoteLineSuffix.set("#L")
                 }

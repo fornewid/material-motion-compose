@@ -28,5 +28,5 @@ kotlin {
 }
 
 android {
-    namespace 'soup.compose.material.motion'
+    namespace = "soup.compose.material.motion"
 }
