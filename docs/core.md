@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core)](https://search.maven.org/search?q=g:io.github.fornewid)
 
-Material Motion Core is a Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android.
+Material Motion Core is a library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Jetpack Compose and Compose Multiplatform.
 
 ## Usage
 

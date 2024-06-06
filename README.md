@@ -1,6 +1,6 @@
 <img width="550" alt="logo" src="docs/header.png" />
 
-# Material Motion for Jetpack Compose
+# Material Motion for Jetpack Compose and Compose Multiplatform
 
 <a href="https://github.com/fornewid/material-motion-compose/actions/workflows/build.yaml"><img src="https://github.com/fornewid/material-motion-compose/actions/workflows/build.yaml/badge.svg"/></a>
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
@@ -9,7 +9,7 @@
 <a href='https://github.com/JetBrains/compose-multiplatform-ios-android-template/#readme'><img src='http://img.shields.io/badge/platform-iOS-white.svg'/></a>
 <a href='https://github.com/JetBrains/compose-multiplatform-desktop-template/#readme'><img src='http://img.shields.io/badge/platform-jvm-red.svg'/></a>
 
-Jetpack Compose library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Android and Compose Multiplatform.
+A library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Jetpack Compose and Compose Multiplatform.
 
 ## Compose versions
 

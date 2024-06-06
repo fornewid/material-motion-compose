@@ -1,5 +1,5 @@
-site_name: "Material Motion for Jetpack Compose"
-site_description: "A library that provides components supporting material motion patterns for Jetpack Compose."
+site_name: "Material Motion for Jetpack Compose and Compose Multiplatform"
+site_description: "A library that provides components supporting material motion patterns for Jetpack Compose and Compose Multiplatform."
 site_author: "fornewid"
 remote_branch: gh-pages
 
@@ -10,11 +10,8 @@ repo_url: https://github.com/fornewid/material-motion-compose
 # Navigation
 nav:
   - "Overview": index.md
-  - "Core":
-      - 'Guide': core.md
-      - 'API': api/core/
-  - "Navigation":
-      - 'Guide': navigation.md
+  - "Guide": core.md
+  - "API": api/core/
   - "Migration":
       - '0.5 to 0.6': migrating-from-0.5-to-0.6.md
       - '0.9 to 0.10': migrating-from-0.9-to-0.10.md
