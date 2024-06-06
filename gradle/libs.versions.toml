@@ -1,12 +1,12 @@
 [versions]
 
 agp = "8.4.1"
-mavenPublish = "0.25.2"
+mavenPublish = "0.28.0"
 metalava = "0.3.5"
 
 # Kotlin
 kotlin = "2.0.0"
-dokka = "1.8.10"
+dokka = "1.9.20"
 
 # Compose
 compose = "1.7.0-beta02"
