@@ -2,7 +2,7 @@
 
 agp = "8.4.1"
 mavenPublish = "0.25.2"
-metalava = "0.3.3"
+metalava = "0.3.5"
 
 # Kotlin
 kotlin = "2.0.0"
@@ -54,6 +54,7 @@ androidx-test-runner = "androidx.test:runner:1.5.2"
 android-pluginGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 compose-compiler-pluginGradle = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+metalava-pluginGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

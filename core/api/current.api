@@ -10,18 +10,18 @@ package soup.compose.material.motion {
   }
 
   public final class MaterialFadeThroughKt {
-    method @androidx.compose.runtime.Composable public static <T> void MaterialFadeThrough(T? targetState, optional androidx.compose.ui.Modifier modifier, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static <T> void MaterialFadeThrough(T targetState, optional androidx.compose.ui.Modifier modifier, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
   }
 
   public final class MaterialMotionKt {
-    method @androidx.compose.runtime.Composable public static <S> void MaterialMotion(S? targetState, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentTransitionScope<S>,androidx.compose.animation.ContentTransform> transitionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, optional String label, optional kotlin.jvm.functions.Function1<? super S,?> contentKey, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
     method @androidx.compose.runtime.Composable public static <S> void MaterialMotion(androidx.compose.animation.core.Transition<S>, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentTransitionScope<S>,androidx.compose.animation.ContentTransform> transitionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, optional kotlin.jvm.functions.Function1<? super S,?> contentKey, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static <S> void MaterialMotion(S targetState, kotlin.jvm.functions.Function1<? super androidx.compose.animation.AnimatedContentTransitionScope<S>,androidx.compose.animation.ContentTransform> transitionSpec, optional androidx.compose.ui.Modifier modifier, optional boolean pop, optional androidx.compose.ui.Alignment contentAlignment, optional String label, optional kotlin.jvm.functions.Function1<? super S,?> contentKey, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super S,kotlin.Unit> content);
   }
 
   public final class MaterialSharedAxisKt {
-    method @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisX(T? targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional float slideDistance, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisY(T? targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional float slideDistance, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisZ(T? targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisX(T targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional float slideDistance, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisY(T targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional float slideDistance, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static <T> void MaterialSharedAxisZ(T targetState, boolean forward, optional androidx.compose.ui.Modifier modifier, optional String label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedVisibilityScope,? super T,kotlin.Unit> content);
   }
 
   public final class MotionConstants {

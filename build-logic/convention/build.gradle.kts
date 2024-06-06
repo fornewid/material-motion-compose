@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.android.pluginGradle)
     implementation(libs.kotlin.pluginGradle)
     implementation(libs.compose.compiler.pluginGradle)
+    implementation(libs.metalava.pluginGradle)
 }
 
 gradlePlugin {
@@ -36,6 +37,10 @@ gradlePlugin {
         register("compose") {
             id = "mmc.compose"
             implementationClass = "ComposeMultiplatformConventionPlugin"
+        }
+        register("metalava") {
+            id = "mmc.metalava"
+            implementationClass = "MetalavaConventionPlugin"
         }
     }
 }

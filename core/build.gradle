@@ -2,9 +2,9 @@ plugins {
     id("mmc.android.library")
     id("mmc.kotlin.multiplatform")
     id("mmc.compose")
+    id("mmc.metalava")
     alias(libs.plugins.maven.publish)
     alias(libs.plugins.jetbrains.dokka)
-    alias(libs.plugins.metalava)
 }
 
 kotlin {
@@ -29,10 +29,4 @@ kotlin {
 
 android {
     namespace 'soup.compose.material.motion'
-}
-
-metalava {
-    sourcePaths.setFrom("src/main")
-    filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
