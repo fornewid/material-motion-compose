@@ -12,6 +12,8 @@ java {
 dependencies {
     implementation(libs.android.pluginGradle)
     implementation(libs.kotlin.pluginGradle)
+    implementation(libs.compose.compiler.pluginGradle)
+    implementation(libs.metalava.pluginGradle)
 }
 
 gradlePlugin {
@@ -24,9 +26,21 @@ gradlePlugin {
             id = "mmc.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-        register("androidCompose") {
-            id = "mmc.android.compose"
-            implementationClass = "AndroidComposeConventionPlugin"
+        register("kotlinAndroid") {
+            id = "mmc.kotlin.android"
+            implementationClass = "KotlinAndroidConventionPlugin"
+        }
+        register("kotlinMultiplatform") {
+            id = "mmc.kotlin.multiplatform"
+            implementationClass = "KotlinMultiplatformConventionPlugin"
+        }
+        register("compose") {
+            id = "mmc.compose"
+            implementationClass = "ComposeMultiplatformConventionPlugin"
+        }
+        register("metalava") {
+            id = "mmc.metalava"
+            implementationClass = "MetalavaConventionPlugin"
         }
     }
 }

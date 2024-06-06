@@ -19,3 +19,5 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include ':core'
 include ':sample:android'
+include ':sample:desktop'
+include ':sample:shared'

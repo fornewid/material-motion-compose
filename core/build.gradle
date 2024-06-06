@@ -1,54 +1,32 @@
 plugins {
     id("mmc.android.library")
-    id("mmc.android.compose")
+    id("mmc.kotlin.multiplatform")
+    id("mmc.compose")
+    id("mmc.metalava")
     alias(libs.plugins.maven.publish)
     alias(libs.plugins.jetbrains.dokka)
-    alias(libs.plugins.metalava)
+}
+
+kotlin {
+    explicitApi()
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.animation)
+            implementation(compose.ui)
+            implementation(libs.androidx.annotation)
+        }
+        androidInstrumentedTest.dependencies {
+            implementation(libs.androidx.test.core)
+            implementation(libs.androidx.test.rules)
+            implementation(libs.androidx.test.runner)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.ui.testJunit4)
+            implementation(libs.compose.ui.testManifest)
+            implementation(libs.androidx.tracing)
+        }
+    }
 }
 
 android {
     namespace 'soup.compose.material.motion'
-    kotlinOptions {
-        freeCompilerArgs += '-Xexplicit-api=warning'
-    }
-    lint {
-        textReport true
-        textOutput file('stdout')
-        checkReleaseBuilds false
-    }
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
-    packagingOptions {
-        resources {
-            excludes += ['/META-INF/AL2.0', '/META-INF/LGPL2.1']
-        }
-    }
-}
-
-metalava {
-    sourcePaths.setFrom("src/main")
-    filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
-}
-
-dependencies {
-    implementation libs.kotlin.stdlib
-    implementation libs.compose.animation
-    implementation libs.compose.runtime
-    implementation libs.compose.ui.ui
-
-    // ======================
-    // Test dependencies
-    // ======================
-
-    androidTestImplementation libs.androidx.test.core
-    androidTestImplementation libs.androidx.test.rules
-    androidTestImplementation libs.androidx.test.runner
-    androidTestImplementation libs.compose.foundation
-    androidTestImplementation libs.compose.ui.testJunit4
-    debugImplementation libs.compose.ui.testManifest
-    debugImplementation libs.androidx.tracing
 }

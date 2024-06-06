@@ -14,8 +14,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    runs-on: macos-latest
+    timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@v4
@@ -46,8 +46,14 @@ jobs:
       - name: Check lint
         run: ./gradlew lintDebug --stacktrace
 
-      - name: Build all build type and flavor permutations
-        run: ./gradlew assemble --stacktrace
+      - name: Build android app
+        run: ./gradlew :sample:android:assemble
+
+      - name: Build desktop app
+        run: ./gradlew :sample:desktop:assemble
+
+      - name: Build iOS app
+        run: xcodebuild -project sample/iosApp/iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
 
       - name: Clean secrets
         if: always()
@@ -56,7 +62,7 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 70
 
     strategy:
       matrix:

@@ -1,16 +1,19 @@
 package soup.compose.material.motion.buildlogic
 
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 fun Project.configureKotlin() {
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        compilerOptions {
+            if (this is KotlinJvmCompilerOptions) {
+                jvmTarget.set(JvmTarget.JVM_11)
+            }
 
-            freeCompilerArgs = freeCompilerArgs + listOf(
+            freeCompilerArgs.addAll(
                 "-opt-in=kotlin.RequiresOptIn",
             )
         }
