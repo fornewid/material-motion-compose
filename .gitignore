@@ -106,4 +106,4 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-.kotlin/sessions/
+.kotlin/

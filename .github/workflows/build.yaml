@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 30
 
     steps:
@@ -46,11 +46,14 @@ jobs:
       - name: Check lint
         run: ./gradlew lintDebug --stacktrace
 
-      - name: Build samples
-        run: |
-          ./gradlew :sample:android:assemble \
-            :sample:desktop:assemble \
-            :sample:shared:assemble \
+      - name: Build android app
+        run: ./gradlew :sample:android:assemble
+
+      - name: Build desktop app
+        run: ./gradlew :sample:desktop:assemble
+
+      - name: Build iOS app
+        run: xcodebuild -project sample/iosApp/iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
 
       - name: Clean secrets
         if: always()
