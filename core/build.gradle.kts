@@ -13,7 +13,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.animation)
             implementation(compose.ui)
-            implementation(libs.androidx.annotation)
+            implementation(libs.jetbrains.annotation)
         }
         androidInstrumentedTest.dependencies {
             implementation(libs.androidx.test.core)

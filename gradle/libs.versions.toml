@@ -14,7 +14,6 @@ compose-plugin = "1.6.10"
 navigation = "2.7.0-alpha07"
 
 # AndroidX
-androidx-annotation = "1.7.0"
 androidx-activity = "1.9.0"
 androidx-tracing = "1.1.0"
 
@@ -26,12 +25,12 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-ui-testJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 
+jetbrains-annotation = { module = "org.jetbrains.compose.annotation-internal:annotation", version.ref = "compose-plugin" }
 jetbrains-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 
 # AndroidX
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-tracing = { module = "androidx.tracing:tracing", version.ref = "androidx-tracing" }
 
 # Test
