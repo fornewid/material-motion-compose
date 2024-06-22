@@ -28,15 +28,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.sample.shared)
-            implementation(projects.core)
-
             implementation(compose.ui)
-            implementation(compose.material)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-
-            implementation(libs.jetbrains.navigation.compose)
         }
     }
 }
