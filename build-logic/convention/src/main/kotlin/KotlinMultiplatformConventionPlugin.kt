@@ -3,6 +3,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import soup.compose.material.motion.buildlogic.configureKotlin
 
 class KotlinMultiplatformConventionPlugin : Plugin<Project> {
@@ -27,6 +28,11 @@ class KotlinMultiplatformConventionPlugin : Plugin<Project> {
 
                 macosX64()
                 macosArm64()
+
+                @OptIn(ExperimentalWasmDsl::class)
+                wasmJs {
+                    browser()
+                }
 
                 configureKotlin()
             }
