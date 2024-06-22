@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-    //id("mmc.kotlin.multiplatform")
     id("org.jetbrains.kotlin.multiplatform")
     id("mmc.compose")
 }
@@ -28,7 +27,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-//            implementation(projects.sample.shared)
+            implementation(projects.sample.shared)
             implementation(projects.core)
 
             implementation(compose.ui)
