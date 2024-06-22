@@ -11,7 +11,7 @@
 
 A library for implementing [motion system](https://material.io/develop/android/theming/motion/) in Material Components for Jetpack Compose and Compose Multiplatform.
 
-## Compose versions
+## Versions for Jetpack Compose
 
 <table>
  <tr>
@@ -38,6 +38,11 @@ A library for implementing [motion system](https://material.io/develop/android/t
  <tr>
   <td>Jetpack Compose 1.7 (1.7.x)</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core?versionPrefix=1.2"></td>
  </tr>
+</table>
+
+## Versions for Compose Multiplatform
+
+<table>
  <tr>
   <td>Compose Multiplatform 1.4.0</td><td><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.fornewid/material-motion-compose-core?versionPrefix=0.12"></td>
  </tr>
@@ -46,6 +51,12 @@ A library for implementing [motion system](https://material.io/develop/android/t
  </tr>
 </table>
 
+| Platform      | Supported |
+|---------------|-----------|
+| Android       | ✅         |
+| Desktop (JVM) | ✅         |
+| iOS           | ✅         |
+| Wasm          | ✅         |
 
 ## 🌈 Core
 
