@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.ComposeViewport
-import kotlinx.browser.document
-import soup.compose.material.motion.shared.App
+package soup.compose.material.motion.shared
 
-@OptIn(ExperimentalComposeUiApi::class)
-fun main() {
-    ComposeViewport(document.body!!) {
-        App()
+import androidx.compose.runtime.Composable
+import soup.compose.material.motion.shared.theme.SampleTheme
+
+@Composable
+fun App() {
+    SampleTheme {
+        NavGraph()
     }
 }

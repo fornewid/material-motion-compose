@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 SOUP
+ * Copyright 2021 SOUP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.ComposeViewport
-import kotlinx.browser.document
-import soup.compose.material.motion.shared.App
+package soup.compose.material.motion.shared.common
 
-@OptIn(ExperimentalComposeUiApi::class)
-fun main() {
-    ComposeViewport(document.body!!) {
-        App()
-    }
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
+import soup.compose.material.motion.shared.widget.DefaultTopAppBar
+
+@Composable
+fun DefaultScaffold(
+    upPress: () -> Unit,
+    bottomBar: @Composable () -> Unit = {},
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    Scaffold(
+        topBar = { DefaultTopAppBar(upPress) },
+        bottomBar = bottomBar,
+        content = content,
+    )
 }

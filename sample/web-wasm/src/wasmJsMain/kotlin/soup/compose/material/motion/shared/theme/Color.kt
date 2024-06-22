@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 SOUP
+ * Copyright 2021 SOUP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.ComposeViewport
-import kotlinx.browser.document
-import soup.compose.material.motion.shared.App
+package soup.compose.material.motion.shared.theme
 
-@OptIn(ExperimentalComposeUiApi::class)
-fun main() {
-    ComposeViewport(document.body!!) {
-        App()
-    }
-}
+import androidx.compose.ui.graphics.Color
+
+val Purple200 = Color(0xFFBB86FC)
+val Purple500 = Color(0xFF6200EE)
+val Purple700 = Color(0xFF3700B3)
+val Teal200 = Color(0xFF03DAC5)

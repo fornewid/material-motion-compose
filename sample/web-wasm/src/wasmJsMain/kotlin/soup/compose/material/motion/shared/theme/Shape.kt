@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 SOUP
+ * Copyright 2021 SOUP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.ComposeViewport
-import kotlinx.browser.document
-import soup.compose.material.motion.shared.App
+package soup.compose.material.motion.shared.theme
 
-@OptIn(ExperimentalComposeUiApi::class)
-fun main() {
-    ComposeViewport(document.body!!) {
-        App()
-    }
-}
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Shapes
+import androidx.compose.ui.unit.dp
+
+val Shapes = Shapes(
+    small = RoundedCornerShape(4.dp),
+    medium = RoundedCornerShape(4.dp),
+    large = RoundedCornerShape(0.dp),
+)
