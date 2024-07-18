@@ -102,12 +102,8 @@ fun CircularRevealScreen(upPress: () -> Unit) {
     val (state, onStateChanged) = remember {
         mutableStateOf(State(false, Offset.Zero))
     }
-    BackHandler {
-        if (state.visible) {
-            onStateChanged(state.copy(visible = false))
-        } else {
-            upPress()
-        }
+    BackHandler(enabled = state.visible) {
+        onStateChanged(state.copy(visible = false))
     }
     DefaultScaffold(upPress = upPress) { innerPadding ->
         Surface(modifier = Modifier.padding(innerPadding)) {

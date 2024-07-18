@@ -16,7 +16,6 @@
 package soup.compose.material.motion.sample.ui.demo
 
 import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
@@ -46,9 +45,6 @@ fun DemoScreen(upPress: () -> Unit) {
             enterTransition = { holdIn() },
             exitTransition = { holdOut() },
         ) {
-            BackHandler {
-                upPress()
-            }
             LibraryScreen(
                 onItemClick = {
                     navController.navigate(DemoDestination.Album(albumId = it.id))

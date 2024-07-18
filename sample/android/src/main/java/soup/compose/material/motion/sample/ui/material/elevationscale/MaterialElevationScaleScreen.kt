@@ -37,12 +37,8 @@ import soup.compose.material.motion.sample.ui.theme.SampleTheme
 @Composable
 fun MaterialElevationScaleScreen(upPress: () -> Unit) {
     val (forward, onForwardChanged) = remember { mutableStateOf(false) }
-    BackHandler {
-        if (forward) {
-            onForwardChanged(false)
-        } else {
-            upPress()
-        }
+    BackHandler(enabled = forward) {
+        onForwardChanged(false)
     }
     DefaultScaffold(
         upPress = upPress,
