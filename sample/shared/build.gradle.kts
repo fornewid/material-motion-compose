@@ -2,6 +2,7 @@ plugins {
     id("mmc.android.library")
     id("mmc.kotlin.multiplatform")
     id("mmc.compose")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {

@@ -17,11 +17,11 @@ package soup.compose.material.motion.shared.demo
 
 import BackHandler
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
+import kotlinx.serialization.Serializable
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import soup.compose.material.motion.animation.holdIn
 import soup.compose.material.motion.animation.holdOut
@@ -29,12 +29,18 @@ import soup.compose.material.motion.animation.translateYIn
 import soup.compose.material.motion.animation.translateYOut
 import soup.compose.material.motion.shared.theme.SampleTheme
 
+sealed class Route {
+    @Serializable
+    object Library: Route()
+    @Serializable
+    data class Album(val albumId: Long): Route()
+}
+
 @Composable
 fun DemoScreen(upPress: () -> Unit) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "library") {
-        composable(
-            "library",
+    NavHost(navController, startDestination = Route.Library) {
+        composable<Route.Library>(
             enterTransition = { holdIn() },
             exitTransition = { holdOut() },
         ) {
@@ -44,17 +50,15 @@ fun DemoScreen(upPress: () -> Unit) {
             LibraryScreen(
                 upPress = upPress,
                 onItemClick = {
-                    navController.navigate("album/${it.id}")
+                    navController.navigate(Route.Album(it.id))
                 },
             )
         }
-        composable(
-            "album/{albumId}",
-            arguments = listOf(navArgument("albumId") { type = NavType.LongType }),
+        composable<Route.Album>(
             enterTransition = { translateYIn { it } },
             exitTransition = { translateYOut { it } },
         ) { backStackEntry ->
-            val currentId = backStackEntry.arguments?.getLong("albumId")
+            val currentId = backStackEntry.toRoute<Route.Album>().albumId
             val album = MusicData.albums.first { it.id == currentId }
             AlbumScreen(
                 album,
